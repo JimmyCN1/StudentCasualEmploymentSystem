@@ -14,7 +14,7 @@ public class Employer {
   private String firstName;
   private String lastName;
   private String password;
-  private List<Position> positions;
+  private List<Position> positions = new ArrayList<>();
   private ManagementSystem managementSystem;
   
   public Employer(String firstName, String lastName, String password) {
@@ -23,6 +23,30 @@ public class Employer {
     this.firstName = firstName;
     this.lastName = lastName;
     this.password = password;
+  }
+  
+  public static int getEmployerCount() {
+    return employerCount;
+  }
+  
+  public int getEmployerId() {
+    return employerId;
+  }
+  
+  public String getFirstName() {
+    return firstName;
+  }
+  
+  public String getLastName() {
+    return lastName;
+  }
+  
+  public String getPassword() {
+    return password;
+  }
+  
+  public List<Position> getPositions() {
+    return positions;
   }
   
   public List<Applicant> searchForMatchingApplicant(Position position) {

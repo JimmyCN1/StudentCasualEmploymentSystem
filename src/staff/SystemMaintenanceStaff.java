@@ -1,28 +1,32 @@
+package staff;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
+import applicant.Applicant;
 import driver.ManagementSystem;
-import model.interfaces.Employer;
-import model.interfaces.Applicant;
+import employer.Employer;
 
 public class SystemMaintenanceStaff {
-
+	private static int systemMaintenanceStaffCount = 0;
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String password;
+	private ManagementSystem managementSystem;
 
-	public SystemMaintenanceStaff(int id, String firstName, String lastName, String password) {
-		this.id = id;
+	public SystemMaintenanceStaff(String firstName, String lastName, String password, ManagementSystem managementSystem) {
+		systemMaintenanceStaffCount++;
+		this.id = systemMaintenanceStaffCount;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 	}
 
-	public Collection<Employer> getEmployerRecords(int id) {
-
+	public Employer getEmployerRecords(int id) {
 		Employer returnEmployer = null;
-		for (Employer employer : employers) {
-			if (Employer.getEmployerId() == id) {
+		for (Employer employer : managementSystem.getEmployers()) {
+			if (employer.getEmployerId() == id) {
 				returnEmployer = employer;
 			}
 		}
@@ -31,7 +35,7 @@ public class SystemMaintenanceStaff {
 
 	public Collection<Applicant> getApplicantRecords(int id) {
 		Applicant returnApplicant = null;
-		for (Applicant applicant : Applicants) {
+		for (Applicant applicant : applicants) {
 			if (Applicant.getApplicantId() == id) {
 				returnApplicant = applicant;
 			}

@@ -6,13 +6,13 @@ public class ManagementSystem {
 	
 	private Collection<applicant> applicant = new ArrayList<applicant>;
 	
-	private Collection<blacklistedApplicant> employer = new ArrayList<blacklistedApplicant>;
+	private Collection<blacklistedApplicant> blacklistedApplicant = new ArrayList<blacklistedApplicant>;
 	
-	private Collection<jobCategories> employer = new ArrayList<jobCategories>;
+	private Collection<jobCategories> jobCategories = new ArrayList<jobCategories>;
 	
 	private Security security;
 	
-	private Collection<systemMaintenance> employer = new ArrayList<systemMaintenance>;
+	private Collection<systemMaintenance> systemMaintenance = new ArrayList<systemMaintenance>;
 
 
 	public boolean registerApplicant() {

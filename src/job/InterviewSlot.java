@@ -6,16 +6,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class InterviewSlot {
+  private final int INTERVIEW_DURATION = 60;
   private LocalDate date;
   private LocalTime time;
   private int duration;
   private Applicant applicant;
   private InterviewResult interviewResult;
   
-  public InterviewSlot(LocalDate date, LocalTime time, int duration) {
+  public InterviewSlot(LocalDate date, LocalTime time, Applicant applicant) {
     this.date = date;
     this.time = time;
-    this.duration = duration;
+    this.applicant = applicant;
   }
   
   public LocalDate getDate() {

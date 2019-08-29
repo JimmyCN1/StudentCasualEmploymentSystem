@@ -33,10 +33,10 @@ public class SystemMaintenanceStaff {
 		return returnEmployer;
 	}
 
-	public Collection<Applicant> getApplicantRecords(int id) {
+	public Applicant getApplicantRecords(int id) {
 		Applicant returnApplicant = null;
-		for (Applicant applicant : applicants) {
-			if (Applicant.getApplicantId() == id) {
+		for (Applicant applicant : managementSystem.getApplicants()) {
+			if (applicant.getApplicantId() == id) {
 				returnApplicant = applicant;
 			}
 		}

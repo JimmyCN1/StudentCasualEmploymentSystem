@@ -4,8 +4,9 @@ import applicant.Applicant;
 import driver.ManagementSystem;
 import job.Position;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Employer {
@@ -17,14 +18,16 @@ public class Employer {
   private List<Position> positions = new ArrayList<>();
   private ManagementSystem managementSystem;
   
-  public Employer(String firstName, String lastName, String password) {
+  public Employer(String firstName, String lastName, String password, ManagementSystem managementSystem) {
     employerCount++;
     this.employerId = employerCount;
     this.firstName = firstName;
     this.lastName = lastName;
     this.password = password;
+    this.managementSystem = managementSystem;
   }
   
+  // getters
   public static int getEmployerCount() {
     return employerCount;
   }
@@ -49,35 +52,51 @@ public class Employer {
     return positions;
   }
   
+  public Position getPositionById(int positionId) {
+    Position positionMatch = null;
+    for (Position position : positions) {
+      if (positionId == position.getPositionId()) {
+        positionMatch = position;
+      }
+    }
+    return positionMatch;
+  }
+  
+  public void addPosition(String title) {
+    positions.add(new Position(title, managementSystem));
+  }
+  
   public List<Applicant> searchForMatchingApplicant(Position position) {
     return new ArrayList<Applicant>();
   }
   
-  public boolean shortlistApplicant(Applicant applicant, Position position) {
-    return false;
+  public void shortlistApplicant(Applicant applicant, Position position) {
+    position.shortlistApplicant(applicant);
   }
   
-  public boolean rankApplicants(Position position) {
-    return false;
+  public void rankApplicants(Position position) {
+    return;
   }
   
-  public boolean bookInterview(Applicant applicant, Position position) {
-    return false;
+  public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position) {
+    position.addInterview(date, time, applicant);
   }
   
-  public boolean updateApplicant(Applicant applicant, Position position) {
-    return false;
+  public void updateApplicant(Applicant applicant, Position position) {
+    return;
   }
   
-  public boolean mailApplicant(String mail, Applicant applicant) {
-    return false;
+  public void mailApplicant(String mail, Applicant applicant) {
+    return;
   }
   
-  public boolean notifyHighRankingApplicants(Position position) {
-    return false;
+  public void notifyHighRankingApplicants(String notification, Position position) {
+    for (Applicant applicant : position.getHighRankingApplicants()) {
+      return;
+    }
   }
   
-  public boolean offerJob(Applicant applicant, Position position) {
-    return false;
+  public void offerJob(Applicant applicant, Position position) {
+    return;
   }
 }

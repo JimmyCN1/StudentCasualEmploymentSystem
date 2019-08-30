@@ -1,16 +1,21 @@
 package app;
 
-import applicant.InternationalStudent;
-import applicant.LocalStudent;
+import entities.applicant.Applicant;
+import entities.applicant.InternationalStudent;
+import entities.applicant.LocalStudent;
 
 import java.util.List;
 
 public class StudentApp extends App {
   private static final int LOCAL = 1;
   private static final int INTERNATIONAL = 2;
+  private Applicant currentUser;
+  
+  public StudentApp(String firstName, String lastName, String password) {
+  
+  }
   
   public StudentApp() {
-  
   }
   
   public void selectStudentType() {

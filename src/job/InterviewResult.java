@@ -1,8 +1,5 @@
 package job;
 
-import applicant.Applicant;
-import driver.ManagementSystem;
-
 import java.util.Collection;
 
 public class InterviewResult {

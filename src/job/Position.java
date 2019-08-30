@@ -1,6 +1,6 @@
 package job;
 
-import applicant.Applicant;
+import entities.applicant.Applicant;
 import driver.ManagementSystem;
 
 import java.time.LocalDate;
@@ -85,8 +85,8 @@ public class Position {
     shortlistedApplicants.add(applicant);
   }
   
-  private void setPending(boolean bool, Applicant applicant) {
-    applicant.setPending(bool);
+  private void setPending(Applicant applicant) {
+    applicant.setPending();
   }
 }
 

@@ -8,12 +8,12 @@ public class Security {
   
   ManagementSystem managementSystem;
   
-  public void changeUsername(String oldusername, String newUsername) {
-  
+  public boolean changeUsername(String oldusername, String newUsername) {
+    return false;
   }
   
-  public String changePassword(String enteredPassword) {
-  
+  public boolean changePassword(String enteredPassword) {
+    return false;
   }
   
   public void scrambleEmployerDetails(String id, String name, String position) {

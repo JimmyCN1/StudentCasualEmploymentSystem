@@ -1,9 +1,5 @@
 package app;
 
-//import employer.Employer;
-
-import enums.Entity;
-
 import java.util.Scanner;
 
 public class Application {
@@ -11,6 +7,7 @@ public class Application {
   private static final int STUDENT = 2;
   private static final int SYSTEM_MAINTENANCE_STAFF = 3;
   private static final int LOGIN = 4;
+  private static final int QUIT = 0;
   
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -18,7 +15,11 @@ public class Application {
     while (true) {
       System.out.println("~~~Welcome to the Student Casual Employment System~~~\n");
       System.out.println("Please type the corresponding number to determine who you are:");
-      System.out.println("1. Employer Registration\n2. Student Registration\n3.System Maintenance Staff Registration\n4. Login");
+      System.out.println("1. Employer Registration\n" +
+              "2. Student Registration\n" +
+              "3.System Maintenance Staff Registration\n" +
+              "4. Login\n\n" +
+              "0. Press '0' to quit");
       
       int response = scanner.nextInt();
       
@@ -32,12 +33,14 @@ public class Application {
           studentApp.selectStudentType();
           break;
         case (SYSTEM_MAINTENANCE_STAFF):
-          //TODO: implement maintenance staff functionality
+          SystemMaintenanceStaffApp systemMaintenanceStaffApp = new SystemMaintenanceStaffApp();
+          systemMaintenanceStaffApp.createSystemMaintenanceStaff();
           break;
         case (LOGIN):
-          // TODO: implement login functionality
           loginAs();
           break;
+        case (QUIT):
+          System.exit(0);
         default:
           break;
       }

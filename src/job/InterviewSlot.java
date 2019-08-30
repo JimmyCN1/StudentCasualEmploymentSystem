@@ -1,6 +1,6 @@
 package job;
 
-import applicant.Applicant;
+import entities.applicant.Applicant;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

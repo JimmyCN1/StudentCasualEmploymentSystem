@@ -1,35 +1,35 @@
 package driver;
 
-import applicant.Applicant;
+import entities.applicant.Applicant;
 import driver.utilities.Security;
-import employer.Employer;
-import staff.SystemMaintenanceStaff;
+import entities.employer.Employer;
+import entities.staff.SystemMaintenanceStaff;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class ManagementSystem {
-  private Collection<Employer> employers = new ArrayList<>();
-  private Collection<Applicant> applicants = new ArrayList<>();
-  private Collection<Applicant> blacklistedApplicants = new ArrayList<>();
-  private Collection<String> jobCategories = new ArrayList<>();
+  private List<Employer> employers = new ArrayList<>();
+  private List<Applicant> applicants = new ArrayList<>();
+  private List<Applicant> blacklistedApplicants = new ArrayList<>();
+  private List<String> jobCategories = new ArrayList<>();
   private Security security;
-  private Collection<SystemMaintenanceStaff> systemMaintenanceStaff = new ArrayList<>();
+  private List<SystemMaintenanceStaff> systemMaintenanceStaff = new ArrayList<>();
   
   
-  public Collection<Employer> getEmployers() {
+  public List<Employer> getEmployers() {
     return employers;
   }
   
-  public Collection<Applicant> getApplicants() {
+  public List<Applicant> getApplicants() {
     return applicants;
   }
   
-  public Collection<Applicant> getBlacklistedApplicants() {
+  public List<Applicant> getBlacklistedApplicants() {
     return blacklistedApplicants;
   }
   
-  public Collection<String> getJobCategories() {
+  public List<String> getJobCategories() {
     return jobCategories;
   }
   
@@ -37,18 +37,38 @@ public class ManagementSystem {
     return security;
   }
   
-  public Collection<SystemMaintenanceStaff> getSystemMaintenanceStaff() {
+  public List<SystemMaintenanceStaff> getSystemMaintenanceStaff() {
     return systemMaintenanceStaff;
+  }
+  
+  public Employer getEmployerByName(String employerName) {
+    Employer employerMatch = null;
+    for (Employer employer : employers) {
+      if (employerName == employer.getEmployerName()) {
+        employerMatch = employer;
+      }
+    }
+    return employerMatch;
   }
   
   public void registerApplicant(Applicant applicant) {
     applicants.add(applicant);
-    
-    
   }
   
   public void registerEmployer(Employer employer) {
     employers.add(employer);
+  }
+  
+  public void registerSystemMaintenanceStaff(SystemMaintenanceStaff systemMaintenanceStaff) {
+    this.systemMaintenanceStaff.add(systemMaintenanceStaff);
+  }
+  
+  public void addApplicantToBlacklist(Applicant applicant) {
+    blacklistedApplicants.add(applicant);
+  }
+  
+  public void addJobCategory(String jobCategory) {
+    jobCategories.add(jobCategory);
   }
   
 }

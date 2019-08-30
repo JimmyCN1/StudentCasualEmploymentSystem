@@ -14,7 +14,11 @@ public class InterviewResult {
     this.interviewNotes = interviewNotes;
   }
   
-  public Collection<String> getReferenceChecks() { return referenceChecks; }
+  public Collection<String> getReferenceChecks() {
+    return referenceChecks;
+  }
   
-  public String getInterviewNotes() { return interviewNotes; }
+  public String getInterviewNotes() {
+    return interviewNotes;
+  }
 }

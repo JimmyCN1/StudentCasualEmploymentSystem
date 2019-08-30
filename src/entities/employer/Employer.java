@@ -103,4 +103,13 @@ public class Employer {
   public void offerJob(Applicant applicant, Position position) {
     return;
   }
+  
+  @Override
+  public boolean equals(Object object) {
+    return equals((Employer) object);
+  }
+  
+  private boolean equals(Employer employer) {
+    return employer.employerName == this.employerName;
+  }
 }

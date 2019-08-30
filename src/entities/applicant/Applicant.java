@@ -51,4 +51,14 @@ public abstract class Applicant {
   public void setAsBlackListed() {
     status = "blacklisted";
   }
+  
+  @Override
+  public boolean equals(Object object) {
+    return equals((Applicant) object);
+  }
+  
+  private boolean equals(Applicant applicant) {
+    return applicant.firstName == this.firstName &&
+            applicant.lastName == this.lastName;
+  }
 }

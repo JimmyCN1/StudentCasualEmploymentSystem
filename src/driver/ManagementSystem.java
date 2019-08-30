@@ -51,6 +51,19 @@ public class ManagementSystem {
     return employerMatch;
   }
   
+  public Applicant getApplicantByName(String applicantFirstName, String applicantLastName) {
+    Applicant applicantMatch = null;
+    for (Applicant applicant : applicants) {
+      if (applicantFirstName == applicant.getFirstName() &&
+              applicantLastName == applicant.getLastName()) {
+        applicantMatch = applicant;
+      }
+    }
+    return applicantMatch;
+  }
+  
+  // TODO: add get systemstaff by name method
+  
   public void registerApplicant(Applicant applicant) {
     applicants.add(applicant);
   }
@@ -70,5 +83,4 @@ public class ManagementSystem {
   public void addJobCategory(String jobCategory) {
     jobCategories.add(jobCategory);
   }
-  
 }

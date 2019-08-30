@@ -47,8 +47,8 @@ public class ManagementSystem {
     
   }
   
-  public boolean registerEmployer() {
-    return false;
+  public void registerEmployer(Employer employer) {
+    employers.add(employer);
   }
   
 }

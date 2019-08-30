@@ -2,20 +2,15 @@ package app;
 
 import applicant.InternationalStudent;
 import applicant.LocalStudent;
-import driver.ManagementSystem;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class StudentApp {
+public class StudentApp extends App {
   private static final int LOCAL = 1;
   private static final int INTERNATIONAL = 2;
-  private ManagementSystem managementSystem;
-  private Scanner scanner = new Scanner(System.in);
   
   public StudentApp() {
-    managementSystem = new ManagementSystem();
+  
   }
   
   public void selectStudentType() {
@@ -23,8 +18,7 @@ public class StudentApp {
     while (!validResponse) {
       System.out.println("Which type of student are you?");
       System.out.println("1. Local\n2. International");
-      int response = 0;
-      response = scanner.nextInt();
+      int response = scanner.nextInt();
       
       switch (response) {
         case (LOCAL):
@@ -37,32 +31,23 @@ public class StudentApp {
           break;
         default:
           break;
-        
       }
     }
   }
   
-  public void createLocalStudent() {
-    List<String> studentDetails = createStudent();
-    managementSystem.registerApplicant(new LocalStudent(studentDetails.get(0), studentDetails.get(1), studentDetails.get(2)));
+  private void createLocalStudent() {
+    List<String> studentDetails = createUser();
+    managementSystem.registerApplicant(new LocalStudent(studentDetails.get(0),
+            studentDetails.get(1),
+            studentDetails.get(2),
+            managementSystem));
   }
   
-  public void createInternationalStudent() {
-    List<String> studentDetails = createStudent();
-    managementSystem.registerApplicant(new InternationalStudent(studentDetails.get(0), studentDetails.get(1), studentDetails.get(2)));
-  }
-  
-  public List<String> createStudent() {
-    List<String> studentDetails = new ArrayList<>();
-    System.out.println("What is your first name?");
-    String firstName = scanner.nextLine();
-    studentDetails.add(firstName);
-    System.out.println("What is your last name?");
-    String lastName = scanner.nextLine();
-    studentDetails.add(lastName);
-    System.out.println("What is your password?");
-    String password = scanner.nextLine();
-    studentDetails.add(password);
-    return studentDetails;
+  private void createInternationalStudent() {
+    List<String> studentDetails = createUser();
+    managementSystem.registerApplicant(new InternationalStudent(studentDetails.get(0),
+            studentDetails.get(1),
+            studentDetails.get(2),
+            managementSystem));
   }
 }

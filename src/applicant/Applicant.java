@@ -1,21 +1,25 @@
 package applicant;
 
+import driver.ManagementSystem;
+
 import java.io.File;
 
-public class Applicant {
+public abstract class Applicant {
   private static int applicantCount = 0;
   private int applicantId;
   private String firstName;
   private String lastName;
   private String password;
   private File cv;
+  private ManagementSystem managementSystem;
   
-  public Applicant(String firstName, String lastName, String password) {
+  public Applicant(String firstName, String lastName, String password, ManagementSystem managementSystem) {
     applicantCount++;
     this.applicantId = applicantCount;
     this.firstName = firstName;
     this.lastName = lastName;
     this.password = password;
+    this.managementSystem = managementSystem;
   }
   
   public int getApplicantId() {

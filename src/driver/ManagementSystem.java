@@ -1,20 +1,24 @@
 package driver;
 
-import entities.applicant.Applicant;
+import interfaces.applicant.Applicant;
 import driver.utilities.Security;
-import entities.employer.Employer;
-import entities.staff.SystemMaintenanceStaff;
+import interfaces.employer.Employer;
+import interfaces.staff.SystemMaintenanceStaff;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ManagementSystem {
-  private List<Employer> employers = new ArrayList<>();
+  private List<Employer> employers;
   private List<Applicant> applicants = new ArrayList<>();
   private List<Applicant> blacklistedApplicants = new ArrayList<>();
   private List<String> jobCategories = new ArrayList<>();
   private Security security;
   private List<SystemMaintenanceStaff> systemMaintenanceStaff = new ArrayList<>();
+  
+  public ManagementSystem() {
+    this.employers = new ArrayList<>();
+  }
   
   
   public List<Employer> getEmployers() {

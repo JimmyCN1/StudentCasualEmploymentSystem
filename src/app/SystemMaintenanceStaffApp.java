@@ -1,8 +1,8 @@
 package app;
 
-import entities.staff.SystemMaintenanceStaff;
+import interfaces.staff.SystemMaintenanceStaff;
 
-import java.util.List;
+import java.util.Map;
 
 public class SystemMaintenanceStaffApp extends App {
   private SystemMaintenanceStaff currentUser;
@@ -14,13 +14,26 @@ public class SystemMaintenanceStaffApp extends App {
   public SystemMaintenanceStaffApp() {
   }
   
+  
+  public SystemMaintenanceStaff getCurrentUser() {
+    return currentUser;
+  }
+  
+  public void setCurrentUser(SystemMaintenanceStaff staff) {
+    currentUser = staff;
+  }
+  
   public void createSystemMaintenanceStaff() {
-    List<String> systemMaintenanceStaffDetails = createUser();
+    Map<String, String> systemMaintenanceStaffDetails = createUser();
     managementSystem.registerSystemMaintenanceStaff(
             new SystemMaintenanceStaff(
-                    systemMaintenanceStaffDetails.get(0),
-                    systemMaintenanceStaffDetails.get(1),
-                    systemMaintenanceStaffDetails.get(2),
+                    systemMaintenanceStaffDetails.get(FIRST_NAME),
+                    systemMaintenanceStaffDetails.get(LAST_NAME),
+                    systemMaintenanceStaffDetails.get(PASSWORD),
                     managementSystem));
+    setCurrentUser(managementSystem.getSystemMaintenanceByName(
+            systemMaintenanceStaffDetails.get(FIRST_NAME),
+            systemMaintenanceStaffDetails.get(LAST_NAME)
+    ));
   }
 }

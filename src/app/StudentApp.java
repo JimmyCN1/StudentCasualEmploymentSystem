@@ -1,14 +1,14 @@
 package app;
 
-import entities.applicant.Applicant;
-import entities.applicant.InternationalStudent;
-import entities.applicant.LocalStudent;
+import interfaces.applicant.Applicant;
+import interfaces.applicant.InternationalStudent;
+import interfaces.applicant.LocalStudent;
 
-import java.util.List;
+import java.util.Map;
 
 public class StudentApp extends App {
-  private static final int LOCAL = 1;
-  private static final int INTERNATIONAL = 2;
+  private final int LOCAL = 1;
+  private final int INTERNATIONAL = 2;
   private Applicant currentUser;
   
   public StudentApp(String firstName, String lastName, String password) {
@@ -18,13 +18,26 @@ public class StudentApp extends App {
   public StudentApp() {
   }
   
+  public Applicant getCurrentUser() {
+    return currentUser;
+  }
+  
+  public void setCurrentUser(Applicant applicant) {
+    currentUser = applicant;
+  }
+  
+  public void something() {
+    Applicant currentUser = (Applicant) getCurrentUser();
+    
+  }
+  
   public void selectStudentType() {
     boolean validResponse = false;
     while (!validResponse) {
       System.out.println("Which type of student are you?");
       System.out.println("1. Local\n2. International");
       int response = scanner.nextInt();
-      
+      scanner.nextLine();
       switch (response) {
         case (LOCAL):
           validResponse = true;
@@ -40,19 +53,21 @@ public class StudentApp extends App {
     }
   }
   
-  private void createLocalStudent() {
-    List<String> studentDetails = createUser();
-    managementSystem.registerApplicant(new LocalStudent(studentDetails.get(0),
-            studentDetails.get(1),
-            studentDetails.get(2),
+  public void createLocalStudent() {
+    Map<String, String> studentDetails = createUser();
+    managementSystem.registerApplicant(new LocalStudent(studentDetails.get(FIRST_NAME),
+            studentDetails.get(LAST_NAME),
+            studentDetails.get(PASSWORD),
             managementSystem));
+    setCurrentUser(managementSystem.getApplicantByName(FIRST_NAME, LAST_NAME));
   }
   
-  private void createInternationalStudent() {
-    List<String> studentDetails = createUser();
-    managementSystem.registerApplicant(new InternationalStudent(studentDetails.get(0),
-            studentDetails.get(1),
-            studentDetails.get(2),
+  public void createInternationalStudent() {
+    Map<String, String> studentDetails = createUser();
+    managementSystem.registerApplicant(new InternationalStudent(studentDetails.get(FIRST_NAME),
+            studentDetails.get(LAST_NAME),
+            studentDetails.get(PASSWORD),
             managementSystem));
+    setCurrentUser(managementSystem.getApplicantByName(FIRST_NAME, LAST_NAME));
   }
 }

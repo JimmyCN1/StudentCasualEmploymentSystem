@@ -1,38 +1,61 @@
 package app;
 
-import entities.employer.Employer;
+import interfaces.Entity;
+import interfaces.employer.Employer;
+import exceptions.EmployerDoesNotExistException;
+import exceptions.PasswordMissmatchException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EmployerApp extends App {
+  private final String EMPLOYER_NAME = "employerName";
   private Employer currentUser;
   
-  public EmployerApp(String employerName, String password) {
-    currentUser = managementSystem.getEmployerByName(employerName);
+  public EmployerApp(String employerName, String password) throws EmployerDoesNotExistException, PasswordMissmatchException {
+    Employer employer = managementSystem.getEmployerByName(employerName);
+    if (employer == null) {
+      throw new EmployerDoesNotExistException();
+    } else {
+      if (!employer.isPasswordMatch(password)) {
+        throw new PasswordMissmatchException();
+      } else {
+        setCurrentUser(employer);
+      }
+    }
+    System.out.println(getCurrentUser().toString());
   }
   
   public EmployerApp() {
   
   }
   
+  public Entity getCurrentUser() {
+    return currentUser;
+  }
+  
+  public void setCurrentUser(Employer currentUser) {
+    this.currentUser = currentUser;
+  }
+  
+  
   public void createEmployer() {
-    List<String> employerDetails = createUser();
-    managementSystem.registerEmployer(new Employer(employerDetails.get(0),
-            employerDetails.get(1),
+    Map<String, String> employerDetails = createUser();
+    managementSystem.registerEmployer(new Employer(employerDetails.get(EMPLOYER_NAME),
+            employerDetails.get(PASSWORD),
             managementSystem));
-    currentUser = managementSystem.getEmployerByName(employerDetails.get(0));
+    setCurrentUser(managementSystem.getEmployerByName(employerDetails.get(EMPLOYER_NAME)));
   }
   
   @Override
-  public List<String> createUser() {
-    List<String> userDetails = new ArrayList<>();
+  public Map<String, String> createUser() {
+    Map<String, String> userDetails = new HashMap<>();
     System.out.println("What is your company name?");
     String employerName = scanner.nextLine();
-    userDetails.add(employerName);
+    userDetails.put(EMPLOYER_NAME, employerName);
     System.out.println("What is your password?");
     String password = scanner.nextLine();
-    userDetails.add(password);
+    userDetails.put(PASSWORD, password);
     return userDetails;
   }
   

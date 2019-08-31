@@ -1,6 +1,6 @@
 package job;
 
-import entities.applicant.Applicant;
+import interfaces.applicant.Applicant;
 import driver.ManagementSystem;
 
 import java.time.LocalDate;
@@ -17,7 +17,6 @@ public class Position {
   private double positionHourlyRate;
   private int positionMinHoursPerWeek;
   private int positionMaxHoursPerWeek;
-  // private List<(Enum) Schedule.>;
   private List<Applicant> applicants = new ArrayList<>();
   private List<Applicant> shortlistedApplicants = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
@@ -75,6 +74,7 @@ public class Position {
     return unsuccessfulApplicants;
   }
   
+  //
   public void addInterview(LocalDate date, LocalTime time, Applicant applicant) {
     InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
     if (interviewSlots.size() == 0) {
@@ -101,11 +101,11 @@ public class Position {
     unsuccessfulApplicants.add(applicant);
   }
   
-  public void shortlistApplicant(Applicant applicant) {
+  public void addApplicantToShortlist(Applicant applicant) {
     shortlistedApplicants.add(applicant);
   }
   
-  private void setPending(Applicant applicant) {
+  private void setApplicantToPending(Applicant applicant) {
     applicant.setPending();
   }
 }

@@ -48,7 +48,7 @@ public class ManagementSystem {
   public Employer getEmployerByName(String name) {
     Employer matchingEmployee = null;
     for (Employer employer : employers) {
-      if (name == employer.getEmployerName()) {
+      if (name.equals(employer.getEmployerName())) {
         matchingEmployee = employer;
       }
     }
@@ -58,8 +58,8 @@ public class ManagementSystem {
   public Applicant getApplicantByName(String firstName, String lastName) {
     Applicant matchingApplicant = null;
     for (Applicant applicant : applicants) {
-      if (firstName == applicant.getFirstName() &&
-              lastName == applicant.getLastName()) {
+      if (firstName.equals(applicant.getFirstName()) &&
+              lastName.equals(applicant.getLastName())) {
         matchingApplicant = applicant;
       }
     }
@@ -69,8 +69,8 @@ public class ManagementSystem {
   public SystemMaintenanceStaff getSystemMaintenanceByName(String firstName, String lastName) {
     SystemMaintenanceStaff matchingStaff = null;
     for (SystemMaintenanceStaff maintenanceStaff : systemMaintenanceStaff) {
-      if (firstName == maintenanceStaff.getFirstName() &&
-              lastName == maintenanceStaff.getLastName()) {
+      if (firstName.equals(maintenanceStaff.getFirstName()) &&
+              lastName.equals(maintenanceStaff.getLastName())) {
         matchingStaff = maintenanceStaff;
       }
     }

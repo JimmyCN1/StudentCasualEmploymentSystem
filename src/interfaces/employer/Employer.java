@@ -68,8 +68,9 @@ public class Employer implements Entity {
     return positionMatch;
   }
   
+  @Override
   public boolean isPasswordMatch(String password) {
-    return this.password == password;
+    return this.password.equals(password);
   }
   
   public void addPosition(String title, String type, double hourlyRate, int minHoursPerWeek, int maxHoursPerWeek) {

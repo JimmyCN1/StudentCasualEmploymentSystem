@@ -1,8 +1,9 @@
 package app;
 
+import driver.ManagementSystem;
 import interfaces.Entity;
 import interfaces.employer.Employer;
-import exceptions.EmployerDoesNotExistException;
+import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
 
 import java.util.HashMap;
@@ -12,30 +13,22 @@ public class EmployerApp extends App {
   private final String EMPLOYER_NAME = "employerName";
   private Employer currentUser;
   
-  public EmployerApp(String employerName, String password) throws EmployerDoesNotExistException, PasswordMissmatchException {
-    Employer employer = managementSystem.getEmployerByName(employerName);
-    if (employer == null) {
-      throw new EmployerDoesNotExistException();
-    } else {
-      if (!employer.isPasswordMatch(password)) {
-        throw new PasswordMissmatchException();
-      } else {
-        setCurrentUser(employer);
-      }
-    }
-    System.out.println(getCurrentUser().toString());
+  public EmployerApp(String employerName, String password, ManagementSystem managementSystem)
+          throws EntityDoesNotExistException, PasswordMissmatchException {
+    super(managementSystem);
+    verifyUser(employerName, password);
   }
   
-  public EmployerApp() {
-  
+  public EmployerApp(ManagementSystem managementSystem) {
+    super(managementSystem);
   }
   
   public Entity getCurrentUser() {
     return currentUser;
   }
   
-  public void setCurrentUser(Employer currentUser) {
-    this.currentUser = currentUser;
+  public void setCurrentUser(Employer employer) {
+    this.currentUser = employer;
   }
   
   
@@ -58,5 +51,20 @@ public class EmployerApp extends App {
     userDetails.put(PASSWORD, password);
     return userDetails;
   }
+  
+  private void verifyUser(String employerName, String password) throws EntityDoesNotExistException, PasswordMissmatchException {
+    Employer employer = managementSystem.getEmployerByName(employerName);
+    if (employer == null) {
+      throw new EntityDoesNotExistException();
+    } else {
+      if (!employer.isPasswordMatch(password)) {
+        throw new PasswordMissmatchException();
+      } else {
+        setCurrentUser(employer);
+        System.out.printf("Welcome back %s!\n\n", getCurrentUser().getName());
+      }
+    }
+  }
+  
   
 }

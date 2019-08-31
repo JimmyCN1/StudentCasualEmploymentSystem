@@ -4,8 +4,6 @@ import driver.ManagementSystem;
 import interfaces.Entity;
 import users.Person;
 
-import java.io.File;
-
 public abstract class Applicant extends Person implements Entity {
   private static int applicantCount = 0;
   private int applicantId;
@@ -47,6 +45,11 @@ public abstract class Applicant extends Person implements Entity {
   public String fetchNotification(String notification) {
     return String.format("You have one notification...\n%s",
             notification);
+  }
+  
+  @Override
+  public boolean isPasswordMatch(String password) {
+    return this.password.equals(password);
   }
   
   @Override

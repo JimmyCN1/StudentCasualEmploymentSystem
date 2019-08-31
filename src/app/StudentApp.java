@@ -1,5 +1,8 @@
 package app;
 
+import driver.ManagementSystem;
+import exceptions.EntityDoesNotExistException;
+import exceptions.PasswordMissmatchException;
 import interfaces.applicant.Applicant;
 import interfaces.applicant.InternationalStudent;
 import interfaces.applicant.LocalStudent;
@@ -11,11 +14,14 @@ public class StudentApp extends App {
   private final int INTERNATIONAL = 2;
   private Applicant currentUser;
   
-  public StudentApp(String firstName, String lastName, String password) {
-  
+  public StudentApp(String firstName, String lastName, String password, ManagementSystem managementSystem)
+          throws EntityDoesNotExistException, PasswordMissmatchException {
+    super(managementSystem);
+    verifyUser(firstName, lastName, password);
   }
   
-  public StudentApp() {
+  public StudentApp(ManagementSystem managementSystem) {
+    super(managementSystem);
   }
   
   public Applicant getCurrentUser() {
@@ -24,11 +30,6 @@ public class StudentApp extends App {
   
   public void setCurrentUser(Applicant applicant) {
     currentUser = applicant;
-  }
-  
-  public void something() {
-    Applicant currentUser = (Applicant) getCurrentUser();
-    
   }
   
   public void selectStudentType() {
@@ -59,7 +60,8 @@ public class StudentApp extends App {
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
             managementSystem));
-    setCurrentUser(managementSystem.getApplicantByName(FIRST_NAME, LAST_NAME));
+    setCurrentUser(managementSystem.getApplicantByName(studentDetails.get(FIRST_NAME),
+            studentDetails.get(LAST_NAME)));
   }
   
   public void createInternationalStudent() {
@@ -68,6 +70,21 @@ public class StudentApp extends App {
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
             managementSystem));
-    setCurrentUser(managementSystem.getApplicantByName(FIRST_NAME, LAST_NAME));
+    setCurrentUser(managementSystem.getApplicantByName(studentDetails.get(FIRST_NAME),
+            studentDetails.get(LAST_NAME)));
+  }
+  
+  private void verifyUser(String firstName, String lastName, String password) throws EntityDoesNotExistException, PasswordMissmatchException {
+    Applicant applicant = managementSystem.getApplicantByName(firstName, lastName);
+    if (applicant == null) {
+      throw new EntityDoesNotExistException();
+    } else {
+      if (!applicant.isPasswordMatch(password)) {
+        throw new PasswordMissmatchException();
+      } else {
+        setCurrentUser(applicant);
+        System.out.printf("Welcome back %s!\n\n", getCurrentUser().getName());
+      }
+    }
   }
 }

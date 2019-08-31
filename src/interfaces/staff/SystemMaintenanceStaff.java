@@ -48,4 +48,9 @@ public class SystemMaintenanceStaff extends Person implements Entity {
   public void addNewJobCategory(String jobCategory) {
     managementSystem.addJobCategory(jobCategory);
   }
+  
+  @Override
+  public boolean isPasswordMatch(String password) {
+    return this.password.equals(password);
+  }
 }

@@ -52,6 +52,11 @@ public abstract class Applicant {
     status = "blacklisted";
   }
   
+  public String fetchNotification(String notification) {
+    return String.format("You have one notification...\n%s",
+            notification);
+  }
+  
   @Override
   public boolean equals(Object object) {
     return equals((Applicant) object);

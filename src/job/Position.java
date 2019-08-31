@@ -5,6 +5,7 @@ import driver.ManagementSystem;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,11 +14,12 @@ public class Position {
   private int positionId;
   private String positionTitle;
   // private List<(Enum) Shedule.>;
-  private List<Applicant> shortlistedApplicants;
-  private List<Applicant> highRankingApplicants;
-  private List<Applicant> jobOffered;
+  private List<Applicant> applicants = new ArrayList<>();
+  private List<Applicant> shortlistedApplicants = new ArrayList<>();
+  private List<Applicant> highRankingApplicants = new ArrayList<>();
+  private List<Applicant> jobOffered = new ArrayList<>();
   private List<InterviewSlot> interviewSlots = new LinkedList<>();
-  private List<Applicant> unsuccessfullApplicants;
+  private List<Applicant> unsuccessfullApplicants = new ArrayList<>();
   private ManagementSystem managementSystem;
   
   public Position(String positionTitle, ManagementSystem managementSystem) {
@@ -41,6 +43,10 @@ public class Position {
   
   public String getPositionTitle() {
     return positionTitle;
+  }
+  
+  public List<Applicant> getApplicants() {
+    return applicants;
   }
   
   public List<Applicant> getShortListedApplicants() {
@@ -79,6 +85,14 @@ public class Position {
         interviewSlots.add(interviewSlot);
       }
     }
+  }
+  
+  public void addApplicantToJobOffered(Applicant applicant) {
+    jobOffered.add(applicant);
+  }
+  
+  public void addApplicantToUnsuccessfulApplicants(Applicant applicant) {
+    unsuccessfullApplicants.add(applicant);
   }
   
   public void shortlistApplicant(Applicant applicant) {

@@ -78,6 +78,7 @@ public class Employer {
     position.shortlistApplicant(applicant);
   }
   
+  // TODO:
   public void rankApplicants(Position position) {
     return;
   }
@@ -86,22 +87,34 @@ public class Employer {
     position.addInterview(date, time, applicant);
   }
   
+  // TODO:
   public void updateApplicant(Applicant applicant, Position position) {
     return;
   }
   
+  // TODO:
   public void mailApplicant(String mail, Applicant applicant) {
     return;
   }
   
-  public void notifyHighRankingApplicants(String notification, Position position) {
-    for (Applicant applicant : position.getHighRankingApplicants()) {
-      return;
+  // TODO:
+  public void notifyApplicants(String notification, Position position, List<Applicant> applicants) {
+    for (Applicant applicant : applicants) {
+      applicant.fetchNotification(notification);
     }
   }
   
   public void offerJob(Applicant applicant, Position position) {
-    return;
+    position.addApplicantToJobOffered(applicant);
+    applicant.setPending();
+  }
+  
+  public void handleUnsuccessfulApplicants(Position position) {
+    for (Applicant applicant : position.getApplicants()) {
+      if (!position.getJobOffered().contains(applicant)) {
+        position.addApplicantToUnsuccessfulApplicants(applicant);
+      }
+    }
   }
   
   @Override

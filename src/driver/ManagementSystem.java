@@ -41,28 +41,37 @@ public class ManagementSystem {
     return systemMaintenanceStaff;
   }
   
-  public Employer getEmployerByName(String employerName) {
-    Employer employerMatch = null;
+  public Employer getEmployerByName(String name) {
+    Employer matchingEmployee = null;
     for (Employer employer : employers) {
-      if (employerName == employer.getEmployerName()) {
-        employerMatch = employer;
+      if (name == employer.getEmployerName()) {
+        matchingEmployee = employer;
       }
     }
-    return employerMatch;
+    return matchingEmployee;
   }
   
-  public Applicant getApplicantByName(String applicantFirstName, String applicantLastName) {
-    Applicant applicantMatch = null;
+  public Applicant getApplicantByName(String firstName, String lastName) {
+    Applicant matchingApplicant = null;
     for (Applicant applicant : applicants) {
-      if (applicantFirstName == applicant.getFirstName() &&
-              applicantLastName == applicant.getLastName()) {
-        applicantMatch = applicant;
+      if (firstName == applicant.getFirstName() &&
+              lastName == applicant.getLastName()) {
+        matchingApplicant = applicant;
       }
     }
-    return applicantMatch;
+    return matchingApplicant;
   }
   
-  // TODO: add get systemstaff by name method
+  public SystemMaintenanceStaff getSystemMaintenanceByName(String firstName, String lastName) {
+    SystemMaintenanceStaff matchingStaff = null;
+    for (SystemMaintenanceStaff maintenanceStaff : systemMaintenanceStaff) {
+      if (firstName == maintenanceStaff.getFirstName() &&
+              lastName == maintenanceStaff.getLastName()) {
+        matchingStaff = maintenanceStaff;
+      }
+    }
+    return matchingStaff;
+  }
   
   public void registerApplicant(Applicant applicant) {
     applicants.add(applicant);

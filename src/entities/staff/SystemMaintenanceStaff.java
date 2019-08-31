@@ -22,6 +22,15 @@ public class SystemMaintenanceStaff {
     this.password = password;
   }
   
+  // getters
+  public String getFirstName() {
+    return firstName;
+  }
+  
+  public String getLastName() {
+    return lastName;
+  }
+  
   public Employer getEmployerRecords(int id) {
     Employer returnEmployer = null;
     for (Employer employer : managementSystem.getEmployers()) {

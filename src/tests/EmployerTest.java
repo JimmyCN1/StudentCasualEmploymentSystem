@@ -1,5 +1,11 @@
-//import static org.junit.Assert.*;
-//
-//public class EmployerTest {
-//
-//}
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+
+public class EmployerTest {
+  @Test
+  public void dummy() {
+    assertTrue(true);
+  }
+  
+}

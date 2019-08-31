@@ -13,26 +13,32 @@ public class Position {
   private static int positionCount = 0;
   private int positionId;
   private String positionTitle;
-  // private List<(Enum) Shedule.>;
+  private String positionType;
+  private double positionHourlyRate;
+  private int positionMinHoursPerWeek;
+  private int positionMaxHoursPerWeek;
+  // private List<(Enum) Schedule.>;
   private List<Applicant> applicants = new ArrayList<>();
   private List<Applicant> shortlistedApplicants = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
   private List<Applicant> jobOffered = new ArrayList<>();
   private List<InterviewSlot> interviewSlots = new LinkedList<>();
-  private List<Applicant> unsuccessfullApplicants = new ArrayList<>();
+  private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
   private ManagementSystem managementSystem;
   
-  public Position(String positionTitle, ManagementSystem managementSystem) {
+  public Position(String positionTitle,
+                  String positionType,
+                  double positionHourlyRate,
+                  int positionMinHoursPerWeek,
+                  int positionMaxHoursPerWeek,
+                  ManagementSystem managementSystem) {
     positionCount++;
     this.positionId = positionCount;
     this.positionTitle = positionTitle;
-    this.managementSystem = managementSystem;
-  }
-  
-  public Position() {
-    positionCount++;
-    this.positionId = positionCount;
-    this.positionTitle = "Unknown";
+    this.positionType = positionType;
+    this.positionHourlyRate = positionHourlyRate;
+    this.positionMinHoursPerWeek = positionMinHoursPerWeek;
+    this.positionMaxHoursPerWeek = positionMaxHoursPerWeek;
     this.managementSystem = managementSystem;
   }
   
@@ -66,7 +72,7 @@ public class Position {
   }
   
   public List<Applicant> getUnsuccessfullApplicants() {
-    return unsuccessfullApplicants;
+    return unsuccessfulApplicants;
   }
   
   public void addInterview(LocalDate date, LocalTime time, Applicant applicant) {
@@ -92,7 +98,7 @@ public class Position {
   }
   
   public void addApplicantToUnsuccessfulApplicants(Applicant applicant) {
-    unsuccessfullApplicants.add(applicant);
+    unsuccessfulApplicants.add(applicant);
   }
   
   public void shortlistApplicant(Applicant applicant) {

@@ -1,5 +1,9 @@
 # StudentCasualEmploymentSystem
 
+### Project Overview
+
+You are to gather requirements, analyze, design, implement and test a proposal for Student Casual Employment System to facilitate students to find contract and ongoing part-time jobs. In the initial stage you are required to develop a stand-alone system without concurrent or web access; however as a software engineer you are required to design the systems allowing for extensibility, maintainability and reusability. You should also ensure all users are password protected and can access or update only the information related to their role and identity.
+
 ### Scope
 
 This requirements specification applies to the proposed Student Employment System as described below. The scope of the proposed system is restricted to the following functions;

@@ -66,8 +66,8 @@ public class Employer {
     return positionMatch;
   }
   
-  public void addPosition(String title) {
-    positions.add(new Position(title, managementSystem));
+  public void addPosition(String title, String type, double hourlyRate, int minHoursPerWeek, int maxHoursPerWeek) {
+    positions.add(new Position(title, type, hourlyRate, minHoursPerWeek, maxHoursPerWeek, managementSystem));
   }
   
   public List<Applicant> searchForMatchingApplicant(Position position) {
@@ -92,13 +92,7 @@ public class Employer {
     return;
   }
   
-  // TODO:
-  public void mailApplicant(String mail, Applicant applicant) {
-    return;
-  }
-  
-  // TODO:
-  public void notifyApplicants(String notification, Position position, List<Applicant> applicants) {
+  public void notifyApplicants(String notification, List<Applicant> applicants) {
     for (Applicant applicant : applicants) {
       applicant.fetchNotification(notification);
     }

@@ -39,6 +39,10 @@ public class Employer implements Entity {
     return employerName;
   }
   
+  public String getHashMapKey() {
+    return employerName.toLowerCase();
+  }
+  
   @Override
   public String getName() {
     return getEmployerName();
@@ -111,7 +115,7 @@ public class Employer implements Entity {
   }
   
   public void handleUnsuccessfulApplicants(Position position) {
-    for (Applicant applicant : position.getApplicants()) {
+    for (Applicant applicant : position.getAppliedApplicants()) {
       if (!position.getJobOffered().contains(applicant)) {
         position.addApplicantToUnsuccessfulApplicants(applicant);
       }

@@ -31,17 +31,16 @@ public class EmployerApp extends App {
     this.currentUser = employer;
   }
   
-  
   public void createEmployer() {
-    Map<String, String> employerDetails = createUser();
+    Map<String, String> employerDetails = getNewUserDetails();
     managementSystem.registerEmployer(new Employer(employerDetails.get(EMPLOYER_NAME),
             employerDetails.get(PASSWORD),
             managementSystem));
-    setCurrentUser(managementSystem.getEmployerByName(employerDetails.get(EMPLOYER_NAME)));
+    setCurrentUser(managementSystem.getEmployerByName(employerDetails.get(EMPLOYER_NAME).toLowerCase()));
   }
   
   @Override
-  public Map<String, String> createUser() {
+  public Map<String, String> getNewUserDetails() {
     Map<String, String> userDetails = new HashMap<>();
     System.out.println("What is your company name?");
     String employerName = scanner.nextLine();

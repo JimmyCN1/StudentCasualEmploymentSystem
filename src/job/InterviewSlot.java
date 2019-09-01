@@ -16,6 +16,7 @@ public class InterviewSlot {
   public InterviewSlot(LocalDate date, LocalTime time, Applicant applicant) {
     this.date = date;
     this.time = time;
+    duration = INTERVIEW_DURATION;
     this.applicant = applicant;
   }
   

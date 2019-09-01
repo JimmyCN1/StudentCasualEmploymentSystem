@@ -46,7 +46,7 @@ public class App {
             systemMaintenanceStaffApp.getCurrentUser().getName());
   }
   
-  public Map<String, String> createUser() {
+  public Map<String, String> getNewUserDetails() {
     Map<String, String> userDetails = new HashMap<>();
     System.out.println("What is your first name?");
     String firstName = scanner.nextLine();
@@ -104,7 +104,7 @@ public class App {
   }
   
   private void loginAsStudent() {
-    Map<String, String> userDetails = personLogin();
+    Map<String, String> userDetails = getNewPersonDetails();
     try {
       studentApp = new StudentApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
     } catch (EntityDoesNotExistException e) {
@@ -115,7 +115,7 @@ public class App {
   }
   
   private void loginAsSystemMaintenanceStaff() {
-    Map<String, String> userDetails = personLogin();
+    Map<String, String> userDetails = getNewPersonDetails();
     try {
       systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
     } catch (EntityDoesNotExistException e) {
@@ -125,7 +125,7 @@ public class App {
     }
   }
   
-  private Map<String, String> personLogin() {
+  private Map<String, String> getNewPersonDetails() {
     scanner.nextLine();
     Map<String, String> userDetails = new HashMap<>();
     System.out.println("What is your first name?");

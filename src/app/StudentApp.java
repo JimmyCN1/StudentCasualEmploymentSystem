@@ -55,27 +55,31 @@ public class StudentApp extends App {
   }
   
   public void createLocalStudent() {
-    Map<String, String> studentDetails = createUser();
+    Map<String, String> studentDetails = getNewUserDetails();
     managementSystem.registerApplicant(new LocalStudent(studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
             managementSystem));
-    setCurrentUser(managementSystem.getApplicantByName(studentDetails.get(FIRST_NAME),
-            studentDetails.get(LAST_NAME)));
+    setCurrentUser(managementSystem.getApplicantByName(
+            studentDetails.get(FIRST_NAME).toLowerCase() +
+                    studentDetails.get(LAST_NAME).toLowerCase()
+    ));
   }
   
   public void createInternationalStudent() {
-    Map<String, String> studentDetails = createUser();
+    Map<String, String> studentDetails = getNewUserDetails();
     managementSystem.registerApplicant(new InternationalStudent(studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
             managementSystem));
-    setCurrentUser(managementSystem.getApplicantByName(studentDetails.get(FIRST_NAME),
-            studentDetails.get(LAST_NAME)));
+    setCurrentUser(managementSystem.getApplicantByName(
+            studentDetails.get(FIRST_NAME).toLowerCase() +
+                    studentDetails.get(LAST_NAME).toLowerCase()
+    ));
   }
   
   private void verifyUser(String firstName, String lastName, String password) throws EntityDoesNotExistException, PasswordMissmatchException {
-    Applicant applicant = managementSystem.getApplicantByName(firstName, lastName);
+    Applicant applicant = managementSystem.getApplicantByName(firstName.toLowerCase() + lastName.toLowerCase());
     if (applicant == null) {
       throw new EntityDoesNotExistException();
     } else {

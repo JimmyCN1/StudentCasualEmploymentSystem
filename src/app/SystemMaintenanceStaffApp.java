@@ -30,7 +30,7 @@ public class SystemMaintenanceStaffApp extends App {
   }
   
   public void createSystemMaintenanceStaff() {
-    Map<String, String> systemMaintenanceStaffDetails = createUser();
+    Map<String, String> systemMaintenanceStaffDetails = getNewUserDetails();
     managementSystem.registerSystemMaintenanceStaff(
             new SystemMaintenanceStaff(
                     systemMaintenanceStaffDetails.get(FIRST_NAME),
@@ -38,13 +38,13 @@ public class SystemMaintenanceStaffApp extends App {
                     systemMaintenanceStaffDetails.get(PASSWORD),
                     managementSystem));
     setCurrentUser(managementSystem.getSystemMaintenanceByName(
-            systemMaintenanceStaffDetails.get(FIRST_NAME),
-            systemMaintenanceStaffDetails.get(LAST_NAME)
+            systemMaintenanceStaffDetails.get(FIRST_NAME).toLowerCase() +
+                    systemMaintenanceStaffDetails.get(LAST_NAME).toLowerCase()
     ));
   }
   
   private void verifyUser(String firstName, String lastName, String password) throws EntityDoesNotExistException, PasswordMissmatchException {
-    SystemMaintenanceStaff systemMaintenanceStaff = managementSystem.getSystemMaintenanceByName(firstName, lastName);
+    SystemMaintenanceStaff systemMaintenanceStaff = managementSystem.getSystemMaintenanceByName(firstName.toLowerCase() + lastName.toLowerCase());
     if (systemMaintenanceStaff == null) {
       throw new EntityDoesNotExistException();
     } else {

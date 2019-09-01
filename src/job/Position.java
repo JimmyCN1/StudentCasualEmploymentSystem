@@ -17,7 +17,7 @@ public class Position {
   private double positionHourlyRate;
   private int positionMinHoursPerWeek;
   private int positionMaxHoursPerWeek;
-  private List<Applicant> applicants = new ArrayList<>();
+  private List<Applicant> appliedApplicants = new ArrayList<>();
   private List<Applicant> shortlistedApplicants = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
   private List<Applicant> jobOffered = new ArrayList<>();
@@ -50,8 +50,8 @@ public class Position {
     return positionTitle;
   }
   
-  public List<Applicant> getApplicants() {
-    return applicants;
+  public List<Applicant> getAppliedApplicants() {
+    return appliedApplicants;
   }
   
   public List<Applicant> getShortListedApplicants() {
@@ -74,23 +74,18 @@ public class Position {
     return unsuccessfulApplicants;
   }
   
-  //
-  public void addInterview(LocalDate date, LocalTime time, Applicant applicant) {
-    InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
-    if (interviewSlots.size() == 0) {
-      interviewSlots.add(interviewSlot);
-    } else {
-      boolean wasAdded = false;
-      for (int i = 0; i < interviewSlots.size(); i++) {
-        if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate()) &&
-                interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-          interviewSlots.add(i, interviewSlot);
-        }
-      }
-      if (!wasAdded) {
-        interviewSlots.add(interviewSlot);
+  public Applicant getApplicantById(Applicant applicant, List<Applicant> applicants) {
+    Applicant matchingApplicant = null;
+    for (Applicant a : applicants) {
+      if (a.getApplicantId() == (applicant.getApplicantId())) {
+        matchingApplicant = a;
       }
     }
+    return matchingApplicant;
+  }
+  
+  public void addApplicantToAppliedApplicants(Applicant applicant) {
+    appliedApplicants.add(applicant);
   }
   
   public void addApplicantToJobOffered(Applicant applicant) {
@@ -107,6 +102,26 @@ public class Position {
   
   private void setApplicantToPending(Applicant applicant) {
     applicant.setPending();
+  }
+  
+  //
+  public void addInterview(LocalDate date, LocalTime time, Applicant applicant) {
+    InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
+    if (interviewSlots.size() == 0) {
+      interviewSlots.add(interviewSlot);
+    } else {
+      boolean wasAdded = false;
+      for (int i = 0; i < interviewSlots.size(); i++) {
+        if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate()) &&
+                interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+          interviewSlots.add(i, interviewSlot);
+          wasAdded = true;
+        }
+      }
+      if (!wasAdded) {
+        interviewSlots.add(interviewSlot);
+      }
+    }
   }
 }
 

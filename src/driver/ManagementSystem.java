@@ -6,30 +6,48 @@ import interfaces.employer.Employer;
 import interfaces.staff.SystemMaintenanceStaff;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ManagementSystem {
-  private List<Employer> employers;
-  private List<Applicant> applicants = new ArrayList<>();
-  private List<Applicant> blacklistedApplicants = new ArrayList<>();
+  private Map<String, Employer> employers = new HashMap<>();
+  private Map<String, Applicant> applicants = new HashMap<>();
+  private Map<String, SystemMaintenanceStaff> systemMaintenanceStaff = new HashMap<>();
+  private Map<String, Applicant> blacklistedApplicants = new HashMap<>();
   private List<String> jobCategories = new ArrayList<>();
   private Security security;
-  private List<SystemMaintenanceStaff> systemMaintenanceStaff = new ArrayList<>();
   
   public ManagementSystem() {
-    this.employers = new ArrayList<>();
   }
   
   
   public List<Employer> getEmployers() {
+    List<Employer> employers = new ArrayList<>();
+    for (Employer e : employers) {
+      employers.add(e);
+    }
     return employers;
   }
   
   public List<Applicant> getApplicants() {
+    List<Applicant> applicants = new ArrayList<>();
+    for (Applicant a : applicants) {
+      applicants.add(a);
+    }
     return applicants;
   }
   
-  public List<Applicant> getBlacklistedApplicants() {
+  public List<SystemMaintenanceStaff> getSystemMaintenanceStaff() {
+    List<SystemMaintenanceStaff> systemMaintenanceStaff = new ArrayList<>();
+    for (SystemMaintenanceStaff s : systemMaintenanceStaff) {
+      systemMaintenanceStaff.add(s);
+    }
+    return systemMaintenanceStaff;
+  }
+  
+  
+  public Map<String, Applicant> getBlacklistedApplicants() {
     return blacklistedApplicants;
   }
   
@@ -41,56 +59,38 @@ public class ManagementSystem {
     return security;
   }
   
-  public List<SystemMaintenanceStaff> getSystemMaintenanceStaff() {
-    return systemMaintenanceStaff;
+  
+  public Employer getEmployerByName(String keyName) {
+    return employers.get(keyName);
   }
   
-  public Employer getEmployerByName(String name) {
-    Employer matchingEmployee = null;
-    for (Employer employer : employers) {
-      if (name.equals(employer.getEmployerName())) {
-        matchingEmployee = employer;
-      }
-    }
-    return matchingEmployee;
+  public Applicant getApplicantByName(String keyName) {
+    return applicants.get(keyName);
   }
   
-  public Applicant getApplicantByName(String firstName, String lastName) {
-    Applicant matchingApplicant = null;
-    for (Applicant applicant : applicants) {
-      if (firstName.equals(applicant.getFirstName()) &&
-              lastName.equals(applicant.getLastName())) {
-        matchingApplicant = applicant;
-      }
-    }
-    return matchingApplicant;
-  }
-  
-  public SystemMaintenanceStaff getSystemMaintenanceByName(String firstName, String lastName) {
-    SystemMaintenanceStaff matchingStaff = null;
-    for (SystemMaintenanceStaff maintenanceStaff : systemMaintenanceStaff) {
-      if (firstName.equals(maintenanceStaff.getFirstName()) &&
-              lastName.equals(maintenanceStaff.getLastName())) {
-        matchingStaff = maintenanceStaff;
-      }
-    }
-    return matchingStaff;
+  public SystemMaintenanceStaff getSystemMaintenanceByName(String keyName) {
+    return systemMaintenanceStaff.get(keyName);
   }
   
   public void registerApplicant(Applicant applicant) {
-    applicants.add(applicant);
+    applicants.put(applicant.getHashMapKey(),
+            applicant);
   }
   
   public void registerEmployer(Employer employer) {
-    employers.add(employer);
+    employers.put(employer.getHashMapKey(), employer);
   }
   
   public void registerSystemMaintenanceStaff(SystemMaintenanceStaff systemMaintenanceStaff) {
-    this.systemMaintenanceStaff.add(systemMaintenanceStaff);
+    this.systemMaintenanceStaff.put(
+            systemMaintenanceStaff.getHashMapKey(),
+            systemMaintenanceStaff);
   }
   
   public void addApplicantToBlacklist(Applicant applicant) {
-    blacklistedApplicants.add(applicant);
+    blacklistedApplicants.put(
+            applicant.getHashMapKey(),
+            applicant);
   }
   
   public void addJobCategory(String jobCategory) {

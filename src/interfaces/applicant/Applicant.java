@@ -30,6 +30,10 @@ public abstract class Applicant extends Person implements Entity {
     return password;
   }
   
+  public String getStatus() {
+    return status;
+  }
+  
   public String getCv() {
     return cv;
   }

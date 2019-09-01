@@ -15,6 +15,10 @@ public abstract class Person implements Entity {
     return lastName;
   }
   
+  public String getHashMapKey() {
+    return getFirstName().toLowerCase() + getLastName().toLowerCase();
+  }
+  
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }

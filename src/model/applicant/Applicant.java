@@ -1,5 +1,6 @@
 package model.applicant;
 
+import enumerators.ApplicantStatus;
 import model.driver.ManagementSystem;
 import interfaces.Entity;
 import users.Person;
@@ -9,7 +10,7 @@ public abstract class Applicant extends Person implements Entity {
   private int applicantId;
   private String password;
   private String cv;
-  private String status;
+  private ApplicantStatus applicantStatus;
   private ManagementSystem managementSystem;
   
   public Applicant(String firstName, String lastName, String password, ManagementSystem managementSystem) {
@@ -18,7 +19,7 @@ public abstract class Applicant extends Person implements Entity {
     setFirstName(firstName);
     setLastName(lastName);
     this.password = password;
-    this.status = "searching";
+    this.applicantStatus = ApplicantStatus.AVAILABLE;
     this.managementSystem = managementSystem;
   }
   
@@ -30,21 +31,27 @@ public abstract class Applicant extends Person implements Entity {
     return password;
   }
   
-  public String getStatus() {
-    return status;
+  public ApplicantStatus getApplicantStatus() {
+    return applicantStatus;
   }
   
   public String getCv() {
     return cv;
   }
   
-  public void setPending() {
-    status = "pending";
+  public void setStatus(ApplicantStatus applicantStatus) {
+    this.applicantStatus = applicantStatus;
   }
-  
-  public void setAsBlackListed() {
-    status = "blacklisted";
-  }
+
+//  public void setPending() {
+//    applicantStatus = ApplicantStatus.PENDING;
+//  }
+//
+//  public void setUnknown() { applicantStatus = ApplicantStatus.UNKNOWN; }
+//
+//  public void setAsBlackListed() {
+//    applicantStatus = ApplicantStatus.BLACKLISTED;
+//  }
   
   public String fetchNotification(String notification) {
     return String.format("You have one notification...\n%s",

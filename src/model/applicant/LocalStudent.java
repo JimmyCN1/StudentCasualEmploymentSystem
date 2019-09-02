@@ -1,5 +1,6 @@
 package model.applicant;
 
+import enumerators.ApplicantStatus;
 import model.driver.ManagementSystem;
 
 public class LocalStudent extends Applicant {

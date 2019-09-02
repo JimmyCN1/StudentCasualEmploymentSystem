@@ -1,5 +1,6 @@
 package model.staff;
 
+import enumerators.ApplicantStatus;
 import interfaces.Entity;
 import model.applicant.Applicant;
 import model.driver.ManagementSystem;
@@ -42,7 +43,7 @@ public class SystemMaintenanceStaff extends Person implements Entity {
   
   public void blackListApplicant(Applicant applicant) {
     managementSystem.addApplicantToBlacklist(applicant);
-    applicant.setAsBlackListed();
+    applicant.setStatus(ApplicantStatus.BLACKLISTED);
   }
   
   public void addNewJobCategory(String jobCategory) {

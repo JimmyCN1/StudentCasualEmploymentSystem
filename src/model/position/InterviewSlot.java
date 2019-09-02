@@ -1,4 +1,4 @@
-package model.job;
+package model.position;
 
 import model.applicant.Applicant;
 

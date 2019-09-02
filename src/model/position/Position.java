@@ -1,5 +1,7 @@
-package model.job;
+package model.position;
 
+import enumerators.ApplicantStatus;
+import enumerators.PositionType;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import model.applicant.Applicant;
@@ -15,7 +17,7 @@ public class Position {
   private static int positionCount = 0;
   private int positionId;
   private String positionTitle;
-  private String positionType;
+  private PositionType positionType;
   private double positionHourlyRate;
   private int positionMinHoursPerWeek;
   private int positionMaxHoursPerWeek;
@@ -28,7 +30,7 @@ public class Position {
   private ManagementSystem managementSystem;
   
   public Position(String positionTitle,
-                  String positionType,
+                  PositionType positionType,
                   double positionHourlyRate,
                   int positionMinHoursPerWeek,
                   int positionMaxHoursPerWeek,
@@ -103,7 +105,7 @@ public class Position {
   }
   
   private void setApplicantToPending(Applicant applicant) {
-    applicant.setPending();
+    applicant.setStatus(ApplicantStatus.PENDING);
   }
   
   // insert an interview chronologically into the interview slots list

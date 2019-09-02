@@ -1,11 +1,13 @@
 package model.employer;
 
+import enumerators.ApplicantStatus;
+import enumerators.PositionType;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import interfaces.Entity;
 import model.applicant.Applicant;
 import model.driver.ManagementSystem;
-import model.job.Position;
+import model.position.Position;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -79,7 +81,7 @@ public class Employer implements Entity {
     return this.password.equals(password);
   }
   
-  public void addPosition(String title, String type, double hourlyRate, int minHoursPerWeek, int maxHoursPerWeek) {
+  public void addPosition(String title, PositionType type, double hourlyRate, int minHoursPerWeek, int maxHoursPerWeek) {
     positions.add(new Position(title, type, hourlyRate, minHoursPerWeek, maxHoursPerWeek, managementSystem));
   }
   
@@ -114,7 +116,7 @@ public class Employer implements Entity {
   
   public void offerJob(Applicant applicant, Position position) {
     position.addApplicantToJobOffered(applicant);
-    applicant.setPending();
+    applicant.setStatus(ApplicantStatus.PENDING);
   }
   
   public void handleUnsuccessfulApplicants(Position position) {

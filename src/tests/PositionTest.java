@@ -1,10 +1,12 @@
+import enumerators.ApplicantStatus;
+import enumerators.PositionType;
 import model.driver.ManagementSystem;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import model.applicant.Applicant;
 import model.applicant.InternationalStudent;
 import model.applicant.LocalStudent;
-import model.job.Position;
+import model.position.Position;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +27,7 @@ public class PositionTest {
   public void setUp() {
     managementSystem = new ManagementSystem();
     position = new Position("developer",
-            "full-time",
+            PositionType.FULL_TIME,
             33.5,
             40,
             60, managementSystem
@@ -54,15 +56,15 @@ public class PositionTest {
   
   @Test
   public void setApplicantToPending() {
-    position.getApplicantById(applicant1, position.getAppliedApplicants()).setPending();
-    assertEquals("pending", applicant1.getStatus());
+    position.getApplicantById(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
+    assertEquals(ApplicantStatus.PENDING, applicant1.getApplicantStatus());
   }
   
   @Test
   public void setApplicantPendingWhenAlreadyPending() {
-    position.getApplicantById(applicant1, position.getAppliedApplicants()).setPending();
-    position.getApplicantById(applicant1, position.getAppliedApplicants()).setPending();
-    assertEquals("pending", applicant1.getStatus());
+    position.getApplicantById(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
+    position.getApplicantById(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
+    assertEquals(ApplicantStatus.PENDING, applicant1.getApplicantStatus());
   }
   
   @Test

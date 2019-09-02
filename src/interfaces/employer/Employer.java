@@ -1,5 +1,7 @@
 package interfaces.employer;
 
+import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
+import exceptions.TakenInterviewSlotException;
 import interfaces.Entity;
 import interfaces.applicant.Applicant;
 import driver.ManagementSystem;
@@ -94,7 +96,8 @@ public class Employer implements Entity {
     return;
   }
   
-  public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position) {
+  public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)
+          throws TakenInterviewSlotException, ScheduleMultipleInterviewsWithSameApplicantException {
     position.addInterview(date, time, applicant);
   }
   

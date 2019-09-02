@@ -1,5 +1,7 @@
 package job;
 
+import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
+import exceptions.TakenInterviewSlotException;
 import interfaces.applicant.Applicant;
 import driver.ManagementSystem;
 
@@ -104,24 +106,56 @@ public class Position {
     applicant.setPending();
   }
   
-  //
-  public void addInterview(LocalDate date, LocalTime time, Applicant applicant) {
-    InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
-    if (interviewSlots.size() == 0) {
-      interviewSlots.add(interviewSlot);
+  // insert an interview chronologically into the interview slots list
+  public void addInterview(LocalDate date, LocalTime time, Applicant applicant)
+          throws TakenInterviewSlotException, ScheduleMultipleInterviewsWithSameApplicantException {
+    if (!slotIsFree(date, time)) {
+      throw new TakenInterviewSlotException();
+    } else if (applicantHasBeenScheduled(applicant)) {
+      throw new ScheduleMultipleInterviewsWithSameApplicantException();
     } else {
-      boolean wasAdded = false;
-      for (int i = 0; i < interviewSlots.size(); i++) {
-        if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate()) &&
-                interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-          interviewSlots.add(i, interviewSlot);
-          wasAdded = true;
+      int size = interviewSlots.size();
+      InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
+      if (size == 0) {
+        interviewSlots.add(interviewSlot);
+      } else {
+        boolean wasAdded = false;
+        for (int i = 0; i < size; i++) {
+          if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+            interviewSlots.add(i, interviewSlot);
+            wasAdded = true;
+          } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+                  interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+            interviewSlots.add(i, interviewSlot);
+            wasAdded = true;
+          }
+        }
+        if (!wasAdded) {
+          interviewSlots.add(interviewSlot);
         }
       }
-      if (!wasAdded) {
-        interviewSlots.add(interviewSlot);
+    }
+    
+  }
+  
+  public boolean slotIsFree(LocalDate date, LocalTime time) {
+    boolean isSlotFree = true;
+    for (InterviewSlot i : interviewSlots) {
+      if (date.equals(i.getDate()) && time.equals(i.getTime())) {
+        isSlotFree = false;
       }
     }
+    return isSlotFree;
+  }
+  
+  public boolean applicantHasBeenScheduled(Applicant applicant) {
+    boolean hasNotBeenScheduled = false;
+    for (InterviewSlot i : interviewSlots) {
+      if (applicant.equals(i.getApplicant())) {
+        hasNotBeenScheduled = true;
+      }
+    }
+    return hasNotBeenScheduled;
   }
 }
 

@@ -1,6 +1,6 @@
 package model.applicant;
 
-import driver.ManagementSystem;
+import model.driver.ManagementSystem;
 import interfaces.Entity;
 import users.Person;
 

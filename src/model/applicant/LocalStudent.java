@@ -1,6 +1,6 @@
 package model.applicant;
 
-import driver.ManagementSystem;
+import model.driver.ManagementSystem;
 
 public class LocalStudent extends Applicant {
   public LocalStudent(String firstName, String lastName, String password, ManagementSystem managementSystem) {

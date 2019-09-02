@@ -1,4 +1,4 @@
-import driver.ManagementSystem;
+import model.driver.ManagementSystem;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import model.applicant.Applicant;

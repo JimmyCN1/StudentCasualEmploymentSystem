@@ -3,7 +3,7 @@ package model.job;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import model.applicant.Applicant;
-import driver.ManagementSystem;
+import model.driver.ManagementSystem;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

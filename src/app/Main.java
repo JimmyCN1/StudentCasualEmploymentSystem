@@ -1,6 +1,6 @@
 package app;
 
-import driver.ManagementSystem;
+import model.driver.ManagementSystem;
 
 import java.util.Scanner;
 

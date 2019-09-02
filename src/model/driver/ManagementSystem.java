@@ -1,7 +1,7 @@
-package driver;
+package model.driver;
 
 import model.applicant.Applicant;
-import driver.utilities.Security;
+import model.driver.utilities.Security;
 import model.employer.Employer;
 import model.staff.SystemMaintenanceStaff;
 

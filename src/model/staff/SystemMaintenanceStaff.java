@@ -2,7 +2,7 @@ package model.staff;
 
 import interfaces.Entity;
 import model.applicant.Applicant;
-import driver.ManagementSystem;
+import model.driver.ManagementSystem;
 import model.employer.Employer;
 import users.Person;
 

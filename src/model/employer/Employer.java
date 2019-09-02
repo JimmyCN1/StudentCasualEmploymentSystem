@@ -4,7 +4,7 @@ import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import interfaces.Entity;
 import model.applicant.Applicant;
-import driver.ManagementSystem;
+import model.driver.ManagementSystem;
 import model.job.Position;
 
 import java.time.LocalDate;

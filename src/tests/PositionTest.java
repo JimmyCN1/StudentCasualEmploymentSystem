@@ -1,10 +1,10 @@
 import driver.ManagementSystem;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
-import interfaces.applicant.Applicant;
-import interfaces.applicant.InternationalStudent;
-import interfaces.applicant.LocalStudent;
-import job.Position;
+import model.applicant.Applicant;
+import model.applicant.InternationalStudent;
+import model.applicant.LocalStudent;
+import model.job.Position;
 import org.junit.Before;
 import org.junit.Test;
 

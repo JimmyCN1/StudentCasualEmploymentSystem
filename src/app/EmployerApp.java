@@ -2,7 +2,7 @@ package app;
 
 import driver.ManagementSystem;
 import interfaces.Entity;
-import interfaces.employer.Employer;
+import model.employer.Employer;
 import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
 

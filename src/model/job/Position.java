@@ -1,8 +1,8 @@
-package job;
+package model.job;
 
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
-import interfaces.applicant.Applicant;
+import model.applicant.Applicant;
 import driver.ManagementSystem;
 
 import java.time.LocalDate;

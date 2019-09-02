@@ -3,7 +3,7 @@ package app;
 import driver.ManagementSystem;
 import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
-import interfaces.staff.SystemMaintenanceStaff;
+import model.staff.SystemMaintenanceStaff;
 
 import java.util.Map;
 

@@ -1,6 +1,6 @@
-package job;
+package model.job;
 
-import interfaces.applicant.Applicant;
+import model.applicant.Applicant;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -1,9 +1,9 @@
-package interfaces.staff;
+package model.staff;
 
 import interfaces.Entity;
-import interfaces.applicant.Applicant;
+import model.applicant.Applicant;
 import driver.ManagementSystem;
-import interfaces.employer.Employer;
+import model.employer.Employer;
 import users.Person;
 
 public class SystemMaintenanceStaff extends Person implements Entity {

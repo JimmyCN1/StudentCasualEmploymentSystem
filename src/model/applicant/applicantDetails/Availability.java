@@ -1,4 +1,4 @@
-package interfaces.applicant.applicantDetails;
+package model.applicant.applicantDetails;
 
 import java.time.LocalDate;
 import java.util.Collection;

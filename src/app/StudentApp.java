@@ -3,9 +3,9 @@ package app;
 import driver.ManagementSystem;
 import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
-import interfaces.applicant.Applicant;
-import interfaces.applicant.InternationalStudent;
-import interfaces.applicant.LocalStudent;
+import model.applicant.Applicant;
+import model.applicant.InternationalStudent;
+import model.applicant.LocalStudent;
 
 import java.util.Map;
 

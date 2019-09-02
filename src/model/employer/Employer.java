@@ -1,11 +1,11 @@
-package interfaces.employer;
+package model.employer;
 
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import interfaces.Entity;
-import interfaces.applicant.Applicant;
+import model.applicant.Applicant;
 import driver.ManagementSystem;
-import job.Position;
+import model.job.Position;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -1,4 +1,4 @@
-package interfaces.applicant;
+package model.applicant;
 
 import driver.ManagementSystem;
 

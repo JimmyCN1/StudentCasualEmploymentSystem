@@ -1,4 +1,4 @@
-package job;
+package model.job;
 
 import java.util.Collection;
 

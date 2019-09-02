@@ -1,9 +1,9 @@
 package driver;
 
-import interfaces.applicant.Applicant;
+import model.applicant.Applicant;
 import driver.utilities.Security;
-import interfaces.employer.Employer;
-import interfaces.staff.SystemMaintenanceStaff;
+import model.employer.Employer;
+import model.staff.SystemMaintenanceStaff;
 
 import java.util.ArrayList;
 import java.util.HashMap;

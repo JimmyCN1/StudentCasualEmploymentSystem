@@ -21,7 +21,8 @@ public abstract class Applicant extends Person implements Entity {
   private List<String> complaints = new ArrayList<>();
   private ManagementSystem managementSystem;
   
-  public Applicant(String firstName, String lastName, String password, PositionType availability, ManagementSystem managementSystem) {
+  public Applicant(String firstName, String lastName, String password, PositionType availability,
+                   ManagementSystem managementSystem) {
     applicantCount++;
     this.applicantId = applicantCount;
     setFirstName(firstName);
@@ -32,10 +33,12 @@ public abstract class Applicant extends Person implements Entity {
     this.managementSystem = managementSystem;
   }
   
-  public int getApplicantId() {
+  @Override
+  public int getId() {
     return applicantId;
   }
   
+  @Override
   public String getPassword() {
     return password;
   }
@@ -64,7 +67,7 @@ public abstract class Applicant extends Person implements Entity {
     this.status = applicantStatus;
   }
   
-  public void setAvailablity(PositionType availability) {
+  public void setAvailability(PositionType availability) {
     this.availability = availability;
   }
   

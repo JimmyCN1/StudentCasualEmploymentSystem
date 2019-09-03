@@ -21,10 +21,25 @@ public class SystemMaintenanceStaff extends Person implements Entity {
     this.password = password;
   }
   
+  @Override
+  public int getId() {
+    return id;
+  }
+  
+  @Override
+  public String getPassword() {
+    return password;
+  }
+  
+  @Override
+  public boolean verifyPassword(String password) {
+    return this.password.equals(password);
+  }
+  
   public Employer getEmployerRecords(int id) {
     Employer returnEmployer = null;
     for (Employer employer : managementSystem.getEmployers()) {
-      if (employer.getEmployerId() == id) {
+      if (employer.getId() == id) {
         returnEmployer = employer;
       }
     }
@@ -34,7 +49,7 @@ public class SystemMaintenanceStaff extends Person implements Entity {
   public Applicant getApplicantRecords(int id) {
     Applicant returnApplicant = null;
     for (Applicant applicant : managementSystem.getApplicants()) {
-      if (applicant.getApplicantId() == id) {
+      if (applicant.getId() == id) {
         returnApplicant = applicant;
       }
     }
@@ -50,8 +65,4 @@ public class SystemMaintenanceStaff extends Person implements Entity {
     managementSystem.addJobCategory(jobCategory);
   }
   
-  @Override
-  public boolean verifyPassword(String password) {
-    return this.password.equals(password);
-  }
 }

@@ -38,21 +38,23 @@ public class Employer implements Entity {
     return employerCount;
   }
   
-  public int getEmployerId() {
+  public int getId() {
     return employerId;
   }
   
-  public String getEmployerName() {
-    return employerName;
-  }
-  
+  @Override
   public String getHashMapKey() {
     return employerName.toLowerCase();
   }
   
   @Override
   public String getName() {
-    return getEmployerName();
+    return employerName;
+  }
+  
+  @Override
+  public String getPassword() {
+    return password;
   }
   
   public List<String> getComplaints() {

@@ -15,6 +15,7 @@ public abstract class Person implements Entity {
     return lastName;
   }
   
+  @Override
   public String getHashMapKey() {
     return getFirstName().toLowerCase() + getLastName().toLowerCase();
   }

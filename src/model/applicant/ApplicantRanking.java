@@ -16,10 +16,6 @@ public class ApplicantRanking {
   public int getRanking() {
     return ranking;
   }
-
-//  public void setApplicant(Applicant applicant) {
-//    this.applicant = applicant;
-//  }
   
   public void setRanking(int ranking) {
     this.ranking = ranking;

@@ -108,7 +108,7 @@ public class Position {
   public Applicant getApplicantById(Applicant applicant, List<Applicant> applicants) {
     Applicant matchingApplicant = null;
     for (Applicant a : applicants) {
-      if (a.getApplicantId() == (applicant.getApplicantId())) {
+      if (a.getId() == (applicant.getId())) {
         matchingApplicant = a;
       }
     }

@@ -1,21 +1,23 @@
 package model.position;
 
 import enumerators.ApplicantStatus;
+import enumerators.InterviewSlotStatus;
 import enumerators.PositionType;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import model.applicant.Applicant;
+import model.applicant.ApplicantRanking;
+import model.applicant.SortByRank;
 import model.driver.ManagementSystem;
 import model.employer.Employer;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Position {
   private static int positionCount = 0;
+  private final int TOP_FIVE = 5;
   private int positionId;
   private String positionTitle;
   private PositionType positionType;
@@ -25,6 +27,7 @@ public class Position {
   private int positionMaxHoursPerWeek;
   private List<Applicant> appliedApplicants = new ArrayList<>();
   private List<Applicant> suitableApplicants = new ArrayList<>();
+  private List<ApplicantRanking> rankedApplicants = new ArrayList<>();
   private List<Applicant> shortlistedApplicants = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
@@ -88,6 +91,16 @@ public class Position {
     return interviewSlots;
   }
   
+  public List<InterviewSlot> getFreeInterviewSlots() {
+    List<InterviewSlot> freeSlots = new ArrayList<>();
+    for (InterviewSlot i : interviewSlots) {
+      if (i.getStatus() == InterviewSlotStatus.FREE) {
+        freeSlots.add(i);
+      }
+    }
+    return freeSlots;
+  }
+  
   public List<Applicant> getUnsuccessfullApplicants() {
     return unsuccessfulApplicants;
   }
@@ -115,18 +128,46 @@ public class Position {
     }
   }
   
-  //TODO:
+  // if applicant availability is a match and they have at least one jobPreference match
+  // add them to the list of suitable candidates
   public void addApplicantToSuitableApplicants(Applicant applicant) {
     boolean isSuitableApplicant = false;
     if (applicant.getAvailability().equals(positionType)) {
       for (String p : applicant.getJobPreferences()) {
-        if (applicableJobCategories.contains(p.toUpperCase())) {
+        if (applicableJobCategories.contains(p)) {
           isSuitableApplicant = true;
         }
       }
     }
     if (isSuitableApplicant) {
       suitableApplicants.add(applicant);
+    }
+  }
+  
+  // ranks candidates according to how many job pref matches they get
+  // requires suitable applicants to be determined already and sort
+  // by who gets the highest points/rank
+  public void setCandidateRankings() {
+    int rankCount;
+    for (Applicant a : suitableApplicants) {
+      rankCount = 0;
+      for (String p : a.getJobPreferences()) {
+        if (applicableJobCategories.contains(p)) {
+          rankCount++;
+        }
+      }
+      rankedApplicants.add(new ApplicantRanking(a, rankCount));
+    }
+    Collections.sort(rankedApplicants, new SortByRank());
+  }
+  
+  // set the top five applicants
+  public void setHighRankingApplicants() {
+    List<Applicant> applicants = new ArrayList<>();
+    for (int i = 0; i < TOP_FIVE; i++) {
+      if (i < rankedApplicants.size()) {
+        applicants.add(rankedApplicants.get(i).getApplicant());
+      }
     }
   }
   
@@ -179,7 +220,6 @@ public class Position {
         }
       }
     }
-    
   }
   
   public boolean slotIsFree(LocalDate date, LocalTime time) {

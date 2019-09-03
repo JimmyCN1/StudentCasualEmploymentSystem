@@ -81,6 +81,18 @@ public class Employer implements Entity {
     return positions.get(positionTitle.toLowerCase());
   }
   
+  // determine suitable applicants from the applied applicants
+  // rank each candidate
+  // sort candidates and determine top five candidates
+  public void filterApplicants(Position position) {
+    for (Applicant a : position.getAppliedApplicants()) {
+      position.addApplicantToSuitableApplicants(a);
+    }
+    position.setCandidateRankings();
+    position.setHighRankingApplicants();
+    
+  }
+  
   @Override
   public boolean verifyPassword(String password) {
     return this.password.equals(password);
@@ -97,18 +109,13 @@ public class Employer implements Entity {
   public void addPosition(Position position) {
     positions.put(position.getHashMapKey(), position);
   }
-  
-  public List<Applicant> searchForMatchingApplicant(Position position) {
-    return new ArrayList<Applicant>();
-  }
+
+//  public List<Applicant> searchForMatchingApplicant(Position position) {
+//    return new ArrayList<Applicant>();
+//  }
   
   public void shortlistApplicant(Applicant applicant, Position position) {
     position.addApplicantToShortlist(applicant);
-  }
-  
-  // TODO:
-  public void rankApplicants(Position position) {
-    return;
   }
   
   public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)

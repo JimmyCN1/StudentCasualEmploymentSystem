@@ -2,33 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f96367bb-cb03-4f5a-88af-3f2edcced7b8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/enumerators/InterviewSlotStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/applicant/ApplicantRanking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/applicant/SortByRank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/EmployerApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/EmployerApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/StudentApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/StudentApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/SystemMaintenanceStaffApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/SystemMaintenanceStaffApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/interfaces/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/interfaces/Entity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/applicant/Applicant.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/applicant/Applicant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/applicant/InternationalStudent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/applicant/InternationalStudent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/applicant/LocalStudent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/applicant/LocalStudent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/driver/ManagementSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/driver/ManagementSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/employer/Employer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/employer/Employer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/position/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/position/Position.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/staff/SystemMaintenanceStaff.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/staff/SystemMaintenanceStaff.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/EmployerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/EmployerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/PositionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/PositionTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/EmployerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/EmployerApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/StudentApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/StudentApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/SystemMaintenanceStaffApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/SystemMaintenanceStaffApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interfaces/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/applicant/Applicant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/applicant/Applicant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/applicant/InternationalStudent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/applicant/InternationalStudent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/applicant/LocalStudent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/applicant/LocalStudent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/driver/ManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/driver/ManagementSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/employer/Employer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/employer/Employer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/position/InterviewSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/position/InterviewSlot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/position/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/position/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/staff/SystemMaintenanceStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/staff/SystemMaintenanceStaff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/EmployerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/EmployerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/PositionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/PositionTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,53 +25,9 @@
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/tests/PositionTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="491">
-                  <caret line="56" column="35" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/tests/EmployerTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="945">
-                  <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1941#1942#0" expanded="true" />
-                    <element signature="e#1998#1999#0" expanded="true" />
-                    <element signature="e#2049#2050#0" expanded="true" />
-                    <element signature="e#2071#2072#0" expanded="true" />
-                    <element signature="e#2207#2208#0" expanded="true" />
-                    <element signature="e#2228#2229#0" expanded="true" />
-                    <element signature="e#2283#2284#0" expanded="true" />
-                    <element signature="e#2300#2301#0" expanded="true" />
-                    <element signature="e#2360#2361#0" expanded="true" />
-                    <element signature="e#2381#2382#0" expanded="true" />
-                    <element signature="e#2433#2434#0" expanded="true" />
-                    <element signature="e#2448#2449#0" expanded="true" />
-                    <element signature="e#2508#2509#0" expanded="true" />
-                    <element signature="e#2535#2536#0" expanded="true" />
-                    <element signature="e#2598#2599#0" expanded="true" />
-                    <element signature="e#2613#2614#0" expanded="true" />
-                    <element signature="e#2685#2686#0" expanded="true" />
-                    <element signature="e#2701#2702#0" expanded="true" />
-                    <element signature="e#2666#2667#0" expanded="true" />
-                    <element signature="e#2715#2716#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/model/applicant/Applicant.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="566">
+                <state relative-caret-position="750">
                   <caret line="56" column="2" selection-start-line="56" selection-start-column="2" selection-end-line="56" selection-end-column="2" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -141,18 +77,65 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/model/position/Position.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="479">
-                  <caret line="117" column="9" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="9" />
+                <state relative-caret-position="425">
+                  <caret line="100" column="21" selection-start-line="100" selection-start-column="21" selection-end-line="100" selection-end-column="21" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#4214#4215#0" expanded="true" />
-                    <element signature="e#4326#4327#0" expanded="true" />
-                    <element signature="e#4450#4451#0" expanded="true" />
-                    <element signature="e#4560#4561#0" expanded="true" />
-                    <element signature="e#4677#4678#0" expanded="true" />
+                    <element signature="e#2656#2657#0" expanded="true" />
+                    <element signature="e#2687#2688#0" expanded="true" />
+                    <element signature="e#3358#3359#0" expanded="true" />
+                    <element signature="e#5639#5640#0" expanded="true" />
+                    <element signature="e#5751#5752#0" expanded="true" />
+                    <element signature="e#5875#5876#0" expanded="true" />
+                    <element signature="e#5985#5986#0" expanded="true" />
+                    <element signature="e#6102#6103#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/tests/EmployerTest.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="561">
+                  <caret line="111" column="14" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="14" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#2247#2248#0" expanded="true" />
+                    <element signature="e#2300#2301#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/model/applicant/SortByRank.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="105">
+                  <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+                  <folding>
+                    <element signature="e#197#198#0" expanded="true" />
+                    <element signature="e#215#216#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/model/applicant/ApplicantRanking.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="18" selection-start-line="18" selection-end-line="18" />
+                  <folding>
+                    <element signature="e#278#279#0" expanded="true" />
+                    <element signature="e#304#305#0" expanded="true" />
+                    <element signature="e#338#339#0" expanded="true" />
+                    <element signature="e#362#363#0" expanded="true" />
+                    <element signature="e#491#492#0" expanded="true" />
+                    <element signature="e#523#524#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -171,34 +154,10 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/model/applicant/LocalStudent.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="6" column="109" selection-start-line="6" selection-start-column="109" selection-end-line="6" selection-end-column="109" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/app/StudentApp.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="660">
-                  <caret line="75" column="35" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/model/applicant/InternationalStudent.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+                <state relative-caret-position="165">
+                  <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -215,34 +174,72 @@
               </provider>
             </entry>
           </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/enumerators/ApplicantStatus.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="45">
+                  <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
+                </state>
+              </provider>
+            </entry>
+          </file>
         </leaf>
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/model/employer/Employer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1185">
-                  <caret line="89" column="30" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
+                <state relative-caret-position="320">
+                  <caret line="118" column="3" selection-start-line="118" selection-start-column="3" selection-end-line="118" selection-end-column="3" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#1507#1508#0" expanded="true" />
                     <element signature="e#1534#1535#0" expanded="true" />
                     <element signature="e#2013#2014#0" expanded="true" />
                     <element signature="e#2044#2045#0" expanded="true" />
-                    <element signature="e#2310#2311#0" expanded="true" />
-                    <element signature="e#2360#2361#0" expanded="true" />
-                    <element signature="e#2378#2379#0" expanded="true" />
-                    <element signature="e#2496#2497#0" expanded="true" />
-                    <element signature="e#2530#2531#0" expanded="true" />
-                    <element signature="e#2889#2890#0" expanded="true" />
-                    <element signature="e#3100#3101#0" expanded="true" />
-                    <element signature="e#3460#3461#0" expanded="true" />
-                    <element signature="e#3965#3966#0" expanded="true" />
-                    <element signature="e#4008#4009#0" expanded="true" />
-                    <element signature="e#4323#4324#0" expanded="true" />
-                    <element signature="e#4431#4432#0" expanded="true" />
+                    <element signature="e#2711#2712#0" expanded="true" />
+                    <element signature="e#2796#2797#0" expanded="true" />
+                    <element signature="e#3171#3172#0" expanded="true" />
+                    <element signature="e#3787#3788#0" expanded="true" />
+                    <element signature="e#4552#4553#0" expanded="true" />
+                    <element signature="e#4650#4651#0" expanded="true" />
+                    <element signature="e#4758#4759#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/model/position/InterviewSlot.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="360">
+                  <caret line="24" column="2" lean-forward="true" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#865#866#0" expanded="true" />
+                    <element signature="e#888#889#0" expanded="true" />
+                    <element signature="e#954#955#0" expanded="true" />
+                    <element signature="e#983#984#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/enumerators/InterviewSlotStatus.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="45">
+                  <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/model/position/InterviewResult.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="60">
+                  <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -270,10 +267,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/staff/SystemMaintenanceStaff.java" />
-        <option value="$PROJECT_DIR$/src/app/AbstractApp.java" />
-        <option value="$PROJECT_DIR$/src/applicant/InternationalStudent.java" />
-        <option value="$PROJECT_DIR$/src/applicant/LocalStudent.java" />
         <option value="$PROJECT_DIR$/src/employer/Employer.java" />
         <option value="$PROJECT_DIR$/src/driver/utilities/Security.java" />
         <option value="$PROJECT_DIR$/src/tests/ApplicantTest.java" />
@@ -310,17 +303,21 @@
         <option value="$PROJECT_DIR$/src/enumerators/JobType.java" />
         <option value="$PROJECT_DIR$/src/enumerators/ApplicantStatus.java" />
         <option value="$PROJECT_DIR$/src/model/job/Position.java" />
-        <option value="$PROJECT_DIR$/src/model/employer/Employer.java" />
         <option value="$PROJECT_DIR$/src/model/applicant/LocalStudent.java" />
         <option value="$PROJECT_DIR$/src/app/StudentApp.java" />
         <option value="$PROJECT_DIR$/src/tests/PositionTest.java" />
-        <option value="$PROJECT_DIR$/src/tests/EmployerTest.java" />
         <option value="$PROJECT_DIR$/src/enumerators/PositionCategories.java" />
         <option value="$PROJECT_DIR$/src/model/staff/SystemMaintenanceStaff.java" />
         <option value="$PROJECT_DIR$/src/model/driver/ManagementSystem.java" />
         <option value="$PROJECT_DIR$/src/model/applicant/Applicant.java" />
-        <option value="$PROJECT_DIR$/src/model/position/Position.java" />
         <option value="$PROJECT_DIR$/src/model/applicant/InternationalStudent.java" />
+        <option value="$PROJECT_DIR$/src/model/applicant/ApplicantRanking.java" />
+        <option value="$PROJECT_DIR$/src/model/applicant/SortByRank.java" />
+        <option value="$PROJECT_DIR$/src/tests/EmployerTest.java" />
+        <option value="$PROJECT_DIR$/src/model/employer/Employer.java" />
+        <option value="$PROJECT_DIR$/src/enumerators/InterviewSlotStatus.java" />
+        <option value="$PROJECT_DIR$/src/model/position/InterviewSlot.java" />
+        <option value="$PROJECT_DIR$/src/model/position/Position.java" />
       </list>
     </option>
   </component>
@@ -353,18 +350,6 @@
               <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
               <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="enumerators" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="applicant" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="driver" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -384,6 +369,12 @@
               <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="staff" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -547,8 +538,8 @@
     <frame x="0" y="0" width="1920" height="1200" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.122732125" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49879226" visible="true" weight="0.122732125" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.5012077" side_tool="true" visible="true" weight="0.122732125" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -557,12 +548,12 @@
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49898785" weight="0.32978722" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="bottom" id="Run" order="3" visible="true" weight="0.2677305" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.2677305" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.39982268" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32978722" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.26595744" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.26595744" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50101215" side_tool="true" weight="0.32978722" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -611,16 +602,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/position/InterviewResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="21" column="26" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -759,16 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/position/InterviewSlot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/exceptions/TakenInterviewSlotException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -824,46 +795,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/employer/Employer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="89" column="30" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1507#1508#0" expanded="true" />
-            <element signature="e#1534#1535#0" expanded="true" />
-            <element signature="e#2013#2014#0" expanded="true" />
-            <element signature="e#2044#2045#0" expanded="true" />
-            <element signature="e#2310#2311#0" expanded="true" />
-            <element signature="e#2360#2361#0" expanded="true" />
-            <element signature="e#2378#2379#0" expanded="true" />
-            <element signature="e#2496#2497#0" expanded="true" />
-            <element signature="e#2530#2531#0" expanded="true" />
-            <element signature="e#2889#2890#0" expanded="true" />
-            <element signature="e#3100#3101#0" expanded="true" />
-            <element signature="e#3460#3461#0" expanded="true" />
-            <element signature="e#3965#3966#0" expanded="true" />
-            <element signature="e#4008#4009#0" expanded="true" />
-            <element signature="e#4323#4324#0" expanded="true" />
-            <element signature="e#4431#4432#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/enumerators/ApplicantStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/enumerators/PositionType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/applicant/LocalStudent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -880,36 +811,6 @@
           <caret line="75" column="35" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/EmployerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1941#1942#0" expanded="true" />
-            <element signature="e#1998#1999#0" expanded="true" />
-            <element signature="e#2049#2050#0" expanded="true" />
-            <element signature="e#2071#2072#0" expanded="true" />
-            <element signature="e#2207#2208#0" expanded="true" />
-            <element signature="e#2228#2229#0" expanded="true" />
-            <element signature="e#2283#2284#0" expanded="true" />
-            <element signature="e#2300#2301#0" expanded="true" />
-            <element signature="e#2360#2361#0" expanded="true" />
-            <element signature="e#2381#2382#0" expanded="true" />
-            <element signature="e#2433#2434#0" expanded="true" />
-            <element signature="e#2448#2449#0" expanded="true" />
-            <element signature="e#2508#2509#0" expanded="true" />
-            <element signature="e#2535#2536#0" expanded="true" />
-            <element signature="e#2598#2599#0" expanded="true" />
-            <element signature="e#2613#2614#0" expanded="true" />
-            <element signature="e#2685#2686#0" expanded="true" />
-            <element signature="e#2701#2702#0" expanded="true" />
-            <element signature="e#2666#2667#0" expanded="true" />
-            <element signature="e#2715#2716#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -968,24 +869,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/position/Position.java">
+    <entry file="file://$PROJECT_DIR$/src/model/applicant/InternationalStudent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="117" column="9" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="9" />
+        <state relative-caret-position="165">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4214#4215#0" expanded="true" />
-            <element signature="e#4326#4327#0" expanded="true" />
-            <element signature="e#4450#4451#0" expanded="true" />
-            <element signature="e#4560#4561#0" expanded="true" />
-            <element signature="e#4677#4678#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enumerators/PositionType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enumerators/ApplicantStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/applicant/ApplicantRanking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="e#278#279#0" expanded="true" />
+            <element signature="e#304#305#0" expanded="true" />
+            <element signature="e#338#339#0" expanded="true" />
+            <element signature="e#362#363#0" expanded="true" />
+            <element signature="e#491#492#0" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/applicant/SortByRank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+          <folding>
+            <element signature="e#197#198#0" expanded="true" />
+            <element signature="e#215#216#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/EmployerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="111" column="14" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2247#2248#0" expanded="true" />
+            <element signature="e#2300#2301#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/applicant/Applicant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
+        <state relative-caret-position="750">
           <caret line="56" column="2" selection-start-line="56" selection-start-column="2" selection-end-line="56" selection-end-column="2" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1008,12 +956,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/applicant/InternationalStudent.java">
+    <entry file="file://$PROJECT_DIR$/src/model/employer/Employer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+        <state relative-caret-position="320">
+          <caret line="118" column="3" selection-start-line="118" selection-start-column="3" selection-end-line="118" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1507#1508#0" expanded="true" />
+            <element signature="e#1534#1535#0" expanded="true" />
+            <element signature="e#2013#2014#0" expanded="true" />
+            <element signature="e#2044#2045#0" expanded="true" />
+            <element signature="e#2711#2712#0" expanded="true" />
+            <element signature="e#2796#2797#0" expanded="true" />
+            <element signature="e#3171#3172#0" expanded="true" />
+            <element signature="e#3787#3788#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4650#4651#0" expanded="true" />
+            <element signature="e#4758#4759#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enumerators/InterviewSlotStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/position/InterviewResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/position/InterviewSlot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="2" lean-forward="true" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#865#866#0" expanded="true" />
+            <element signature="e#888#889#0" expanded="true" />
+            <element signature="e#954#955#0" expanded="true" />
+            <element signature="e#983#984#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/position/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="100" column="21" selection-start-line="100" selection-start-column="21" selection-end-line="100" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2656#2657#0" expanded="true" />
+            <element signature="e#2687#2688#0" expanded="true" />
+            <element signature="e#3358#3359#0" expanded="true" />
+            <element signature="e#5639#5640#0" expanded="true" />
+            <element signature="e#5751#5752#0" expanded="true" />
+            <element signature="e#5875#5876#0" expanded="true" />
+            <element signature="e#5985#5986#0" expanded="true" />
+            <element signature="e#6102#6103#0" expanded="true" />
           </folding>
         </state>
       </provider>

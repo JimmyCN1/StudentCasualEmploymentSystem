@@ -12,14 +12,17 @@ import model.position.Position;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Employer implements Entity {
   private static int employerCount = 0;
   private int employerId;
   private String employerName;
   private String password;
-  private List<Position> positions = new ArrayList<>();
+  private Map<String, Position> positions = new HashMap<>();
+  private List<String> complaints = new ArrayList<>();
   private ManagementSystem managementSystem;
   
   public Employer(String employerName, String password, ManagementSystem managementSystem) {
@@ -52,37 +55,47 @@ public class Employer implements Entity {
     return getEmployerName();
   }
   
+  public List<String> getComplaints() {
+    return complaints;
+  }
+  
   public List<Position> getPositions() {
-    return positions;
+    List<Position> positionsArray = new ArrayList<>();
+    for (String p : this.positions.keySet()) {
+      positionsArray.add(this.positions.get(p));
+    }
+    return positionsArray;
   }
   
   public Position getPositionById(int positionId) {
-    Position positionMatch = null;
-    for (Position position : positions) {
-      if (positionId == position.getPositionId()) {
-        positionMatch = position;
+    Position matchingPosition = null;
+    for (String p : this.positions.keySet()) {
+      if (positionId == this.positions.get(p).getPositionId()) {
+        matchingPosition = this.positions.get(p);
       }
     }
-    return positionMatch;
+    return matchingPosition;
   }
   
   public Position getPositionByTitle(String positionTitle) {
-    Position positionMatch = null;
-    for (Position position : positions) {
-      if (positionTitle == position.getPositionTitle()) {
-        positionMatch = position;
-      }
-    }
-    return positionMatch;
+    return positions.get(positionTitle.toLowerCase());
   }
   
   @Override
-  public boolean isPasswordMatch(String password) {
+  public boolean verifyPassword(String password) {
     return this.password.equals(password);
   }
   
+  public void addComplaint(String complaint) {
+    complaints.add(complaint);
+  }
+  
   public void addPosition(String title, PositionType type, double hourlyRate, int minHoursPerWeek, int maxHoursPerWeek) {
-    positions.add(new Position(title, type, hourlyRate, minHoursPerWeek, maxHoursPerWeek, managementSystem));
+    positions.put(title.toLowerCase(), new Position(title, type, hourlyRate, minHoursPerWeek, maxHoursPerWeek, this, managementSystem));
+  }
+  
+  public void addPosition(Position position) {
+    positions.put(position.getHashMapKey(), position);
   }
   
   public List<Applicant> searchForMatchingApplicant(Position position) {
@@ -121,10 +134,14 @@ public class Employer implements Entity {
   
   public void handleUnsuccessfulApplicants(Position position) {
     for (Applicant applicant : position.getAppliedApplicants()) {
-      if (!position.getJobOffered().contains(applicant)) {
+      if (!position.getApplicantsJobOfferedTo().contains(applicant)) {
         position.addApplicantToUnsuccessfulApplicants(applicant);
       }
     }
+  }
+  
+  public void lodgeComplaint(String complaint, Applicant applicant) {
+    applicant.addComplaint(complaint);
   }
   
   @Override

@@ -6,6 +6,7 @@ import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import model.applicant.Applicant;
 import model.driver.ManagementSystem;
+import model.employer.Employer;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,15 +19,18 @@ public class Position {
   private int positionId;
   private String positionTitle;
   private PositionType positionType;
+  private List<String> applicableJobCategories = new ArrayList<>();
   private double positionHourlyRate;
   private int positionMinHoursPerWeek;
   private int positionMaxHoursPerWeek;
   private List<Applicant> appliedApplicants = new ArrayList<>();
+  private List<Applicant> suitableApplicants = new ArrayList<>();
   private List<Applicant> shortlistedApplicants = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
-  private List<Applicant> jobOffered = new ArrayList<>();
+  private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
   private List<InterviewSlot> interviewSlots = new LinkedList<>();
   private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
+  private Employer positionOwner;
   private ManagementSystem managementSystem;
   
   public Position(String positionTitle,
@@ -34,6 +38,7 @@ public class Position {
                   double positionHourlyRate,
                   int positionMinHoursPerWeek,
                   int positionMaxHoursPerWeek,
+                  Employer positionOwner,
                   ManagementSystem managementSystem) {
     positionCount++;
     this.positionId = positionCount;
@@ -42,16 +47,25 @@ public class Position {
     this.positionHourlyRate = positionHourlyRate;
     this.positionMinHoursPerWeek = positionMinHoursPerWeek;
     this.positionMaxHoursPerWeek = positionMaxHoursPerWeek;
+    this.positionOwner = positionOwner;
     this.managementSystem = managementSystem;
   }
   
   // getters
+  public Employer getEmployer() {
+    return positionOwner;
+  }
+  
   public int getPositionId() {
     return positionId;
   }
   
   public String getPositionTitle() {
     return positionTitle;
+  }
+  
+  public String getHashMapKey() {
+    return positionTitle.toLowerCase();
   }
   
   public List<Applicant> getAppliedApplicants() {
@@ -66,8 +80,8 @@ public class Position {
     return highRankingApplicants;
   }
   
-  public List<Applicant> getJobOffered() {
-    return jobOffered;
+  public List<Applicant> getApplicantsJobOfferedTo() {
+    return applicantsJobOfferedTo;
   }
   
   public List<InterviewSlot> getInterviewSlots() {
@@ -88,12 +102,40 @@ public class Position {
     return matchingApplicant;
   }
   
+  public void addApplicableJobCategory(List<String> jobCategories) {
+    for (int i = 0; i < jobCategories.size(); i++) {
+      addApplicableJobCategory(jobCategories.get(i));
+    }
+  }
+  
+  public void addApplicableJobCategory(String jobCategory) {
+    String category = jobCategory.toUpperCase();
+    if (managementSystem.getJobCategories().contains(category)) {
+      applicableJobCategories.add(category);
+    }
+  }
+  
+  //TODO:
+  public void addApplicantToSuitableApplicants(Applicant applicant) {
+    boolean isSuitableApplicant = false;
+    if (applicant.getAvailability().equals(positionType)) {
+      for (String p : applicant.getJobPreferences()) {
+        if (applicableJobCategories.contains(p.toUpperCase())) {
+          isSuitableApplicant = true;
+        }
+      }
+    }
+    if (isSuitableApplicant) {
+      suitableApplicants.add(applicant);
+    }
+  }
+  
   public void addApplicantToAppliedApplicants(Applicant applicant) {
     appliedApplicants.add(applicant);
   }
   
   public void addApplicantToJobOffered(Applicant applicant) {
-    jobOffered.add(applicant);
+    applicantsJobOfferedTo.add(applicant);
   }
   
   public void addApplicantToUnsuccessfulApplicants(Applicant applicant) {

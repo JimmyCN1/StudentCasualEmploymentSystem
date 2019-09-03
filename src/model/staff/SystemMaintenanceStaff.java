@@ -51,7 +51,7 @@ public class SystemMaintenanceStaff extends Person implements Entity {
   }
   
   @Override
-  public boolean isPasswordMatch(String password) {
+  public boolean verifyPassword(String password) {
     return this.password.equals(password);
   }
 }

@@ -5,17 +5,16 @@ import model.driver.utilities.Security;
 import model.employer.Employer;
 import model.staff.SystemMaintenanceStaff;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ManagementSystem {
   private Map<String, Employer> employers = new HashMap<>();
   private Map<String, Applicant> applicants = new HashMap<>();
   private Map<String, SystemMaintenanceStaff> systemMaintenanceStaff = new HashMap<>();
   private Map<String, Applicant> blacklistedApplicants = new HashMap<>();
-  private List<String> jobCategories = new ArrayList<>();
+  private List<String> jobCategories = new ArrayList<>(
+          Arrays.asList("ENGINEERING", "TECHNOLOGY", "HOSPITALITY", "TRADE", "LOGISTICS", "RETAIL", "FINANCE")
+  );
   private Security security;
   
   public ManagementSystem() {
@@ -24,24 +23,24 @@ public class ManagementSystem {
   
   public List<Employer> getEmployers() {
     List<Employer> employers = new ArrayList<>();
-    for (Employer e : employers) {
-      employers.add(e);
+    for (String e : this.employers.keySet()) {
+      employers.add(this.employers.get(e));
     }
     return employers;
   }
   
   public List<Applicant> getApplicants() {
     List<Applicant> applicants = new ArrayList<>();
-    for (Applicant a : applicants) {
-      applicants.add(a);
+    for (String a : this.applicants.keySet()) {
+      applicants.add(this.applicants.get(a));
     }
     return applicants;
   }
   
   public List<SystemMaintenanceStaff> getSystemMaintenanceStaff() {
     List<SystemMaintenanceStaff> systemMaintenanceStaff = new ArrayList<>();
-    for (SystemMaintenanceStaff s : systemMaintenanceStaff) {
-      systemMaintenanceStaff.add(s);
+    for (String s : this.systemMaintenanceStaff.keySet()) {
+      systemMaintenanceStaff.add(this.systemMaintenanceStaff.get(s));
     }
     return systemMaintenanceStaff;
   }
@@ -94,6 +93,6 @@ public class ManagementSystem {
   }
   
   public void addJobCategory(String jobCategory) {
-    jobCategories.add(jobCategory);
+    jobCategories.add(jobCategory.toUpperCase());
   }
 }

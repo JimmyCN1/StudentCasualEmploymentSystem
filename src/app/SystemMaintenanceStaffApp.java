@@ -48,7 +48,7 @@ public class SystemMaintenanceStaffApp extends App {
     if (systemMaintenanceStaff == null) {
       throw new EntityDoesNotExistException();
     } else {
-      if (!systemMaintenanceStaff.isPasswordMatch(password)) {
+      if (!systemMaintenanceStaff.verifyPassword(password)) {
         throw new PasswordMissmatchException();
       } else {
         setCurrentUser(systemMaintenanceStaff);

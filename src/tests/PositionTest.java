@@ -6,6 +6,7 @@ import exceptions.TakenInterviewSlotException;
 import model.applicant.Applicant;
 import model.applicant.InternationalStudent;
 import model.applicant.LocalStudent;
+import model.employer.Employer;
 import model.position.Position;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import static org.junit.Assert.fail;
 
 public class PositionTest {
   ManagementSystem managementSystem;
+  Employer employer1;
   Position position;
   Applicant applicant1;
   Applicant applicant2;
@@ -26,27 +28,33 @@ public class PositionTest {
   @Before
   public void setUp() {
     managementSystem = new ManagementSystem();
+    employer1 = new Employer("employer1", "abc", managementSystem);
     position = new Position("developer",
             PositionType.FULL_TIME,
             33.5,
             40,
-            60, managementSystem
+            60,
+            employer1,
+            managementSystem
     );
     applicant1 = new LocalStudent("john",
             "smith",
             "password",
+            PositionType.INTERNSHIP,
             managementSystem
     );
     applicant2 = new InternationalStudent(
             "Jack",
             "Nyguen",
             "aaa",
+            PositionType.PART_TIME,
             managementSystem
     );
     applicant3 = new InternationalStudent(
             "John",
             "Jeffreis",
             "abc",
+            PositionType.PART_TIME,
             managementSystem
     );
     position.addApplicantToAppliedApplicants(applicant1);
@@ -57,14 +65,14 @@ public class PositionTest {
   @Test
   public void setApplicantToPending() {
     position.getApplicantById(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
-    assertEquals(ApplicantStatus.PENDING, applicant1.getApplicantStatus());
+    assertEquals(ApplicantStatus.PENDING, applicant1.getStatus());
   }
   
   @Test
   public void setApplicantPendingWhenAlreadyPending() {
     position.getApplicantById(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
     position.getApplicantById(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
-    assertEquals(ApplicantStatus.PENDING, applicant1.getApplicantStatus());
+    assertEquals(ApplicantStatus.PENDING, applicant1.getStatus());
   }
   
   @Test

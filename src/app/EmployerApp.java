@@ -56,7 +56,7 @@ public class EmployerApp extends App {
     if (employer == null) {
       throw new EntityDoesNotExistException();
     } else {
-      if (!employer.isPasswordMatch(password)) {
+      if (!employer.verifyPassword(password)) {
         throw new PasswordMissmatchException();
       } else {
         setCurrentUser(employer);

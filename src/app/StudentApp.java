@@ -1,5 +1,6 @@
 package app;
 
+import enumerators.PositionType;
 import model.driver.ManagementSystem;
 import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
@@ -59,6 +60,7 @@ public class StudentApp extends App {
     managementSystem.registerApplicant(new LocalStudent(studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
+            PositionType.FULL_TIME,
             managementSystem));
     setCurrentUser(managementSystem.getApplicantByName(
             studentDetails.get(FIRST_NAME).toLowerCase() +
@@ -71,6 +73,7 @@ public class StudentApp extends App {
     managementSystem.registerApplicant(new InternationalStudent(studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
+            PositionType.PART_TIME,
             managementSystem));
     setCurrentUser(managementSystem.getApplicantByName(
             studentDetails.get(FIRST_NAME).toLowerCase() +
@@ -83,7 +86,7 @@ public class StudentApp extends App {
     if (applicant == null) {
       throw new EntityDoesNotExistException();
     } else {
-      if (!applicant.isPasswordMatch(password)) {
+      if (!applicant.verifyPassword(password)) {
         throw new PasswordMissmatchException();
       } else {
         setCurrentUser(applicant);

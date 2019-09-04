@@ -1,8 +1,8 @@
 package app;
 
 import enumerators.PositionType;
+import exceptions.EntityNotFoundException;
 import model.system.ManagementSystem;
-import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
 import model.applicant.Applicant;
 import model.applicant.InternationalStudent;
@@ -16,7 +16,7 @@ public class StudentApp extends App {
   private Applicant currentUser;
   
   public StudentApp(String firstName, String lastName, String password, ManagementSystem managementSystem)
-          throws EntityDoesNotExistException, PasswordMissmatchException {
+          throws EntityNotFoundException, PasswordMissmatchException {
     super(managementSystem);
     verifyUser(firstName, lastName, password);
   }
@@ -55,6 +55,7 @@ public class StudentApp extends App {
     }
   }
   
+  // TODO: make localStudent availability a variable
   public void createLocalStudent() {
     Map<String, String> studentDetails = getNewUserDetails();
     managementSystem.registerApplicant(new LocalStudent(studentDetails.get(FIRST_NAME),
@@ -80,10 +81,10 @@ public class StudentApp extends App {
     ));
   }
   
-  private void verifyUser(String firstName, String lastName, String password) throws EntityDoesNotExistException, PasswordMissmatchException {
+  private void verifyUser(String firstName, String lastName, String password) throws EntityNotFoundException, PasswordMissmatchException {
     Applicant applicant = managementSystem.getApplicantByName(firstName.toLowerCase() + lastName.toLowerCase());
     if (applicant == null) {
-      throw new EntityDoesNotExistException();
+      throw new EntityNotFoundException();
     } else {
       if (!applicant.verifyPassword(password)) {
         throw new PasswordMissmatchException();

@@ -1,9 +1,9 @@
 package app;
 
+import exceptions.EntityNotFoundException;
 import model.system.ManagementSystem;
 import interfaces.Entity;
 import model.employer.Employer;
-import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class EmployerApp extends App {
   private Employer currentUser;
   
   public EmployerApp(String employerName, String password, ManagementSystem managementSystem)
-          throws EntityDoesNotExistException, PasswordMissmatchException {
+          throws EntityNotFoundException, PasswordMissmatchException {
     super(managementSystem);
     verifyUser(employerName, password);
   }
@@ -51,10 +51,11 @@ public class EmployerApp extends App {
     return userDetails;
   }
   
-  private void verifyUser(String employerName, String password) throws EntityDoesNotExistException, PasswordMissmatchException {
+  private void verifyUser(String employerName, String password)
+          throws EntityNotFoundException, PasswordMissmatchException {
     Employer employer = managementSystem.getEmployerByName(employerName);
     if (employer == null) {
-      throw new EntityDoesNotExistException();
+      throw new EntityNotFoundException();
     } else {
       if (!employer.verifyPassword(password)) {
         throw new PasswordMissmatchException();

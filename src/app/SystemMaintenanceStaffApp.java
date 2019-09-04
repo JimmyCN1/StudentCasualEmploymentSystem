@@ -1,7 +1,7 @@
 package app;
 
+import exceptions.EntityNotFoundException;
 import model.system.ManagementSystem;
-import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
 import model.staff.SystemMaintenanceStaff;
 
@@ -11,7 +11,7 @@ public class SystemMaintenanceStaffApp extends App {
   private SystemMaintenanceStaff currentUser;
   
   public SystemMaintenanceStaffApp(String firstName, String lastName, String password, ManagementSystem managementSystem)
-          throws EntityDoesNotExistException, PasswordMissmatchException {
+          throws EntityNotFoundException, PasswordMissmatchException {
     super(managementSystem);
     verifyUser(firstName, lastName, password);
   }
@@ -43,10 +43,11 @@ public class SystemMaintenanceStaffApp extends App {
     ));
   }
   
-  private void verifyUser(String firstName, String lastName, String password) throws EntityDoesNotExistException, PasswordMissmatchException {
+  private void verifyUser(String firstName, String lastName, String password)
+          throws EntityNotFoundException, PasswordMissmatchException {
     SystemMaintenanceStaff systemMaintenanceStaff = managementSystem.getSystemMaintenanceByName(firstName.toLowerCase() + lastName.toLowerCase());
     if (systemMaintenanceStaff == null) {
-      throw new EntityDoesNotExistException();
+      throw new EntityNotFoundException();
     } else {
       if (!systemMaintenanceStaff.verifyPassword(password)) {
         throw new PasswordMissmatchException();

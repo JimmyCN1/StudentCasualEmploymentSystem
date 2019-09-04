@@ -3,7 +3,7 @@ package model.applicant;
 import enumerators.ApplicantStatus;
 import enumerators.PositionType;
 import exceptions.InvalidJobCategoryException;
-import exceptions.JobCategoryDoesNotExistException;
+import exceptions.JobCategoryNotFoundException;
 import model.system.ManagementSystem;
 import interfaces.Entity;
 import model.employer.Employer;
@@ -84,15 +84,14 @@ public abstract class Applicant extends Person implements Entity {
   }
   
   public boolean removeJobPreference(String jobPreference)
-          throws JobCategoryDoesNotExistException {
+          throws JobCategoryNotFoundException {
     String jobPref = jobPreference.toUpperCase();
     boolean wasPreferenceRemoved = false;
     if (jobPreferences.contains(jobPref)) {
       jobPreferences.remove(jobPref);
     } else {
-      throw new JobCategoryDoesNotExistException();
+      throw new JobCategoryNotFoundException();
     }
-    
     return wasPreferenceRemoved;
   }
   

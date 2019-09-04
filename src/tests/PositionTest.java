@@ -1,10 +1,10 @@
 import enumerators.ApplicantStatus;
 import enumerators.PositionType;
-import exceptions.EntityDoesNotExistException;
+import exceptions.EntityNotFoundException;
+import exceptions.InterviewSlotClashException;
 import exceptions.InvalidJobCategoryException;
 import model.system.ManagementSystem;
-import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
-import exceptions.TakenInterviewSlotException;
+import exceptions.ApplicantAlreadyBookedException;
 import model.applicant.Applicant;
 import model.applicant.InternationalStudent;
 import model.applicant.LocalStudent;
@@ -172,9 +172,9 @@ public class PositionTest {
       position.addInterview(interviewSlot1.getDate(), interviewSlot1.getTime(), applicant1);
       position.addInterview(interviewSlot2.getDate(), interviewSlot2.getTime(), applicant2);
       position.addInterview(interviewSlot3.getDate(), interviewSlot3.getTime(), applicant3);
-    } catch (TakenInterviewSlotException e) {
+    } catch (InterviewSlotClashException e) {
       e.printStackTrace();
-    } catch (ScheduleMultipleInterviewsWithSameApplicantException e) {
+    } catch (ApplicantAlreadyBookedException e) {
       e.printStackTrace();
     }
   }
@@ -184,7 +184,7 @@ public class PositionTest {
     try {
       position.addInterview(interviewSlot4.getDate(), interviewSlot4.getTime());
       position.addInterview(interviewSlot5.getDate(), interviewSlot5.getTime());
-    } catch (TakenInterviewSlotException e) {
+    } catch (InterviewSlotClashException e) {
       e.printStackTrace();
     }
     List<InterviewSlot> freeSlots = position.getFreeInterviewSlots();
@@ -209,7 +209,7 @@ public class PositionTest {
     Applicant a = null;
     try {
       a = position.getApplicant(applicant1, position.getAppliedApplicants());
-    } catch (EntityDoesNotExistException e) {
+    } catch (EntityNotFoundException e) {
       e.printStackTrace();
     }
     assertEquals("john smith", a.getName());
@@ -221,8 +221,8 @@ public class PositionTest {
     Applicant a = null;
     try {
       a = position.getApplicant(newApplicant, position.getAppliedApplicants());
-      fail("EntityDoesNotExistException not caught");
-    } catch (EntityDoesNotExistException e) {
+      fail("EntityNotFoundException not caught");
+    } catch (EntityNotFoundException e) {
       e.printStackTrace();
     }
   }
@@ -298,7 +298,7 @@ public class PositionTest {
   public void setApplicantToPending() {
     try {
       position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
-    } catch (EntityDoesNotExistException e) {
+    } catch (EntityNotFoundException e) {
       e.printStackTrace();
     }
     assertEquals(ApplicantStatus.PENDING, applicant1.getStatus());
@@ -309,7 +309,7 @@ public class PositionTest {
     try {
       position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
       position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
-    } catch (EntityDoesNotExistException e) {
+    } catch (EntityNotFoundException e) {
       e.printStackTrace();
     }
     assertEquals(ApplicantStatus.PENDING, applicant1.getStatus());
@@ -320,7 +320,7 @@ public class PositionTest {
     try {
       position.addInterview(LocalDate.of(2019, 10, 10),
               LocalTime.of(12, 0, 0));
-    } catch (TakenInterviewSlotException e) {
+    } catch (InterviewSlotClashException e) {
       e.printStackTrace();
     }
     assertEquals(LocalDate.of(2019, 10, 10),
@@ -335,7 +335,7 @@ public class PositionTest {
               LocalTime.of(12, 0, 0));
       position.addInterview(LocalDate.of(2019, 10, 11),
               LocalTime.of(12, 0, 0));
-    } catch (TakenInterviewSlotException e) {
+    } catch (InterviewSlotClashException e) {
       e.printStackTrace();
     }
     assertEquals(LocalDate.of(2019, 10, 11),
@@ -350,7 +350,7 @@ public class PositionTest {
               LocalTime.of(12, 0, 0));
       position.addInterview(LocalDate.of(2019, 10, 9),
               LocalTime.of(12, 0, 0));
-    } catch (TakenInterviewSlotException e) {
+    } catch (InterviewSlotClashException e) {
       e.printStackTrace();
     }
     assertEquals(LocalDate.of(2019, 10, 9),
@@ -367,7 +367,7 @@ public class PositionTest {
               LocalTime.of(12, 0, 0));
       position.addInterview(LocalDate.of(2019, 10, 11),
               LocalTime.of(12, 0, 0));
-    } catch (TakenInterviewSlotException e) {
+    } catch (InterviewSlotClashException e) {
       e.printStackTrace();
     }
     assertEquals(LocalDate.of(2019, 10, 11),
@@ -382,8 +382,8 @@ public class PositionTest {
               LocalTime.of(12, 0, 0));
       position.addInterview(LocalDate.of(2019, 10, 10),
               LocalTime.of(12, 0, 0));
-      fail("TakenInterviewSlotException not caught");
-    } catch (TakenInterviewSlotException e) {
+      fail("InterviewSlotClashException not caught");
+    } catch (InterviewSlotClashException e) {
       e.printStackTrace();
     }
   }
@@ -403,10 +403,10 @@ public class PositionTest {
       position.addInterview(LocalDate.of(2019, 10, 10),
               LocalTime.of(12, 0, 0),
               applicant4);
-      fail("ScheduleMultipleInterviewsWithSameApplicantException not caught");
-    } catch (TakenInterviewSlotException e) {
+      fail("ApplicantAlreadyBookedException not caught");
+    } catch (InterviewSlotClashException e) {
       e.printStackTrace();
-    } catch (ScheduleMultipleInterviewsWithSameApplicantException e) {
+    } catch (ApplicantAlreadyBookedException e) {
       e.printStackTrace();
     }
   }

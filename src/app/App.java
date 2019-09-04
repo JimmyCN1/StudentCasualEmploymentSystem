@@ -1,7 +1,7 @@
 package app;
 
 import model.system.ManagementSystem;
-import exceptions.EntityDoesNotExistException;
+import exceptions.EntityNotFoundException;
 import exceptions.PasswordMissmatchException;
 
 import java.util.*;
@@ -96,7 +96,7 @@ public class App {
     userDetails.put(PASSWORD, password);
     try {
       employerApp = new EmployerApp(userDetails.get(EMPLOYER_NAME), userDetails.get(PASSWORD), managementSystem);
-    } catch (EntityDoesNotExistException e) {
+    } catch (EntityNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {
       e.printStackTrace();
@@ -107,7 +107,7 @@ public class App {
     Map<String, String> userDetails = getNewPersonDetails();
     try {
       studentApp = new StudentApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
-    } catch (EntityDoesNotExistException e) {
+    } catch (EntityNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {
       e.printStackTrace();
@@ -118,7 +118,7 @@ public class App {
     Map<String, String> userDetails = getNewPersonDetails();
     try {
       systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
-    } catch (EntityDoesNotExistException e) {
+    } catch (EntityNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {
       e.printStackTrace();

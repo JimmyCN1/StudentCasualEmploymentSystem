@@ -109,7 +109,7 @@ public class Position {
   }
   
   public Applicant getApplicant(Applicant applicant, List<Applicant> applicants)
-          throws EntityDoesNotExistException {
+          throws EntityNotFoundException {
     Applicant matchingApplicant = null;
     for (Applicant a : applicants) {
       if (a.getId() == (applicant.getId())) {
@@ -117,13 +117,13 @@ public class Position {
       }
     }
     if (matchingApplicant == null) {
-      throw new EntityDoesNotExistException();
+      throw new EntityNotFoundException();
     }
     return matchingApplicant;
   }
   
   public InterviewSlot getInterviewSlot(LocalDate date, LocalTime time)
-          throws InterviewSlotDoesNotExistException {
+          throws InterviewSlotNotFoundException {
     InterviewSlot slot = null;
     for (InterviewSlot i : interviewSlots) {
       if (date.equals(i.getDate()) && time.equals(i.getTime())) {
@@ -131,7 +131,7 @@ public class Position {
       }
     }
     if (slot == null) {
-      throw new InterviewSlotDoesNotExistException();
+      throw new InterviewSlotNotFoundException();
     }
     return slot;
   }
@@ -234,9 +234,9 @@ public class Position {
   
   // insert an interview chronologically into the interview slots list before applicant has been assigned to slot
   public void addInterview(LocalDate date, LocalTime time)
-          throws TakenInterviewSlotException {
+          throws InterviewSlotClashException {
     if (!slotIsFree(date, time)) {
-      throw new TakenInterviewSlotException();
+      throw new InterviewSlotClashException();
     } else {
       int size = interviewSlots.size();
       InterviewSlot interviewSlot = new InterviewSlot(date, time);
@@ -265,11 +265,11 @@ public class Position {
   
   // insert an interview chronologically into the interview slots list after applicant has been assigned to slot
   public void addInterview(LocalDate date, LocalTime time, Applicant applicant)
-          throws TakenInterviewSlotException, ScheduleMultipleInterviewsWithSameApplicantException {
+          throws InterviewSlotClashException, ApplicantAlreadyBookedException {
     if (!slotIsFree(date, time)) {
-      throw new TakenInterviewSlotException();
+      throw new InterviewSlotClashException();
     } else if (applicantHasBeenScheduled(applicant)) {
-      throw new ScheduleMultipleInterviewsWithSameApplicantException();
+      throw new ApplicantAlreadyBookedException();
     } else {
       int size = interviewSlots.size();
       InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);

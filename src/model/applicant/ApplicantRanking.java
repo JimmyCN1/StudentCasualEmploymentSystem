@@ -1,5 +1,6 @@
 package model.applicant;
 
+// utility class to aid in the ranking of applicants
 public class ApplicantRanking {
   private Applicant applicant;
   private int ranking;

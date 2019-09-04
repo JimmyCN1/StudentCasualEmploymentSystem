@@ -2,9 +2,9 @@ package model.employer;
 
 import enumerators.ApplicantStatus;
 import enumerators.PositionType;
-import exceptions.InterviewSlotDoesNotExistException;
-import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
-import exceptions.TakenInterviewSlotException;
+import exceptions.InterviewSlotNotFoundException;
+import exceptions.PositionNotFoundException;
+import exceptions.InterviewSlotClashException;
 import interfaces.Entity;
 import model.applicant.Applicant;
 import model.position.InterviewSlot;
@@ -63,6 +63,7 @@ public class Employer implements Entity {
     return complaints;
   }
   
+  // returns an array of all the positions that the employer has posted
   public List<Position> getPositions() {
     List<Position> positionsArray = new ArrayList<>();
     for (String p : this.positions.keySet()) {
@@ -71,18 +72,30 @@ public class Employer implements Entity {
     return positionsArray;
   }
   
-  public Position getPositionById(int positionId) {
+  // if the positionId exists, returns the matching position, else throws an exception
+  public Position getPositionById(int positionId)
+          throws PositionNotFoundException {
     Position matchingPosition = null;
     for (String p : this.positions.keySet()) {
       if (positionId == this.positions.get(p).getPositionId()) {
         matchingPosition = this.positions.get(p);
       }
     }
+    if (matchingPosition == null) {
+      throw new PositionNotFoundException();
+    }
     return matchingPosition;
   }
   
-  public Position getPositionByTitle(String positionTitle) {
-    return positions.get(positionTitle.toLowerCase());
+  // if the positionTitle exists, returns the matching position, else throws an exception
+  public Position getPositionByTitle(String positionTitle)
+          throws PositionNotFoundException {
+    Position p = null;
+    p = positions.get(positionTitle.toLowerCase());
+    if (p == null) {
+      throw new PositionNotFoundException();
+    }
+    return p;
   }
   
   @Override
@@ -94,14 +107,17 @@ public class Employer implements Entity {
     complaints.add(complaint);
   }
   
+  // creates and adds a new position to the positions map
   public void addPosition(String title, PositionType type, double hourlyRate, int minHoursPerWeek, int maxHoursPerWeek) {
     positions.put(title.toLowerCase(), new Position(title, type, hourlyRate, minHoursPerWeek, maxHoursPerWeek, this, managementSystem));
   }
   
+  // adds a new position to the positions map
   public void addPosition(Position position) {
     positions.put(position.getHashMapKey(), position);
   }
   
+  // filters and ranks the applicants that applied to the passed position
   public void rankApplicants(Position position) {
     position.filterApplicants();
   }
@@ -114,7 +130,7 @@ public class Employer implements Entity {
   }
   
   public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)
-          throws TakenInterviewSlotException, InterviewSlotDoesNotExistException {
+          throws InterviewSlotClashException, InterviewSlotNotFoundException {
     InterviewSlot interviewSlot = new InterviewSlot(date, time);
     position.addInterview(date, time);
     position.bookInterviewForApplicant(applicant,

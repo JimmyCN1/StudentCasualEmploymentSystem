@@ -1,7 +1,7 @@
 package app;
 
 import enumerators.PositionType;
-import model.driver.ManagementSystem;
+import model.system.ManagementSystem;
 import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
 import model.applicant.Applicant;
@@ -73,7 +73,6 @@ public class StudentApp extends App {
     managementSystem.registerApplicant(new InternationalStudent(studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
-            PositionType.PART_TIME,
             managementSystem));
     setCurrentUser(managementSystem.getApplicantByName(
             studentDetails.get(FIRST_NAME).toLowerCase() +

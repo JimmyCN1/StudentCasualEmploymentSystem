@@ -2,7 +2,7 @@ import enumerators.PositionType;
 import model.applicant.Applicant;
 import model.applicant.InternationalStudent;
 import model.applicant.LocalStudent;
-import model.driver.ManagementSystem;
+import model.system.ManagementSystem;
 import model.employer.Employer;
 import model.position.Position;
 import org.junit.Before;
@@ -54,14 +54,12 @@ public class EmployerTest {
             "Jack",
             "Nyguen",
             "aaa",
-            PositionType.PART_TIME,
             managementSystem
     );
     applicant3 = new InternationalStudent(
             "John",
             "Jeffreis",
             "abc",
-            PositionType.PART_TIME,
             managementSystem
     );
     position1.addApplicantToAppliedApplicants(applicant1);

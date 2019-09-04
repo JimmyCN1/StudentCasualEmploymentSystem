@@ -1,6 +1,6 @@
 package app;
 
-import model.driver.ManagementSystem;
+import model.system.ManagementSystem;
 import exceptions.EntityDoesNotExistException;
 import exceptions.PasswordMissmatchException;
 import model.staff.SystemMaintenanceStaff;

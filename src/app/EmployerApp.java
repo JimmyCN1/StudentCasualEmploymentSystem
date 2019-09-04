@@ -1,6 +1,6 @@
 package app;
 
-import model.driver.ManagementSystem;
+import model.system.ManagementSystem;
 import interfaces.Entity;
 import model.employer.Employer;
 import exceptions.EntityDoesNotExistException;

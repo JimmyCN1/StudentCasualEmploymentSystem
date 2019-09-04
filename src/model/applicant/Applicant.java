@@ -2,7 +2,9 @@ package model.applicant;
 
 import enumerators.ApplicantStatus;
 import enumerators.PositionType;
-import model.driver.ManagementSystem;
+import exceptions.InvalidJobCategoryException;
+import exceptions.JobCategoryDoesNotExistException;
+import model.system.ManagementSystem;
 import interfaces.Entity;
 import model.employer.Employer;
 import users.Person;
@@ -71,21 +73,26 @@ public abstract class Applicant extends Person implements Entity {
     this.availability = availability;
   }
   
-  public boolean addJobPreference(String jobPreference) {
-    boolean wasPreferenceAdded = false;
-    if (managementSystem.getJobCategories().contains(jobPreference)) {
-      jobPreferences.add(jobPreference);
-      wasPreferenceAdded = true;
+  public void addJobPreference(String jobPreference)
+          throws InvalidJobCategoryException {
+    String jobPref = jobPreference.toUpperCase();
+    if (managementSystem.getJobCategories().contains(jobPref)) {
+      jobPreferences.add(jobPref);
+    } else {
+      throw new InvalidJobCategoryException();
     }
-    return wasPreferenceAdded;
   }
   
-  public boolean removeJobPreference(String jobPreference) {
+  public boolean removeJobPreference(String jobPreference)
+          throws JobCategoryDoesNotExistException {
+    String jobPref = jobPreference.toUpperCase();
     boolean wasPreferenceRemoved = false;
-    if (jobPreferences.contains(jobPreference)) {
-      jobPreferences.remove(jobPreference);
-      wasPreferenceRemoved = true;
+    if (jobPreferences.contains(jobPref)) {
+      jobPreferences.remove(jobPref);
+    } else {
+      throw new JobCategoryDoesNotExistException();
     }
+    
     return wasPreferenceRemoved;
   }
   

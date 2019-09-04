@@ -19,9 +19,17 @@ public class InterviewSlot {
     this.date = date;
     this.time = time;
     duration = INTERVIEW_DURATION;
-    status = InterviewSlotStatus.FREE;
+    status = InterviewSlotStatus.BOOKED;
     this.applicant = applicant;
   }
+  
+  public InterviewSlot(LocalDate date, LocalTime time) {
+    this.date = date;
+    this.time = time;
+    duration = INTERVIEW_DURATION;
+    status = InterviewSlotStatus.FREE;
+  }
+  
   
   public LocalDate getDate() {
     return date;
@@ -43,7 +51,12 @@ public class InterviewSlot {
     return applicant;
   }
   
-  public void setInterviewSlotStatus(InterviewSlotStatus status) {
+  public void bookApplicant(Applicant applicant) {
+    this.applicant = applicant;
+    setStatus(InterviewSlotStatus.BOOKED);
+  }
+  
+  private void setStatus(InterviewSlotStatus status) {
     this.status = status;
   }
   

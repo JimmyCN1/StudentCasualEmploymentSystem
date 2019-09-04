@@ -6,7 +6,7 @@ import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import interfaces.Entity;
 import model.applicant.Applicant;
-import model.driver.ManagementSystem;
+import model.system.ManagementSystem;
 import model.position.Position;
 
 import java.time.LocalDate;
@@ -83,18 +83,6 @@ public class Employer implements Entity {
     return positions.get(positionTitle.toLowerCase());
   }
   
-  // determine suitable applicants from the applied applicants
-  // rank each candidate
-  // sort candidates and determine top five candidates
-  public void filterApplicants(Position position) {
-    for (Applicant a : position.getAppliedApplicants()) {
-      position.addApplicantToSuitableApplicants(a);
-    }
-    position.setCandidateRankings();
-    position.setHighRankingApplicants();
-    
-  }
-  
   @Override
   public boolean verifyPassword(String password) {
     return this.password.equals(password);
@@ -159,6 +147,7 @@ public class Employer implements Entity {
   }
   
   private boolean equals(Employer employer) {
-    return employer.employerName == this.employerName;
+    return employer.getId() == this.getId() &&
+            employer.getName() == this.getName();
   }
 }

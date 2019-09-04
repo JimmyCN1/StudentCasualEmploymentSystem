@@ -3,7 +3,7 @@ package model.staff;
 import enumerators.ApplicantStatus;
 import interfaces.Entity;
 import model.applicant.Applicant;
-import model.driver.ManagementSystem;
+import model.system.ManagementSystem;
 import model.employer.Employer;
 import users.Person;
 

@@ -3,12 +3,14 @@ package model.position;
 import enumerators.ApplicantStatus;
 import enumerators.InterviewSlotStatus;
 import enumerators.PositionType;
+import exceptions.EntityDoesNotExistException;
+import exceptions.InvalidJobCategoryException;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import model.applicant.Applicant;
 import model.applicant.ApplicantRanking;
 import model.applicant.SortByRank;
-import model.driver.ManagementSystem;
+import model.system.ManagementSystem;
 import model.employer.Employer;
 
 import java.time.LocalDate;
@@ -17,7 +19,7 @@ import java.util.*;
 
 public class Position {
   private static int positionCount = 0;
-  private final int TOP_FIVE = 5;
+  private final int TOP_APPLICANTS_CUTOFF = 5;
   private int positionId;
   private String positionTitle;
   private PositionType positionType;
@@ -71,6 +73,10 @@ public class Position {
     return positionTitle.toLowerCase();
   }
   
+  public List<String> getApplicableJobCategories() {
+    return applicableJobCategories;
+  }
+  
   public List<Applicant> getAppliedApplicants() {
     return appliedApplicants;
   }
@@ -105,49 +111,71 @@ public class Position {
     return unsuccessfulApplicants;
   }
   
-  public Applicant getApplicantById(Applicant applicant, List<Applicant> applicants) {
+  public Applicant getApplicant(Applicant applicant, List<Applicant> applicants)
+          throws EntityDoesNotExistException {
     Applicant matchingApplicant = null;
     for (Applicant a : applicants) {
       if (a.getId() == (applicant.getId())) {
         matchingApplicant = a;
       }
     }
+    if (matchingApplicant == null) {
+      throw new EntityDoesNotExistException();
+    }
     return matchingApplicant;
   }
   
-  public void addApplicableJobCategory(List<String> jobCategories) {
+  public void addApplicableJobCategory(List<String> jobCategories)
+          throws InvalidJobCategoryException {
     for (int i = 0; i < jobCategories.size(); i++) {
       addApplicableJobCategory(jobCategories.get(i));
     }
   }
   
-  public void addApplicableJobCategory(String jobCategory) {
+  public void addApplicableJobCategory(String jobCategory)
+          throws InvalidJobCategoryException {
     String category = jobCategory.toUpperCase();
     if (managementSystem.getJobCategories().contains(category)) {
       applicableJobCategories.add(category);
+    } else {
+      throw new InvalidJobCategoryException();
     }
+  }
+  
+  // determine suitable applicants from the applied applicants
+  // rank each candidate
+  // sort candidates and determine top five candidates
+  public void filterApplicants() {
+    for (Applicant a : getAppliedApplicants()) {
+      addApplicantToSuitableApplicants(a);
+    }
+    setCandidateRankings();
+    setHighRankingApplicants();
   }
   
   // if applicant availability is a match and they have at least one jobPreference match
   // add them to the list of suitable candidates
-  public void addApplicantToSuitableApplicants(Applicant applicant) {
-    boolean isSuitableApplicant = false;
-    if (applicant.getAvailability().equals(positionType)) {
-      for (String p : applicant.getJobPreferences()) {
-        if (applicableJobCategories.contains(p)) {
-          isSuitableApplicant = true;
+  private void addApplicantToSuitableApplicants(Applicant applicant) {
+    if (!suitableApplicants.contains(applicant)) {
+      boolean isSuitableApplicant = false;
+      if (applicant.getAvailability().equals(positionType)) {
+        for (String p : applicant.getJobPreferences()) {
+          if (applicableJobCategories.contains(p)) {
+            isSuitableApplicant = true;
+          }
         }
       }
-    }
-    if (isSuitableApplicant) {
-      suitableApplicants.add(applicant);
+      if (isSuitableApplicant) {
+        suitableApplicants.add(applicant);
+      }
     }
   }
   
   // ranks candidates according to how many job pref matches they get
   // requires suitable applicants to be determined already and sort
   // by who gets the highest points/rank
-  public void setCandidateRankings() {
+  private void setCandidateRankings() {
+    List<ApplicantRanking> applicants = new ArrayList<>();
     int rankCount;
     for (Applicant a : suitableApplicants) {
       rankCount = 0;
@@ -156,19 +184,21 @@ public class Position {
           rankCount++;
         }
       }
-      rankedApplicants.add(new ApplicantRanking(a, rankCount));
+      applicants.add(new ApplicantRanking(a, rankCount));
     }
-    Collections.sort(rankedApplicants, new SortByRank());
+    Collections.sort(applicants, new SortByRank());
+    rankedApplicants = applicants;
   }
   
   // set the top five applicants
-  public void setHighRankingApplicants() {
+  private void setHighRankingApplicants() {
     List<Applicant> applicants = new ArrayList<>();
-    for (int i = 0; i < TOP_FIVE; i++) {
+    for (int i = 0; i < TOP_APPLICANTS_CUTOFF; i++) {
       if (i < rankedApplicants.size()) {
         applicants.add(rankedApplicants.get(i).getApplicant());
       }
     }
+    highRankingApplicants = applicants;
   }
   
   public void addApplicantToAppliedApplicants(Applicant applicant) {
@@ -191,7 +221,38 @@ public class Position {
     applicant.setStatus(ApplicantStatus.PENDING);
   }
   
-  // insert an interview chronologically into the interview slots list
+  // insert an interview chronologically into the interview slots list before applicant has been assigned to slot
+  public void addInterview(LocalDate date, LocalTime time)
+          throws TakenInterviewSlotException {
+    if (!slotIsFree(date, time)) {
+      throw new TakenInterviewSlotException();
+    } else {
+      int size = interviewSlots.size();
+      InterviewSlot interviewSlot = new InterviewSlot(date, time);
+      if (size == 0) {
+        interviewSlots.add(interviewSlot);
+      } else {
+        boolean wasAdded = false;
+        for (int i = 0; i < size; i++) {
+          if (!wasAdded) {
+            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+              interviewSlots.add(i, interviewSlot);
+              wasAdded = true;
+            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+              interviewSlots.add(i, interviewSlot);
+              wasAdded = true;
+            }
+          }
+        }
+        if (!wasAdded) {
+          interviewSlots.add(interviewSlot);
+        }
+      }
+    }
+  }
+  
+  // insert an interview chronologically into the interview slots list after applicant has been assigned to slot
   public void addInterview(LocalDate date, LocalTime time, Applicant applicant)
           throws TakenInterviewSlotException, ScheduleMultipleInterviewsWithSameApplicantException {
     if (!slotIsFree(date, time)) {
@@ -206,13 +267,15 @@ public class Position {
       } else {
         boolean wasAdded = false;
         for (int i = 0; i < size; i++) {
-          if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
-            interviewSlots.add(i, interviewSlot);
-            wasAdded = true;
-          } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
-                  interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-            interviewSlots.add(i, interviewSlot);
-            wasAdded = true;
+          if (!wasAdded) {
+            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+              interviewSlots.add(i, interviewSlot);
+              wasAdded = true;
+            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+              interviewSlots.add(i, interviewSlot);
+              wasAdded = true;
+            }
           }
         }
         if (!wasAdded) {
@@ -222,7 +285,7 @@ public class Position {
     }
   }
   
-  public boolean slotIsFree(LocalDate date, LocalTime time) {
+  private boolean slotIsFree(LocalDate date, LocalTime time) {
     boolean isSlotFree = true;
     for (InterviewSlot i : interviewSlots) {
       if (date.equals(i.getDate()) && time.equals(i.getTime())) {
@@ -232,7 +295,7 @@ public class Position {
     return isSlotFree;
   }
   
-  public boolean applicantHasBeenScheduled(Applicant applicant) {
+  private boolean applicantHasBeenScheduled(Applicant applicant) {
     boolean hasNotBeenScheduled = false;
     for (InterviewSlot i : interviewSlots) {
       if (applicant.equals(i.getApplicant())) {

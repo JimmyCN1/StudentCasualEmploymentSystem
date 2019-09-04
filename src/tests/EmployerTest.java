@@ -86,11 +86,6 @@ public class EmployerTest {
   }
   
   @Test
-  public void rankApplicantsTests() {
-    assertTrue(false);
-  }
-  
-  @Test
   public void updateApplicantTests() {
     assertTrue(false);
   }

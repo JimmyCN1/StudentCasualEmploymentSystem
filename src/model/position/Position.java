@@ -3,10 +3,7 @@ package model.position;
 import enumerators.ApplicantStatus;
 import enumerators.InterviewSlotStatus;
 import enumerators.PositionType;
-import exceptions.EntityDoesNotExistException;
-import exceptions.InvalidJobCategoryException;
-import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
-import exceptions.TakenInterviewSlotException;
+import exceptions.*;
 import model.applicant.Applicant;
 import model.applicant.ApplicantRanking;
 import model.applicant.SortByRank;
@@ -123,6 +120,20 @@ public class Position {
       throw new EntityDoesNotExistException();
     }
     return matchingApplicant;
+  }
+  
+  public InterviewSlot getInterviewSlot(LocalDate date, LocalTime time)
+          throws InterviewSlotDoesNotExistException {
+    InterviewSlot slot = null;
+    for (InterviewSlot i : interviewSlots) {
+      if (date.equals(i.getDate()) && time.equals(i.getTime())) {
+        slot = i;
+      }
+    }
+    if (slot == null) {
+      throw new InterviewSlotDoesNotExistException();
+    }
+    return slot;
   }
   
   public void addApplicableJobCategory(List<String> jobCategories)
@@ -283,6 +294,10 @@ public class Position {
         }
       }
     }
+  }
+  
+  public void bookInterviewForApplicant(Applicant applicant, InterviewSlot interviewSlot) {
+    interviewSlot.bookApplicant(applicant);
   }
   
   private boolean slotIsFree(LocalDate date, LocalTime time) {

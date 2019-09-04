@@ -2,10 +2,12 @@ package model.employer;
 
 import enumerators.ApplicantStatus;
 import enumerators.PositionType;
+import exceptions.InterviewSlotDoesNotExistException;
 import exceptions.ScheduleMultipleInterviewsWithSameApplicantException;
 import exceptions.TakenInterviewSlotException;
 import interfaces.Entity;
 import model.applicant.Applicant;
+import model.position.InterviewSlot;
 import model.system.ManagementSystem;
 import model.position.Position;
 
@@ -99,18 +101,26 @@ public class Employer implements Entity {
   public void addPosition(Position position) {
     positions.put(position.getHashMapKey(), position);
   }
-
-//  public List<Applicant> searchForMatchingApplicant(Position position) {
-//    return new ArrayList<Applicant>();
-//  }
+  
+  public void rankApplicants(Position position) {
+    position.filterApplicants();
+  }
   
   public void shortlistApplicant(Applicant applicant, Position position) {
     position.addApplicantToShortlist(applicant);
+    applicant.fetchNotification(
+            String.format("You have been shortlisted for %s!", position.getPositionTitle())
+    );
   }
   
   public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)
-          throws TakenInterviewSlotException, ScheduleMultipleInterviewsWithSameApplicantException {
-    position.addInterview(date, time, applicant);
+          throws TakenInterviewSlotException, InterviewSlotDoesNotExistException {
+    InterviewSlot interviewSlot = new InterviewSlot(date, time);
+    position.addInterview(date, time);
+    position.bookInterviewForApplicant(applicant,
+            position.getInterviewSlot(interviewSlot.getDate(), interviewSlot.getTime()));
+    interviewSlot.bookApplicant(applicant);
+    
   }
   
   // TODO:

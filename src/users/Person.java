@@ -6,7 +6,6 @@ public abstract class Person implements Entity {
   private String firstName;
   private String lastName;
   
-  
   public String getFirstName() {
     return firstName;
   }

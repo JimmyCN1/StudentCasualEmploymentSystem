@@ -27,7 +27,7 @@ public class Position {
   private List<Applicant> appliedApplicants = new ArrayList<>();
   private List<Applicant> suitableApplicants = new ArrayList<>();
   private List<ApplicantRanking> rankedApplicants = new ArrayList<>();
-  private List<Applicant> shortlistedApplicants = new ArrayList<>();
+  private List<Applicant> shortlistedByEmployer = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
   private List<InterviewSlot> interviewSlots = new LinkedList<>();
@@ -79,7 +79,7 @@ public class Position {
   }
   
   public List<Applicant> getShortListedApplicants() {
-    return shortlistedApplicants;
+    return shortlistedByEmployer;
   }
   
   public List<Applicant> getHighRankingApplicants() {
@@ -94,6 +94,7 @@ public class Position {
     return interviewSlots;
   }
   
+  // returns the open interview slots
   public List<InterviewSlot> getFreeInterviewSlots() {
     List<InterviewSlot> freeSlots = new ArrayList<>();
     for (InterviewSlot i : interviewSlots) {
@@ -108,6 +109,7 @@ public class Position {
     return unsuccessfulApplicants;
   }
   
+  // returns the matching applicant from the passed applicant list
   public Applicant getApplicant(Applicant applicant, List<Applicant> applicants)
           throws EntityNotFoundException {
     Applicant matchingApplicant = null;
@@ -122,6 +124,7 @@ public class Position {
     return matchingApplicant;
   }
   
+  // returns the interview slot with the matching date and time
   public InterviewSlot getInterviewSlot(LocalDate date, LocalTime time)
           throws InterviewSlotNotFoundException {
     InterviewSlot slot = null;
@@ -136,6 +139,7 @@ public class Position {
     return slot;
   }
   
+  // adds all the valid job categories to the list of applicable job categories
   public void addApplicableJobCategory(List<String> jobCategories)
           throws InvalidJobCategoryException {
     for (int i = 0; i < jobCategories.size(); i++) {
@@ -143,10 +147,12 @@ public class Position {
     }
   }
   
+  // add the passed job category to the list of applicable job categories
   public void addApplicableJobCategory(String jobCategory)
           throws InvalidJobCategoryException {
     String category = jobCategory.toUpperCase();
-    if (managementSystem.getJobCategories().contains(category)) {
+    if (managementSystem.getJobCategories().contains(category) &&
+            !getAppliedApplicants().contains(jobCategory)) {
       applicableJobCategories.add(category);
     } else {
       throw new InvalidJobCategoryException();
@@ -212,24 +218,37 @@ public class Position {
     highRankingApplicants = applicants;
   }
   
+  // adds the passed applicant to the applied applicant list
+  // should be invoked when the applicant applied to the position
   public void addApplicantToAppliedApplicants(Applicant applicant) {
-    appliedApplicants.add(applicant);
+    if (!appliedApplicants.contains(applicant)) {
+      appliedApplicants.add(applicant);
+    }
   }
   
+  // adds the passed applicant to the job offered list
+  // should be invoked when the employer offers an applicant a job
   public void addApplicantToJobOffered(Applicant applicant) {
-    applicantsJobOfferedTo.add(applicant);
+    if (!applicantsJobOfferedTo.contains(applicant) &&
+            !applicant.getStatus().equals(ApplicantStatus.PENDING)) {
+      applicantsJobOfferedTo.add(applicant);
+    }
   }
   
+  // adds the passed applicant to the unsuccessful applicants list
+  // should be invoked after all the job offers have been made
   public void addApplicantToUnsuccessfulApplicants(Applicant applicant) {
-    unsuccessfulApplicants.add(applicant);
+    if (!unsuccessfulApplicants.contains(applicant)) {
+      unsuccessfulApplicants.add(applicant);
+    }
   }
   
+  // adds the passed applicant to the shortlist
+  // should be invoked when the employer wishes to shortlist a particular applicant
   public void addApplicantToShortlist(Applicant applicant) {
-    shortlistedApplicants.add(applicant);
-  }
-  
-  private void setApplicantToPending(Applicant applicant) {
-    applicant.setStatus(ApplicantStatus.PENDING);
+    if (!shortlistedByEmployer.contains(applicant)) {
+      shortlistedByEmployer.add(applicant);
+    }
   }
   
   // insert an interview chronologically into the interview slots list before applicant has been assigned to slot
@@ -296,6 +315,7 @@ public class Position {
     }
   }
   
+  // assigns the passed applicant to the passed interview slot
   public void bookInterviewForApplicant(Applicant applicant, InterviewSlot interviewSlot) {
     interviewSlot.bookApplicant(applicant);
   }

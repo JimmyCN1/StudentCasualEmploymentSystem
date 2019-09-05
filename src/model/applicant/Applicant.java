@@ -4,6 +4,7 @@ import enumerators.ApplicantStatus;
 import enumerators.PositionType;
 import exceptions.InvalidJobCategoryException;
 import exceptions.JobCategoryNotFoundException;
+import model.position.Position;
 import model.system.ManagementSystem;
 import interfaces.Entity;
 import model.employer.Employer;
@@ -19,6 +20,7 @@ public abstract class Applicant extends Person implements Entity {
   private String cv;
   private ApplicantStatus status;
   private PositionType availability;
+  private Position jobOffer = null;
   private List<String> jobPreferences = new ArrayList<>();
   private List<String> complaints = new ArrayList<>();
   private ManagementSystem managementSystem;
@@ -87,10 +89,13 @@ public abstract class Applicant extends Person implements Entity {
           throws JobCategoryNotFoundException {
     String jobPref = jobPreference.toUpperCase();
     boolean wasPreferenceRemoved = false;
-    if (jobPreferences.contains(jobPref)) {
-      jobPreferences.remove(jobPref);
-    } else {
+    if (!managementSystem.getJobCategories().contains(jobPref)) {
       throw new JobCategoryNotFoundException();
+    } else {
+      if (jobPreferences.contains(jobPref)) {
+        jobPreferences.remove(jobPref);
+        wasPreferenceRemoved = true;
+      }
     }
     return wasPreferenceRemoved;
   }
@@ -112,6 +117,8 @@ public abstract class Applicant extends Person implements Entity {
   public boolean verifyPassword(String password) {
     return this.password.equals(password);
   }
+  
+  // TODO: accept and reject job offers
   
   @Override
   public boolean equals(Object object) {

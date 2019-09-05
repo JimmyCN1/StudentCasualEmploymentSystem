@@ -139,22 +139,32 @@ public class Employer implements Entity {
     
   }
   
-  // TODO:
+  // TODO: to implement the update applicant method with respect to the passed position
   public void updateApplicant(Applicant applicant, Position position) {
     return;
   }
   
+  // the passed applicants will receive a string notification of the string passed
   public void notifyApplicants(String notification, List<Applicant> applicants) {
     for (Applicant applicant : applicants) {
       applicant.fetchNotification(notification);
     }
   }
   
+  // the passed applicant will receive a string notification of the string passed
+  public void notifyApplicant(String notification, Applicant applicant) {
+    applicant.fetchNotification(notification);
+  }
+  
+  // position list of applicants job offered to will be updated with the passed applicant
+  // and the applicants status is set to pending
   public void offerJob(Applicant applicant, Position position) {
     position.addApplicantToJobOffered(applicant);
     applicant.setStatus(ApplicantStatus.PENDING);
   }
   
+  // when called, all the unsuccessful applicants will be added to added to the
+  // passed positions unsuccessful applicants list
   public void handleUnsuccessfulApplicants(Position position) {
     for (Applicant applicant : position.getAppliedApplicants()) {
       if (!position.getApplicantsJobOfferedTo().contains(applicant)) {
@@ -163,6 +173,7 @@ public class Employer implements Entity {
     }
   }
   
+  // complaint will be lodged against the passed applicant
   public void lodgeComplaint(String complaint, Applicant applicant) {
     applicant.addComplaint(complaint);
   }

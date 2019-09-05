@@ -33,6 +33,9 @@ public abstract class Applicant extends Person implements Entity
     private List<String> jobPreferences = new ArrayList<>();
     private List<String> complaints = new ArrayList<>();
 
+    // List of all notifications the applicant receives from all employers
+    private List<String> notifications = new ArrayList<>();
+
     private ManagementSystem managementSystem;
 
     public Applicant(String firstName, String lastName, String password, PositionType availability,
@@ -114,10 +117,29 @@ public abstract class Applicant extends Person implements Entity
         complaints.add(complaint);
     }
 
-    public String fetchNotification(String notification) {
-        return String.format("You have one notification...\n%s",
-                notification);
+    // Adds a notification to the notification list of the applicant
+    public void addNotification(String notification)
+    {
+        notifications.add(notification);
     }
+
+    // Returns all the notifications sent to the applicant
+    public List<String> fetchAllNotifications()
+    {
+        return notifications;
+    }
+
+    // Returns the notification located at the index passed through
+    public String fetchNotification(int index)
+    {
+        return notifications.get(index);
+    }
+
+//    If we were to implement this then would need to be indexed based on list
+//    public String fetchNotification(String notification) {
+//        return String.format("You have one notification...\n%s",
+//                notification);
+//    }
 
     public void lodgeComplaint(String complaint, Employer employer) {
         employer.addComplaint(complaint);

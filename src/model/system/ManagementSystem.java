@@ -1,5 +1,6 @@
 package model.system;
 
+import interfaces.User;
 import model.applicant.Applicant;
 import model.system.utilities.Security;
 import model.employer.Employer;
@@ -8,6 +9,7 @@ import model.staff.SystemMaintenanceStaff;
 import java.util.*;
 
 public class ManagementSystem {
+  private Map<String, User> users = new HashMap<>();
   private Map<String, Employer> employers = new HashMap<>();
   private Map<String, Applicant> applicants = new HashMap<>();
   private Map<String, SystemMaintenanceStaff> systemMaintenanceStaff = new HashMap<>();
@@ -58,6 +60,9 @@ public class ManagementSystem {
     return security;
   }
   
+  public User getUserByName(String keyName) {
+    return users.get(keyName);
+  }
   
   public Employer getEmployerByName(String keyName) {
     return employers.get(keyName);
@@ -72,15 +77,21 @@ public class ManagementSystem {
   }
   
   public void registerApplicant(Applicant applicant) {
+    users.put(applicant.getHashMapKey(),
+            applicant);
     applicants.put(applicant.getHashMapKey(),
             applicant);
   }
   
   public void registerEmployer(Employer employer) {
+    users.put(employer.getHashMapKey(), employer);
     employers.put(employer.getHashMapKey(), employer);
   }
   
   public void registerSystemMaintenanceStaff(SystemMaintenanceStaff systemMaintenanceStaff) {
+    users.put(
+            systemMaintenanceStaff.getHashMapKey(),
+            systemMaintenanceStaff);
     this.systemMaintenanceStaff.put(
             systemMaintenanceStaff.getHashMapKey(),
             systemMaintenanceStaff);

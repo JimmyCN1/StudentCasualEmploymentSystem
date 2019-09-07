@@ -57,11 +57,12 @@ public class StudentApp extends App {
   
   // TODO: make localStudent availability a variable
   public void createLocalStudent() {
-    Map<String, String> studentDetails = getNewUserDetails();
+    Map<String, String> studentDetails = getPersonalDetails();
+    PositionType positionType = getStudentAvailability();
     managementSystem.registerApplicant(new LocalStudent(studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
-            PositionType.FULL_TIME,
+            positionType,
             managementSystem));
     setCurrentUser(managementSystem.getApplicantByName(
             studentDetails.get(FIRST_NAME).toLowerCase() +
@@ -69,8 +70,8 @@ public class StudentApp extends App {
     ));
   }
   
-  public void createInternationalStudent() {
-    Map<String, String> studentDetails = getNewUserDetails();
+  private void createInternationalStudent() {
+    Map<String, String> studentDetails = getPersonalDetails();
     managementSystem.registerApplicant(new InternationalStudent(studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
@@ -79,6 +80,31 @@ public class StudentApp extends App {
             studentDetails.get(FIRST_NAME).toLowerCase() +
                     studentDetails.get(LAST_NAME).toLowerCase()
     ));
+  }
+  
+  // returns the selected availability
+  private PositionType getStudentAvailability() {
+    PositionType type = null;
+    while (!isValidResponse) {
+      System.out.println("What is your availability?");
+      System.out.printf("1. Part-Time\n2. Full-Time\n3. Internship\n\n");
+      switch (scanner.nextInt()) {
+        case (1):
+          isValidResponse = true;
+          type = PositionType.PART_TIME;
+          break;
+        case (2):
+          isValidResponse = true;
+          type = PositionType.FULL_TIME;
+          break;
+        case (3):
+          isValidResponse = true;
+          type = PositionType.INTERNSHIP;
+          break;
+      }
+    }
+    isValidResponse = false;
+    return type;
   }
   
   private void verifyUser(String firstName, String lastName, String password) throws EntityNotFoundException, PasswordMissmatchException {

@@ -2,11 +2,10 @@ package app;
 
 import exceptions.EntityNotFoundException;
 import model.system.ManagementSystem;
-import interfaces.Entity;
+import interfaces.User;
 import model.employer.Employer;
 import exceptions.PasswordMissmatchException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class EmployerApp extends App {
@@ -23,7 +22,7 @@ public class EmployerApp extends App {
     super(managementSystem);
   }
   
-  public Entity getCurrentUser() {
+  public User getCurrentUser() {
     return currentUser;
   }
   
@@ -32,23 +31,11 @@ public class EmployerApp extends App {
   }
   
   public void createEmployer() {
-    Map<String, String> employerDetails = getNewUserDetails();
+    Map<String, String> employerDetails = getEmployerDetails();
     managementSystem.registerEmployer(new Employer(employerDetails.get(EMPLOYER_NAME),
             employerDetails.get(PASSWORD),
             managementSystem));
     setCurrentUser(managementSystem.getEmployerByName(employerDetails.get(EMPLOYER_NAME).toLowerCase()));
-  }
-  
-  @Override
-  public Map<String, String> getNewUserDetails() {
-    Map<String, String> userDetails = new HashMap<>();
-    System.out.println("What is your company name?");
-    String employerName = scanner.nextLine();
-    userDetails.put(EMPLOYER_NAME, employerName);
-    System.out.println("What is your password?");
-    String password = scanner.nextLine();
-    userDetails.put(PASSWORD, password);
-    return userDetails;
   }
   
   private void verifyUser(String employerName, String password)

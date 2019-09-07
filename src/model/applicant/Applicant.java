@@ -6,7 +6,7 @@ import exceptions.InvalidJobCategoryException;
 import exceptions.JobCategoryNotFoundException;
 import model.position.Position;
 import model.system.ManagementSystem;
-import interfaces.Entity;
+import interfaces.User;
 import model.employer.Employer;
 import users.Person;
 
@@ -17,7 +17,7 @@ import model.applicant.utilities.Reference;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Applicant extends Person implements Entity {
+public abstract class Applicant extends Person implements User {
   private static int applicantCount = 0;
   private int applicantId;
   private String password;

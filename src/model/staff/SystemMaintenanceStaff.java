@@ -1,13 +1,13 @@
 package model.staff;
 
 import enumerators.ApplicantStatus;
-import interfaces.Entity;
+import interfaces.User;
 import model.applicant.Applicant;
 import model.system.ManagementSystem;
 import model.employer.Employer;
 import users.Person;
 
-public class SystemMaintenanceStaff extends Person implements Entity {
+public class SystemMaintenanceStaff extends Person implements User {
   private static int systemMaintenanceStaffCount = 0;
   private int id;
   private String password;

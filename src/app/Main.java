@@ -12,11 +12,6 @@ public class Main {
   private static final int LOGIN = 4;
   private static final int QUIT = 0;
   
-  private static final int EMPLOYER_NAME = 0;
-  private static final int FIRST_NAME = 0;
-  private static final int LAST_NAME = 1;
-  private static final int PASSWORD = 2;
-  
   public static void main(String[] args) {
     ManagementSystem managementSystem = new ManagementSystem();
     App app = new App(managementSystem);
@@ -33,6 +28,8 @@ public class Main {
       
       int response = scanner.nextInt();
       
+      // determine which kind of app to instantiate or to login as a
+      // previous user to a particular app
       switch (response) {
         case (EMPLOYER):
           app.instantiateNewEmployerApp();

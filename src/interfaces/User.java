@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface Entity {
+public interface User {
   int getId();
   
   String getHashMapKey();

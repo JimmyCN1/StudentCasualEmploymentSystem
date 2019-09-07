@@ -30,7 +30,7 @@ public class SystemMaintenanceStaffApp extends App {
   }
   
   public void createSystemMaintenanceStaff() {
-    Map<String, String> systemMaintenanceStaffDetails = getNewUserDetails();
+    Map<String, String> systemMaintenanceStaffDetails = getPersonalDetails();
     managementSystem.registerSystemMaintenanceStaff(
             new SystemMaintenanceStaff(
                     systemMaintenanceStaffDetails.get(FIRST_NAME),

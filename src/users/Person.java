@@ -1,8 +1,8 @@
 package users;
 
-import interfaces.Entity;
+import interfaces.User;
 
-public abstract class Person implements Entity {
+public abstract class Person implements User {
   private String firstName;
   private String lastName;
   

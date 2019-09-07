@@ -14,6 +14,7 @@ public class App {
   final String FIRST_NAME = "firstName";
   final String LAST_NAME = "lastName";
   final String PASSWORD = "password";
+  public boolean isValidResponse = false;
   private EmployerApp employerApp;
   private StudentApp studentApp;
   private SystemMaintenanceStaffApp systemMaintenanceStaffApp;
@@ -46,54 +47,34 @@ public class App {
             systemMaintenanceStaffApp.getCurrentUser().getName());
   }
   
-  public Map<String, String> getNewUserDetails() {
-    Map<String, String> userDetails = new HashMap<>();
-    System.out.println("What is your first name?");
-    String firstName = scanner.nextLine();
-    userDetails.put(FIRST_NAME, firstName);
-    System.out.println("What is your last name?");
-    String lastName = scanner.nextLine();
-    userDetails.put(LAST_NAME, lastName);
-    System.out.println("What is your password?");
-    String password = scanner.nextLine();
-    userDetails.put(PASSWORD, password);
-    return userDetails;
-  }
-  
+  // login as an employer, applicant or system staff
   public void loginAs() {
-    boolean validResponse = false;
-    while (!validResponse) {
+    while (!isValidResponse) {
       System.out.println("Login as a:");
-      System.out.println("1. Employer\n2. Student\n3. System MaintenanceStaff");
+      System.out.println("1. Employer\n2. Student\n3. System Maintenance Staff");
       int response = scanner.nextInt();
       switch (response) {
         case (EMPLOYER):
-          validResponse = true;
+          isValidResponse = true;
           loginAsEmployer();
           break;
         case (STUDENT):
-          validResponse = true;
+          isValidResponse = true;
           loginAsStudent();
           break;
         case (SYSTEM_MAINTENANCE_STAFF):
-          validResponse = true;
+          isValidResponse = true;
           loginAsSystemMaintenanceStaff();
           break;
         default:
           break;
       }
     }
+    isValidResponse = false;
   }
   
   private void loginAsEmployer() {
-    scanner.nextLine();
-    Map<String, String> userDetails = new HashMap<>();
-    System.out.println("What is your company name?");
-    String employerName = scanner.nextLine();
-    userDetails.put(EMPLOYER_NAME, employerName);
-    System.out.println("What is your password?");
-    String password = scanner.nextLine();
-    userDetails.put(PASSWORD, password);
+    Map<String, String> userDetails = getEmployerDetails();
     try {
       employerApp = new EmployerApp(userDetails.get(EMPLOYER_NAME), userDetails.get(PASSWORD), managementSystem);
     } catch (EntityNotFoundException e) {
@@ -104,7 +85,7 @@ public class App {
   }
   
   private void loginAsStudent() {
-    Map<String, String> userDetails = getNewPersonDetails();
+    Map<String, String> userDetails = getPersonalDetails();
     try {
       studentApp = new StudentApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
     } catch (EntityNotFoundException e) {
@@ -115,7 +96,7 @@ public class App {
   }
   
   private void loginAsSystemMaintenanceStaff() {
-    Map<String, String> userDetails = getNewPersonDetails();
+    Map<String, String> userDetails = getPersonalDetails();
     try {
       systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
     } catch (EntityNotFoundException e) {
@@ -125,8 +106,20 @@ public class App {
     }
   }
   
-  private Map<String, String> getNewPersonDetails() {
-    scanner.nextLine();
+  // returns the employer's name and password as a map
+  public Map<String, String> getEmployerDetails() {
+    Map<String, String> userDetails = new HashMap<>();
+    System.out.println("What is your company name?");
+    String employerName = scanner.nextLine();
+    userDetails.put(EMPLOYER_NAME, employerName);
+    System.out.println("What is your password?");
+    String password = scanner.nextLine();
+    userDetails.put(PASSWORD, password);
+    return userDetails;
+  }
+  
+  // returns the person's first and last name and password as a map
+  public Map<String, String> getPersonalDetails() {
     Map<String, String> userDetails = new HashMap<>();
     System.out.println("What is your first name?");
     String firstName = scanner.nextLine();
@@ -139,5 +132,4 @@ public class App {
     userDetails.put(PASSWORD, password);
     return userDetails;
   }
-  
 }

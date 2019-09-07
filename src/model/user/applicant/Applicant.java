@@ -25,7 +25,7 @@ public abstract class Applicant extends Person implements UserInterface {
   private String cv; // The name of the text file
   private UserStatus status;
   private LocalDate lastStudentUpdate;
-  private List<PositionType> availabilities;
+  private List<PositionType> availabilities = new ArrayList<>();
   private Position jobOffer = null;
   private Position employer = null;
   

@@ -53,25 +53,33 @@ public class App {
   // login as an employer, applicant or system staff
   public void loginAs() {
     while (!isValidResponse) {
-      System.out.println("Login as a:");
-      System.out.println("1. Employer\n2. Student\n3. System Maintenance Staff");
-      int response = scanner.nextInt();
-      switch (response) {
-        case (EMPLOYER):
-          isValidResponse = true;
-          loginAsEmployer();
-          break;
-        case (STUDENT):
-          isValidResponse = true;
-          loginAsStudent();
-          break;
-        case (SYSTEM_MAINTENANCE_STAFF):
-          isValidResponse = true;
-          loginAsSystemMaintenanceStaff();
-          break;
-        default:
-          break;
+      try {
+        System.out.println("Login as a:");
+        System.out.println("1. Employer\n2. Student\n3. System Maintenance Staff");
+        int response = scanner.nextInt();
+        scanner.nextLine();
+        switch (response) {
+          case (EMPLOYER):
+            isValidResponse = true;
+            loginAsEmployer();
+            break;
+          case (STUDENT):
+            isValidResponse = true;
+            loginAsStudent();
+            break;
+          case (SYSTEM_MAINTENANCE_STAFF):
+            isValidResponse = true;
+            loginAsSystemMaintenanceStaff();
+            break;
+          default:
+            break;
+        }
+      } catch (InputMismatchException e) {
+        scanner.nextLine();
+        System.out.println("Please try again..\n\n");
+        scanner.next();
       }
+      
     }
     isValidResponse = false;
   }
@@ -79,7 +87,8 @@ public class App {
   private void loginAsEmployer() {
     Map<String, String> userDetails = getEmployerDetails();
     try {
-      employerApp = new EmployerApp(userDetails.get(EMPLOYER_NAME), userDetails.get(PASSWORD), managementSystem);
+      employerApp = new EmployerApp(userDetails.get(EMPLOYER_NAME),
+              userDetails.get(PASSWORD), managementSystem);
     } catch (UserNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {
@@ -90,7 +99,9 @@ public class App {
   private void loginAsStudent() {
     Map<String, String> userDetails = getPersonalDetails();
     try {
-      studentApp = new StudentApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
+      studentApp = new StudentApp(userDetails.get(FIRST_NAME),
+              userDetails.get(LAST_NAME),
+              userDetails.get(PASSWORD), managementSystem);
     } catch (UserNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {
@@ -101,7 +112,9 @@ public class App {
   private void loginAsSystemMaintenanceStaff() {
     Map<String, String> userDetails = getPersonalDetails();
     try {
-      systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
+      systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(FIRST_NAME),
+              userDetails.get(LAST_NAME),
+              userDetails.get(PASSWORD), managementSystem);
     } catch (UserNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {

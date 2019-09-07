@@ -5,6 +5,7 @@ import enumerators.PositionType;
 import exceptions.InterviewSlotNotFoundException;
 import exceptions.PositionNotFoundException;
 import exceptions.InterviewSlotClashException;
+import exceptions.UserBlacklistedException;
 import interfaces.UserInterface;
 import model.user.applicant.Applicant;
 import model.position.InterviewSlot;
@@ -107,6 +108,15 @@ public class Employer extends User implements UserInterface {
     return p;
   }
   
+  public List<PositionType> getApplicantAvailability(Applicant applicant)
+          throws UserBlacklistedException {
+    if (status.equals(UserStatus.BLACKLISTED)) {
+      throw new UserBlacklistedException();
+    } else {
+      return applicant.getAvailabilities();
+    }
+  }
+  
   public void setStatus(UserStatus status) {
     this.status = UserStatus.BLACKLISTED;
   }
@@ -167,9 +177,13 @@ public class Employer extends User implements UserInterface {
   
   // position list of applicants job offered to will be updated with the passed applicant
   // and the applicants status is set to pending
-  public void offerJob(Applicant applicant, Position position) {
-    position.addApplicantToJobOffered(applicant);
-    applicant.setStatus(UserStatus.PENDING);
+  public void offerJob(Applicant applicant, Position position) throws UserBlacklistedException {
+    if (status.equals(UserStatus.BLACKLISTED)) {
+      throw new UserBlacklistedException();
+    } else {
+      position.addApplicantToJobOffered(applicant);
+      applicant.setStatus(UserStatus.PENDING);
+    }
   }
   
   // when called, all the unsuccessful applicants will be added to added to the

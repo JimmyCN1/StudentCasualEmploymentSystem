@@ -6,13 +6,16 @@ import model.system.ManagementSystem;
 import model.user.employer.Employer;
 import exceptions.PasswordMissmatchException;
 
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public class EmployerApp extends App implements AppInterface {
   private final String EMPLOYER_NAME = "employerName";
   private Employer currentUser;
   
-  public EmployerApp(String employerName, String password, ManagementSystem managementSystem)
+  public EmployerApp(String employerName,
+                     String password,
+                     ManagementSystem managementSystem)
           throws UserNotFoundException, PasswordMissmatchException {
     super(managementSystem);
     verifyUser(employerName, password);
@@ -22,6 +25,7 @@ public class EmployerApp extends App implements AppInterface {
     super(managementSystem);
   }
   
+  // set the current user logged in
   public Employer getCurrentUser() {
     return currentUser;
   }
@@ -52,7 +56,6 @@ public class EmployerApp extends App implements AppInterface {
       }
     }
   }
-  
   
   @Override
   public void displayMainMenu() {

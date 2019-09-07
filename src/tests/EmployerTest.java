@@ -2,6 +2,7 @@ import enumerators.UserStatus;
 import enumerators.PositionType;
 import exceptions.InvalidJobCategoryException;
 import exceptions.PositionNotFoundException;
+import exceptions.UserBlacklistedException;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
@@ -253,6 +254,8 @@ public class EmployerTest {
       employer1.offerJob(applicants.get(3), employer1.getPositionByTitle(position1.getPositionTitle()));
       offeredApplicants = employer1.getPositionByTitle(position1.getPositionTitle()).getApplicantsJobOfferedTo();
     } catch (PositionNotFoundException e) {
+      e.printStackTrace();
+    } catch (UserBlacklistedException e) {
       e.printStackTrace();
     }
     

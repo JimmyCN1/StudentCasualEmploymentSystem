@@ -1,4 +1,4 @@
-import enumerators.ApplicantStatus;
+import enumerators.UserStatus;
 import enumerators.PositionType;
 import exceptions.InvalidJobCategoryException;
 import exceptions.PositionNotFoundException;
@@ -256,7 +256,7 @@ public class EmployerTest {
       e.printStackTrace();
     }
     
-    assertEquals(ApplicantStatus.PENDING, applicants.get(0).getStatus());
+    assertEquals(UserStatus.PENDING, applicants.get(0).getStatus());
     assertEquals(applicants.get(0), offeredApplicants.get(0));
     assertEquals(applicants.get(3), offeredApplicants.get(1));
   }

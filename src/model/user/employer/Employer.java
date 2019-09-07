@@ -1,6 +1,6 @@
 package model.user.employer;
 
-import enumerators.ApplicantStatus;
+import enumerators.UserStatus;
 import enumerators.PositionType;
 import exceptions.InterviewSlotNotFoundException;
 import exceptions.PositionNotFoundException;
@@ -24,9 +24,9 @@ public class Employer extends User implements UserInterface {
   private int employerId;
   private String employerName;
   private String password;
+  private UserStatus status = null;
   
   private Map<String, Position> positions = new HashMap<>();
-  private List<String> complaints = new ArrayList<>();
   
   private ManagementSystem managementSystem;
   
@@ -62,8 +62,9 @@ public class Employer extends User implements UserInterface {
     return password;
   }
   
-  public List<String> getComplaints() {
-    return complaints;
+  @Override
+  public UserStatus getStatus() {
+    return status;
   }
   
   // returns an array of all the positions that the employer has posted
@@ -106,13 +107,13 @@ public class Employer extends User implements UserInterface {
     return p;
   }
   
+  public void setStatus(UserStatus status) {
+    this.status = UserStatus.BLACKLISTED;
+  }
+  
   @Override
   public boolean verifyPassword(String password) {
     return this.password.equals(password);
-  }
-  
-  public void addComplaint(String complaint) {
-    complaints.add(complaint);
   }
   
   // creates and adds a new position to the positions map
@@ -168,7 +169,7 @@ public class Employer extends User implements UserInterface {
   // and the applicants status is set to pending
   public void offerJob(Applicant applicant, Position position) {
     position.addApplicantToJobOffered(applicant);
-    applicant.setStatus(ApplicantStatus.PENDING);
+    applicant.setStatus(UserStatus.PENDING);
   }
   
   // when called, all the unsuccessful applicants will be added to added to the

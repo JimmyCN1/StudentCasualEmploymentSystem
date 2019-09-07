@@ -1,6 +1,6 @@
 package model.position;
 
-import enumerators.ApplicantStatus;
+import enumerators.UserStatus;
 import enumerators.InterviewSlotStatus;
 import enumerators.PositionType;
 import exceptions.*;
@@ -231,7 +231,7 @@ public class Position {
   // should be invoked when the employer offers an applicant a job
   public void addApplicantToJobOffered(Applicant applicant) {
     if (!applicantsJobOfferedTo.contains(applicant) &&
-            !applicant.getStatus().equals(ApplicantStatus.PENDING)) {
+            !applicant.getStatus().equals(UserStatus.PENDING)) {
       applicantsJobOfferedTo.add(applicant);
     }
   }
@@ -349,7 +349,7 @@ public class Position {
     } else {
       staff.add(applicant);
       applicantsJobOfferedTo.remove(applicant);
-      applicant.setStatus(ApplicantStatus.EMPLOYED);
+      applicant.setStatus(UserStatus.EMPLOYED);
     }
   }
   
@@ -360,7 +360,7 @@ public class Position {
       throw new ApplicantNotFoundException();
     } else {
       applicantsJobOfferedTo.remove(applicant);
-      applicant.setStatus(ApplicantStatus.AVAILABLE);
+      applicant.setStatus(UserStatus.AVAILABLE);
     }
   }
 }

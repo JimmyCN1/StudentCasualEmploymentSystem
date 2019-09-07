@@ -1,4 +1,4 @@
-import enumerators.ApplicantStatus;
+import enumerators.UserStatus;
 import enumerators.PositionType;
 import exceptions.UserNotFoundException;
 import exceptions.InterviewSlotClashException;
@@ -297,22 +297,22 @@ public class PositionTest {
   @Test
   public void setApplicantToPending() {
     try {
-      position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
+      position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(UserStatus.PENDING);
     } catch (UserNotFoundException e) {
       e.printStackTrace();
     }
-    assertEquals(ApplicantStatus.PENDING, applicant1.getStatus());
+    assertEquals(UserStatus.PENDING, applicant1.getStatus());
   }
   
   @Test
   public void setApplicantPendingWhenAlreadyPending() {
     try {
-      position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
-      position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
+      position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(UserStatus.PENDING);
+      position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(UserStatus.PENDING);
     } catch (UserNotFoundException e) {
       e.printStackTrace();
     }
-    assertEquals(ApplicantStatus.PENDING, applicant1.getStatus());
+    assertEquals(UserStatus.PENDING, applicant1.getStatus());
   }
   
   @Test

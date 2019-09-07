@@ -1,13 +1,12 @@
 package model.user.applicant;
 
-import enumerators.ApplicantStatus;
+import enumerators.UserStatus;
 import enumerators.PositionType;
 import exceptions.*;
 import model.position.Position;
 import model.system.ManagementSystem;
 import interfaces.UserInterface;
 import model.user.applicant.utilities.Job;
-import model.user.employer.Employer;
 import model.user.Person;
 
 // Questionable
@@ -24,7 +23,7 @@ public abstract class Applicant extends Person implements UserInterface {
   private int applicantId;
   private String password;
   private String cv; // The name of the text file
-  private ApplicantStatus status;
+  private UserStatus status;
   private LocalDate lastStudentUpdate;
   private List<PositionType> availabilities;
   private Position jobOffer = null;
@@ -34,7 +33,6 @@ public abstract class Applicant extends Person implements UserInterface {
   private List<Reference> references = new ArrayList<>();
   private List<Position> appliedJobs = new ArrayList<>();
   private List<String> jobPreferences = new ArrayList<>();
-  private List<String> complaints = new ArrayList<>();
   
   // List of all notifications the applicant receives from all employers
   private List<String> notifications = new ArrayList<>();
@@ -48,7 +46,7 @@ public abstract class Applicant extends Person implements UserInterface {
     setFirstName(firstName);
     setLastName(lastName);
     this.password = password;
-    this.status = ApplicantStatus.AVAILABLE;
+    this.status = UserStatus.AVAILABLE;
     lastStudentUpdate = LocalDate.now();
     availabilities.add(availability);
     this.managementSystem = managementSystem;
@@ -64,7 +62,7 @@ public abstract class Applicant extends Person implements UserInterface {
     return password;
   }
   
-  public ApplicantStatus getStatus() {
+  public UserStatus getStatus() {
     return status;
   }
   
@@ -80,11 +78,7 @@ public abstract class Applicant extends Person implements UserInterface {
     return jobPreferences;
   }
   
-  public List<String> getComplaints() {
-    return complaints;
-  }
-  
-  public void setStatus(ApplicantStatus applicantStatus) {
+  public void setStatus(UserStatus applicantStatus) {
     this.status = applicantStatus;
   }
   
@@ -124,10 +118,6 @@ public abstract class Applicant extends Person implements UserInterface {
     return availabilities.remove(availability);
   }
   
-  public void addComplaint(String complaint) {
-    complaints.add(complaint);
-  }
-  
   // Adds a notification to the notification list of the applicant
   public void addNotification(String notification) {
     notifications.add(notification);
@@ -143,10 +133,6 @@ public abstract class Applicant extends Person implements UserInterface {
     return notifications.get(index);
   }
   
-  public void lodgeComplaint(String complaint, Employer employer) {
-    employer.addComplaint(complaint);
-  }
-  
   @Override
   public boolean verifyPassword(String password) {
     return this.password.equals(password);
@@ -159,7 +145,7 @@ public abstract class Applicant extends Person implements UserInterface {
       jobOffer.onBoardApplicant(this);
       employer = jobOffer;
       jobOffer = null;
-      setStatus(ApplicantStatus.EMPLOYED);
+      setStatus(UserStatus.EMPLOYED);
     } else {
       throw new NoJobOfferException();
     }
@@ -171,7 +157,7 @@ public abstract class Applicant extends Person implements UserInterface {
     if (jobOffer != null) {
       jobOffer.revokeOffer(this);
       jobOffer = null;
-      setStatus(ApplicantStatus.AVAILABLE);
+      setStatus(UserStatus.AVAILABLE);
     } else {
       throw new NoJobOfferException();
     }
@@ -180,15 +166,14 @@ public abstract class Applicant extends Person implements UserInterface {
   // if the applicant has been inactive for more than two weeks,
   // set the applicants activity to unknown
   public void handleInactivity() {
-    if (!status.equals(ApplicantStatus.EMPLOYED) || !status.equals(ApplicantStatus.BLACKLISTED)) {
+    if (!status.equals(UserStatus.EMPLOYED) || !status.equals(UserStatus.BLACKLISTED)) {
       if (lastStudentUpdate.compareTo(LocalDate.now()) > TWO_WEEKS) {
-        setStatus(ApplicantStatus.UNKNOWN);
+        setStatus(UserStatus.UNKNOWN);
       }
     }
   }
   
   @Override
-  
   public boolean equals(Object object) {
     return equals((Applicant) object);
   }

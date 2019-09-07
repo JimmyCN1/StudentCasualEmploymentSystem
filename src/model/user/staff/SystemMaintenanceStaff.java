@@ -1,6 +1,6 @@
 package model.user.staff;
 
-import enumerators.ApplicantStatus;
+import enumerators.UserStatus;
 import interfaces.UserInterface;
 import model.user.applicant.Applicant;
 import model.system.ManagementSystem;
@@ -58,11 +58,19 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
   
   public void blackListApplicant(Applicant applicant) {
     managementSystem.addApplicantToBlacklist(applicant);
-    applicant.setStatus(ApplicantStatus.BLACKLISTED);
+    applicant.setStatus(UserStatus.BLACKLISTED);
   }
   
   public void addNewJobCategory(String jobCategory) {
     managementSystem.addJobCategory(jobCategory);
   }
   
+  @Override
+  public UserStatus getStatus() {
+    return null;
+  }
+  
+  @Override
+  public void setStatus(UserStatus status) {
+  }
 }

@@ -1,5 +1,5 @@
 package enumerators;
 
-public enum ApplicantStatus {
+public enum UserStatus {
   AVAILABLE, PENDING, UNKNOWN, EMPLOYED, BLACKLISTED
 }

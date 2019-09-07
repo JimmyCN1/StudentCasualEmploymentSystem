@@ -1,7 +1,7 @@
 package model.position;
 
 import enumerators.InterviewSlotStatus;
-import model.applicant.Applicant;
+import model.user.applicant.Applicant;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

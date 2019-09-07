@@ -1,19 +1,19 @@
 package app;
 
-import exceptions.EntityNotFoundException;
+import exceptions.UserNotFoundException;
+import interfaces.AppInterface;
 import model.system.ManagementSystem;
-import interfaces.User;
-import model.employer.Employer;
+import model.user.employer.Employer;
 import exceptions.PasswordMissmatchException;
 
 import java.util.Map;
 
-public class EmployerApp extends App {
+public class EmployerApp extends App implements AppInterface {
   private final String EMPLOYER_NAME = "employerName";
   private Employer currentUser;
   
   public EmployerApp(String employerName, String password, ManagementSystem managementSystem)
-          throws EntityNotFoundException, PasswordMissmatchException {
+          throws UserNotFoundException, PasswordMissmatchException {
     super(managementSystem);
     verifyUser(employerName, password);
   }
@@ -22,7 +22,7 @@ public class EmployerApp extends App {
     super(managementSystem);
   }
   
-  public User getCurrentUser() {
+  public Employer getCurrentUser() {
     return currentUser;
   }
   
@@ -39,10 +39,10 @@ public class EmployerApp extends App {
   }
   
   private void verifyUser(String employerName, String password)
-          throws EntityNotFoundException, PasswordMissmatchException {
+          throws UserNotFoundException, PasswordMissmatchException {
     Employer employer = managementSystem.getEmployerByName(employerName);
     if (employer == null) {
-      throw new EntityNotFoundException();
+      throw new UserNotFoundException();
     } else {
       if (!employer.verifyPassword(password)) {
         throw new PasswordMissmatchException();
@@ -54,4 +54,8 @@ public class EmployerApp extends App {
   }
   
   
+  @Override
+  public void displayMainMenu() {
+  
+  }
 }

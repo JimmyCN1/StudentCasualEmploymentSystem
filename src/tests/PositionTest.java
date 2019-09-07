@@ -1,14 +1,14 @@
 import enumerators.ApplicantStatus;
 import enumerators.PositionType;
-import exceptions.EntityNotFoundException;
+import exceptions.UserNotFoundException;
 import exceptions.InterviewSlotClashException;
 import exceptions.InvalidJobCategoryException;
 import model.system.ManagementSystem;
 import exceptions.ApplicantAlreadyBookedException;
-import model.applicant.Applicant;
-import model.applicant.InternationalStudent;
-import model.applicant.LocalStudent;
-import model.employer.Employer;
+import model.user.applicant.Applicant;
+import model.user.applicant.InternationalStudent;
+import model.user.applicant.LocalStudent;
+import model.user.employer.Employer;
 import model.position.InterviewSlot;
 import model.position.Position;
 import org.junit.Before;
@@ -209,7 +209,7 @@ public class PositionTest {
     Applicant a = null;
     try {
       a = position.getApplicant(applicant1, position.getAppliedApplicants());
-    } catch (EntityNotFoundException e) {
+    } catch (UserNotFoundException e) {
       e.printStackTrace();
     }
     assertEquals("john smith", a.getName());
@@ -221,8 +221,8 @@ public class PositionTest {
     Applicant a = null;
     try {
       a = position.getApplicant(newApplicant, position.getAppliedApplicants());
-      fail("EntityNotFoundException not caught");
-    } catch (EntityNotFoundException e) {
+      fail("UserNotFoundException not caught");
+    } catch (UserNotFoundException e) {
       e.printStackTrace();
     }
   }
@@ -298,7 +298,7 @@ public class PositionTest {
   public void setApplicantToPending() {
     try {
       position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
-    } catch (EntityNotFoundException e) {
+    } catch (UserNotFoundException e) {
       e.printStackTrace();
     }
     assertEquals(ApplicantStatus.PENDING, applicant1.getStatus());
@@ -309,7 +309,7 @@ public class PositionTest {
     try {
       position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
       position.getApplicant(applicant1, position.getAppliedApplicants()).setStatus(ApplicantStatus.PENDING);
-    } catch (EntityNotFoundException e) {
+    } catch (UserNotFoundException e) {
       e.printStackTrace();
     }
     assertEquals(ApplicantStatus.PENDING, applicant1.getStatus());

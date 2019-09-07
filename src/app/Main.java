@@ -17,6 +17,7 @@ public class Main {
     App app = new App(managementSystem);
     Scanner scanner = new Scanner(System.in);
     
+    // display main menu
     while (true) {
       System.out.println("~~~Welcome to the Student Casual Employment System~~~\n");
       System.out.println("Please type the appropriate number to register or login:\n");

@@ -1,22 +1,23 @@
 package app;
 
 import enumerators.PositionType;
-import exceptions.EntityNotFoundException;
+import exceptions.UserNotFoundException;
+import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import exceptions.PasswordMissmatchException;
-import model.applicant.Applicant;
-import model.applicant.InternationalStudent;
-import model.applicant.LocalStudent;
+import model.user.applicant.Applicant;
+import model.user.applicant.InternationalStudent;
+import model.user.applicant.LocalStudent;
 
 import java.util.Map;
 
-public class StudentApp extends App {
+public class StudentApp extends App implements AppInterface {
   private final int LOCAL = 1;
   private final int INTERNATIONAL = 2;
   private Applicant currentUser;
   
   public StudentApp(String firstName, String lastName, String password, ManagementSystem managementSystem)
-          throws EntityNotFoundException, PasswordMissmatchException {
+          throws UserNotFoundException, PasswordMissmatchException {
     super(managementSystem);
     verifyUser(firstName, lastName, password);
   }
@@ -107,10 +108,10 @@ public class StudentApp extends App {
     return type;
   }
   
-  private void verifyUser(String firstName, String lastName, String password) throws EntityNotFoundException, PasswordMissmatchException {
+  private void verifyUser(String firstName, String lastName, String password) throws UserNotFoundException, PasswordMissmatchException {
     Applicant applicant = managementSystem.getApplicantByName(firstName.toLowerCase() + lastName.toLowerCase());
     if (applicant == null) {
-      throw new EntityNotFoundException();
+      throw new UserNotFoundException();
     } else {
       if (!applicant.verifyPassword(password)) {
         throw new PasswordMissmatchException();
@@ -119,5 +120,18 @@ public class StudentApp extends App {
         System.out.printf("Welcome back %s!\n\n", getCurrentUser().getName());
       }
     }
+  }
+  
+  @Override
+  public void displayMainMenu() {
+    boolean isLoggedIn = true;
+    while (isLoggedIn) {
+      System.out.printf("What would you like to do\n\n?" +
+              "2. Update Your Job Preferences\n" +
+              "3. Update Your Availabilities\n" +
+              "4. Update Your Employment Records\n" +
+              "5. Accept/Reject A Job Offer");
+    }
+    
   }
 }

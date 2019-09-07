@@ -4,11 +4,11 @@ import enumerators.ApplicantStatus;
 import enumerators.InterviewSlotStatus;
 import enumerators.PositionType;
 import exceptions.*;
-import model.applicant.Applicant;
-import model.applicant.ApplicantRanking;
-import model.applicant.SortByRank;
+import model.user.applicant.Applicant;
+import model.user.applicant.ApplicantRanking;
+import model.user.applicant.SortByRank;
 import model.system.ManagementSystem;
-import model.employer.Employer;
+import model.user.employer.Employer;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -111,7 +111,7 @@ public class Position {
   
   // returns the matching applicant from the passed applicant list
   public Applicant getApplicant(Applicant applicant, List<Applicant> applicants)
-          throws EntityNotFoundException {
+          throws UserNotFoundException {
     Applicant matchingApplicant = null;
     for (Applicant a : applicants) {
       if (a.getId() == (applicant.getId())) {
@@ -119,7 +119,7 @@ public class Position {
       }
     }
     if (matchingApplicant == null) {
-      throw new EntityNotFoundException();
+      throw new UserNotFoundException();
     }
     return matchingApplicant;
   }
@@ -175,7 +175,7 @@ public class Position {
   private void addApplicantToSuitableApplicants(Applicant applicant) {
     if (!suitableApplicants.contains(applicant)) {
       boolean isSuitableApplicant = false;
-      if (applicant.getAvailability().equals(positionType)) {
+      if (applicant.getAvailabilities().equals(positionType)) {
         for (String p : applicant.getJobPreferences()) {
           if (applicableJobCategories.contains(p)) {
             isSuitableApplicant = true;

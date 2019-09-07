@@ -1,17 +1,18 @@
 package app;
 
-import exceptions.EntityNotFoundException;
+import exceptions.UserNotFoundException;
+import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import exceptions.PasswordMissmatchException;
-import model.staff.SystemMaintenanceStaff;
+import model.user.staff.SystemMaintenanceStaff;
 
 import java.util.Map;
 
-public class SystemMaintenanceStaffApp extends App {
+public class SystemMaintenanceStaffApp extends App implements AppInterface {
   private SystemMaintenanceStaff currentUser;
   
   public SystemMaintenanceStaffApp(String firstName, String lastName, String password, ManagementSystem managementSystem)
-          throws EntityNotFoundException, PasswordMissmatchException {
+          throws UserNotFoundException, PasswordMissmatchException {
     super(managementSystem);
     verifyUser(firstName, lastName, password);
   }
@@ -44,10 +45,10 @@ public class SystemMaintenanceStaffApp extends App {
   }
   
   private void verifyUser(String firstName, String lastName, String password)
-          throws EntityNotFoundException, PasswordMissmatchException {
+          throws UserNotFoundException, PasswordMissmatchException {
     SystemMaintenanceStaff systemMaintenanceStaff = managementSystem.getSystemMaintenanceByName(firstName.toLowerCase() + lastName.toLowerCase());
     if (systemMaintenanceStaff == null) {
-      throw new EntityNotFoundException();
+      throw new UserNotFoundException();
     } else {
       if (!systemMaintenanceStaff.verifyPassword(password)) {
         throw new PasswordMissmatchException();
@@ -56,5 +57,10 @@ public class SystemMaintenanceStaffApp extends App {
         System.out.printf("Welcome back %s!\n\n", getCurrentUser().getName());
       }
     }
+  }
+  
+  @Override
+  public void displayMainMenu() {
+  
   }
 }

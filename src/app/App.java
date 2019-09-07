@@ -1,7 +1,7 @@
 package app;
 
+import exceptions.UserNotFoundException;
 import model.system.ManagementSystem;
-import exceptions.EntityNotFoundException;
 import exceptions.PasswordMissmatchException;
 
 import java.util.*;
@@ -30,6 +30,7 @@ public class App {
     employerApp.createEmployer();
     System.out.printf("%s has been registered to the system.\n\n",
             employerApp.getCurrentUser().getName());
+    employerApp.displayMainMenu();
   }
   
   public void instantiateNewStudentApp() {
@@ -38,6 +39,7 @@ public class App {
     
     System.out.printf("%s has been registered to the system.\n\n",
             studentApp.getCurrentUser().getName());
+    studentApp.displayMainMenu();
   }
   
   public void instantiateNewSystemMaintenanceStaffApp() {
@@ -45,6 +47,7 @@ public class App {
     systemMaintenanceStaffApp.createSystemMaintenanceStaff();
     System.out.printf("%s has been registered to the system.\n\n",
             systemMaintenanceStaffApp.getCurrentUser().getName());
+    systemMaintenanceStaffApp.displayMainMenu();
   }
   
   // login as an employer, applicant or system staff
@@ -77,7 +80,7 @@ public class App {
     Map<String, String> userDetails = getEmployerDetails();
     try {
       employerApp = new EmployerApp(userDetails.get(EMPLOYER_NAME), userDetails.get(PASSWORD), managementSystem);
-    } catch (EntityNotFoundException e) {
+    } catch (UserNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {
       e.printStackTrace();
@@ -88,7 +91,7 @@ public class App {
     Map<String, String> userDetails = getPersonalDetails();
     try {
       studentApp = new StudentApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
-    } catch (EntityNotFoundException e) {
+    } catch (UserNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {
       e.printStackTrace();
@@ -99,7 +102,7 @@ public class App {
     Map<String, String> userDetails = getPersonalDetails();
     try {
       systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(FIRST_NAME), userDetails.get(LAST_NAME), userDetails.get(PASSWORD), managementSystem);
-    } catch (EntityNotFoundException e) {
+    } catch (UserNotFoundException e) {
       e.printStackTrace();
     } catch (PasswordMissmatchException e) {
       e.printStackTrace();

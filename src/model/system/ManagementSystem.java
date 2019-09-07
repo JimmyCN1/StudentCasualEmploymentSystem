@@ -1,15 +1,16 @@
 package model.system;
 
-import interfaces.User;
-import model.applicant.Applicant;
+import interfaces.UserInterface;
+import model.user.applicant.Applicant;
 import model.system.utilities.Security;
-import model.employer.Employer;
-import model.staff.SystemMaintenanceStaff;
+import model.user.employer.Employer;
+import model.user.staff.SystemMaintenanceStaff;
+import model.user.User;
 
 import java.util.*;
 
 public class ManagementSystem {
-  private Map<String, User> users = new HashMap<>();
+  private Map<Integer, User> users = new HashMap<>();
   private Map<String, Employer> employers = new HashMap<>();
   private Map<String, Applicant> applicants = new HashMap<>();
   private Map<String, SystemMaintenanceStaff> systemMaintenanceStaff = new HashMap<>();
@@ -60,7 +61,7 @@ public class ManagementSystem {
     return security;
   }
   
-  public User getUserByName(String keyName) {
+  public UserInterface getUserByName(String keyName) {
     return users.get(keyName);
   }
   
@@ -77,20 +78,20 @@ public class ManagementSystem {
   }
   
   public void registerApplicant(Applicant applicant) {
-    users.put(applicant.getHashMapKey(),
+    users.put(applicant.getUserCount(),
             applicant);
     applicants.put(applicant.getHashMapKey(),
             applicant);
   }
   
   public void registerEmployer(Employer employer) {
-    users.put(employer.getHashMapKey(), employer);
+    users.put(employer.getUserCount(), employer);
     employers.put(employer.getHashMapKey(), employer);
   }
   
   public void registerSystemMaintenanceStaff(SystemMaintenanceStaff systemMaintenanceStaff) {
     users.put(
-            systemMaintenanceStaff.getHashMapKey(),
+            systemMaintenanceStaff.getUserCount(),
             systemMaintenanceStaff);
     this.systemMaintenanceStaff.put(
             systemMaintenanceStaff.getHashMapKey(),

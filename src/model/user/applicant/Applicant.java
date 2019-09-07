@@ -2,9 +2,7 @@ package model.user.applicant;
 
 import enumerators.ApplicantStatus;
 import enumerators.PositionType;
-import exceptions.InternationalStudentAvailabilityException;
-import exceptions.InvalidJobCategoryException;
-import exceptions.JobCategoryNotFoundException;
+import exceptions.*;
 import model.position.Position;
 import model.system.ManagementSystem;
 import interfaces.UserInterface;
@@ -15,18 +13,22 @@ import model.user.Person;
 // Questionable
 import model.user.applicant.utilities.Reference;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Applicant extends Person implements UserInterface {
   private static int applicantCount = 0;
   private final int MAX_AVAILABILITIES = 3;
+  private final int TWO_WEEKS = 14;
   private int applicantId;
   private String password;
   private String cv; // The name of the text file
   private ApplicantStatus status;
+  private LocalDate lastStudentUpdate;
   private List<PositionType> availabilities;
   private Position jobOffer = null;
+  private Position employer = null;
   
   private List<Job> pastJobs = new ArrayList<>();
   private List<Reference> references = new ArrayList<>();
@@ -47,6 +49,7 @@ public abstract class Applicant extends Person implements UserInterface {
     setLastName(lastName);
     this.password = password;
     this.status = ApplicantStatus.AVAILABLE;
+    lastStudentUpdate = LocalDate.now();
     availabilities.add(availability);
     this.managementSystem = managementSystem;
   }
@@ -149,9 +152,43 @@ public abstract class Applicant extends Person implements UserInterface {
     return this.password.equals(password);
   }
   
-  // TODO: accept and reject job offers
+  // onboards the applicant to the position
+  // sets the applicants status to employed
+  public void acceptOffer() throws NoJobOfferException, ApplicantNotFoundException {
+    if (jobOffer != null) {
+      jobOffer.onBoardApplicant(this);
+      employer = jobOffer;
+      jobOffer = null;
+      setStatus(ApplicantStatus.EMPLOYED);
+    } else {
+      throw new NoJobOfferException();
+    }
+  }
+  
+  // the position revokes the offer
+  // sets the applicants status to available
+  public void rejectOffer() throws NoJobOfferException, ApplicantNotFoundException {
+    if (jobOffer != null) {
+      jobOffer.revokeOffer(this);
+      jobOffer = null;
+      setStatus(ApplicantStatus.AVAILABLE);
+    } else {
+      throw new NoJobOfferException();
+    }
+  }
+  
+  // if the applicant has been inactive for more than two weeks,
+  // set the applicants activity to unknown
+  public void handleInactivity() {
+    if (!status.equals(ApplicantStatus.EMPLOYED) || !status.equals(ApplicantStatus.BLACKLISTED)) {
+      if (lastStudentUpdate.compareTo(LocalDate.now()) > TWO_WEEKS) {
+        setStatus(ApplicantStatus.UNKNOWN);
+      }
+    }
+  }
   
   @Override
+  
   public boolean equals(Object object) {
     return equals((Applicant) object);
   }

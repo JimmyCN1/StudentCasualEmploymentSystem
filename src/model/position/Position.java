@@ -32,6 +32,7 @@ public class Position {
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
   private List<InterviewSlot> interviewSlots = new LinkedList<>();
   private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
+  private List<Applicant> staff = new ArrayList<>();
   private Employer positionOwner;
   private ManagementSystem managementSystem;
   
@@ -338,6 +339,29 @@ public class Position {
       }
     }
     return hasNotBeenScheduled;
+  }
+  
+  // adds the applicant to staff, removes applicant from jobOfferedTo list
+  // sets the applicants status to available
+  public void onBoardApplicant(Applicant applicant) throws ApplicantNotFoundException {
+    if (!applicantsJobOfferedTo.contains(applicant)) {
+      throw new ApplicantNotFoundException();
+    } else {
+      staff.add(applicant);
+      applicantsJobOfferedTo.remove(applicant);
+      applicant.setStatus(ApplicantStatus.EMPLOYED);
+    }
+  }
+  
+  // removes the applicant from jobOfferedTo list
+  // sets the applicants status to available
+  public void revokeOffer(Applicant applicant) throws ApplicantNotFoundException {
+    if (!applicantsJobOfferedTo.contains(applicant)) {
+      throw new ApplicantNotFoundException();
+    } else {
+      applicantsJobOfferedTo.remove(applicant);
+      applicant.setStatus(ApplicantStatus.AVAILABLE);
+    }
   }
 }
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 public abstract class User implements UserInterface {
   private static int userCount = 0;
+  private final int MAX_COMPLAINTS = 3;
   private int userId;
   private List<String> complaints = new ArrayList<>();
   
@@ -36,8 +37,16 @@ public abstract class User implements UserInterface {
   // if the applicant has 3 or more complaints, they are blacklisted
   public void lodgeComplaint(String complaint, User user) {
     user.addComplaint(complaint);
-    if (complaints.size() >= 3) {
+    if (complaints.size() >= MAX_COMPLAINTS) {
       setStatus(UserStatus.BLACKLISTED);
     }
+  }
+  
+  public String complaintsToString() {
+    String complaints = "";
+    for (int i = 0; i < this.complaints.size(); i++) {
+      complaints += String.format("Complaint%s : %s\n", i + 1, this.complaints.get(i));
+    }
+    return complaints;
   }
 }

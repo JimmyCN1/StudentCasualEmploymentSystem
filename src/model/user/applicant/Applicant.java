@@ -156,6 +156,7 @@ public abstract class Applicant extends Person implements UserInterface {
   // on boards the applicant to the position
   // sets the applicants status to employed
   public void acceptOffer() throws NoJobOfferException, ApplicantNotFoundException {
+    // TODO: remove job from applied jobs array?
     if (jobOffer != null) {
       jobOffer.onBoardApplicant(this);
       currentJob = jobOffer;
@@ -169,6 +170,7 @@ public abstract class Applicant extends Person implements UserInterface {
   // the position revokes the offer
   // sets the applicants status to available
   public void rejectOffer() throws NoJobOfferException, ApplicantNotFoundException {
+    // TODO: remove job from applied jobs array?
     if (jobOffer != null) {
       jobOffer.revokeOffer(this);
       jobOffer = null;
@@ -200,14 +202,15 @@ public abstract class Applicant extends Person implements UserInterface {
   
   @Override
   public String toString() {
-    return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
+    return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
             nameToString(),
             statusToString(),
             lastUpdateToString(),
             availabilitiesToString(),
             jobPreferencesToString(),
             jobOfferToString(),
-            employerToString());
+            employerToString(),
+            complaintsToString());
   }
   
   @Override
@@ -244,5 +247,13 @@ public abstract class Applicant extends Person implements UserInterface {
   
   public String employerToString() {
     return String.format("Current Employer: %s", currentJob.getEmployer());
+  }
+  
+  public String notificationsToString() {
+    String notifications = "";
+    for (Notification notification : this.notifications) {
+      notifications += notification.toString();
+    }
+    return notifications;
   }
 }

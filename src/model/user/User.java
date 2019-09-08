@@ -7,7 +7,6 @@ import model.system.ManagementSystem;
 import model.user.utilities.Complaint;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public abstract class User implements UserInterface {

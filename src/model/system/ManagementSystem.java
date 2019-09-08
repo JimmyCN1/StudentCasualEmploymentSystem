@@ -84,22 +84,24 @@ public class ManagementSystem {
     return systemMaintenanceStaff.get(keyName);
   }
   
+  public void registerUser(User user) {
+    users.put(user.getUserId(),
+            user);
+  }
+  
   public void registerApplicant(Applicant applicant) {
-    users.put(applicant.getUserId(),
-            applicant);
+    registerUser(applicant);
     applicants.put(applicant.getHashMapKey(),
             applicant);
   }
   
   public void registerEmployer(Employer employer) {
-    users.put(employer.getUserId(), employer);
+    registerUser(employer);
     employers.put(employer.getHashMapKey(), employer);
   }
   
   public void registerSystemMaintenanceStaff(SystemMaintenanceStaff systemMaintenanceStaff) {
-    users.put(
-            systemMaintenanceStaff.getUserId(),
-            systemMaintenanceStaff);
+    registerSystemMaintenanceStaff(systemMaintenanceStaff);
     this.systemMaintenanceStaff.put(
             systemMaintenanceStaff.getHashMapKey(),
             systemMaintenanceStaff);

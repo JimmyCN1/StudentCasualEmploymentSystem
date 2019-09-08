@@ -38,6 +38,7 @@ public class Employer extends User implements UserInterface {
     this.employerId = employerCount;
     this.employerName = employerName;
     this.password = password;
+    this.status = UserStatus.AVAILABLE;
     this.managementSystem = managementSystem;
   }
   

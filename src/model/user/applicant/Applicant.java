@@ -221,7 +221,7 @@ public abstract class Applicant extends Person implements UserInterface {
   }
   
   public String lastUpdateToString() {
-    return String.format("Number Of Days Since Last Update: %f",
+    return String.format("Number Of Days Since Last Update: %d",
             Math.abs(Period.between(lastStudentUpdate, LocalDate.now()).getDays()));
   }
   

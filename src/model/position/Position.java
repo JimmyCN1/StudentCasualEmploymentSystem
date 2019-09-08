@@ -176,7 +176,7 @@ public class Position {
   private void addApplicantToSuitableApplicants(Applicant applicant) {
     if (!suitableApplicants.contains(applicant)) {
       boolean isSuitableApplicant = false;
-      if (applicant.getAvailabilities().equals(positionType)) {
+      if (applicant.getAvailabilities().contains(positionType)) {
         for (String p : applicant.getJobPreferences()) {
           if (applicableJobCategories.contains(p)) {
             isSuitableApplicant = true;

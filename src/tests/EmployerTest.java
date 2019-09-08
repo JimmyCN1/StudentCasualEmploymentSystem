@@ -122,7 +122,8 @@ public class EmployerTest {
     
     
     // Initialise all the applicants (students)
-    applicants = new ArrayList<>(Arrays.asList(new LocalStudent(
+    applicants = new ArrayList<>(Arrays.asList(
+            new LocalStudent(
                     "Xavier",
                     "Boughton",
                     "1234",
@@ -146,6 +147,10 @@ public class EmployerTest {
                     PositionType.FULL_TIME,
                     managementSystem)
     ));
+    managementSystem.registerUser(applicants.get(0));
+    managementSystem.registerUser(applicants.get(1));
+    managementSystem.registerUser(applicants.get(2));
+    managementSystem.registerUser(applicants.get(3));
     
     // Adding job categories for the positions
     try {
@@ -237,7 +242,7 @@ public class EmployerTest {
             new Notification(notification, employer1));
     
     for (Applicant app : applicantsToEmployer1) {
-      assertEquals(notification, app.getNotification(0));
+      assertEquals(notification, app.getNotification(0).getMessage());
     }
   }
   
@@ -246,12 +251,12 @@ public class EmployerTest {
     Notification notification = new Notification("Hello, you are being considered for this job", employer10);
     employer10.notifyApplicant(applicants.get(1), notification);
     
-    assertEquals(notification, applicants.get(1).getNotification(0));
+    assertEquals(notification.getMessage(), applicants.get(1).getNotification(0).getMessage());
   }
   
   @Test
   public void offerJobTests() {
-    List<Applicant> offeredApplicants = null;
+    List<Applicant> offeredApplicants = new ArrayList<>();
     
     try {
       employer1.offerJob(applicants.get(0), employer1.getPositionByTitle(position1.getPositionTitle()));
@@ -302,12 +307,12 @@ public class EmployerTest {
     } catch (UserNotFoundException e) {
       e.printStackTrace();
     }
+
+//    List<Complaint> complaintsForApplicant1 = applicants.get(0).getComplaints();
+//    List<Complaint> complaintsForApplicant2 = applicants.get(1).getComplaints();
     
-    List<Complaint> complaintsForApplicant1 = applicants.get(0).getComplaints();
-    List<Complaint> complaintsForApplicant2 = applicants.get(1).getComplaints();
-    
-    assertEquals(complaint1, complaintsForApplicant1.get(0).getComplaint());
-    assertEquals(complaint2, complaintsForApplicant2.get(0).getComplaint());
+    assertEquals(complaint1, applicants.get(0).getComplaints().get(0).getComplaint());
+    assertEquals(complaint2, applicants.get(1).getComplaints().get(0).getComplaint());
   }
   
   @Test

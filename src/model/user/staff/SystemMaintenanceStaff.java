@@ -2,6 +2,7 @@ package model.user.staff;
 
 import enumerators.UserStatus;
 import interfaces.UserInterface;
+import model.user.User;
 import model.user.applicant.Applicant;
 import model.system.ManagementSystem;
 import model.user.employer.Employer;
@@ -14,6 +15,7 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
   private ManagementSystem managementSystem;
   
   public SystemMaintenanceStaff(String firstName, String lastName, String password, ManagementSystem managementSystem) {
+    super(firstName, lastName, managementSystem);
     systemMaintenanceStaffCount++;
     this.id = systemMaintenanceStaffCount;
     setFirstName(firstName);
@@ -38,7 +40,7 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
   
   public Employer getEmployerRecords(int id) {
     Employer returnEmployer = null;
-    for (Employer employer : managementSystem.getEmployers()) {
+    for (Employer employer : managementSystem.getEmployersAsList()) {
       if (employer.getId() == id) {
         returnEmployer = employer;
       }
@@ -48,7 +50,7 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
   
   public Applicant getApplicantRecords(int id) {
     Applicant returnApplicant = null;
-    for (Applicant applicant : managementSystem.getApplicants()) {
+    for (Applicant applicant : managementSystem.getApplicantsAsList()) {
       if (applicant.getId() == id) {
         returnApplicant = applicant;
       }
@@ -56,9 +58,9 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
     return returnApplicant;
   }
   
-  public void blackListApplicant(Applicant applicant) {
-    managementSystem.addApplicantToBlacklist(applicant);
-    applicant.setStatus(UserStatus.BLACKLISTED);
+  public void blackListUser(User user) {
+    managementSystem.addUserToBlacklist(user);
+    user.setStatus(UserStatus.BLACKLISTED);
   }
   
   public void addNewJobCategory(String jobCategory) {
@@ -73,11 +75,6 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
   @Override
   public void setStatus(UserStatus status) {
   }
-
-//  @Override
-//  public String nameToString() {
-//    return null;
-//  }
   
   @Override
   public String statusToString() {

@@ -14,7 +14,7 @@ public class ManagementSystem {
   private Map<String, Employer> employers = new HashMap<>();
   private Map<String, Applicant> applicants = new HashMap<>();
   private Map<String, SystemMaintenanceStaff> systemMaintenanceStaff = new HashMap<>();
-  private Map<String, Applicant> blacklistedApplicants = new HashMap<>();
+  private Map<String, User> blacklistedUsers = new HashMap<>();
   private List<String> jobCategories = new ArrayList<>(
           Arrays.asList("ENGINEERING", "TECHNOLOGY", "HOSPITALITY", "TRADE", "LOGISTICS", "RETAIL", "FINANCE")
   );
@@ -23,8 +23,15 @@ public class ManagementSystem {
   public ManagementSystem() {
   }
   
+  public List<User> getUsersAsList() {
+    List<User> users = new ArrayList<>();
+    for (Integer userId : this.users.keySet()) {
+      users.add(this.users.get(userId));
+    }
+    return users;
+  }
   
-  public List<Employer> getEmployers() {
+  public List<Employer> getEmployersAsList() {
     List<Employer> employers = new ArrayList<>();
     for (String e : this.employers.keySet()) {
       employers.add(this.employers.get(e));
@@ -32,7 +39,7 @@ public class ManagementSystem {
     return employers;
   }
   
-  public List<Applicant> getApplicants() {
+  public List<Applicant> getApplicantsAsList() {
     List<Applicant> applicants = new ArrayList<>();
     for (String a : this.applicants.keySet()) {
       applicants.add(this.applicants.get(a));
@@ -40,7 +47,7 @@ public class ManagementSystem {
     return applicants;
   }
   
-  public List<SystemMaintenanceStaff> getSystemMaintenanceStaff() {
+  public List<SystemMaintenanceStaff> getSystemMaintenanceStaffAsList() {
     List<SystemMaintenanceStaff> systemMaintenanceStaff = new ArrayList<>();
     for (String s : this.systemMaintenanceStaff.keySet()) {
       systemMaintenanceStaff.add(this.systemMaintenanceStaff.get(s));
@@ -49,8 +56,8 @@ public class ManagementSystem {
   }
   
   
-  public Map<String, Applicant> getBlacklistedApplicants() {
-    return blacklistedApplicants;
+  public Map<String, User> getBlacklistedUsers() {
+    return blacklistedUsers;
   }
   
   public List<String> getJobCategories() {
@@ -78,30 +85,30 @@ public class ManagementSystem {
   }
   
   public void registerApplicant(Applicant applicant) {
-    users.put(applicant.getUserCount(),
+    users.put(applicant.getUserId(),
             applicant);
     applicants.put(applicant.getHashMapKey(),
             applicant);
   }
   
   public void registerEmployer(Employer employer) {
-    users.put(employer.getUserCount(), employer);
+    users.put(employer.getUserId(), employer);
     employers.put(employer.getHashMapKey(), employer);
   }
   
   public void registerSystemMaintenanceStaff(SystemMaintenanceStaff systemMaintenanceStaff) {
     users.put(
-            systemMaintenanceStaff.getUserCount(),
+            systemMaintenanceStaff.getUserId(),
             systemMaintenanceStaff);
     this.systemMaintenanceStaff.put(
             systemMaintenanceStaff.getHashMapKey(),
             systemMaintenanceStaff);
   }
   
-  public void addApplicantToBlacklist(Applicant applicant) {
-    blacklistedApplicants.put(
-            applicant.getHashMapKey(),
-            applicant);
+  public void addUserToBlacklist(User user) {
+    blacklistedUsers.put(
+            user.getHashMapKey(),
+            user);
   }
   
   public void addJobCategory(String jobCategory) {

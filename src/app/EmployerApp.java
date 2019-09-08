@@ -3,6 +3,7 @@ package app;
 import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
+import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 import exceptions.PasswordMissmatchException;
 
@@ -61,5 +62,22 @@ public class EmployerApp extends App implements AppInterface {
   @Override
   public void displayMainMenu() {
   
+  }
+  
+  @Override
+  public void lodgeAComplaint() {
+    System.out.println("Which applicant do you want to lodge a complaint against?");
+    for (Applicant a : managementSystem.getApplicantsAsList()) {
+      System.out.println(a.getName());
+    }
+    String applicantName = scanner.nextLine();
+    System.out.println("What is the complaint?");
+    String complaint = scanner.nextLine();
+    try {
+      currentUser.lodgeComplaint(complaint, applicantName);
+      System.out.println("Complaint successfully lodged..\n");
+    } catch (UserNotFoundException e) {
+      System.out.println("Sorry, this applicant was not found in the system\n");
+    }
   }
 }

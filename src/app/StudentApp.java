@@ -4,11 +4,11 @@ import enumerators.PositionType;
 import enumerators.UserStatus;
 import exceptions.*;
 import interfaces.AppInterface;
-import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
+import model.user.employer.Employer;
 
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -196,6 +196,7 @@ public class StudentApp extends App implements AppInterface {
                 "1. Add A Job Preference\n" +
                 "2. Remove A Job Preference\n" +
                 "3. View Preferences\n" +
+                "4. Lodge A Complaint\n" +
                 "0. Go back\n\n");
         int response = scanner.nextInt();
         scanner.nextLine();
@@ -208,6 +209,9 @@ public class StudentApp extends App implements AppInterface {
             break;
           case (3):
             viewPreferences();
+            break;
+          case (4):
+            lodgeAComplaint();
             break;
           case (0):
             goBack = true;
@@ -256,6 +260,23 @@ public class StudentApp extends App implements AppInterface {
       System.out.printf("%s ", jp);
     }
     System.out.println("\n");
+  }
+  
+  @Override
+  public void lodgeAComplaint() {
+    System.out.println("Which employer do you want to lodge a complaint against?");
+    for (Employer e : managementSystem.getEmployersAsList()) {
+      System.out.println(e.getName());
+    }
+    String employerName = scanner.nextLine();
+    System.out.println("What is the complaint?");
+    String complaint = scanner.nextLine();
+    try {
+      currentUser.lodgeComplaint(complaint, employerName);
+      System.out.println("Complaint successfully lodged..\n");
+    } catch (UserNotFoundException e) {
+      System.out.println("Sorry, this employer was not found in the system\n");
+    }
   }
   
   private void updateAvailabilities() {

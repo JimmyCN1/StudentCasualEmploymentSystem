@@ -3,6 +3,7 @@ import enumerators.PositionType;
 import exceptions.InvalidJobCategoryException;
 import exceptions.PositionNotFoundException;
 import exceptions.UserBlacklistedException;
+import exceptions.UserNotFoundException;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
@@ -10,6 +11,7 @@ import model.system.ManagementSystem;
 import model.user.applicant.utilities.Notification;
 import model.user.employer.Employer;
 import model.position.Position;
+import model.user.utilities.Complaint;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -291,17 +293,21 @@ public class EmployerTest {
   
   @Test
   public void lodgeComplaintOnApplicantTests() {
-    String complaint = "Unprofessional";
+    String complaint1 = "Unprofessional";
     String complaint2 = "Did not show up to interview";
     
-    employer3.lodgeComplaint(applicants.get(0), complaint);
-    employer4.lodgeComplaint(applicants.get(1), complaint2);
+    try {
+      employer3.lodgeComplaint(complaint1, applicants.get(0).getName());
+      employer4.lodgeComplaint(complaint2, applicants.get(1).getName());
+    } catch (UserNotFoundException e) {
+      e.printStackTrace();
+    }
     
-    List<String> complaintsForApplicant1 = applicants.get(0).getComplaints();
-    List<String> complaintsForApplicant2 = applicants.get(1).getComplaints();
+    List<Complaint> complaintsForApplicant1 = applicants.get(0).getComplaints();
+    List<Complaint> complaintsForApplicant2 = applicants.get(1).getComplaints();
     
-    assertEquals(complaint, complaintsForApplicant1.get(0));
-    assertEquals(complaint2, complaintsForApplicant2.get(0));
+    assertEquals(complaint1, complaintsForApplicant1.get(0).getComplaint());
+    assertEquals(complaint2, complaintsForApplicant2.get(0).getComplaint());
   }
   
   @Test

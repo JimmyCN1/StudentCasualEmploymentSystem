@@ -33,6 +33,7 @@ public class Employer extends User implements UserInterface {
   private ManagementSystem managementSystem;
   
   public Employer(String employerName, String password, ManagementSystem managementSystem) {
+    super(employerName, managementSystem);
     employerCount++;
     this.employerId = employerCount;
     this.employerName = employerName;
@@ -196,11 +197,11 @@ public class Employer extends User implements UserInterface {
       }
     }
   }
-  
-  // complaint will be lodged against the passed applicant
-  public void lodgeComplaint(Applicant applicant, String complaint) {
-    applicant.addComplaint(complaint);
-  }
+
+//  // complaint will be lodged against the passed applicant
+//  public void lodgeComplaint(Applicant applicant, String complaint) {
+//    applicant.addComplaint(complaint);
+//  }
   
   @Override
   public boolean equals(Object object) {

@@ -43,6 +43,7 @@ public abstract class Applicant extends Person implements UserInterface {
   
   public Applicant(String firstName, String lastName, String password, PositionType availability,
                    ManagementSystem managementSystem) {
+    super(firstName, lastName, managementSystem);
     applicantCount++;
     this.applicantId = applicantCount;
     setFirstName(firstName);
@@ -202,12 +203,13 @@ public abstract class Applicant extends Person implements UserInterface {
   
   @Override
   public String toString() {
-    return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
+    return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
             nameToString(),
             statusToString(),
             lastUpdateToString(),
             availabilitiesToString(),
             jobPreferencesToString(),
+            appliedJobsToString(),
             jobOfferToString(),
             employerToString(),
             complaintsToString());
@@ -252,8 +254,18 @@ public abstract class Applicant extends Person implements UserInterface {
   public String notificationsToString() {
     String notifications = "";
     for (Notification notification : this.notifications) {
-      notifications += notification.toString();
+      notifications += String.format("%s\n\n", notification.toString());
     }
     return notifications;
+  }
+  
+  public String appliedJobsToString() {
+    String jobs = "";
+    for (Position p : appliedJobs) {
+      jobs += String.format("Employer: %s, Position Title: %s\n",
+              p.getEmployer().getName(),
+              p.getPositionTitle());
+    }
+    return jobs;
   }
 }

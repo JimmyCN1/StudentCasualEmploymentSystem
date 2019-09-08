@@ -1,9 +1,11 @@
 package app;
 
+import enumerators.UserStatus;
 import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import exceptions.PasswordMissmatchException;
+import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 import model.user.staff.SystemMaintenanceStaff;
@@ -87,6 +89,13 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
             displayApplicantRecords();
             break;
           case (3):
+            addNewJobCategory();
+            break;
+          case (4):
+            viewCurrentJobCategories();
+            break;
+          case (5):
+            viewBlackListedUsers();
             break;
           case (0):
             isLoggedIn = false;
@@ -100,15 +109,49 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
   }
   
   // TODO: flesh out, impl. toString methods or provide more specific functionality
-  public void displayEmployerRecords() {
-    for (Employer e : managementSystem.getEmployers()) {
+  
+  private void displayEmployerRecords() {
+    for (Employer e : managementSystem.getEmployersAsList()) {
       System.out.println(e.toString());
     }
   }
   
-  public void displayApplicantRecords() {
-    for (Applicant a : managementSystem.getApplicants()) {
+  private void displayApplicantRecords() {
+    for (Applicant a : managementSystem.getApplicantsAsList()) {
       System.out.println(a.toString());
     }
+  }
+  
+  private void addNewJobCategory() {
+    System.out.println("Type the job category you would like to add to the system..");
+    String response = scanner.nextLine();
+    System.out.println();
+    managementSystem.addJobCategory(response);
+    viewCurrentJobCategories();
+  }
+  
+  private void viewCurrentJobCategories() {
+    System.out.println("The current job categories loaded in the system are..");
+    for (String jc : managementSystem.getJobCategories()) {
+      System.out.printf("%s ", jc.toUpperCase());
+    }
+    System.out.println("\n");
+  }
+  
+  private void viewBlackListedUsers() {
+    System.out.println("These are the current users on the blacklist..");
+    Map<String, User> blacklist = managementSystem.getBlacklistedUsers();
+    for (String key : blacklist.keySet()) {
+      User user = blacklist.get(key);
+      if (user.equals(UserStatus.BLACKLISTED)) {
+        System.out.println(user.toString());
+      }
+    }
+    System.out.println();
+  }
+  
+  @Override
+  public void lodgeAComplaint() {
+    return;
   }
 }

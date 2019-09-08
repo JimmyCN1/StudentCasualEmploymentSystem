@@ -6,8 +6,6 @@ public class Notification {
   private String notification;
   private Employer employer;
   
-  // TODO: implement class;
-  
   public Notification(String notification, Employer employer) {
     this.notification = notification;
     this.employer = employer;
@@ -23,6 +21,6 @@ public class Notification {
   
   @Override
   public String toString() {
-    return String.format("%s\n\n%s", employer.getName(), notification);
+    return String.format("%s\n%s", employer.getName().toUpperCase(), notification);
   }
 }

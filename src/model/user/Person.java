@@ -1,10 +1,18 @@
 package model.user;
 
-import interfaces.UserInterface;
+
+import model.system.ManagementSystem;
 
 public abstract class Person extends User {
   private String firstName;
   private String lastName;
+  
+  private ManagementSystem managementSystem;
+  
+  public Person(String firstName, String lastName, ManagementSystem managementSystem) {
+    super(firstName + " " + lastName, managementSystem);
+    this.managementSystem = managementSystem;
+  }
   
   public String getFirstName() {
     return firstName;

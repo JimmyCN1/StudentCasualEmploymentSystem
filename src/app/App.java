@@ -62,14 +62,17 @@ public class App {
           case (EMPLOYER):
             isValidResponse = true;
             loginAsEmployer();
+            employerApp.displayMainMenu();
             break;
           case (STUDENT):
             isValidResponse = true;
             loginAsStudent();
+            studentApp.displayMainMenu();
             break;
           case (SYSTEM_MAINTENANCE_STAFF):
             isValidResponse = true;
             loginAsSystemMaintenanceStaff();
+            systemMaintenanceStaffApp.displayMainMenu();
             break;
           default:
             break;

@@ -113,9 +113,22 @@ public abstract class Applicant extends Person implements UserInterface {
       availabilities.add(availability);
   }
   
+  public void addAvailability(String availability)
+          throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
+    PositionType type = PositionType.determinePositionType(availability);
+    if (!availabilities.contains(availability) && availabilities.size() < MAX_AVAILABILITIES)
+      availabilities.add(type);
+  }
+  
   public boolean removeAvailability(PositionType availability)
           throws InternationalStudentAvailabilityException {
     return availabilities.remove(availability);
+  }
+  
+  public boolean removeAvailability(String availability)
+          throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
+    PositionType type = PositionType.determinePositionType(availability);
+    return availabilities.remove(type);
   }
   
   // Adds a notification to the notification list of the applicant

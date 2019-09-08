@@ -18,10 +18,22 @@ public class InternationalStudent extends Applicant {
     throw new InternationalStudentAvailabilityException();
   }
   
+  @Override
+  public void addAvailability(String availability)
+          throws InternationalStudentAvailabilityException {
+    throw new InternationalStudentAvailabilityException();
+  }
+  
   // throws an exception if an international student tries to remove an availability
   // as International Students can only work part-time ie < 20h per week
   @Override
   public boolean removeAvailability(PositionType availability)
+          throws InternationalStudentAvailabilityException {
+    throw new InternationalStudentAvailabilityException();
+  }
+  
+  @Override
+  public boolean removeAvailability(String availability)
           throws InternationalStudentAvailabilityException {
     throw new InternationalStudentAvailabilityException();
   }

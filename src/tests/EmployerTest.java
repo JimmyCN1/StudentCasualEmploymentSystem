@@ -7,6 +7,7 @@ import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
 import model.system.ManagementSystem;
+import model.user.applicant.utilities.Notification;
 import model.user.employer.Employer;
 import model.position.Position;
 import org.junit.Before;
@@ -230,7 +231,8 @@ public class EmployerTest {
   public void notifyApplicantsTests() {
     String notification = "Hello, you are being considered for this job";
     List<Applicant> applicantsToEmployer1 = new ArrayList<>(Arrays.asList(applicants.get(0), applicants.get(3)));
-    employer1.notifyApplicants(applicantsToEmployer1, notification);
+    employer1.notifyApplicants(applicantsToEmployer1,
+            new Notification(notification, employer1));
     
     for (Applicant app : applicantsToEmployer1) {
       assertEquals(notification, app.getNotification(0));
@@ -239,7 +241,7 @@ public class EmployerTest {
   
   @Test
   public void notifyApplicantTests() {
-    String notification = "Hello, you are being considered for this job";
+    Notification notification = new Notification("Hello, you are being considered for this job", employer10);
     employer10.notifyApplicant(applicants.get(1), notification);
     
     assertEquals(notification, applicants.get(1).getNotification(0));

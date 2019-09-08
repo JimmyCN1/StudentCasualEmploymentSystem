@@ -31,4 +31,9 @@ public abstract class Person extends User {
   public String getName() {
     return String.format("%s %s", getFirstName(), getLastName());
   }
+  
+  @Override
+  public String nameToString() {
+    return String.format("Name: %s", getName());
+  }
 }

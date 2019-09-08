@@ -10,9 +10,11 @@ import model.user.applicant.utilities.Job;
 import model.user.Person;
 
 // Questionable
+import model.user.applicant.utilities.Notification;
 import model.user.applicant.utilities.Reference;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public abstract class Applicant extends Person implements UserInterface {
   private LocalDate lastStudentUpdate;
   private List<PositionType> availabilities = new ArrayList<>();
   private Position jobOffer = null;
-  private Position employer = null;
+  private Position currentJob = null;
   
   private List<Job> pastJobs = new ArrayList<>();
   private List<Reference> references = new ArrayList<>();
@@ -35,7 +37,7 @@ public abstract class Applicant extends Person implements UserInterface {
   private List<String> jobPreferences = new ArrayList<>();
   
   // List of all notifications the applicant receives from all employers
-  private List<String> notifications = new ArrayList<>();
+  private List<Notification> notifications = new ArrayList<>();
   
   private ManagementSystem managementSystem;
   
@@ -132,17 +134,17 @@ public abstract class Applicant extends Person implements UserInterface {
   }
   
   // Adds a notification to the notification list of the applicant
-  public void addNotification(String notification) {
+  public void addNotification(Notification notification) {
     notifications.add(notification);
   }
   
   // Returns all the notifications sent to the applicant
-  public List<String> getNotifications() {
+  public List<Notification> getNotifications() {
     return notifications;
   }
   
   // Returns the notification located at the index passed through
-  public String getNotification(int index) {
+  public Notification getNotification(int index) {
     return notifications.get(index);
   }
   
@@ -151,12 +153,12 @@ public abstract class Applicant extends Person implements UserInterface {
     return this.password.equals(password);
   }
   
-  // onboards the applicant to the position
+  // on boards the applicant to the position
   // sets the applicants status to employed
   public void acceptOffer() throws NoJobOfferException, ApplicantNotFoundException {
     if (jobOffer != null) {
       jobOffer.onBoardApplicant(this);
-      employer = jobOffer;
+      currentJob = jobOffer;
       jobOffer = null;
       setStatus(UserStatus.EMPLOYED);
     } else {
@@ -194,5 +196,53 @@ public abstract class Applicant extends Person implements UserInterface {
   private boolean equals(Applicant applicant) {
     return applicant.getFirstName() == this.getFirstName() &&
             applicant.getLastName() == this.getLastName();
+  }
+  
+  @Override
+  public String toString() {
+    return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
+            nameToString(),
+            statusToString(),
+            lastUpdateToString(),
+            availabilitiesToString(),
+            jobPreferencesToString(),
+            jobOfferToString(),
+            employerToString());
+  }
+  
+  @Override
+  public String statusToString() {
+    return String.format("Status: %s", getStatus().toString());
+  }
+  
+  public String lastUpdateToString() {
+    return String.format("Number Of Days Since Last Update: %f",
+            Math.abs(Period.between(lastStudentUpdate, LocalDate.now()).getDays()));
+  }
+  
+  public String availabilitiesToString() {
+    String availabilities = "";
+    for (PositionType availability : getAvailabilities()) {
+      availabilities += String.format("%s ", availability);
+    }
+    return String.format("Availabilities: %s", availabilities);
+  }
+  
+  public String jobPreferencesToString() {
+    String preferences = "";
+    for (String pref : getJobPreferences()) {
+      preferences += String.format("%s ", pref);
+    }
+    return String.format("Availabilities: %s", preferences);
+  }
+  
+  public String jobOfferToString() {
+    return String.format("Current Job Offer: %s - %s",
+            jobOffer.getEmployer(),
+            jobOffer.getPositionTitle());
+  }
+  
+  public String employerToString() {
+    return String.format("Current Employer: %s", currentJob.getEmployer());
   }
 }

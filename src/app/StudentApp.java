@@ -62,6 +62,7 @@ public class StudentApp extends App implements AppInterface {
     }
   }
   
+  // creates a new local student in the application
   public void createLocalStudent() {
     Map<String, String> studentDetails = getPersonalDetails();
     PositionType positionType = getStudentAvailability();
@@ -77,6 +78,7 @@ public class StudentApp extends App implements AppInterface {
     ));
   }
   
+  // creates a new international student in the application
   private void createInternationalStudent() {
     Map<String, String> studentDetails = getPersonalDetails();
     managementSystem.registerApplicant(new InternationalStudent(
@@ -115,6 +117,7 @@ public class StudentApp extends App implements AppInterface {
     return type;
   }
   
+  // determines whether the login details provided are provided
   private void verifyUser(String firstName, String lastName, String password)
           throws UserNotFoundException, PasswordMissmatchException {
     Applicant applicant = managementSystem.getApplicantByName(

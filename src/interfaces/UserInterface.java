@@ -10,4 +10,8 @@ public interface UserInterface {
   String getPassword();
   
   boolean verifyPassword(String password);
+  
+  String nameToString();
+  
+  String statusToString();
 }

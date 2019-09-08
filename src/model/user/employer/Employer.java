@@ -12,6 +12,7 @@ import model.position.InterviewSlot;
 import model.system.ManagementSystem;
 import model.position.Position;
 import model.user.User;
+import model.user.applicant.utilities.Notification;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -143,9 +144,9 @@ public class Employer extends User implements UserInterface {
   
   public void shortlistApplicant(Applicant applicant, Position position) {
     position.addApplicantToShortlist(applicant);
-    applicant.addNotification(
-            String.format("You have been shortlisted for %s!", position.getPositionTitle())
-    );
+    applicant.addNotification(new Notification(
+            String.format("You have been shortlisted for %s!", position.getPositionTitle()),
+            this));
   }
   
   public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)
@@ -164,14 +165,14 @@ public class Employer extends User implements UserInterface {
   }
   
   // the passed applicants will receive a string notification of the string passed
-  public void notifyApplicants(List<Applicant> applicants, String notification) {
+  public void notifyApplicants(List<Applicant> applicants, Notification notification) {
     for (Applicant applicant : applicants) {
       applicant.addNotification(notification);
     }
   }
   
   // the passed applicant will receive a string notification of the string passed
-  public void notifyApplicant(Applicant applicant, String notification) {
+  public void notifyApplicant(Applicant applicant, Notification notification) {
     applicant.addNotification(notification);
   }
   
@@ -208,5 +209,15 @@ public class Employer extends User implements UserInterface {
   
   private boolean equals(Employer employer) {
     return employer.getId() == this.getId() && employer.getName() == this.getName();
+  }
+  
+  @Override
+  public String nameToString() {
+    return String.format("Name: %s", getName());
+  }
+  
+  @Override
+  public String statusToString() {
+    return String.format("Status: %s", getStatus());
   }
 }

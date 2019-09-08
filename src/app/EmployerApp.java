@@ -6,7 +6,6 @@ import model.system.ManagementSystem;
 import model.user.employer.Employer;
 import exceptions.PasswordMissmatchException;
 
-import java.util.InputMismatchException;
 import java.util.Map;
 
 public class EmployerApp extends App implements AppInterface {
@@ -34,6 +33,7 @@ public class EmployerApp extends App implements AppInterface {
     this.currentUser = employer;
   }
   
+  // creates a new employer in the application
   public void createEmployer() {
     Map<String, String> employerDetails = getEmployerDetails();
     managementSystem.registerEmployer(new Employer(employerDetails.get(EMPLOYER_NAME),
@@ -42,6 +42,7 @@ public class EmployerApp extends App implements AppInterface {
     setCurrentUser(managementSystem.getEmployerByName(employerDetails.get(EMPLOYER_NAME).toLowerCase()));
   }
   
+  // determines whether the login details provided are provided
   private void verifyUser(String employerName, String password)
           throws UserNotFoundException, PasswordMissmatchException {
     Employer employer = managementSystem.getEmployerByName(employerName);

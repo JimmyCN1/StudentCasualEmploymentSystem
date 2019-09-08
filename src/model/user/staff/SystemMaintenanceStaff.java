@@ -73,4 +73,14 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
   @Override
   public void setStatus(UserStatus status) {
   }
+
+//  @Override
+//  public String nameToString() {
+//    return null;
+//  }
+  
+  @Override
+  public String statusToString() {
+    return null;
+  }
 }

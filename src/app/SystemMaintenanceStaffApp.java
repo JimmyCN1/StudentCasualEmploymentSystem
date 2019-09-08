@@ -51,6 +51,7 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     ));
   }
   
+  // determines whether the login details provided are provided
   private void verifyUser(String firstName, String lastName, String password)
           throws UserNotFoundException, PasswordMissmatchException {
     SystemMaintenanceStaff systemMaintenanceStaff = managementSystem.getSystemMaintenanceByName(firstName.toLowerCase() + lastName.toLowerCase());

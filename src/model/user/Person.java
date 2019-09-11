@@ -3,7 +3,9 @@ package model.user;
 
 import model.system.ManagementSystem;
 
-public abstract class Person extends User {
+import java.io.Serializable;
+
+public abstract class Person extends User implements Serializable {
   private String firstName;
   private String lastName;
   

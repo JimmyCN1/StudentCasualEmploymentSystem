@@ -13,12 +13,13 @@ import model.user.Person;
 import model.user.applicant.utilities.Notification;
 import model.user.applicant.utilities.Reference;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Applicant extends Person implements UserInterface {
+public abstract class Applicant extends Person implements UserInterface, Serializable {
   private static int applicantCount = 0;
   private final int MAX_AVAILABILITIES = 3;
   private final int TWO_WEEKS = 14;

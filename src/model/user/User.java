@@ -6,10 +6,11 @@ import interfaces.UserInterface;
 import model.system.ManagementSystem;
 import model.user.utilities.Complaint;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class User implements UserInterface {
+public abstract class User implements UserInterface, Serializable {
   private static int userCount = 0;
   private final int MAX_COMPLAINTS = 3;
   private int userId;

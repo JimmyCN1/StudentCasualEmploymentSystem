@@ -1,6 +1,8 @@
 package interfaces;
 
-public interface AppInterface {
+import java.io.Serializable;
+
+public interface AppInterface extends Serializable {
   
   public void displayMainMenu();
   

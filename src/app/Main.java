@@ -17,6 +17,8 @@ public class Main {
     ManagementSystem managementSystem = new ManagementSystem();
     App app = new App(managementSystem);
     Scanner scanner = new Scanner(System.in);
+
+    managementSystem.recoverState();
     
     // display main menu
     while (true) {
@@ -47,6 +49,7 @@ public class Main {
             app.loginAs();
             break;
           case (QUIT):
+            managementSystem.saveState();
             System.exit(EXIT_SUCCESS);
           default:
             break;

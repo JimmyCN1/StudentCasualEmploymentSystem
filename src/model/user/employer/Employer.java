@@ -14,6 +14,7 @@ import model.position.Position;
 import model.user.User;
 import model.user.applicant.utilities.Notification;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Employer extends User implements UserInterface {
+public class Employer extends User implements UserInterface, Serializable {
   private static int employerCount = 0;
   private int employerId;
   private String employerName;

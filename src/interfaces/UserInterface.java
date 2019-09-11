@@ -1,6 +1,8 @@
 package interfaces;
 
-public interface UserInterface {
+import java.io.Serializable;
+
+public interface UserInterface extends Serializable {
   int getId();
   
   String getHashMapKey();

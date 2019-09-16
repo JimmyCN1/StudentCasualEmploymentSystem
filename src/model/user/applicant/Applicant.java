@@ -5,13 +5,10 @@ import enumerators.PositionType;
 import exceptions.*;
 import model.position.Position;
 import model.system.ManagementSystem;
-import interfaces.UserInterface;
-import model.user.applicant.utilities.Job;
+import model.user.applicant.utilities.*;
 import model.user.Person;
 
 // Questionable
-import model.user.applicant.utilities.Notification;
-import model.user.applicant.utilities.Reference;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -19,7 +16,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Applicant extends Person implements UserInterface, Serializable {
+public abstract class Applicant extends Person implements Serializable {
   private static int applicantCount = 0;
   private final int MAX_AVAILABILITIES = 3;
   private final int TWO_WEEKS = 14;
@@ -32,7 +29,9 @@ public abstract class Applicant extends Person implements UserInterface, Seriali
   private Position jobOffer = null;
   private Position currentJob = null;
   
-  private List<Job> pastJobs = new ArrayList<>();
+  private List<License> licenses = new ArrayList<>();
+  private List<Qualification> qualifications = new ArrayList<>();
+  private List<PastJob> pastJobs = new ArrayList<>();
   private List<Reference> references = new ArrayList<>();
   private List<Position> appliedJobs = new ArrayList<>();
   private List<String> jobPreferences = new ArrayList<>();
@@ -66,6 +65,7 @@ public abstract class Applicant extends Person implements UserInterface, Seriali
     return password;
   }
   
+  @Override
   public UserStatus getStatus() {
     return status;
   }
@@ -82,6 +82,7 @@ public abstract class Applicant extends Person implements UserInterface, Seriali
     return jobPreferences;
   }
   
+  @Override
   public void setStatus(UserStatus applicantStatus) {
     this.status = applicantStatus;
   }
@@ -245,7 +246,7 @@ public abstract class Applicant extends Person implements UserInterface, Seriali
   public String jobOfferToString() {
     return String.format("Current Job Offer: %s - %s",
             jobOffer.getEmployer(),
-            jobOffer.getPositionTitle());
+            jobOffer.getTitle());
   }
   
   public String employerToString() {
@@ -265,7 +266,7 @@ public abstract class Applicant extends Person implements UserInterface, Seriali
     for (Position p : appliedJobs) {
       jobs += String.format("Employer: %s, Position Title: %s\n",
               p.getEmployer().getName(),
-              p.getPositionTitle());
+              p.getTitle());
     }
     return jobs;
   }

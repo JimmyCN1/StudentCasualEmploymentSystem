@@ -1,5 +1,6 @@
 package app;
 
+import exceptions.InvalidUserStatusException;
 import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
@@ -78,6 +79,8 @@ public class EmployerApp extends App implements AppInterface {
       System.out.println("Complaint successfully lodged..\n");
     } catch (UserNotFoundException e) {
       System.out.println("Sorry, this applicant was not found in the system\n");
+    } catch (InvalidUserStatusException e) {
+      e.printStackTrace();
     }
   }
 }

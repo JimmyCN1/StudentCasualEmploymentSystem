@@ -17,39 +17,39 @@ import java.util.*;
 public class Position {
   private static int positionCount = 0;
   private final int TOP_APPLICANTS_CUTOFF = 5;
-  private int positionId;
-  private String positionTitle;
+  private int id;
+  private String title;
   private PositionType positionType;
+  private double hourlyRate;
+  private int minHoursPerWeek;
+  private int maxHoursPerWeek;
   private List<String> applicableJobCategories = new ArrayList<>();
-  private double positionHourlyRate;
-  private int positionMinHoursPerWeek;
-  private int positionMaxHoursPerWeek;
+  private List<InterviewSlot> interviewSlots = new LinkedList<>();
   private List<Applicant> appliedApplicants = new ArrayList<>();
   private List<Applicant> suitableApplicants = new ArrayList<>();
   private List<ApplicantRanking> rankedApplicants = new ArrayList<>();
   private List<Applicant> shortlistedByEmployer = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
-  private List<InterviewSlot> interviewSlots = new LinkedList<>();
   private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
   private List<Applicant> staff = new ArrayList<>();
   private Employer positionOwner;
   private ManagementSystem managementSystem;
   
-  public Position(String positionTitle,
+  public Position(String title,
                   PositionType positionType,
-                  double positionHourlyRate,
-                  int positionMinHoursPerWeek,
-                  int positionMaxHoursPerWeek,
+                  double hourlyRate,
+                  int minHoursPerWeek,
+                  int maxHoursPerWeek,
                   Employer positionOwner,
                   ManagementSystem managementSystem) {
     positionCount++;
-    this.positionId = positionCount;
-    this.positionTitle = positionTitle;
+    this.id = positionCount;
+    this.title = title;
     this.positionType = positionType;
-    this.positionHourlyRate = positionHourlyRate;
-    this.positionMinHoursPerWeek = positionMinHoursPerWeek;
-    this.positionMaxHoursPerWeek = positionMaxHoursPerWeek;
+    this.hourlyRate = hourlyRate;
+    this.minHoursPerWeek = minHoursPerWeek;
+    this.maxHoursPerWeek = maxHoursPerWeek;
     this.positionOwner = positionOwner;
     this.managementSystem = managementSystem;
   }
@@ -59,16 +59,16 @@ public class Position {
     return positionOwner;
   }
   
-  public int getPositionId() {
-    return positionId;
+  public int getId() {
+    return id;
   }
   
-  public String getPositionTitle() {
-    return positionTitle;
+  public String getTitle() {
+    return title;
   }
   
   public String getHashMapKey() {
-    return positionTitle.toLowerCase();
+    return title.toLowerCase();
   }
   
   public List<String> getApplicableJobCategories() {
@@ -95,6 +95,10 @@ public class Position {
     return interviewSlots;
   }
   
+  public List<Applicant> getUnsuccessfullApplicants() {
+    return unsuccessfulApplicants;
+  }
+  
   // returns the open interview slots
   public List<InterviewSlot> getFreeInterviewSlots() {
     List<InterviewSlot> freeSlots = new ArrayList<>();
@@ -104,10 +108,6 @@ public class Position {
       }
     }
     return freeSlots;
-  }
-  
-  public List<Applicant> getUnsuccessfullApplicants() {
-    return unsuccessfulApplicants;
   }
   
   // returns the matching applicant from the passed applicant list

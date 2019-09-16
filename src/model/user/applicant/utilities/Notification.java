@@ -18,9 +18,4 @@ public class Notification {
   public Employer getEmployer() {
     return employer;
   }
-
-//  @Override
-//  public String toString() {
-//    return String.format("%s\n%s", employer.getName().toUpperCase(), message);
-//  }
 }

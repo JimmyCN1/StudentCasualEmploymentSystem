@@ -5,6 +5,7 @@
       <set>
         <option value="activate" />
         <option value="reformat" />
+        <option value="missingOverrideAnnotation" />
       </set>
     </option>
     <option name="configurationPath" value="" />

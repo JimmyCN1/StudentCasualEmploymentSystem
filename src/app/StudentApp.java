@@ -63,7 +63,7 @@ public class StudentApp extends App implements AppInterface {
   }
   
   // creates a new local student in the application
-  public void createLocalStudent() {
+  private void createLocalStudent() {
     Map<String, String> studentDetails = getPersonalDetails();
     PositionType positionType = getStudentAvailability();
     managementSystem.registerApplicant(new LocalStudent(
@@ -276,6 +276,8 @@ public class StudentApp extends App implements AppInterface {
       System.out.println("Complaint successfully lodged..\n");
     } catch (UserNotFoundException e) {
       System.out.println("Sorry, this employer was not found in the system\n");
+    } catch (InvalidUserStatusException e) {
+      System.out.println("Sorry, the system accidentally tried to incorrectly assign this employers status");
     }
   }
   

@@ -2,11 +2,7 @@ package model.user.employer;
 
 import enumerators.UserStatus;
 import enumerators.PositionType;
-import exceptions.InterviewSlotNotFoundException;
-import exceptions.PositionNotFoundException;
-import exceptions.InterviewSlotClashException;
-import exceptions.UserBlacklistedException;
-import interfaces.UserInterface;
+import exceptions.*;
 import model.user.applicant.Applicant;
 import model.position.InterviewSlot;
 import model.system.ManagementSystem;
@@ -22,10 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Employer extends User implements UserInterface, Serializable {
+public class Employer extends User implements Serializable {
   private static int employerCount = 0;
-  private int employerId;
-  private String employerName;
+  private int id;
+  private String name;
   private String password;
   private UserStatus status = null;
   
@@ -33,11 +29,11 @@ public class Employer extends User implements UserInterface, Serializable {
   
   private ManagementSystem managementSystem;
   
-  public Employer(String employerName, String password, ManagementSystem managementSystem) {
-    super(employerName, managementSystem);
+  public Employer(String name, String password, ManagementSystem managementSystem) {
+    super(name, managementSystem);
     employerCount++;
-    this.employerId = employerCount;
-    this.employerName = employerName;
+    this.id = employerCount;
+    this.name = name;
     this.password = password;
     this.status = UserStatus.AVAILABLE;
     this.managementSystem = managementSystem;
@@ -48,18 +44,19 @@ public class Employer extends User implements UserInterface, Serializable {
     return employerCount;
   }
   
+  @Override
   public int getId() {
-    return employerId;
+    return id;
   }
   
   @Override
   public String getHashMapKey() {
-    return employerName.toLowerCase();
+    return name.toLowerCase();
   }
   
   @Override
   public String getName() {
-    return employerName;
+    return name;
   }
   
   @Override
@@ -88,7 +85,7 @@ public class Employer extends User implements UserInterface, Serializable {
     Position matchingPosition = null;
     
     for (String p : this.positions.keySet()) {
-      if (positionId == this.positions.get(p).getPositionId()) {
+      if (positionId == this.positions.get(p).getId()) {
         matchingPosition = this.positions.get(p);
       }
     }
@@ -121,8 +118,13 @@ public class Employer extends User implements UserInterface, Serializable {
     }
   }
   
-  public void setStatus(UserStatus status) {
-    this.status = UserStatus.BLACKLISTED;
+  // employer status must only be AVAILABLE or BLACKLISTED
+  @Override
+  public void setStatus(UserStatus employerStatus) throws InvalidUserStatusException {
+    if (employerStatus != UserStatus.BLACKLISTED || employerStatus != UserStatus.AVAILABLE) {
+      throw new InvalidUserStatusException();
+    }
+    this.status = employerStatus;
   }
   
   @Override
@@ -148,7 +150,7 @@ public class Employer extends User implements UserInterface, Serializable {
   public void shortlistApplicant(Applicant applicant, Position position) {
     position.addApplicantToShortlist(applicant);
     applicant.addNotification(new Notification(
-            String.format("You have been shortlisted for %s!", position.getPositionTitle()),
+            String.format("You have been shortlisted for %s!", position.getTitle()),
             this));
   }
   

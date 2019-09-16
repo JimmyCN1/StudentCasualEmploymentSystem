@@ -1,18 +1,17 @@
 package model.user.staff;
 
 import enumerators.UserStatus;
-import interfaces.UserInterface;
+import exceptions.InvalidUserStatusException;
 import model.user.User;
 import model.user.applicant.Applicant;
 import model.system.ManagementSystem;
 import model.user.employer.Employer;
 import model.user.Person;
 
-public class SystemMaintenanceStaff extends Person implements UserInterface {
+public class SystemMaintenanceStaff extends Person {
   private static int systemMaintenanceStaffCount = 0;
   private int id;
   private String password;
-  private ManagementSystem managementSystem;
   
   public SystemMaintenanceStaff(String firstName, String lastName, String password, ManagementSystem managementSystem) {
     super(firstName, lastName, managementSystem);
@@ -34,13 +33,22 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
   }
   
   @Override
+  public UserStatus getStatus() {
+    return null;
+  }
+  
+  @Override
+  public void setStatus(UserStatus status) {
+  }
+  
+  @Override
   public boolean verifyPassword(String password) {
     return this.password.equals(password);
   }
   
   public Employer getEmployerRecords(int id) {
     Employer returnEmployer = null;
-    for (Employer employer : managementSystem.getEmployersAsList()) {
+    for (Employer employer : getManagementSystem().getEmployersAsList()) {
       if (employer.getId() == id) {
         returnEmployer = employer;
       }
@@ -50,7 +58,7 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
   
   public Applicant getApplicantRecords(int id) {
     Applicant returnApplicant = null;
-    for (Applicant applicant : managementSystem.getApplicantsAsList()) {
+    for (Applicant applicant : getManagementSystem().getApplicantsAsList()) {
       if (applicant.getId() == id) {
         returnApplicant = applicant;
       }
@@ -58,22 +66,13 @@ public class SystemMaintenanceStaff extends Person implements UserInterface {
     return returnApplicant;
   }
   
-  public void blackListUser(User user) {
-    managementSystem.addUserToBlacklist(user);
+  public void blackListUser(User user) throws InvalidUserStatusException {
+    getManagementSystem().addUserToBlacklist(user);
     user.setStatus(UserStatus.BLACKLISTED);
   }
   
   public void addNewJobCategory(String jobCategory) {
-    managementSystem.addJobCategory(jobCategory);
-  }
-  
-  @Override
-  public UserStatus getStatus() {
-    return null;
-  }
-  
-  @Override
-  public void setStatus(UserStatus status) {
+    getManagementSystem().addJobCategory(jobCategory);
   }
   
   @Override

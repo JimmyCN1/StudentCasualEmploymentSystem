@@ -1,9 +1,6 @@
 import enumerators.UserStatus;
 import enumerators.PositionType;
-import exceptions.InvalidJobCategoryException;
-import exceptions.PositionNotFoundException;
-import exceptions.UserBlacklistedException;
-import exceptions.UserNotFoundException;
+import exceptions.*;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
@@ -11,7 +8,6 @@ import model.system.ManagementSystem;
 import model.user.applicant.utilities.Notification;
 import model.user.employer.Employer;
 import model.position.Position;
-import model.user.utilities.Complaint;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -259,9 +255,9 @@ public class EmployerTest {
     List<Applicant> offeredApplicants = new ArrayList<>();
     
     try {
-      employer1.offerJob(applicants.get(0), employer1.getPositionByTitle(position1.getPositionTitle()));
-      employer1.offerJob(applicants.get(3), employer1.getPositionByTitle(position1.getPositionTitle()));
-      offeredApplicants = employer1.getPositionByTitle(position1.getPositionTitle()).getApplicantsJobOfferedTo();
+      employer1.offerJob(applicants.get(0), employer1.getPositionByTitle(position1.getTitle()));
+      employer1.offerJob(applicants.get(3), employer1.getPositionByTitle(position1.getTitle()));
+      offeredApplicants = employer1.getPositionByTitle(position1.getTitle()).getApplicantsJobOfferedTo();
     } catch (PositionNotFoundException e) {
       e.printStackTrace();
     } catch (UserBlacklistedException e) {
@@ -306,10 +302,9 @@ public class EmployerTest {
       employer4.lodgeComplaint(complaint2, applicants.get(1).getName());
     } catch (UserNotFoundException e) {
       e.printStackTrace();
+    } catch (InvalidUserStatusException e) {
+      e.printStackTrace();
     }
-
-//    List<Complaint> complaintsForApplicant1 = applicants.get(0).getComplaints();
-//    List<Complaint> complaintsForApplicant2 = applicants.get(1).getComplaints();
     
     assertEquals(complaint1, applicants.get(0).getComplaints().get(0).getComplaint());
     assertEquals(complaint2, applicants.get(1).getComplaints().get(0).getComplaint());
@@ -319,6 +314,4 @@ public class EmployerTest {
   public void equalsTests() {
     assertTrue(employer1.equals(employer1));
   }
-  
-  
 }

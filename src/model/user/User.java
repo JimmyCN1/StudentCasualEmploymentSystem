@@ -1,6 +1,7 @@
 package model.user;
 
 import enumerators.UserStatus;
+import exceptions.InvalidUserStatusException;
 import exceptions.UserNotFoundException;
 import interfaces.UserInterface;
 import model.system.ManagementSystem;
@@ -30,6 +31,7 @@ public abstract class User implements UserInterface, Serializable {
     return userId;
   }
   
+  @Override
   public String getName() {
     return name;
   }
@@ -40,7 +42,12 @@ public abstract class User implements UserInterface, Serializable {
     return complaints;
   }
   
-  public abstract void setStatus(UserStatus status);
+  @Override
+  public ManagementSystem getManagementSystem() {
+    return managementSystem;
+  }
+  
+  public abstract void setStatus(UserStatus status) throws InvalidUserStatusException;
   
   public void addComplaint(Complaint complaint) {
     complaints.add(complaint);
@@ -49,7 +56,7 @@ public abstract class User implements UserInterface, Serializable {
   // lodges a complaint against the applicant
   // if the applicant has 3 or more complaints, they are blacklisted
   public void lodgeComplaint(String complaint, String userName)
-          throws UserNotFoundException {
+          throws UserNotFoundException, InvalidUserStatusException {
     boolean foundMatch = false;
     for (int i = 0; i < managementSystem.getUsersAsList().size(); i++) {
       if (managementSystem.getUsersAsList().get(i).getName().equals(userName)) {

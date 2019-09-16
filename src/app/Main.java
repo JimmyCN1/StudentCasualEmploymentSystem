@@ -17,7 +17,7 @@ public class Main {
     ManagementSystem managementSystem = new ManagementSystem();
     App app = new App(managementSystem);
     Scanner scanner = new Scanner(System.in);
-
+    
     managementSystem.recoverState();
     
     // display main menu
@@ -51,8 +51,6 @@ public class Main {
           case (QUIT):
             managementSystem.saveState();
             System.exit(EXIT_SUCCESS);
-          default:
-            break;
         }
       } catch (InputMismatchException e) {
         System.out.println("Please try again..\n");

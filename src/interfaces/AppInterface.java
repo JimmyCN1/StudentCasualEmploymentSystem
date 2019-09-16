@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public interface AppInterface extends Serializable {
   
-  public void displayMainMenu();
+  void displayMainMenu();
   
-  public void lodgeAComplaint();
+  void lodgeAComplaint();
 }

@@ -62,8 +62,8 @@ public class PastJob {
     this.responsibilities.add(responsibility);
   }
   
-  public String removeResponsibility(int responsibility) {
-    return this.responsibilities.remove(responsibility);
+  public String removeResponsibility(int responsibilityIndex) {
+    return this.responsibilities.remove(responsibilityIndex);
   }
   
   

@@ -270,4 +270,36 @@ public abstract class Applicant extends Person implements Serializable {
     }
     return jobs;
   }
+  
+  public void addLicense(License license) {
+    licenses.add(license);
+  }
+  
+  public License remove(int licenseIndex) {
+    return licenses.remove(licenseIndex);
+  }
+  
+  public void addPastJob(PastJob pastJob) {
+    pastJobs.add(pastJob);
+  }
+  
+  public PastJob removePastJob(int pastJobIndex) {
+    return pastJobs.remove(pastJobIndex);
+  }
+  
+  public void addQualification(Qualification qualification) {
+    qualifications.add(qualification);
+  }
+  
+  public Qualification removeQualification(int qualificationIndex) {
+    return qualifications.remove(qualificationIndex);
+  }
+  
+  public void addReference(Reference reference) {
+    references.add(reference);
+  }
+  
+  public Reference removeReference(int referenceIndex) {
+    return references.remove(referenceIndex);
+  }
 }

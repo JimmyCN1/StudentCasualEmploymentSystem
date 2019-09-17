@@ -12,14 +12,15 @@ public class Complaint {
   }
   
   public String getComplaint() {
-    return complaint;
+    return this.complaint;
   }
   
   public User getOffendingUser() {
-    return offendingUser;
+    return this.offendingUser;
   }
   
-  public void setComplaint(String complaint) {
-    this.complaint = complaint;
-  }
+  // this method is useless as the complaint has already been set in the constructor
+  //public void setComplaint(String complaint) {
+  //  this.complaint = complaint;
+  //}
 }

@@ -50,36 +50,36 @@ public abstract class Applicant extends Person implements Serializable {
     setLastName(lastName);
     this.password = password;
     this.status = UserStatus.AVAILABLE;
-    lastStudentUpdate = LocalDate.now();
-    availabilities.add(availability);
+    this.lastStudentUpdate = LocalDate.now();
+    this.availabilities.add(availability);
     this.managementSystem = managementSystem;
   }
   
   @Override
   public int getId() {
-    return applicantId;
+    return this.applicantId;
   }
   
   @Override
   public String getPassword() {
-    return password;
+    return this.password;
   }
   
   @Override
   public UserStatus getStatus() {
-    return status;
+    return this.status;
   }
   
   public List<PositionType> getAvailabilities() {
-    return availabilities;
+    return this.availabilities;
   }
   
   public String getCv() {
-    return cv;
+    return this.cv;
   }
   
   public List<String> getJobPreferences() {
-    return jobPreferences;
+    return this.jobPreferences;
   }
   
   @Override
@@ -90,8 +90,8 @@ public abstract class Applicant extends Person implements Serializable {
   public void addJobPreference(String jobPreference)
           throws InvalidJobCategoryException {
     String jobPref = jobPreference.toUpperCase();
-    if (managementSystem.getJobCategories().contains(jobPref)) {
-      jobPreferences.add(jobPref);
+    if (this.managementSystem.getJobCategories().contains(jobPref)) {
+      this.jobPreferences.add(jobPref);
     } else {
       throw new InvalidJobCategoryException();
     }
@@ -101,11 +101,11 @@ public abstract class Applicant extends Person implements Serializable {
           throws JobCategoryNotFoundException {
     String jobPref = jobPreference.toUpperCase();
     boolean wasPreferenceRemoved = false;
-    if (!managementSystem.getJobCategories().contains(jobPref)) {
+    if (!this.managementSystem.getJobCategories().contains(jobPref)) {
       throw new JobCategoryNotFoundException();
     } else {
-      if (jobPreferences.contains(jobPref)) {
-        jobPreferences.remove(jobPref);
+      if (this.jobPreferences.contains(jobPref)) {
+        this.jobPreferences.remove(jobPref);
         wasPreferenceRemoved = true;
       }
     }
@@ -114,41 +114,41 @@ public abstract class Applicant extends Person implements Serializable {
   
   public void addAvailability(PositionType availability)
           throws InternationalStudentAvailabilityException {
-    if (!availabilities.contains(availability) && availabilities.size() < MAX_AVAILABILITIES)
-      availabilities.add(availability);
+    if (!this.availabilities.contains(availability) && this.availabilities.size() < this.MAX_AVAILABILITIES)
+      this.availabilities.add(availability);
   }
   
   public void addAvailability(String availability)
           throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
     PositionType type = PositionType.determinePositionType(availability);
-    if (!availabilities.contains(availability) && availabilities.size() < MAX_AVAILABILITIES)
-      availabilities.add(type);
+    if (!this.availabilities.contains(availability) && this.availabilities.size() < this.MAX_AVAILABILITIES)
+      this.availabilities.add(type);
   }
   
   public boolean removeAvailability(PositionType availability)
           throws InternationalStudentAvailabilityException {
-    return availabilities.remove(availability);
+    return this.availabilities.remove(availability);
   }
   
   public boolean removeAvailability(String availability)
           throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
     PositionType type = PositionType.determinePositionType(availability);
-    return availabilities.remove(type);
+    return this.availabilities.remove(type);
   }
   
   // Adds a notification to the notification list of the applicant
   public void addNotification(Notification notification) {
-    notifications.add(notification);
+    this.notifications.add(notification);
   }
   
   // Returns all the notifications sent to the applicant
   public List<Notification> getNotifications() {
-    return notifications;
+    return this.notifications;
   }
   
   // Returns the notification located at the index passed through
   public Notification getNotification(int index) {
-    return notifications.get(index);
+    return this.notifications.get(index);
   }
   
   @Override
@@ -160,10 +160,10 @@ public abstract class Applicant extends Person implements Serializable {
   // sets the applicants status to employed
   public void acceptOffer() throws NoJobOfferException, ApplicantNotFoundException {
     // TODO: remove job from applied jobs array?
-    if (jobOffer != null) {
-      jobOffer.onBoardApplicant(this);
-      currentJob = jobOffer;
-      jobOffer = null;
+    if (this.jobOffer != null) {
+      this.jobOffer.onBoardApplicant(this);// figure out
+      this.currentJob = this.jobOffer;
+      this.jobOffer = null;
       setStatus(UserStatus.EMPLOYED);
     } else {
       throw new NoJobOfferException();
@@ -174,9 +174,9 @@ public abstract class Applicant extends Person implements Serializable {
   // sets the applicants status to available
   public void rejectOffer() throws NoJobOfferException, ApplicantNotFoundException {
     // TODO: remove job from applied jobs array?
-    if (jobOffer != null) {
-      jobOffer.revokeOffer(this);
-      jobOffer = null;
+    if (this.jobOffer != null) {
+      this.jobOffer.revokeOffer(this);
+      this.jobOffer = null;
       setStatus(UserStatus.AVAILABLE);
     } else {
       throw new NoJobOfferException();
@@ -186,8 +186,8 @@ public abstract class Applicant extends Person implements Serializable {
   // if the applicant has been inactive for more than two weeks,
   // set the applicants activity to unknown
   public void handleInactivity() {
-    if (!status.equals(UserStatus.EMPLOYED) || !status.equals(UserStatus.BLACKLISTED)) {
-      if (lastStudentUpdate.compareTo(LocalDate.now()) > TWO_WEEKS) {
+    if (!this.status.equals(UserStatus.EMPLOYED) || !this.status.equals(UserStatus.BLACKLISTED)) {
+      if (this.lastStudentUpdate.compareTo(LocalDate.now()) > this.TWO_WEEKS) {
         setStatus(UserStatus.UNKNOWN);
       }
     }
@@ -224,7 +224,7 @@ public abstract class Applicant extends Person implements Serializable {
   
   public String lastUpdateToString() {
     return String.format("Number Of Days Since Last Update: %d",
-            Math.abs(Period.between(lastStudentUpdate, LocalDate.now()).getDays()));
+            Math.abs(Period.between(this.lastStudentUpdate, LocalDate.now()).getDays()));
   }
   
   public String availabilitiesToString() {
@@ -245,8 +245,8 @@ public abstract class Applicant extends Person implements Serializable {
   
   public String jobOfferToString() {
     return String.format("Current Job Offer: %s - %s",
-            jobOffer.getEmployer(),
-            jobOffer.getTitle());
+            this.jobOffer.getEmployer(),
+            this.jobOffer.getTitle());
   }
   
   public String employerToString() {
@@ -263,7 +263,7 @@ public abstract class Applicant extends Person implements Serializable {
   
   public String appliedJobsToString() {
     String jobs = "";
-    for (Position p : appliedJobs) {
+    for (Position p : this.appliedJobs) {
       jobs += String.format("Employer: %s, Position Title: %s\n",
               p.getEmployer().getName(),
               p.getTitle());
@@ -272,34 +272,34 @@ public abstract class Applicant extends Person implements Serializable {
   }
   
   public void addLicense(License license) {
-    licenses.add(license);
+    this.licenses.add(license);
   }
   
   public License remove(int licenseIndex) {
-    return licenses.remove(licenseIndex);
+    return this.licenses.remove(licenseIndex);
   }
   
   public void addPastJob(PastJob pastJob) {
-    pastJobs.add(pastJob);
+    this.pastJobs.add(pastJob);
   }
   
   public PastJob removePastJob(int pastJobIndex) {
-    return pastJobs.remove(pastJobIndex);
+    return this.pastJobs.remove(pastJobIndex);
   }
   
   public void addQualification(Qualification qualification) {
-    qualifications.add(qualification);
+    this.qualifications.add(qualification);
   }
   
   public Qualification removeQualification(int qualificationIndex) {
-    return qualifications.remove(qualificationIndex);
+    return this.qualifications.remove(qualificationIndex);
   }
   
   public void addReference(Reference reference) {
-    references.add(reference);
+    this.references.add(reference);
   }
   
   public Reference removeReference(int referenceIndex) {
-    return references.remove(referenceIndex);
+    return this.references.remove(referenceIndex);
   }
 }

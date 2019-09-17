@@ -21,49 +21,53 @@ public abstract class User implements UserInterface, Serializable {
   private ManagementSystem managementSystem;
   
   public User(String name, ManagementSystem managementSystem) {
-    userCount++;
-    userId = userCount;
+    userCount++;// increment the userCount whenever constructor is called
+    // this. syntax not used here as i assume that the variable is global
+    this.userId = userCount;// assigns userCount to userID
     this.name = name;
     this.managementSystem = managementSystem;
   }
   
   public int getUserId() {
-    return userId;
+    return this.userId;
   }
   
   @Override
   public String getName() {
-    return name;
+    return this.name;
   }
-  
+  // abstract methods are declared so they can be manipulated by children
   public abstract UserStatus getStatus();
   
   public List<Complaint> getComplaints() {
-    return complaints;
+    return this.complaints;
   }
   
   @Override
   public ManagementSystem getManagementSystem() {
-    return managementSystem;
+    return this.managementSystem;
   }
-  
+  //abstract methods are declared so they can be manipulated by children
   public abstract void setStatus(UserStatus status) throws InvalidUserStatusException;
   
   public void addComplaint(Complaint complaint) {
-    complaints.add(complaint);
+    this.complaints.add(complaint);
   }
   
   // lodges a complaint against the applicant
   // if the applicant has 3 or more complaints, they are blacklisted
+  // i made some changes here but whoever is concerned here please how 
+  // is the complaint saved processed in lodgeComplaint(Complaint)
+  // as it seems you are just working with private variables
   public void lodgeComplaint(String complaint, String userName)
           throws UserNotFoundException, InvalidUserStatusException {
     boolean foundMatch = false;
-    for (int i = 0; i < managementSystem.getUsersAsList().size(); i++) {
-      if (managementSystem.getUsersAsList().get(i).getName().equals(userName)) {
+    for (int i = 0; i < this.managementSystem.getUsersAsList().size(); i++) {
+      if (this.managementSystem.getUsersAsList().get(i).getName().equals(userName)) {
         foundMatch = true;
-        Complaint newComplaint = new Complaint(complaint, managementSystem.getUsersAsList().get(i));
+        Complaint newComplaint = new Complaint(complaint, this.managementSystem.getUsersAsList().get(i));
         lodgeComplaint(newComplaint);
-        if (complaints.size() >= MAX_COMPLAINTS) {
+        if (this.complaints.size() >= this.MAX_COMPLAINTS) {
           setStatus(UserStatus.BLACKLISTED);
         }
       }
@@ -72,9 +76,10 @@ public abstract class User implements UserInterface, Serializable {
       throw new UserNotFoundException();
     }
   }
-  
+  // this is very confusing and unclear, i do not understand the goal of this method
+  // and i think it is unnecessary
   public void lodgeComplaint(Complaint complaint) {
-    complaint.getOffendingUser().addComplaint(complaint);
+    complaint.getOffendingUser().addComplaint(complaint);// 
   }
   
   @Override
@@ -82,7 +87,7 @@ public abstract class User implements UserInterface, Serializable {
     return String.format("User Name: %s\nStatus: %s\n%s\n", getName(), getStatus(), getComplaints());
   }
   
-  public String complaintsToString() {
+  public String complaintsToString() {// this might return an error as unsure if global or local complaints
     String complaints = "";
     for (int i = 0; i < this.complaints.size(); i++) {
       complaints += String.format("Complaint%s : %s\n", i + 1, this.complaints.get(i));

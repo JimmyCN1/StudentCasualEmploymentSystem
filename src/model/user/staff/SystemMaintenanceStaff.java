@@ -66,7 +66,7 @@ public class SystemMaintenanceStaff extends Person {
     return returnApplicant;
   }
   
-  public void blackListUser(User user) throws InvalidUserStatusException {
+  public void blacklistUser(User user) throws InvalidUserStatusException {
     getManagementSystem().addUserToBlacklist(user);
     user.setStatus(UserStatus.BLACKLISTED);
   }

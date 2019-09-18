@@ -1,4 +1,4 @@
-package model.serialisation;
+package model.Serialisation;
 
 import model.system.ManagementSystem;
 import model.user.User;

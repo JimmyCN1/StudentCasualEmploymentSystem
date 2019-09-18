@@ -1,7 +1,7 @@
 package model.system;
 
 import interfaces.UserInterface;
-import model.serialisation.SaveState;
+import model.Serialisation.SaveState;
 import model.user.applicant.Applicant;
 import model.system.utilities.Security;
 import model.user.employer.Employer;

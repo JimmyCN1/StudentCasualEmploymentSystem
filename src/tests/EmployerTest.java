@@ -1,3 +1,5 @@
+package tests;
+
 import enumerators.UserStatus;
 import enumerators.PositionType;
 import exceptions.*;

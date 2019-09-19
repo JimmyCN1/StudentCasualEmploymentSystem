@@ -51,7 +51,6 @@ public class ManagementSystemTest {
 
     @Test
     public void testGetEmployersAsList() {
-
         List<Employer> employers = Arrays.asList(
                 employer1 = new Employer("Jack", "abc", managementSystem),
                 employer2 = new Employer("Back", "abc", managementSystem)

@@ -16,12 +16,12 @@ public class EmployerApp extends App implements AppInterface {
   private final String EMPLOYER_NAME = "employerName";
   private Employer currentUser;
   
-  public EmployerApp(String employerName,
+  public EmployerApp(String username,
                      String password,
                      ManagementSystem managementSystem)
           throws UserNotFoundException, PasswordMissmatchException {
     super(managementSystem);
-    verifyUser(employerName, password);
+    verifyUser(username, password);
   }
   
   public EmployerApp(ManagementSystem managementSystem) {
@@ -43,20 +43,22 @@ public class EmployerApp extends App implements AppInterface {
   // creates a new employer in the application
   public void createEmployer() {
     Map<String, String> employerDetails = getEmployerDetails();
-    managementSystem.registerEmployer(new Employer(employerDetails.get(EMPLOYER_NAME),
+    Employer newEmployer = new Employer(employerDetails.get(EMPLOYER_NAME),
             employerDetails.get(PASSWORD),
-            managementSystem));
+            managementSystem);
+    newEmployer.setUsername(employerDetails.get(USERNAME));
+    managementSystem.registerEmployer(newEmployer);
     try {
-      setCurrentUser(managementSystem.getEmployerByName(employerDetails.get(EMPLOYER_NAME).toLowerCase()));
+      setCurrentUser(managementSystem.getEmployerByUsername(employerDetails.get(USERNAME)));
     } catch (EmployerNotFoundException e) {
       System.out.println("Error creating employer. Please try again..");
     }
   }
   
   // determines whether the login details provided are provided
-  private void verifyUser(String employerName, String password)
+  private void verifyUser(String username, String password)
           throws UserNotFoundException, PasswordMissmatchException {
-    Employer employer = managementSystem.getEmployerByName(employerName);
+    Employer employer = managementSystem.getEmployerByUsername(username);
     if (employer == null) {
       throw new UserNotFoundException();
     } else {

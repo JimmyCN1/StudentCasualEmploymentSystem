@@ -14,11 +14,13 @@ public class App {
   protected final int EMPLOYER = 1;
   protected final int STUDENT = 2;
   protected final int SYSTEM_MAINTENANCE_STAFF = 3;
+  
   final String EMPLOYER_NAME = "employerName";
   final String FIRST_NAME = "firstName";
   final String LAST_NAME = "lastName";
+  final String USERNAME = "userName";
   final String PASSWORD = "password";
-  public boolean goBack = false;
+  
   private EmployerApp employerApp;
   private StudentApp studentApp;
   private SystemMaintenanceStaffApp systemMaintenanceStaffApp;
@@ -51,7 +53,6 @@ public class App {
   public void instantiateNewStudentApp() {
     studentApp = new StudentApp(managementSystem);
     studentApp.selectStudentType();
-    
     System.out.printf("%s has been registered to the system.\n\n",
             studentApp.getCurrentUser().getName());
     studentApp.displayMainMenu();
@@ -67,6 +68,7 @@ public class App {
   
   // login as an employer, applicant or system staff
   public void loginAs() {
+    boolean goBack = false;
     while (!goBack) {
       try {
         System.out.println("Login as a:");
@@ -92,13 +94,12 @@ public class App {
         printInputMismatchMessage();
       }
     }
-    goBack = false;
   }
   
   private void loginAsEmployer() {
-    Map<String, String> userDetails = getEmployerDetails();
+    Map<String, String> userDetails = getLoginDetails();
     try {
-      employerApp = new EmployerApp(userDetails.get(EMPLOYER_NAME),
+      employerApp = new EmployerApp(userDetails.get(USERNAME),
               userDetails.get(PASSWORD), managementSystem);
       employerApp.displayMainMenu();
     } catch (UserNotFoundException e) {
@@ -109,10 +110,9 @@ public class App {
   }
   
   private void loginAsStudent() {
-    Map<String, String> userDetails = getPersonalDetails();
+    Map<String, String> userDetails = getLoginDetails();
     try {
-      studentApp = new StudentApp(userDetails.get(FIRST_NAME),
-              userDetails.get(LAST_NAME),
+      studentApp = new StudentApp(userDetails.get(USERNAME),
               userDetails.get(PASSWORD), managementSystem);
       studentApp.displayMainMenu();
     } catch (UserNotFoundException e) {
@@ -123,10 +123,9 @@ public class App {
   }
   
   private void loginAsSystemMaintenanceStaff() {
-    Map<String, String> userDetails = getPersonalDetails();
+    Map<String, String> userDetails = getLoginDetails();
     try {
-      systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(FIRST_NAME),
-              userDetails.get(LAST_NAME),
+      systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(USERNAME),
               userDetails.get(PASSWORD), managementSystem);
       systemMaintenanceStaffApp.displayMainMenu();
     } catch (UserNotFoundException e) {
@@ -142,9 +141,9 @@ public class App {
     System.out.println("What is your company name?");
     String employerName = scanner.nextLine();
     userDetails.put(EMPLOYER_NAME, employerName);
-    System.out.println("What is your password?");
-    String password = scanner.nextLine();
-    userDetails.put(PASSWORD, password);
+    Map<String, String> loginDetails = getLoginDetails();
+    userDetails.put(USERNAME, loginDetails.get(USERNAME));
+    userDetails.put(PASSWORD, loginDetails.get(PASSWORD));
     return userDetails;
   }
   
@@ -157,10 +156,21 @@ public class App {
     System.out.println("What is your last name?");
     String lastName = scanner.nextLine();
     userDetails.put(LAST_NAME, lastName);
+    Map<String, String> loginDetails = getLoginDetails();
+    userDetails.put(USERNAME, loginDetails.get(USERNAME));
+    userDetails.put(PASSWORD, loginDetails.get(PASSWORD));
+    return userDetails;
+  }
+  
+  public Map<String, String> getLoginDetails() {
+    Map<String, String> loginDetails = new HashMap<>();
+    System.out.println("What is your username?");
+    String userName = scanner.nextLine();
+    loginDetails.put(USERNAME, userName);
     System.out.println("What is your password?");
     String password = scanner.nextLine();
-    userDetails.put(PASSWORD, password);
-    return userDetails;
+    loginDetails.put(PASSWORD, password);
+    return loginDetails;
   }
   
   public void changeLoginDetails() {
@@ -197,7 +207,7 @@ public class App {
   private void changeUserName() {
     System.out.println("What would you like to change your user name to?");
     String newUserName = scanner.nextLine();
-    currentUser.setUserName(newUserName);
+    currentUser.setUsername(newUserName);
     System.out.println("Your user name has successfully been updated.\n");
   }
   

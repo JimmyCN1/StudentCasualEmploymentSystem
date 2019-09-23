@@ -15,7 +15,7 @@ public abstract class User implements UserInterface, Serializable {
   private static int userCount = 0;
   private final int MAX_COMPLAINTS = 3;
   private int userId;
-  private String userName;
+  private String username;
   private String password;
   private String name;
   private List<Complaint> complaints = new ArrayList<>();
@@ -36,8 +36,13 @@ public abstract class User implements UserInterface, Serializable {
   }
   
   @Override
-  public String getUserName() {
-    return userName;
+  public String getUsername() {
+    return username;
+  }
+  
+  @Override
+  public String getHashMapKey() {
+    return username.toLowerCase();
   }
   
   @Override
@@ -62,8 +67,8 @@ public abstract class User implements UserInterface, Serializable {
   }
   
   @Override
-  public void setUserName(String userName) {
-    this.userName = userName;
+  public void setUsername(String username) {
+    this.username = username;
   }
   
   @Override

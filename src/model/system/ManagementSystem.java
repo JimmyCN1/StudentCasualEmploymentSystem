@@ -90,7 +90,7 @@ public class ManagementSystem implements Serializable {
     return users.get(keyName);
   }
   
-  public Employer getEmployerByName(String keyName)
+  public Employer getEmployerByUsername(String keyName)
           throws EmployerNotFoundException {
     if (employers.containsKey(keyName)) {
       return employers.get(keyName);
@@ -99,7 +99,7 @@ public class ManagementSystem implements Serializable {
     }
   }
   
-  public Applicant getApplicantByName(String keyName)
+  public Applicant getApplicantByUsername(String keyName)
           throws ApplicantNotFoundException {
     if (applicants.containsKey(keyName)) {
       return applicants.get(keyName);
@@ -109,9 +109,13 @@ public class ManagementSystem implements Serializable {
     }
   }
   
-  public SystemMaintenanceStaff getSystemMaintenanceByName(String keyName)
+  public SystemMaintenanceStaff getSystemMaintenanceByUsername(String keyName)
           throws SystemMaintenanceStaffNotFoundException {
-    return systemMaintenanceStaff.get(keyName);
+    if (systemMaintenanceStaff.containsKey(keyName)) {
+      return systemMaintenanceStaff.get(keyName);
+    } else {
+      throw new SystemMaintenanceStaffNotFoundException();
+    }
   }
   
   public void registerUser(User user) {

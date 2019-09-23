@@ -46,11 +46,11 @@ public class Employer extends User implements Serializable {
   public int getId() {
     return id;
   }
-  
-  @Override
-  public String getHashMapKey() {
-    return name.toLowerCase();
-  }
+
+//  @Override
+//  public String getHashMapKey() {
+//    return name.toLowerCase();
+//  }
   
   @Override
   public String getName() {

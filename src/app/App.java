@@ -271,6 +271,23 @@ public class App {
     }
   }
   
+  public boolean showBlacklistedScreen() {
+    System.out.println("You have been blacklisted.\n\nPress 0 to logout..\n");
+    boolean isLoggedIn = true;
+    int response;
+    try {
+      response = scanner.nextInt();
+      scanner.nextLine();
+      if (response == 0) {
+        isLoggedIn = false;
+      }
+    } catch (InputMismatchException e) {
+      System.out.println("Please try again..\n\n");
+      scanner.next();
+    }
+    return isLoggedIn;
+  }
+  
   // print this message in the catch block whenever the user does not
   // correctly select an option from a menu
   public void printInputMismatchMessage() {

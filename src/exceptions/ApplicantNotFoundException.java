@@ -1,4 +1,4 @@
 package exceptions;
 
-public class ApplicantNotFoundException extends Exception {
+public class ApplicantNotFoundException extends UserNotFoundException {
 }

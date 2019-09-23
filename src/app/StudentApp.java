@@ -72,10 +72,14 @@ public class StudentApp extends App implements AppInterface {
             studentDetails.get(PASSWORD),
             positionType,
             managementSystem));
-    setCurrentUser(managementSystem.getApplicantByName(
-            studentDetails.get(FIRST_NAME).toLowerCase() +
-                    studentDetails.get(LAST_NAME).toLowerCase()
-    ));
+    try {
+      setCurrentUser(managementSystem.getApplicantByName(
+              studentDetails.get(FIRST_NAME).toLowerCase() +
+                      studentDetails.get(LAST_NAME).toLowerCase()
+      ));
+    } catch (ApplicantNotFoundException e) {
+      System.out.println("Error creating applicant. Please try again");
+    }
   }
   
   // creates a new international student in the application
@@ -86,34 +90,38 @@ public class StudentApp extends App implements AppInterface {
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
             managementSystem));
-    setCurrentUser(managementSystem.getApplicantByName(
-            studentDetails.get(FIRST_NAME).toLowerCase() +
-                    studentDetails.get(LAST_NAME).toLowerCase()
-    ));
+    try {
+      setCurrentUser(managementSystem.getApplicantByName(
+              studentDetails.get(FIRST_NAME).toLowerCase() +
+                      studentDetails.get(LAST_NAME).toLowerCase()
+      ));
+    } catch (ApplicantNotFoundException e) {
+      System.out.println("Error creating applicant. Please try again");
+    }
   }
   
   // returns the selected availability
   private PositionType getStudentAvailability() {
     PositionType type = null;
-    while (!isValidResponse) {
+    while (!goBack) {
       System.out.println("What is your availability?");
       System.out.printf("1. Part-Time\n2. Full-Time\n3. Internship\n\n");
       switch (scanner.nextInt()) {
         case (1):
-          isValidResponse = true;
+          goBack = true;
           type = PositionType.PART_TIME;
           break;
         case (2):
-          isValidResponse = true;
+          goBack = true;
           type = PositionType.FULL_TIME;
           break;
         case (3):
-          isValidResponse = true;
+          goBack = true;
           type = PositionType.INTERNSHIP;
           break;
       }
     }
-    isValidResponse = false;
+    goBack = false;
     return type;
   }
   
@@ -180,8 +188,7 @@ public class StudentApp extends App implements AppInterface {
               break;
           }
         } catch (InputMismatchException e) {
-          System.out.println("Please try again..\n\n");
-          scanner.next();
+          printInputMismatchMessage();
         }
       }
       
@@ -218,8 +225,7 @@ public class StudentApp extends App implements AppInterface {
             break;
         }
       } catch (InputMismatchException e) {
-        System.out.println("Please try again..\n\n");
-        scanner.next();
+        printInputMismatchMessage();
       }
     }
   }
@@ -307,8 +313,7 @@ public class StudentApp extends App implements AppInterface {
             break;
         }
       } catch (InputMismatchException e) {
-        System.out.println("Please try again..\n\n");
-        scanner.next();
+        printInputMismatchMessage();
       }
     }
   }

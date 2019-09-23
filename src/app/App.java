@@ -1,20 +1,23 @@
 package app;
 
+import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
 import model.system.ManagementSystem;
-import exceptions.PasswordMissmatchException;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Map;
+import java.util.Scanner;
 
 public class App {
-  private final int EMPLOYER = 1;
-  private final int STUDENT = 2;
-  private final int SYSTEM_MAINTENANCE_STAFF = 3;
+  protected final int EMPLOYER = 1;
+  protected final int STUDENT = 2;
+  protected final int SYSTEM_MAINTENANCE_STAFF = 3;
   final String EMPLOYER_NAME = "employerName";
   final String FIRST_NAME = "firstName";
   final String LAST_NAME = "lastName";
   final String PASSWORD = "password";
-  public boolean isValidResponse = false;
+  public boolean goBack = false;
   private EmployerApp employerApp;
   private StudentApp studentApp;
   private SystemMaintenanceStaffApp systemMaintenanceStaffApp;
@@ -52,39 +55,32 @@ public class App {
   
   // login as an employer, applicant or system staff
   public void loginAs() {
-    while (!isValidResponse) {
+    while (!goBack) {
       try {
         System.out.println("Login as a:");
-        System.out.println("1. Employer\n2. Student\n3. System Maintenance Staff");
+        System.out.println("1. Employer\n2. Student\n3. System Maintenance Staff\n\n0. Go Back");
         int response = scanner.nextInt();
         scanner.nextLine();
         switch (response) {
           case (EMPLOYER):
-            isValidResponse = true;
             loginAsEmployer();
-            employerApp.displayMainMenu();
             break;
           case (STUDENT):
-            isValidResponse = true;
             loginAsStudent();
-            studentApp.displayMainMenu();
             break;
           case (SYSTEM_MAINTENANCE_STAFF):
-            isValidResponse = true;
             loginAsSystemMaintenanceStaff();
-            systemMaintenanceStaffApp.displayMainMenu();
             break;
+          case (0):
+            goBack = true;
           default:
             break;
         }
       } catch (InputMismatchException e) {
-        scanner.nextLine();
-        System.out.println("Please try again..\n\n");
-        scanner.next();
+        printInputMismatchMessage();
       }
-      
     }
-    isValidResponse = false;
+    goBack = false;
   }
   
   private void loginAsEmployer() {
@@ -92,10 +88,11 @@ public class App {
     try {
       employerApp = new EmployerApp(userDetails.get(EMPLOYER_NAME),
               userDetails.get(PASSWORD), managementSystem);
+      employerApp.displayMainMenu();
     } catch (UserNotFoundException e) {
-      e.printStackTrace();
+      printLoginMismatchMessage();
     } catch (PasswordMissmatchException e) {
-      e.printStackTrace();
+      printLoginMismatchMessage();
     }
   }
   
@@ -105,10 +102,11 @@ public class App {
       studentApp = new StudentApp(userDetails.get(FIRST_NAME),
               userDetails.get(LAST_NAME),
               userDetails.get(PASSWORD), managementSystem);
+      studentApp.displayMainMenu();
     } catch (UserNotFoundException e) {
-      e.printStackTrace();
+      printLoginMismatchMessage();
     } catch (PasswordMissmatchException e) {
-      e.printStackTrace();
+      printLoginMismatchMessage();
     }
   }
   
@@ -118,10 +116,11 @@ public class App {
       systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(FIRST_NAME),
               userDetails.get(LAST_NAME),
               userDetails.get(PASSWORD), managementSystem);
+      systemMaintenanceStaffApp.displayMainMenu();
     } catch (UserNotFoundException e) {
-      e.printStackTrace();
+      printLoginMismatchMessage();
     } catch (PasswordMissmatchException e) {
-      e.printStackTrace();
+      printLoginMismatchMessage();
     }
   }
   
@@ -150,5 +149,17 @@ public class App {
     String password = scanner.nextLine();
     userDetails.put(PASSWORD, password);
     return userDetails;
+  }
+  
+  // print this message in the catch block whenever the user does not
+  // correctly select an option from a menu
+  public void printInputMismatchMessage() {
+    scanner.nextLine();
+    System.out.println("Please type a number from the list..\n\n");
+    scanner.next();
+  }
+  
+  public void printLoginMismatchMessage() {
+    System.out.println("\n!! Wrong user name or password !!\n");
   }
 }

@@ -1,10 +1,12 @@
 package app;
 
 import enumerators.UserStatus;
+import exceptions.EmployerNotFoundException;
+import exceptions.PasswordMissmatchException;
+import exceptions.SystemMaintenanceStaffNotFoundException;
 import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
-import exceptions.PasswordMissmatchException;
 import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.employer.Employer;
@@ -47,10 +49,14 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
                     systemMaintenanceStaffDetails.get(LAST_NAME),
                     systemMaintenanceStaffDetails.get(PASSWORD),
                     managementSystem));
-    setCurrentUser(managementSystem.getSystemMaintenanceByName(
-            systemMaintenanceStaffDetails.get(FIRST_NAME).toLowerCase() +
-                    systemMaintenanceStaffDetails.get(LAST_NAME).toLowerCase()
-    ));
+    try {
+      setCurrentUser(managementSystem.getSystemMaintenanceByName(
+              systemMaintenanceStaffDetails.get(FIRST_NAME).toLowerCase() +
+                      systemMaintenanceStaffDetails.get(LAST_NAME).toLowerCase()
+      ));
+    } catch (SystemMaintenanceStaffNotFoundException e) {
+      System.out.println("Error creating system staff. Please try again..");
+    }
   }
   
   // determines whether the login details provided are provided
@@ -102,8 +108,7 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
             break;
         }
       } catch (InputMismatchException e) {
-        System.out.println("Please try again..\n\n");
-        scanner.next();
+        printInputMismatchMessage();
       }
     }
   }
@@ -152,6 +157,51 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
   
   @Override
   public void lodgeAComplaint() {
-    return;
+    boolean goBack = false;
+    while (!goBack) {
+      try {
+        System.out.printf("Which entity would you like to lodge a complaint against?\n\n" +
+                "1. Employer\n" +
+                "2. Student\n\n" +
+                "0. Go Back\n\n");
+        int response = scanner.nextInt();
+        scanner.nextLine();
+        switch (response) {
+          case (EMPLOYER):
+            lodgeComplaintAgainstEmployer();
+            break;
+          case (STUDENT):
+            lodgeComplaintAgainstStudent();
+          case (0):
+            goBack = true;
+            break;
+        }
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      }
+
+//      currentUser.lodgeComplaint(new Complaint(
+//              "late to interview",
+//              managementSystem.getEmployersAsList().get(0)));
+    }
+    
   }
+  
+  private void lodgeComplaintAgainstEmployer() {
+    System.out.println("Current Employers in the system..\n");
+    displayEmployerRecords();
+    System.out.println("What is the employers name?");
+    String employerName = scanner.nextLine();
+    try {
+      managementSystem.getEmployerByName(employerName);
+      System.out.printf("What complaint would you like to lodge against %s", employerName);
+    } catch (EmployerNotFoundException e) {
+      System.out.println("Sorry, this employer was not found..");
+    }
+  }
+  
+  private void lodgeComplaintAgainstStudent() {
+  }
+  
+  
 }

@@ -226,7 +226,7 @@ public class EmployerTest {
     assertTrue(found);
   }
   
-  // TODO: implement this test with the updateApplicant method in the Employer class
+  // TODO: implement this tests with the updateApplicant method in the Employer class
   @Test
   public void updateApplicantTests() {
     assertTrue(false);
@@ -281,7 +281,7 @@ public class EmployerTest {
       employer6.getPositionByTitle("Dev").addApplicantToAppliedApplicants(applicants.get(1));
       employer6.getPositionByTitle("Dev").addApplicantToAppliedApplicants(applicants.get(2));
       
-      // This was to test it would fail.
+      // This was to tests it would fail.
       //employer6.offerJob(applicants.get(1), employer6.getPositionByTitle("Dev"));
       
       employer6.handleUnsuccessfulApplicants(employer6.getPositionByTitle("Dev"));

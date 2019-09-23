@@ -1,5 +1,6 @@
 package app;
 
+import enumerators.UserStatus;
 import exceptions.EmployerNotFoundException;
 import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
@@ -8,6 +9,7 @@ import model.system.ManagementSystem;
 import model.user.User;
 import model.user.employer.Employer;
 
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public class EmployerApp extends App implements AppInterface {
@@ -71,52 +73,50 @@ public class EmployerApp extends App implements AppInterface {
   
   @Override
   public void displayMainMenu() {
-//    boolean isLoggedIn = true;
-//    int response;
-//    while (isLoggedIn) {
-//      if (currentUser.getStatus().equals(UserStatus.BLACKLISTED)) {
-//        System.out.println("You have been blacklisted.\n\nPress 0 to logout..\n");
-//        try {
-//          response = scanner.nextInt();
-//          scanner.nextLine();
-//          if (response == 0) {
-//            isLoggedIn = false;
-//          }
-//        } catch (InputMismatchException e) {
-//          System.out.println("Please try again..\n\n");
-//          scanner.next();
-//        }
-//      } else {
-//        try {
-//          System.out.printf("What would you like to do?\n\n" +
-//                  "1. Update Your Job Preferences\n" +
-//                  "2. Update Your Availabilities\n" +
-//                  "3. Update Your Employment Records\n" +
-//                  "4. View Job Offers\n\n" +
-//                  "0. Logout\n\n");
-//          response = scanner.nextInt();
-//          scanner.nextLine();
-//          switch (response) {
-//            case (1):
-//              updateJobPreferences();
-//              break;
-//            case (2):
+    //TODO: searching for suitable candidates
+    //TODO: shortlisting and ranking candidates
+    //TODO: updating candidate based on interview and reference check
+    //TODO: creation of jobs
+    //TODO: creation of job offers
+    boolean isLoggedIn = true;
+    int response;
+    while (isLoggedIn) {
+      if (currentUser.getStatus().equals(UserStatus.BLACKLISTED)) {
+        isLoggedIn = showBlacklistedScreen();
+      } else {
+        try {
+          System.out.printf("What would you like to do?\n\n" +
+                  "1. Search for matching candidates\n" +
+                  "2. Shortlist Applicants\n" +
+                  "3. Rank Applicants\n" +
+                  "4. Mail Applicants\n" +
+                  "5. Set Interview Times\n" +
+                  "6. Mail Applicants\n" +
+                  "7. Offer Job\n\n" +
+                  "0. Logout\n\n");
+          response = scanner.nextInt();
+          scanner.nextLine();
+          switch (response) {
+            case (1):
+//              searchForMatchingCandidates();
+              break;
+            case (2):
 //              updateAvailabilities();
-//              break;
-//            case (3):
-////              updateEmploymentRecords();
-//              break;
-//            case (4):
-////                viewJobOffers();
-//              break;
-//            case (0):
-//              isLoggedIn = false;
-//              break;
-//          }
-//        } catch (InputMismatchException e) {
-//          printInputMismatchMessage();
-//        }
-//      }
-//    }
+              break;
+            case (3):
+//              updateEmploymentRecords();
+              break;
+            case (4):
+//                viewJobOffers();
+              break;
+            case (0):
+              isLoggedIn = false;
+              break;
+          }
+        } catch (InputMismatchException e) {
+          printInputMismatchMessage();
+        }
+      }
+    }
   }
 }

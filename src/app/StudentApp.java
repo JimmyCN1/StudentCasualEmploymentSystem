@@ -146,29 +146,27 @@ public class StudentApp extends App implements AppInterface {
   // if blacklisted, display blacklisted applicant message, else display the main menu
   @Override
   public void displayMainMenu() {
+    //TODO: updating employement records
+    //TODO: uploading of cv (text files) option
+    //TODO: apply to jobs
+    //TODO: selecting interview slot/time
+    //TODO: accept/reject job offers
     boolean isLoggedIn = true;
     int response;
     while (isLoggedIn) {
       if (currentUser.getStatus().equals(UserStatus.BLACKLISTED)) {
-        System.out.println("You have been blacklisted.\n\nPress 0 to logout..\n");
-        try {
-          response = scanner.nextInt();
-          scanner.nextLine();
-          if (response == 0) {
-            isLoggedIn = false;
-          }
-        } catch (InputMismatchException e) {
-          System.out.println("Please try again..\n\n");
-          scanner.next();
-        }
+        isLoggedIn = showBlacklistedScreen();
       } else {
         try {
           System.out.printf("What would you like to do?\n\n" +
                   "1. Update Your Job Preferences\n" +
                   "2. Update Your Availabilities\n" +
                   "3. Update Your Employment Records\n" +
-                  "4. View Job Offers\n\n" +
-                  "5. Change Login Details\n" +
+                  "4. Apply For A Job\n" +
+                  "5. View Jobs Shorlisted For\n" +
+                  "6. View Job Offers\n" +
+                  "7. View Emails\n" +
+                  "7. Change Login Details\n\n" +
                   "0. Logout\n\n");
           response = scanner.nextInt();
           scanner.nextLine();
@@ -183,9 +181,18 @@ public class StudentApp extends App implements AppInterface {
 //              updateEmploymentRecords();
               break;
             case (4):
-//                viewJobOffers();
+//              applyForAJob();
               break;
             case (5):
+//              viewJobsShortlistedFor();
+              break;
+            case (6):
+//                viewJobOffers();
+              break;
+            case (7):
+//                viewEmails();
+              break;
+            case (8):
               changeLoginDetails();
             case (0):
               isLoggedIn = false;

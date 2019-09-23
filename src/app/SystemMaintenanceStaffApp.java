@@ -1,16 +1,14 @@
 package app;
 
 import enumerators.UserStatus;
-import exceptions.EmployerNotFoundException;
-import exceptions.PasswordMissmatchException;
-import exceptions.SystemMaintenanceStaffNotFoundException;
-import exceptions.UserNotFoundException;
+import exceptions.*;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 import model.user.staff.SystemMaintenanceStaff;
+import model.user.utilities.Complaint;
 
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -83,7 +81,10 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
         System.out.printf("What would you like to do?\n\n" +
                 "1. View Employer Records\n" +
                 "2. View Applicant Records\n" +
-                "3. Add A New Job Category\n\n" +
+                "3. Add A New Job Category\n" +
+                "4. View Current Job Categories\n" +
+                "5. View Current BlackListed Users\n" +
+                "6. Lodge A Complaint Against A User\n\n" +
                 "0. Logout\n\n");
         int response = scanner.nextInt();
         scanner.nextLine();
@@ -103,6 +104,8 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
           case (5):
             viewBlackListedUsers();
             break;
+          case (6):
+            lodgeAComplaint();
           case (0):
             isLoggedIn = false;
             break;
@@ -112,8 +115,6 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
       }
     }
   }
-  
-  // TODO: flesh out, impl. toString methods or provide more specific functionality
   
   private void displayEmployerRecords() {
     for (Employer e : managementSystem.getEmployersAsList()) {
@@ -179,10 +180,6 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
       } catch (InputMismatchException e) {
         printInputMismatchMessage();
       }
-
-//      currentUser.lodgeComplaint(new Complaint(
-//              "late to interview",
-//              managementSystem.getEmployersAsList().get(0)));
     }
     
   }
@@ -194,13 +191,33 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     String employerName = scanner.nextLine();
     try {
       managementSystem.getEmployerByName(employerName);
-      System.out.printf("What complaint would you like to lodge against %s", employerName);
+      System.out.printf("Please type the complaint you would like to lodge against %s", employerName);
+      String complaint = scanner.nextLine();
+      currentUser.lodgeComplaint(new Complaint(
+              complaint,
+              managementSystem.getEmployerByName(employerName)));
+      System.out.printf("Complaint successfully lodged against %s\n\n", employerName);
     } catch (EmployerNotFoundException e) {
-      System.out.println("Sorry, this employer was not found..");
+      System.out.println("Sorry, this employer was not found..\n");
     }
   }
   
   private void lodgeComplaintAgainstStudent() {
+    System.out.println("Current Applicants in the system..\n");
+    displayApplicantRecords();
+    System.out.println("What is the applicants name?");
+    String applicantName = scanner.nextLine();
+    try {
+      managementSystem.getApplicantByName(applicantName);
+      System.out.printf("Please type the complaint you would like to lodge against %s", applicantName);
+      String complaint = scanner.nextLine();
+      currentUser.lodgeComplaint(new Complaint(
+              complaint,
+              managementSystem.getApplicantByName(applicantName)));
+      System.out.printf("Complaint successfully lodged against %s\n\n", applicantName);
+    } catch (ApplicantNotFoundException e) {
+      System.out.println("Sorry, this applicant was not found..\n");
+    }
   }
   
   

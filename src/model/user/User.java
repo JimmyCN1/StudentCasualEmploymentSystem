@@ -36,6 +36,7 @@ public abstract class User implements UserInterface, Serializable {
   public String getName() {
     return this.name;
   }
+  
   // abstract methods are declared so they can be manipulated by children
   public abstract UserStatus getStatus();
   
@@ -47,18 +48,14 @@ public abstract class User implements UserInterface, Serializable {
   public ManagementSystem getManagementSystem() {
     return this.managementSystem;
   }
+  
   //abstract methods are declared so they can be manipulated by children
   public abstract void setStatus(UserStatus status) throws InvalidUserStatusException;
   
   public void addComplaint(Complaint complaint) {
     this.complaints.add(complaint);
   }
-  
-  // lodges a complaint against the applicant
-  // if the applicant has 3 or more complaints, they are blacklisted
-  // i made some changes here but whoever is concerned here please how 
-  // is the complaint saved processed in lodgeComplaint(Complaint)
-  // as it seems you are just working with private variables
+
   public void lodgeComplaint(String complaint, String userName)
           throws UserNotFoundException, InvalidUserStatusException {
     boolean foundMatch = false;
@@ -76,6 +73,7 @@ public abstract class User implements UserInterface, Serializable {
       throw new UserNotFoundException();
     }
   }
+  
   // this is very confusing and unclear, i do not understand the goal of this method
   // and i think it is unnecessary
   public void lodgeComplaint(Complaint complaint) {

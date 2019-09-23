@@ -6,6 +6,7 @@ import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
+import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 
@@ -28,12 +29,15 @@ public class EmployerApp extends App implements AppInterface {
   }
   
   // set the current user logged in
+  @Override
   public Employer getCurrentUser() {
     return currentUser;
   }
   
-  public void setCurrentUser(Employer employer) {
-    this.currentUser = employer;
+  @Override
+  public void setCurrentUser(User employer) {
+    super.setCurrentUser(employer);
+    this.currentUser = (Employer) employer;
   }
   
   // creates a new employer in the application

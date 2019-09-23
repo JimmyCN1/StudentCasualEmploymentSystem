@@ -5,6 +5,7 @@ import enumerators.UserStatus;
 import exceptions.*;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
+import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
@@ -31,13 +32,16 @@ public class StudentApp extends App implements AppInterface {
     super(managementSystem);
   }
   
+  @Override
   public Applicant getCurrentUser() {
     return currentUser;
   }
   
   // set the current user logged in
-  public void setCurrentUser(Applicant applicant) {
-    currentUser = applicant;
+  @Override
+  public void setCurrentUser(User applicant) {
+    super.setCurrentUser(applicant);
+    currentUser = (Applicant) applicant;
   }
   
   public void selectStudentType() {
@@ -167,6 +171,7 @@ public class StudentApp extends App implements AppInterface {
                   "2. Update Your Availabilities\n" +
                   "3. Update Your Employment Records\n" +
                   "4. View Job Offers\n\n" +
+                  "5. Change Login Details\n" +
                   "0. Logout\n\n");
           response = scanner.nextInt();
           scanner.nextLine();
@@ -183,6 +188,8 @@ public class StudentApp extends App implements AppInterface {
             case (4):
 //                viewJobOffers();
               break;
+            case (5):
+              changeLoginDetails();
             case (0):
               isLoggedIn = false;
               break;

@@ -7,6 +7,8 @@ import java.io.Serializable;
 public interface UserInterface extends Serializable {
   int getId();
   
+  String getUserName();
+  
   String getHashMapKey();
   
   String getName();
@@ -14,6 +16,10 @@ public interface UserInterface extends Serializable {
   String getPassword();
   
   ManagementSystem getManagementSystem();
+  
+  void setUserName(String userName);
+  
+  void setPassword(String password);
   
   boolean verifyPassword(String password);
   

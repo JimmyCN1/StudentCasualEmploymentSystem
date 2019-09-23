@@ -53,8 +53,7 @@ public class Main {
             System.exit(EXIT_SUCCESS);
         }
       } catch (InputMismatchException e) {
-        System.out.println("Please try again..\n");
-        scanner.next();
+        app.printInputMismatchMessage();
       }
     }
   }

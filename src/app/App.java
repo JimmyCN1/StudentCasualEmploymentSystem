@@ -3,6 +3,7 @@ package app;
 import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
 import model.system.ManagementSystem;
+import model.user.User;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -21,11 +22,22 @@ public class App {
   private EmployerApp employerApp;
   private StudentApp studentApp;
   private SystemMaintenanceStaffApp systemMaintenanceStaffApp;
+  
+  private User currentUser;
+  
   ManagementSystem managementSystem;
   public Scanner scanner = new Scanner(System.in);
   
   public App(ManagementSystem managementSystem) {
     this.managementSystem = managementSystem;
+  }
+  
+  public User getCurrentUser() {
+    return currentUser;
+  }
+  
+  public void setCurrentUser(User currentUser) {
+    this.currentUser = currentUser;
   }
   
   public void instantiateNewEmployerApp() {
@@ -149,6 +161,51 @@ public class App {
     String password = scanner.nextLine();
     userDetails.put(PASSWORD, password);
     return userDetails;
+  }
+  
+  public void changeLoginDetails() {
+    boolean goBack = false;
+    System.out.println("Please type your password..");
+    String password = scanner.nextLine();
+    if (currentUser.verifyPassword(password)) {
+      while (!goBack) {
+        try {
+          System.out.printf("What would you like to change?\n\n" +
+                  "1. User Name\n" +
+                  "2. Password\n\n" +
+                  "0. Go Back");
+          int response = scanner.nextInt();
+          scanner.nextLine();
+          switch (response) {
+            case (1):
+              changeUserName();
+              break;
+            case (2):
+              changePassword();
+              break;
+            case (0):
+              goBack = true;
+          }
+        } catch (InputMismatchException e) {
+          printInputMismatchMessage();
+        }
+      }
+    }
+    printLoginMismatchMessage();
+  }
+  
+  private void changeUserName() {
+    System.out.println("What would you like to change your user name to?");
+    String newUserName = scanner.nextLine();
+    currentUser.setUserName(newUserName);
+    System.out.println("Your user name has successfully been updated.\n");
+  }
+  
+  private void changePassword() {
+    System.out.println("What would you like to change your password to?");
+    String password = scanner.nextLine();
+    currentUser.setPassword(password);
+    System.out.println("Your user name has successfully been updated.\n");
   }
   
   // print this message in the catch block whenever the user does not

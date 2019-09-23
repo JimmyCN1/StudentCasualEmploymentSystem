@@ -22,7 +22,6 @@ public class Employer extends User implements Serializable {
   private static int employerCount = 0;
   private int id;
   private String name;
-  private String password;
   private UserStatus status = null;
   private String email;
   private String phoneNumber;
@@ -32,11 +31,10 @@ public class Employer extends User implements Serializable {
   private ManagementSystem managementSystem;
   
   public Employer(String name, String password, ManagementSystem managementSystem) {
-    super(name, managementSystem);
+    super(name, password, managementSystem);
     employerCount++;
     this.id = employerCount;
     this.name = name;
-    this.password = password;
     this.status = UserStatus.AVAILABLE;
     this.managementSystem = managementSystem;
   }
@@ -59,11 +57,6 @@ public class Employer extends User implements Serializable {
   @Override
   public String getName() {
     return name;
-  }
-  
-  @Override
-  public String getPassword() {
-    return password;
   }
   
   @Override
@@ -137,6 +130,7 @@ public class Employer extends User implements Serializable {
     this.status = employerStatus;
   }
   
+<<<<<<< HEAD
   public void setEmail(String email) {
     this.email = email;
   }
@@ -150,6 +144,8 @@ public class Employer extends User implements Serializable {
     return this.password.equals(password);
   }
   
+=======
+>>>>>>> added ui functionality to change username and password
   // creates and adds a new position to the positions map
   public void addPosition(String title, PositionType type, double hourlyRate, int minHoursPerWeek, int maxHoursPerWeek) {
     positions.put(title.toLowerCase(), new Position(title, type, hourlyRate, minHoursPerWeek, maxHoursPerWeek, this, managementSystem));

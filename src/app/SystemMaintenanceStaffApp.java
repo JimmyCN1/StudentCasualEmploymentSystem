@@ -29,14 +29,16 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     super(managementSystem);
   }
   
-  
+  @Override
   public SystemMaintenanceStaff getCurrentUser() {
     return currentUser;
   }
   
   // set the current user logged in
-  public void setCurrentUser(SystemMaintenanceStaff staff) {
-    currentUser = staff;
+  @Override
+  public void setCurrentUser(User staff) {
+    super.setCurrentUser(staff);
+    currentUser = (SystemMaintenanceStaff) staff;
   }
   
   public void createSystemMaintenanceStaff() {

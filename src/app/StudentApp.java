@@ -19,13 +19,12 @@ public class StudentApp extends App implements AppInterface {
   private final int INTERNATIONAL = 2;
   private Applicant currentUser;
   
-  public StudentApp(String firstName,
-                    String lastName,
+  public StudentApp(String username,
                     String password,
                     ManagementSystem managementSystem)
           throws UserNotFoundException, PasswordMissmatchException {
     super(managementSystem);
-    verifyUser(firstName, lastName, password);
+    verifyUser(username, password);
   }
   
   public StudentApp(ManagementSystem managementSystem) {
@@ -70,16 +69,17 @@ public class StudentApp extends App implements AppInterface {
   private void createLocalStudent() {
     Map<String, String> studentDetails = getPersonalDetails();
     PositionType positionType = getStudentAvailability();
-    managementSystem.registerApplicant(new LocalStudent(
+    LocalStudent newLocalStudent = new LocalStudent(
             studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
             positionType,
-            managementSystem));
+            managementSystem);
+    newLocalStudent.setUsername(studentDetails.get(USERNAME));
+    managementSystem.registerApplicant(newLocalStudent);
     try {
-      setCurrentUser(managementSystem.getApplicantByName(
-              studentDetails.get(FIRST_NAME).toLowerCase() +
-                      studentDetails.get(LAST_NAME).toLowerCase()
+      setCurrentUser(managementSystem.getApplicantByUsername(
+              studentDetails.get(USERNAME).toLowerCase()
       ));
     } catch (ApplicantNotFoundException e) {
       System.out.println("Error creating applicant. Please try again");
@@ -95,9 +95,8 @@ public class StudentApp extends App implements AppInterface {
             studentDetails.get(PASSWORD),
             managementSystem));
     try {
-      setCurrentUser(managementSystem.getApplicantByName(
-              studentDetails.get(FIRST_NAME).toLowerCase() +
-                      studentDetails.get(LAST_NAME).toLowerCase()
+      setCurrentUser(managementSystem.getApplicantByUsername(
+              studentDetails.get(USERNAME).toLowerCase()
       ));
     } catch (ApplicantNotFoundException e) {
       System.out.println("Error creating applicant. Please try again");
@@ -107,6 +106,7 @@ public class StudentApp extends App implements AppInterface {
   // returns the selected availability
   private PositionType getStudentAvailability() {
     PositionType type = null;
+    boolean goBack = false;
     while (!goBack) {
       System.out.println("What is your availability?");
       System.out.printf("1. Part-Time\n2. Full-Time\n3. Internship\n\n");
@@ -125,15 +125,13 @@ public class StudentApp extends App implements AppInterface {
           break;
       }
     }
-    goBack = false;
     return type;
   }
   
   // determines whether the login details provided are provided
-  private void verifyUser(String firstName, String lastName, String password)
+  private void verifyUser(String username, String password)
           throws UserNotFoundException, PasswordMissmatchException {
-    Applicant applicant = managementSystem.getApplicantByName(
-            firstName.toLowerCase() + lastName.toLowerCase());
+    Applicant applicant = managementSystem.getApplicantByUsername(username);
     if (applicant == null) {
       throw new UserNotFoundException();
     } else {

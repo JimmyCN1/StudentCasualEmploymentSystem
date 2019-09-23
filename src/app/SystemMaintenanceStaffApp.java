@@ -1,7 +1,9 @@
 package app;
 
 import enumerators.UserStatus;
-import exceptions.*;
+import exceptions.PasswordMissmatchException;
+import exceptions.SystemMaintenanceStaffNotFoundException;
+import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import model.user.User;
@@ -11,18 +13,18 @@ import model.user.staff.SystemMaintenanceStaff;
 import model.user.utilities.Complaint;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Map;
 
 public class SystemMaintenanceStaffApp extends App implements AppInterface {
   private SystemMaintenanceStaff currentUser;
   
-  public SystemMaintenanceStaffApp(String firstName,
-                                   String lastName,
+  public SystemMaintenanceStaffApp(String username,
                                    String password,
                                    ManagementSystem managementSystem)
           throws UserNotFoundException, PasswordMissmatchException {
     super(managementSystem);
-    verifyUser(firstName, lastName, password);
+    verifyUser(username, password);
   }
   
   public SystemMaintenanceStaffApp(ManagementSystem managementSystem) {
@@ -43,16 +45,16 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
   
   public void createSystemMaintenanceStaff() {
     Map<String, String> systemMaintenanceStaffDetails = getPersonalDetails();
-    managementSystem.registerSystemMaintenanceStaff(
-            new SystemMaintenanceStaff(
-                    systemMaintenanceStaffDetails.get(FIRST_NAME),
-                    systemMaintenanceStaffDetails.get(LAST_NAME),
-                    systemMaintenanceStaffDetails.get(PASSWORD),
-                    managementSystem));
+    SystemMaintenanceStaff newSystemMaintenanceStaff = new SystemMaintenanceStaff(
+            systemMaintenanceStaffDetails.get(FIRST_NAME),
+            systemMaintenanceStaffDetails.get(LAST_NAME),
+            systemMaintenanceStaffDetails.get(PASSWORD),
+            managementSystem);
+    newSystemMaintenanceStaff.setUsername(systemMaintenanceStaffDetails.get(USERNAME));
+    managementSystem.registerSystemMaintenanceStaff(newSystemMaintenanceStaff);
     try {
-      setCurrentUser(managementSystem.getSystemMaintenanceByName(
-              systemMaintenanceStaffDetails.get(FIRST_NAME).toLowerCase() +
-                      systemMaintenanceStaffDetails.get(LAST_NAME).toLowerCase()
+      setCurrentUser(managementSystem.getSystemMaintenanceByUsername(
+              systemMaintenanceStaffDetails.get(USERNAME).toLowerCase()
       ));
     } catch (SystemMaintenanceStaffNotFoundException e) {
       System.out.println("Error creating system staff. Please try again..");
@@ -60,9 +62,9 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
   }
   
   // determines whether the login details provided are provided
-  private void verifyUser(String firstName, String lastName, String password)
+  private void verifyUser(String username, String password)
           throws UserNotFoundException, PasswordMissmatchException {
-    SystemMaintenanceStaff systemMaintenanceStaff = managementSystem.getSystemMaintenanceByName(firstName.toLowerCase() + lastName.toLowerCase());
+    SystemMaintenanceStaff systemMaintenanceStaff = managementSystem.getSystemMaintenanceByUsername(username);
     if (systemMaintenanceStaff == null) {
       throw new UserNotFoundException();
     } else {
@@ -191,15 +193,17 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     displayEmployerRecords();
     System.out.println("What is the employers name?");
     String employerName = scanner.nextLine();
-    try {
-      managementSystem.getEmployerByName(employerName);
-      System.out.printf("Please type the complaint you would like to lodge against %s", employerName);
-      String complaint = scanner.nextLine();
-      currentUser.lodgeComplaint(new Complaint(
-              complaint,
-              managementSystem.getEmployerByName(employerName)));
-      System.out.printf("Complaint successfully lodged against %s\n\n", employerName);
-    } catch (EmployerNotFoundException e) {
+    List<Employer> employers = managementSystem.getEmployersAsList();
+    boolean employerFound = false;
+    for (Employer e : employers) {
+      if (e.getName().equals(employerName)) {
+        System.out.printf("Please type the complaint you would like to lodge against %s", employerName);
+        String complaint = scanner.nextLine();
+        currentUser.lodgeComplaint(new Complaint(complaint, e));
+        System.out.printf("Complaint successfully lodged against %s\n\n", employerName);
+      }
+    }
+    if (!employerFound) {
       System.out.println("Sorry, this employer was not found..\n");
     }
   }
@@ -209,15 +213,18 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     displayApplicantRecords();
     System.out.println("What is the applicants name?");
     String applicantName = scanner.nextLine();
-    try {
-      managementSystem.getApplicantByName(applicantName);
-      System.out.printf("Please type the complaint you would like to lodge against %s", applicantName);
-      String complaint = scanner.nextLine();
-      currentUser.lodgeComplaint(new Complaint(
-              complaint,
-              managementSystem.getApplicantByName(applicantName)));
-      System.out.printf("Complaint successfully lodged against %s\n\n", applicantName);
-    } catch (ApplicantNotFoundException e) {
+    List<Applicant> applicants = managementSystem.getApplicantsAsList();
+    boolean applicantFound = false;
+    for (Applicant a : applicants) {
+      if (a.getName().equals(applicantName)) {
+        applicantFound = true;
+        System.out.printf("Please type the complaint you would like to lodge against %s", applicantName);
+        String complaint = scanner.nextLine();
+        currentUser.lodgeComplaint(new Complaint(complaint, a));
+        System.out.printf("Complaint successfully lodged against %s\n\n", applicantName);
+      }
+    }
+    if (!applicantFound) {
       System.out.println("Sorry, this applicant was not found..\n");
     }
   }

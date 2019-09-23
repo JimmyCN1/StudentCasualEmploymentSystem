@@ -1,13 +1,11 @@
 package app;
 
 import exceptions.EmployerNotFoundException;
-import exceptions.InvalidUserStatusException;
 import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import model.user.User;
-import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 
 import java.util.Map;
@@ -120,24 +118,5 @@ public class EmployerApp extends App implements AppInterface {
 //        }
 //      }
 //    }
-  }
-  
-  @Override
-  public void lodgeAComplaint() {
-    System.out.println("Which applicant do you want to lodge a complaint against?");
-    for (Applicant a : managementSystem.getApplicantsAsList()) {
-      System.out.println(a.getName());
-    }
-    String applicantName = scanner.nextLine();
-    System.out.println("What is the complaint?");
-    String complaint = scanner.nextLine();
-    try {
-      currentUser.lodgeComplaint(complaint, applicantName);
-      System.out.println("Complaint successfully lodged..\n");
-    } catch (UserNotFoundException e) {
-      System.out.println("Sorry, this applicant was not found in the system\n");
-    } catch (InvalidUserStatusException e) {
-      e.printStackTrace();
-    }
   }
 }

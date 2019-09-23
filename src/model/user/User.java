@@ -96,7 +96,7 @@ public abstract class User implements UserInterface, Serializable {
     for (int i = 0; i < this.managementSystem.getUsersAsList().size(); i++) {
       if (this.managementSystem.getUsersAsList().get(i).getName().equals(offendingUserName)) {
         foundMatch = true;
-        Complaint newComplaint = new Complaint(complaint, this.managementSystem.getUsersAsList().get(i));
+        Complaint newComplaint = new Complaint(complaint, this.managementSystem.getUsersAsList().get(i), this);
         lodgeComplaint(newComplaint);
         if (this.complaints.size() >= this.MAX_COMPLAINTS) {
           setStatus(UserStatus.BLACKLISTED);

@@ -9,7 +9,6 @@ import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
-import model.user.employer.Employer;
 
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -223,7 +222,7 @@ public class StudentApp extends App implements AppInterface {
             viewPreferences();
             break;
           case (4):
-            lodgeAComplaint();
+            lodgeComplaintAgainstEmployer();
             break;
           case (0):
             goBack = true;
@@ -271,25 +270,6 @@ public class StudentApp extends App implements AppInterface {
       System.out.printf("%s ", jp);
     }
     System.out.println("\n");
-  }
-  
-  @Override
-  public void lodgeAComplaint() {
-    System.out.println("Which employer do you want to lodge a complaint against?");
-    for (Employer e : managementSystem.getEmployersAsList()) {
-      System.out.println(e.getName());
-    }
-    String employerName = scanner.nextLine();
-    System.out.println("What is the complaint?");
-    String complaint = scanner.nextLine();
-    try {
-      currentUser.lodgeComplaint(complaint, employerName);
-      System.out.println("Complaint successfully lodged..\n");
-    } catch (UserNotFoundException e) {
-      System.out.println("Sorry, this employer was not found in the system\n");
-    } catch (InvalidUserStatusException e) {
-      System.out.println("Sorry, the system accidentally tried to incorrectly assign this employers status");
-    }
   }
   
   private void updateAvailabilities() {

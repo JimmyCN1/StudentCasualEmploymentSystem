@@ -4,11 +4,11 @@ import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
 import model.system.ManagementSystem;
 import model.user.User;
+import model.user.applicant.Applicant;
+import model.user.employer.Employer;
+import model.user.utilities.Complaint;
 
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
   protected final int EMPLOYER = 1;
@@ -216,6 +216,59 @@ public class App {
     String password = scanner.nextLine();
     currentUser.setPassword(password);
     System.out.println("Your user name has successfully been updated.\n");
+  }
+  
+  public void displayEmployerRecords() {
+    for (Employer e : managementSystem.getEmployersAsList()) {
+      System.out.println(e.toString());
+    }
+  }
+  
+  public void displayApplicantRecords() {
+    for (Applicant a : managementSystem.getApplicantsAsList()) {
+      System.out.println(a.toString());
+    }
+  }
+  
+  public void lodgeComplaintAgainstEmployer() {
+    System.out.println("Current Employers in the system..\n");
+    displayEmployerRecords();
+    System.out.println("What is the employers name?");
+    String employerName = scanner.nextLine();
+    List<Employer> employers = managementSystem.getEmployersAsList();
+    boolean employerFound = false;
+    for (Employer e : employers) {
+      if (e.getName().equals(employerName)) {
+        System.out.printf("Please type the complaint you would like to lodge against %s", employerName);
+        String complaint = scanner.nextLine();
+        currentUser.lodgeComplaint(new Complaint(complaint, e, currentUser));
+        System.out.printf("Complaint successfully lodged against %s\n\n", employerName);
+      }
+    }
+    if (!employerFound) {
+      System.out.println("Sorry, this employer was not found..\n");
+    }
+  }
+  
+  public void lodgeComplaintAgainstStudent() {
+    System.out.println("Current Applicants in the system..\n");
+    displayApplicantRecords();
+    System.out.println("What is the applicants name?");
+    String applicantName = scanner.nextLine();
+    List<Applicant> applicants = managementSystem.getApplicantsAsList();
+    boolean applicantFound = false;
+    for (Applicant a : applicants) {
+      if (a.getName().equals(applicantName)) {
+        applicantFound = true;
+        System.out.printf("Please type the complaint you would like to lodge against %s", applicantName);
+        String complaint = scanner.nextLine();
+        currentUser.lodgeComplaint(new Complaint(complaint, a, currentUser));
+        System.out.printf("Complaint successfully lodged against %s\n\n", applicantName);
+      }
+    }
+    if (!applicantFound) {
+      System.out.println("Sorry, this applicant was not found..\n");
+    }
   }
   
   // print this message in the catch block whenever the user does not

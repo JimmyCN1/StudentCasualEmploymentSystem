@@ -1,13 +1,13 @@
 package model.user.employer;
 
-import enumerators.UserStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
-import model.user.applicant.Applicant;
 import model.position.InterviewSlot;
-import model.system.ManagementSystem;
 import model.position.Position;
+import model.system.ManagementSystem;
 import model.user.User;
+import model.user.applicant.Applicant;
 import model.user.applicant.utilities.Notification;
 
 import java.io.Serializable;
@@ -22,7 +22,6 @@ public class Employer extends User implements Serializable {
   private static int employerCount = 0;
   private int id;
   private String name;
-  private String password;
   private UserStatus status = null;
   
   private Map<String, Position> positions = new HashMap<>();
@@ -30,11 +29,10 @@ public class Employer extends User implements Serializable {
   private ManagementSystem managementSystem;
   
   public Employer(String name, String password, ManagementSystem managementSystem) {
-    super(name, managementSystem);
+    super(name, password, managementSystem);
     employerCount++;
     this.id = employerCount;
     this.name = name;
-    this.password = password;
     this.status = UserStatus.AVAILABLE;
     this.managementSystem = managementSystem;
   }
@@ -57,11 +55,6 @@ public class Employer extends User implements Serializable {
   @Override
   public String getName() {
     return name;
-  }
-  
-  @Override
-  public String getPassword() {
-    return password;
   }
   
   @Override
@@ -125,11 +118,6 @@ public class Employer extends User implements Serializable {
       throw new InvalidUserStatusException();
     }
     this.status = employerStatus;
-  }
-  
-  @Override
-  public boolean verifyPassword(String password) {
-    return this.password.equals(password);
   }
   
   // creates and adds a new position to the positions map

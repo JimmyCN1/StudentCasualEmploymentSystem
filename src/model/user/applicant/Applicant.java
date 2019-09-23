@@ -1,14 +1,12 @@
 package model.user.applicant;
 
-import enumerators.UserStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
 import model.position.Position;
 import model.system.ManagementSystem;
-import model.user.applicant.utilities.*;
 import model.user.Person;
-
-// Questionable
+import model.user.applicant.utilities.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,12 +14,14 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+// Questionable
+
 public abstract class Applicant extends Person implements Serializable {
   private static int applicantCount = 0;
   private final int MAX_AVAILABILITIES = 3;
   private final int TWO_WEEKS = 14;
   private int applicantId;
-  private String password;
+  //  private String password;
   private String cv; // The name of the text file
   private UserStatus status;
   private LocalDate lastStudentUpdate;
@@ -43,12 +43,12 @@ public abstract class Applicant extends Person implements Serializable {
   
   public Applicant(String firstName, String lastName, String password, PositionType availability,
                    ManagementSystem managementSystem) {
-    super(firstName, lastName, managementSystem);
+    super(firstName, lastName, password, managementSystem);
     applicantCount++;
     this.applicantId = applicantCount;
     setFirstName(firstName);
     setLastName(lastName);
-    this.password = password;
+//    this.password = password;
     this.status = UserStatus.AVAILABLE;
     this.lastStudentUpdate = LocalDate.now();
     this.availabilities.add(availability);
@@ -59,11 +59,11 @@ public abstract class Applicant extends Person implements Serializable {
   public int getId() {
     return this.applicantId;
   }
-  
-  @Override
-  public String getPassword() {
-    return this.password;
-  }
+
+//  @Override
+//  public String getPassword() {
+//    return this.password;
+//  }
   
   @Override
   public UserStatus getStatus() {
@@ -150,11 +150,11 @@ public abstract class Applicant extends Person implements Serializable {
   public Notification getNotification(int index) {
     return this.notifications.get(index);
   }
-  
-  @Override
-  public boolean verifyPassword(String password) {
-    return this.password.equals(password);
-  }
+
+//  @Override
+//  public boolean verifyPassword(String password) {
+//    return this.password.equals(password);
+//  }
   
   // on boards the applicant to the position
   // sets the applicants status to employed

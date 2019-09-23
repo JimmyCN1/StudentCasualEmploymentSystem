@@ -2,34 +2,27 @@ package model.user.staff;
 
 import enumerators.UserStatus;
 import exceptions.InvalidUserStatusException;
+import model.system.ManagementSystem;
+import model.user.Person;
 import model.user.User;
 import model.user.applicant.Applicant;
-import model.system.ManagementSystem;
 import model.user.employer.Employer;
-import model.user.Person;
 
 public class SystemMaintenanceStaff extends Person {
   private static int systemMaintenanceStaffCount = 0;
   private int id;
-  private String password;
   
   public SystemMaintenanceStaff(String firstName, String lastName, String password, ManagementSystem managementSystem) {
-    super(firstName, lastName, managementSystem);
+    super(firstName, lastName, password, managementSystem);
     systemMaintenanceStaffCount++;
     this.id = systemMaintenanceStaffCount;
     setFirstName(firstName);
     setLastName(lastName);
-    this.password = password;
   }
   
   @Override
   public int getId() {
     return id;
-  }
-  
-  @Override
-  public String getPassword() {
-    return password;
   }
   
   @Override
@@ -39,11 +32,6 @@ public class SystemMaintenanceStaff extends Person {
   
   @Override
   public void setStatus(UserStatus status) {
-  }
-  
-  @Override
-  public boolean verifyPassword(String password) {
-    return this.password.equals(password);
   }
   
   public Employer getEmployerRecords(int id) {

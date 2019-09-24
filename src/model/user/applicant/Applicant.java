@@ -176,6 +176,7 @@ public abstract class Applicant extends Person implements Serializable {
     // TODO: remove job from applied jobs array?
     if (this.jobOffer != null) {
       this.jobOffer.revokeOffer(this);
+      jobOffer.addApplicantToApplicantsWhichRejectedOffer(this);
       this.jobOffer = null;
       setStatus(UserStatus.AVAILABLE);
     } else {

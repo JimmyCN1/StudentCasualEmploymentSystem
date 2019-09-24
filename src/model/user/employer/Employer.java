@@ -48,11 +48,6 @@ public class Employer extends User implements Serializable {
   public int getId() {
     return id;
   }
-
-//  @Override
-//  public String getHashMapKey() {
-//    return name.toLowerCase();
-//  }
   
   @Override
   public String getName() {
@@ -255,9 +250,8 @@ public class Employer extends User implements Serializable {
     return verboseString;
   }
   
-  public String positionsToString() {
+  public String listToStringAsOrderedList(List<Position> positions) {
     String positionsString = "";
-    List<Position> positions = getPositionsAsList();
     for (int i = 0; i < positions.size(); i++) {
       positionsString += String.format("%d. %s", i + 1, positions.get(i).getTitle());
     }

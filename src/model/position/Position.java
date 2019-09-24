@@ -32,6 +32,7 @@ public class Position {
   private List<Applicant> highRankingApplicants = new ArrayList<>();
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
   private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
+  private List<Applicant> applicantsWhichRejectedOffer = new ArrayList<>();
   private List<Applicant> staff = new ArrayList<>();
   private Employer positionOwner;
   private ManagementSystem managementSystem;
@@ -97,6 +98,10 @@ public class Position {
   
   public List<Applicant> getUnsuccessfullApplicants() {
     return unsuccessfulApplicants;
+  }
+  
+  public List<Applicant> getApplicantsWhichRejectedOffer() {
+    return applicantsWhichRejectedOffer;
   }
   
   // returns the open interview slots
@@ -244,6 +249,12 @@ public class Position {
     }
   }
   
+  public void addApplicantToApplicantsWhichRejectedOffer(Applicant applicant) {
+    if (!applicantsWhichRejectedOffer.contains(applicant)) {
+      applicantsWhichRejectedOffer.add(applicant);
+    }
+  }
+  
   // adds the passed applicant to the shortlist
   // should be invoked when the employer wishes to shortlist a particular applicant
   public void addApplicantToShortlist(Applicant applicant) {
@@ -362,6 +373,14 @@ public class Position {
       applicantsJobOfferedTo.remove(applicant);
       applicant.setStatus(UserStatus.AVAILABLE);
     }
+  }
+  
+  public String listToStringAsOrderedList(List<Applicant> applicants) {
+    String applicantsString = "";
+    for (int i = 0; i < applicants.size(); i++) {
+      applicantsString += String.format("%d. %s", i + 1, applicants.get(i).getName());
+    }
+    return applicantsString;
   }
 }
 

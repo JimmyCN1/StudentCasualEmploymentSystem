@@ -46,10 +46,16 @@ public class EmployerApp extends App implements AppInterface {
   // creates a new employer in the application
   public void createEmployer() {
     Map<String, String> employerDetails = getEmployerDetails();
+    System.out.println("What is the company email?");
+    String email = scanner.nextLine();
+    System.out.println("What is the company phone number?");
+    String phoneNumber = scanner.nextLine();
     Employer newEmployer = new Employer(employerDetails.get(EMPLOYER_NAME),
             employerDetails.get(PASSWORD),
             managementSystem);
     newEmployer.setUsername(employerDetails.get(USERNAME));
+    newEmployer.setEmail(email);
+    newEmployer.setPhoneNumber(phoneNumber);
     managementSystem.registerEmployer(newEmployer);
     try {
       setCurrentUser(managementSystem.getEmployerByUsername(employerDetails.get(USERNAME)));
@@ -114,10 +120,10 @@ public class EmployerApp extends App implements AppInterface {
     PositionType positionType = PositionType.FULL_TIME;
     while (!validResponse) {
       try {
-        System.out.printf("What is the position type?" +
-                "1. Part Time" +
-                "2. Full Time" +
-                "3. Internship");
+        System.out.printf("What is the position type?\n" +
+                "1. Part Time\n" +
+                "2. Full Time\n" +
+                "3. Internship\n\n");
         int response = scanner.nextInt();
         scanner.nextLine();
         switch (response) {
@@ -196,8 +202,8 @@ public class EmployerApp extends App implements AppInterface {
     int response = 0;
     while (!validResponse) {
       try {
-        System.out.printf("Which position would you like to manage?");
-        System.out.println(currentUser.positionsToString());
+        System.out.printf("Which position would you like to manage?\n");
+        System.out.println(currentUser.listToStringAsOrderedList(currentUser.getPositionsAsList()));
         response = scanner.nextInt();
         scanner.nextLine();
         positionToManage = currentUser.getPositionsAsList().get(response - 1);

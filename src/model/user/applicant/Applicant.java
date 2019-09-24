@@ -206,7 +206,7 @@ public abstract class Applicant extends Person implements Serializable {
   
   @Override
   public String toString() {
-    return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
+    return String.format("%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
             nameToString(),
             statusToString(),
             lastUpdateToString(),

@@ -73,6 +73,28 @@ public class PositionApp extends App {
   }
   
   private void searchForMatchingCandidates() {
+    System.out.println("These are the current applicants that have applied for this position..");
+    for (int i = 0; i < position.getAppliedApplicants().size(); i++) {
+      System.out.printf("Applicant %d\n\n%s\n\n", i + 1, position.getAppliedApplicants().get(i).toString());
+    }
+    boolean goBack = false;
+    int response = 0;
+    while (!goBack) {
+      try {
+        System.out.println("Select which candidate you would like to see in further detail..\n\n" +
+                "Press 0 to go back..");
+        response = scanner.nextInt();
+        scanner.nextLine();
+        zoomInOnStudent(position.getAppliedApplicants().get(response - 1));
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      } catch (ArrayIndexOutOfBoundsException e) {
+        printInputMismatchMessage();
+      }
+    }
+  }
+  
+  private void zoomInOnStudent(Applicant applicant) {
   
   }
   

@@ -282,28 +282,29 @@ public class Position {
     if (!slotIsFree(date, time)) {
       throw new InterviewSlotClashException();
     } else {
-      int size = interviewSlots.size();
+//      int size = interviewSlots.size();
       InterviewSlot interviewSlot = new InterviewSlot(date, time);
-      if (size == 0) {
-        interviewSlots.add(interviewSlot);
-      } else {
-        boolean wasAdded = false;
-        for (int i = 0; i < size; i++) {
-          if (!wasAdded) {
-            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
-                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            }
-          }
-        }
-        if (!wasAdded) {
-          interviewSlots.add(interviewSlot);
-        }
-      }
+      addInterviewSlotChronologically(interviewSlot);
+//      if (size == 0) {
+//        interviewSlots.add(interviewSlot);
+//      } else {
+//        boolean wasAdded = false;
+//        for (int i = 0; i < size; i++) {
+//          if (!wasAdded) {
+//            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+//              interviewSlots.add(i, interviewSlot);
+//              wasAdded = true;
+//            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+//                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+//              interviewSlots.add(i, interviewSlot);
+//              wasAdded = true;
+//            }
+//          }
+//        }
+//        if (!wasAdded) {
+//          interviewSlots.add(interviewSlot);
+//        }
+//      }
     }
   }
   
@@ -315,27 +316,52 @@ public class Position {
     } else if (applicantHasBeenScheduled(applicant)) {
       throw new ApplicantAlreadyBookedException();
     } else {
-      int size = interviewSlots.size();
+//      int size = interviewSlots.size();
       InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
-      if (size == 0) {
-        interviewSlots.add(interviewSlot);
-      } else {
-        boolean wasAdded = false;
-        for (int i = 0; i < size; i++) {
-          if (!wasAdded) {
-            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
-                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            }
+      addInterviewSlotChronologically(interviewSlot);
+//      if (size == 0) {
+//        interviewSlots.add(interviewSlot);
+//      } else {
+//        boolean wasAdded = false;
+//        for (int i = 0; i < size; i++) {
+//          if (!wasAdded) {
+//            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+//              interviewSlots.add(i, interviewSlot);
+//              wasAdded = true;
+//            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+//                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+//              interviewSlots.add(i, interviewSlot);
+//              wasAdded = true;
+//            }
+//          }
+//        }
+//        if (!wasAdded) {
+//          interviewSlots.add(interviewSlot);
+//        }
+//      }
+    }
+  }
+  
+  private void addInterviewSlotChronologically(InterviewSlot interviewSlot) {
+    int size = interviewSlots.size();
+    if (size == 0) {
+      interviewSlots.add(interviewSlot);
+    } else {
+      boolean wasAdded = false;
+      for (int i = 0; i < size; i++) {
+        if (!wasAdded) {
+          if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+            interviewSlots.add(i, interviewSlot);
+            wasAdded = true;
+          } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+                  interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+            interviewSlots.add(i, interviewSlot);
+            wasAdded = true;
           }
         }
-        if (!wasAdded) {
-          interviewSlots.add(interviewSlot);
-        }
+      }
+      if (!wasAdded) {
+        interviewSlots.add(interviewSlot);
       }
     }
   }

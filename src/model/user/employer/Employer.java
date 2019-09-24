@@ -64,7 +64,6 @@ public class Employer extends User implements Serializable {
     return status;
   }
   
-<<<<<<< HEAD
   public String getEmail() {
     return email;
   }
@@ -84,8 +83,6 @@ public class Employer extends User implements Serializable {
     return positionsArray;
   }
   
-=======
->>>>>>> created a new class for dealing with positions in the ui (PositionApp)
   // if the positionId exists, returns the matching position, else throws an exception
   public Position getPositionById(int positionId) throws PositionNotFoundException {
     Position matchingPosition = null;
@@ -142,7 +139,6 @@ public class Employer extends User implements Serializable {
     this.status = employerStatus;
   }
   
-<<<<<<< HEAD
   public void setEmail(String email) {
     this.email = email;
   }
@@ -153,11 +149,9 @@ public class Employer extends User implements Serializable {
   
   @Override
   public boolean verifyPassword(String password) {
-    return this.password.equals(password);
+    return this.getPassword().equals(password);
   }
   
-=======
->>>>>>> added ui functionality to change username and password
   // creates and adds a new position to the positions map
   public void addPosition(String title, PositionType type, double hourlyRate, int minHoursPerWeek, int maxHoursPerWeek) {
     positions.put(title.toLowerCase(), new Position(title, type, hourlyRate, minHoursPerWeek, maxHoursPerWeek, this, managementSystem));

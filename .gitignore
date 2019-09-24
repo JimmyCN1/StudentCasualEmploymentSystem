@@ -2,4 +2,10 @@
 .xml
 .idea
 .idea/workspace.xml
+<<<<<<< HEAD
 .ser
+=======
+*.xml
+*.idea
+*.ser
+>>>>>>> git ignore *ser update

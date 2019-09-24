@@ -3,6 +3,7 @@ package model.user.applicant;
 import enumerators.PositionType;
 import enumerators.UserStatus;
 import exceptions.*;
+import model.position.InterviewSlot;
 import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.Person;
@@ -23,6 +24,7 @@ public abstract class Applicant extends Person implements Serializable {
   private UserStatus status;
   private LocalDate lastStudentUpdate;
   private List<PositionType> availabilities = new ArrayList<>();
+  private List<InterviewSlot> interviewSlots = new ArrayList<>();
   private Position jobOffer = null;
   private Position currentJob = null;
   
@@ -65,6 +67,10 @@ public abstract class Applicant extends Person implements Serializable {
     return this.availabilities;
   }
   
+  public List<InterviewSlot> getInterviewSlots() {
+    return this.interviewSlots;
+  }
+  
   public String getCv() {
     return this.cv;
   }
@@ -101,6 +107,13 @@ public abstract class Applicant extends Person implements Serializable {
       this.jobPreferences.add(jobPref);
     } else {
       throw new InvalidJobCategoryException();
+    }
+  }
+  
+  public void addInterviewSlot(InterviewSlot interviewSlot) {
+    //TODO: overide contains method for interview slots (comparator)
+    if (!this.interviewSlots.contains(interviewSlot)) {
+      this.interviewSlots.add(interviewSlot);
     }
   }
   

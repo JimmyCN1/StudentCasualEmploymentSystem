@@ -1,27 +1,24 @@
 package model.position;
 
-import java.util.Collection;
-import java.util.List;
-
 public class InterviewResult {
-  private List<String> referenceChecks;
+  private boolean hasValidReferences;
   private String interviewNotes;
   
-  public InterviewResult(List<String> referenceChecks, String interviewNotes) {
-    this.referenceChecks = referenceChecks;
+  public InterviewResult(boolean hasValidReferences, String interviewNotes) {
+    this.hasValidReferences = hasValidReferences;
     this.interviewNotes = interviewNotes;
   }
   
-  public Collection<String> getReferenceChecks() {
-    return referenceChecks;
+  public boolean getReferenceValidity() {
+    return hasValidReferences;
   }
   
   public String getInterviewNotes() {
     return interviewNotes;
   }
   
-  public void setReferenceChecks(List<String> referenceChecks) {
-    this.referenceChecks = referenceChecks;
+  public void setReferenceValidity(boolean hasValidReferences) {
+    this.hasValidReferences = hasValidReferences;
   }
   
   public void setInterviewNotes(String interviewNotes) {

@@ -1,5 +1,6 @@
 package app;
 
+import model.position.InterviewSlot;
 import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.applicant.Applicant;
@@ -32,7 +33,8 @@ public class PositionApp extends App {
   }
   
   public void displayMainMenu() {
-    //TODO: updating candidate based on interview and reference check
+    // TODO: mail applicants
+    // TODO: set interview times for high ranking applicants
     boolean goBack = false;
     int response;
     while (!goBack) {
@@ -59,10 +61,10 @@ public class PositionApp extends App {
             rankApplicants();
             break;
           case (4):
-            mailApplicants();
+//            mailApplicants();
             break;
           case (5):
-            setInterviewTimes();
+//            setInterviewTimes();
             break;
           case (6):
             updateCandidatesApplication();
@@ -180,6 +182,7 @@ public class PositionApp extends App {
         response = scanner.nextInt();
         scanner.nextLine();
         applicant = position.getAppliedApplicants().get(response - 1);
+        validResponse = true;
         position.addApplicantToShortlist(applicant);
         System.out.printf("%s was successfully shortlisted\n\n", applicant.getName());
       } catch (InputMismatchException e) {
@@ -204,7 +207,93 @@ public class PositionApp extends App {
   }
   
   private void updateCandidatesApplication() {
+    boolean validResponse = false;
+    Applicant applicant;
+    int response;
+    while (!validResponse) {
+      try {
+        System.out.println("Which candidate's application would you like to update?\n");
+        System.out.println(position.listToStringAsOrderedList(position.getInterviewedApplicants()));
+        response = scanner.nextInt();
+        applicant = position.getInterviewedApplicants().get(response - 1);
+        validResponse = true;
+        updateCandidate(applicant);
+      } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+        printInputMismatchMessage();
+      }
+    }
+  }
   
+  private void updateCandidate(Applicant applicant) {
+    boolean goBack = false;
+    int response;
+    while (!goBack) {
+      try {
+        System.out.printf("What would you like to do?\n\n" +
+                "1. Update Candidate's Reference Check\n" +
+                "2. Leave A Note'\n\n" +
+                "0. Go Back\n\n");
+        response = scanner.nextInt();
+        scanner.nextLine();
+        switch (response) {
+          case (1):
+            updateCandidatesReferenceCheck(applicant);
+            break;
+          case (2):
+            leaveANote(applicant);
+            break;
+          case (0):
+            goBack = true;
+            break;
+        }
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      }
+    }
+  }
+  
+  private void updateCandidatesReferenceCheck(Applicant applicant) {
+    System.out.println("Did the candidate's references checkout?\n");
+    for (InterviewSlot i : applicant.getInterviewSlots()) {
+      if (i.getPosition().getTitle().equals(position.getTitle())) {
+        boolean goBack = false;
+        int response;
+        while (!goBack) {
+          try {
+            System.out.printf(
+                    "1. Yes\n" +
+                            "2. No'\n\n" +
+                            "0. Go Back\n\n");
+            response = scanner.nextInt();
+            scanner.nextLine();
+            switch (response) {
+              case (1):
+                i.getInterviewResult().setReferenceValidity(true);
+                break;
+              case (2):
+                i.getInterviewResult().setReferenceValidity(false);
+                break;
+              case (0):
+                goBack = true;
+                break;
+            }
+          } catch (InputMismatchException e) {
+            printInputMismatchMessage();
+          }
+        }
+      }
+    }
+  }
+  
+  private void leaveANote(Applicant applicant) {
+    System.out.println("What would you like to say about the candidate\n");
+    String note = scanner.nextLine();
+    for (InterviewSlot i : applicant.getInterviewSlots()) {
+      if (i.getPosition().getTitle().equals(position.getTitle())) {
+        i.getInterviewResult().setInterviewNotes(note);
+        System.out.println("Note was successfully left..\n");
+      }
+    }
   }
   
   
@@ -219,6 +308,7 @@ public class PositionApp extends App {
         response = scanner.nextInt();
         scanner.nextLine();
         applicant = position.getHighRankingApplicants().get(response - 1);
+        validResponse = true;
         position.addApplicantToJobOffered(applicant);
         System.out.printf("Job successfully offered to %s", applicant.getName());
       } catch (InputMismatchException e) {

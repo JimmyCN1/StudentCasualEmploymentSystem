@@ -1,18 +1,21 @@
 package model.position;
 
-import enumerators.UserStatus;
 import enumerators.InterviewSlotStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
+import model.system.ManagementSystem;
 import model.user.applicant.Applicant;
 import model.user.applicant.ApplicantRanking;
 import model.user.applicant.SortByRank;
-import model.system.ManagementSystem;
 import model.user.employer.Employer;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Position {
   private static int positionCount = 0;
@@ -89,7 +92,7 @@ public class Position {
     return highRankingApplicants;
   }
   
-  public List<Applicant> getInterviewedCandidates() {
+  public List<Applicant> getInterviewedApplicants() {
     return interviewedCandidates;
   }
   

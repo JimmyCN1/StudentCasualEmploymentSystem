@@ -17,6 +17,7 @@ import java.util.Map;
 public class EmployerApp extends App implements AppInterface {
   private final String EMPLOYER_NAME = "employerName";
   private Employer currentUser;
+  private PositionApp positionApp;
   
   public EmployerApp(String username,
                      String password,
@@ -105,9 +106,9 @@ public class EmployerApp extends App implements AppInterface {
             case (1):
               createAPosition();
               break;
-//            case (2):
-////              manageCurrentPositions();
-//              break;
+            case (2):
+              manageCurrentPositions();
+              break;
 //            case (1):
 ////              searchForMatchingCandidates();
 //              break;
@@ -188,7 +189,9 @@ public class EmployerApp extends App implements AppInterface {
         hourlyRate = scanner.nextDouble();
         validResponse = true;
       } catch (InputMismatchException e) {
+        scanner.nextLine();
         System.out.println("Please input a number (eg. 20.3)");
+        scanner.next();
       }
     }
     validResponse = false;
@@ -199,7 +202,9 @@ public class EmployerApp extends App implements AppInterface {
         minHours = scanner.nextInt();
         validResponse = true;
       } catch (InputMismatchException e) {
+        scanner.nextLine();
         System.out.println("Please input a number (eg. 20)");
+        scanner.next();
       }
     }
     validResponse = false;
@@ -210,7 +215,9 @@ public class EmployerApp extends App implements AppInterface {
         maxHours = scanner.nextInt();
         validResponse = true;
       } catch (InputMismatchException e) {
-        System.out.println("Please input a number (eg. 20)");
+        scanner.nextLine();
+        System.out.println("Please input a number (eg. 40)");
+        scanner.next();
       }
     }
     Position newPosition = new Position(
@@ -223,6 +230,27 @@ public class EmployerApp extends App implements AppInterface {
             managementSystem
     );
     currentUser.addPosition(newPosition);
-    System.out.printf("The position '%s' has successfully been created", title);
+    System.out.printf("The position '%s' has successfully been created\n\n", title);
+  }
+  
+  private void manageCurrentPositions() {
+    boolean validResponse = false;
+    Position positionToManage = null;
+    int response = 0;
+    while (!validResponse) {
+      try {
+        System.out.printf("Which position would you like to manage?");
+        System.out.println(currentUser.positionsToString());
+        response = scanner.nextInt();
+        scanner.nextLine();
+        positionToManage = currentUser.getPositionsAsList().get(response - 1);
+        positionApp = new PositionApp(positionToManage, currentUser, managementSystem);
+        positionApp.displayMainMenu();
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      } catch (ArrayIndexOutOfBoundsException e) {
+        printInputMismatchMessage();
+      }
+    }
   }
 }

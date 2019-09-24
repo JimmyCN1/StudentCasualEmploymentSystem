@@ -64,6 +64,7 @@ public class Employer extends User implements Serializable {
     return status;
   }
   
+<<<<<<< HEAD
   public String getEmail() {
     return email;
   }
@@ -83,6 +84,8 @@ public class Employer extends User implements Serializable {
     return positionsArray;
   }
   
+=======
+>>>>>>> created a new class for dealing with positions in the ui (PositionApp)
   // if the positionId exists, returns the matching position, else throws an exception
   public Position getPositionById(int positionId) throws PositionNotFoundException {
     Position matchingPosition = null;
@@ -119,6 +122,15 @@ public class Employer extends User implements Serializable {
     } else {
       return applicant.getAvailabilities();
     }
+  }
+  
+  // returns an array of all the positions that the employer has posted
+  public List<Position> getPositionsAsList() {
+    List<Position> positions = new ArrayList<>();
+    for (String e : this.positions.keySet()) {
+      positions.add(this.positions.get(e));
+    }
+    return positions;
   }
   
   // employer status must only be AVAILABLE or BLACKLISTED
@@ -247,5 +259,14 @@ public class Employer extends User implements Serializable {
                     "Phone Number: %s",
             email, phoneNumber);
     return verboseString;
+  }
+  
+  public String positionsToString() {
+    String positionsString = "";
+    List<Position> positions = getPositionsAsList();
+    for (int i = 0; i < positions.size(); i++) {
+      positionsString += String.format("%d. %s", i + 1, positions.get(i).getTitle());
+    }
+    return positionsString;
   }
 }

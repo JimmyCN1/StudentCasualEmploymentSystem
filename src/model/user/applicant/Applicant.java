@@ -30,8 +30,8 @@ public abstract class Applicant extends Person implements Serializable {
   private Position currentJob = null;
   
   private List<License> licenses = new ArrayList<>();
-  private List<Qualification> qualifications = new ArrayList<>();
   private List<PastJob> pastJobs = new ArrayList<>();
+  private List<Qualification> qualifications = new ArrayList<>();
   private List<Reference> references = new ArrayList<>();
   private List<Position> appliedJobs = new ArrayList<>();
   private List<String> jobPreferences = new ArrayList<>();
@@ -59,11 +59,6 @@ public abstract class Applicant extends Person implements Serializable {
   public int getId() {
     return this.applicantId;
   }
-
-//  @Override
-//  public String getPassword() {
-//    return this.password;
-//  }
   
   @Override
   public UserStatus getStatus() {
@@ -80,6 +75,22 @@ public abstract class Applicant extends Person implements Serializable {
   
   public List<String> getJobPreferences() {
     return this.jobPreferences;
+  }
+  
+  public List<License> getLicenses() {
+    return licenses;
+  }
+  
+  public List<PastJob> getPastJobs() {
+    return pastJobs;
+  }
+  
+  public List<Qualification> getQualifications() {
+    return qualifications;
+  }
+  
+  public List<Reference> getReferences() {
+    return references;
   }
   
   @Override

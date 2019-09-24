@@ -3,9 +3,14 @@ package app;
 import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.applicant.Applicant;
+import model.user.applicant.utilities.License;
+import model.user.applicant.utilities.PastJob;
+import model.user.applicant.utilities.Qualification;
+import model.user.applicant.utilities.Reference;
 import model.user.employer.Employer;
 
 import java.util.InputMismatchException;
+import java.util.List;
 
 public class PositionApp extends App {
   private Position position;
@@ -85,7 +90,11 @@ public class PositionApp extends App {
                 "Press 0 to go back..");
         response = scanner.nextInt();
         scanner.nextLine();
-        zoomInOnStudent(position.getAppliedApplicants().get(response - 1));
+        if (response == 0) {
+          goBack = true;
+        } else {
+          zoomInOnStudent(position.getAppliedApplicants().get(response - 1));
+        }
       } catch (InputMismatchException e) {
         printInputMismatchMessage();
       } catch (ArrayIndexOutOfBoundsException e) {
@@ -95,7 +104,67 @@ public class PositionApp extends App {
   }
   
   private void zoomInOnStudent(Applicant applicant) {
+    boolean goBack = false;
+    int response;
+    while (!goBack) {
+      try {
+        System.out.printf("What would you like to do?\n\n" +
+                "1. View Applicant's Licences\n" +
+                "2. View Applicant's Past Jobs\n" +
+                "3. View Applicant's Qualifications\n" +
+                "4. View Applicant's References\n\n" +
+                "0. Go Back\n\n");
+        response = scanner.nextInt();
+        scanner.nextLine();
+        switch (response) {
+          case (1):
+            showApplicantsPastLicenses(applicant);
+            break;
+          case (2):
+            showApplicantsPastJobs(applicant);
+            break;
+          case (3):
+            showApplicantsQualifications(applicant);
+            break;
+          case (4):
+            showApplicantsReferences(applicant);
+            break;
+          case (0):
+            goBack = true;
+            break;
+        }
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      }
+    }
+  }
   
+  private void showApplicantsPastLicenses(Applicant applicant) {
+    List<License> licenses = applicant.getLicenses();
+    for (License l : licenses) {
+      System.out.println(l.toString());
+    }
+  }
+  
+  private void showApplicantsPastJobs(Applicant applicant) {
+    List<PastJob> pastJobs = applicant.getPastJobs();
+    for (PastJob pj : pastJobs) {
+      System.out.println(pj.toString());
+    }
+  }
+  
+  private void showApplicantsQualifications(Applicant applicant) {
+    List<Qualification> qualifications = applicant.getQualifications();
+    for (Qualification q : qualifications) {
+      System.out.println(q.toString());
+    }
+  }
+  
+  private void showApplicantsReferences(Applicant applicant) {
+    List<Reference> references = applicant.getReferences();
+    for (Reference r : references) {
+      System.out.println(r.toString());
+    }
   }
   
   private void shortlistApplicants() {

@@ -92,10 +92,10 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
         scanner.nextLine();
         switch (response) {
           case (1):
-            displayEmployerRecords();
+            displayEmployers();
             break;
           case (2):
-            displayApplicantRecords();
+            displayApplicants();
             break;
           case (3):
             addNewJobCategory();
@@ -125,8 +125,7 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     System.out.println("Type the job category you would like to add to the system..");
     String response = scanner.nextLine();
     System.out.println();
-    managementSystem.addJobCategory(response);
-    viewCurrentJobCategories();
+    currentUser.addNewJobCategory(response);
   }
   
   private void viewCurrentJobCategories() {

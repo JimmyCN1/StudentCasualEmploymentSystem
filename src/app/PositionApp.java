@@ -64,7 +64,7 @@ public class PositionApp extends App {
           case (5):
             setInterviewTimes();
             break;
-          case(6):
+          case (6):
             updateCandidatesApplication();
           case (7):
             offerJobToApplicant();
@@ -211,7 +211,7 @@ public class PositionApp extends App {
   private void offerJobToApplicant() {
     boolean validResponse = false;
     Applicant applicant;
-    int response = 0;
+    int response;
     while (!validResponse) {
       try {
         System.out.println("Which applicant would you like to offer a job to?\n");

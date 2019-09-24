@@ -35,23 +35,23 @@ public class SystemMaintenanceStaff extends Person {
   }
   
   public Employer getEmployersRecords(int id) {
-    Employer returnEmployer = null;
-    for (Employer employer : getManagementSystem().getEmployersAsList()) {
-      if (employer.getId() == id) {
-        returnEmployer = employer;
+    Employer employer = null;
+    for (Employer e : getManagementSystem().getEmployersAsList()) {
+      if (e.getId() == id) {
+        employer = e;
       }
     }
-    return returnEmployer;
+    return employer;
   }
   
   public Applicant getApplicantRecords(int id) {
-    Applicant returnApplicant = null;
-    for (Applicant applicant : getManagementSystem().getApplicantsAsList()) {
-      if (applicant.getId() == id) {
-        returnApplicant = applicant;
+    Applicant applicant = null;
+    for (Applicant a : getManagementSystem().getApplicantsAsList()) {
+      if (a.getId() == id) {
+        applicant = a;
       }
     }
-    return returnApplicant;
+    return applicant;
   }
   
   //Blacklist a user

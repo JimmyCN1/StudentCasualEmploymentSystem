@@ -30,6 +30,7 @@ public class Position {
   private List<ApplicantRanking> rankedApplicants = new ArrayList<>();
   private List<Applicant> shortlistedByEmployer = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
+  private List<Applicant> interviewedCandidates = new ArrayList<>();
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
   private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
   private List<Applicant> applicantsWhichRejectedOffer = new ArrayList<>();
@@ -86,6 +87,10 @@ public class Position {
   
   public List<Applicant> getHighRankingApplicants() {
     return highRankingApplicants;
+  }
+  
+  public List<Applicant> getInterviewedCandidates() {
+    return interviewedCandidates;
   }
   
   public List<Applicant> getApplicantsJobOfferedTo() {
@@ -232,6 +237,22 @@ public class Position {
     }
   }
   
+  // adds the passed applicant to the shortlist
+  // should be invoked when the employer wishes to shortlist a particular applicant
+  public void addApplicantToShortlist(Applicant applicant) {
+    if (!shortlistedByEmployer.contains(applicant)) {
+      shortlistedByEmployer.add(applicant);
+    }
+  }
+  
+  // adds the passed applicant to the interviewed applicants list
+  // should be invoked when the applicant selects an interview time slot
+  public void addApplicantToInterviewedCandidates(Applicant applicant) {
+    if (!interviewedCandidates.contains(applicant)) {
+      interviewedCandidates.add(applicant);
+    }
+  }
+  
   // adds the passed applicant to the job offered list
   // should be invoked when the employer offers an applicant a job
   public void addApplicantToJobOffered(Applicant applicant) {
@@ -252,14 +273,6 @@ public class Position {
   public void addApplicantToApplicantsWhichRejectedOffer(Applicant applicant) {
     if (!applicantsWhichRejectedOffer.contains(applicant)) {
       applicantsWhichRejectedOffer.add(applicant);
-    }
-  }
-  
-  // adds the passed applicant to the shortlist
-  // should be invoked when the employer wishes to shortlist a particular applicant
-  public void addApplicantToShortlist(Applicant applicant) {
-    if (!shortlistedByEmployer.contains(applicant)) {
-      shortlistedByEmployer.add(applicant);
     }
   }
   
@@ -330,6 +343,7 @@ public class Position {
   // assigns the passed applicant to the passed interview slot
   public void bookInterviewForApplicant(Applicant applicant, InterviewSlot interviewSlot) {
     interviewSlot.bookApplicant(applicant);
+    interviewedCandidates.add(applicant);
   }
   
   private boolean slotIsFree(LocalDate date, LocalTime time) {

@@ -32,7 +32,6 @@ public class PositionApp extends App {
   }
   
   public void displayMainMenu() {
-    //TODO: searching for suitable candidates
     //TODO: updating candidate based on interview and reference check
     boolean goBack = false;
     int response;
@@ -44,7 +43,8 @@ public class PositionApp extends App {
                 "3. Rank Applicants\n" +
                 "4. Mail Applicants\n" +
                 "5. Set Interview Times\n" +
-                "6. Offer Job\n\n" +
+                "6. Update Candidate's Applicantion\n" +
+                "7. Offer Job\n\n" +
                 "0. Go Back\n\n");
         response = scanner.nextInt();
         scanner.nextLine();
@@ -64,7 +64,9 @@ public class PositionApp extends App {
           case (5):
             setInterviewTimes();
             break;
-          case (6):
+          case(6):
+            updateCandidatesApplication();
+          case (7):
             offerJobToApplicant();
             break;
           case (0):
@@ -199,6 +201,10 @@ public class PositionApp extends App {
   }
   
   private void setInterviewTimes() {
+  }
+  
+  private void updateCandidatesApplication() {
+  
   }
   
   

@@ -1,10 +1,12 @@
 package app;
 
+import enumerators.PositionType;
 import enumerators.UserStatus;
 import exceptions.EmployerNotFoundException;
 import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
+import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.User;
 import model.user.employer.Employer;
@@ -73,10 +75,11 @@ public class EmployerApp extends App implements AppInterface {
   
   @Override
   public void displayMainMenu() {
+    //TODO: create a position
+    //TODO: manage positions
     //TODO: searching for suitable candidates
     //TODO: shortlisting and ranking candidates
     //TODO: updating candidate based on interview and reference check
-    //TODO: creation of jobs
     //TODO: creation of job offers
     boolean isLoggedIn = true;
     int response;
@@ -86,37 +89,140 @@ public class EmployerApp extends App implements AppInterface {
       } else {
         try {
           System.out.printf("What would you like to do?\n\n" +
-                  "1. Search for matching candidates\n" +
-                  "2. Shortlist Applicants\n" +
-                  "3. Rank Applicants\n" +
-                  "4. Mail Applicants\n" +
-                  "5. Set Interview Times\n" +
+                  "1. Create A Position\n" +
+                  "2. Manage Current Positions\n" +
+                  "3. Search for matching candidates\n" +
+                  "4. Shortlist Applicants\n" +
+                  "5. Rank Applicants\n" +
                   "6. Mail Applicants\n" +
-                  "7. Offer Job\n\n" +
+                  "7. Set Interview Times\n" +
+                  "8. Mail Applicants\n" +
+                  "9. Offer Job\n\n" +
                   "0. Logout\n\n");
           response = scanner.nextInt();
           scanner.nextLine();
           switch (response) {
             case (1):
-//              searchForMatchingCandidates();
+              createAPosition();
               break;
-            case (2):
-//              updateAvailabilities();
-              break;
-            case (3):
-//              updateEmploymentRecords();
-              break;
-            case (4):
-//                viewJobOffers();
-              break;
-            case (0):
-              isLoggedIn = false;
-              break;
+//            case (2):
+////              manageCurrentPositions();
+//              break;
+//            case (1):
+////              searchForMatchingCandidates();
+//              break;
+//            case (1):
+////              searchForMatchingCandidates();
+//              break;
+//            case (1):
+////              searchForMatchingCandidates();
+//              break;
+//            case (1):
+////              searchForMatchingCandidates();
+//              break;
+//            case (1):
+////              searchForMatchingCandidates();
+//              break;
+//            case (1):
+////              searchForMatchingCandidates();
+//              break;
+//            case (1):
+////              searchForMatchingCandidates();
+//              break;
+//            case (2):
+////              updateAvailabilities();
+//              break;
+//            case (3):
+////              updateEmploymentRecords();
+//              break;
+//            case (4):
+////              viewJobOffers();
+//              break;
+//            case (0):
+//              isLoggedIn = false;
+//              break;
           }
         } catch (InputMismatchException e) {
           printInputMismatchMessage();
         }
       }
     }
+  }
+  
+  private void createAPosition() {
+    System.out.println("What is the position title?");
+    String title = scanner.nextLine();
+    boolean validResponse = false;
+    PositionType positionType = PositionType.FULL_TIME;
+    while (!validResponse) {
+      try {
+        System.out.printf("What is the position type?" +
+                "1. Part Time" +
+                "2. Full Time" +
+                "3. Internship");
+        int response = scanner.nextInt();
+        scanner.nextLine();
+        switch (response) {
+          case (1):
+            positionType = PositionType.FULL_TIME;
+            validResponse = true;
+            break;
+          case (2):
+            positionType = PositionType.PART_TIME;
+            validResponse = true;
+            break;
+          case (3):
+            positionType = PositionType.INTERNSHIP;
+            validResponse = true;
+            break;
+        }
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      }
+    }
+    validResponse = false;
+    double hourlyRate = 0;
+    while (!validResponse) {
+      try {
+        System.out.println("What is the hourly rate?");
+        hourlyRate = scanner.nextDouble();
+        validResponse = true;
+      } catch (InputMismatchException e) {
+        System.out.println("Please input a number (eg. 20.3)");
+      }
+    }
+    validResponse = false;
+    int minHours = 0;
+    while (!validResponse) {
+      try {
+        System.out.println("What is the minimum hours per week?");
+        minHours = scanner.nextInt();
+        validResponse = true;
+      } catch (InputMismatchException e) {
+        System.out.println("Please input a number (eg. 20)");
+      }
+    }
+    validResponse = false;
+    int maxHours = 0;
+    while (!validResponse) {
+      try {
+        System.out.println("What is the maximum hours per week?");
+        maxHours = scanner.nextInt();
+        validResponse = true;
+      } catch (InputMismatchException e) {
+        System.out.println("Please input a number (eg. 20)");
+      }
+    }
+    Position newPosition = new Position(
+            title,
+            positionType,
+            hourlyRate,
+            minHours,
+            maxHours,
+            currentUser,
+            managementSystem
+    );
+    currentUser.addPosition(newPosition);
+    System.out.printf("The position '%s' has successfully been created", title);
   }
 }

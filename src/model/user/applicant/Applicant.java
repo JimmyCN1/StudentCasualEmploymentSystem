@@ -14,14 +14,11 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-// Questionable
-
 public abstract class Applicant extends Person implements Serializable {
   private static int applicantCount = 0;
   private final int MAX_AVAILABILITIES = 3;
   private final int TWO_WEEKS = 14;
   private int applicantId;
-  //  private String password;
   private String cv; // The name of the text file
   private UserStatus status;
   private LocalDate lastStudentUpdate;
@@ -48,7 +45,6 @@ public abstract class Applicant extends Person implements Serializable {
     this.applicantId = applicantCount;
     setFirstName(firstName);
     setLastName(lastName);
-//    this.password = password;
     this.status = UserStatus.AVAILABLE;
     this.lastStudentUpdate = LocalDate.now();
     this.availabilities.add(availability);
@@ -161,16 +157,10 @@ public abstract class Applicant extends Person implements Serializable {
   public Notification getNotification(int index) {
     return this.notifications.get(index);
   }
-
-//  @Override
-//  public boolean verifyPassword(String password) {
-//    return this.password.equals(password);
-//  }
   
   // on boards the applicant to the position
   // sets the applicants status to employed
   public void acceptOffer() throws NoJobOfferException, ApplicantNotFoundException {
-    // TODO: remove job from applied jobs array?
     if (this.jobOffer != null) {
       this.jobOffer.onBoardApplicant(this);// figure out
       this.currentJob = this.jobOffer;
@@ -184,7 +174,6 @@ public abstract class Applicant extends Person implements Serializable {
   // the position revokes the offer
   // sets the applicants status to available
   public void rejectOffer() throws NoJobOfferException, ApplicantNotFoundException {
-    // TODO: remove job from applied jobs array?
     if (this.jobOffer != null) {
       this.jobOffer.revokeOffer(this);
       jobOffer.addApplicantToApplicantsWhichRejectedOffer(this);
@@ -287,7 +276,7 @@ public abstract class Applicant extends Person implements Serializable {
     this.licenses.add(license);
   }
   
-  public License remove(int licenseIndex) {
+  public License removeLicense(int licenseIndex) {
     return this.licenses.remove(licenseIndex);
   }
   

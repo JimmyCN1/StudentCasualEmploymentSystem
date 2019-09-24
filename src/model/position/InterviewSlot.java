@@ -60,7 +60,7 @@ public class InterviewSlot {
     this.status = status;
   }
   
-  public boolean setInterviewResult() {
-    return false;
+  public void setInterviewResult(InterviewResult interviewResult) {
+    this.interviewResult = interviewResult;
   }
 }

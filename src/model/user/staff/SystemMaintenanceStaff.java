@@ -34,7 +34,7 @@ public class SystemMaintenanceStaff extends Person {
   public void setStatus(UserStatus status) {
   }
   
-  public Employer getEmployerRecords(int id) {
+  public Employer getEmployersRecords(int id) {
     Employer returnEmployer = null;
     for (Employer employer : getManagementSystem().getEmployersAsList()) {
       if (employer.getId() == id) {

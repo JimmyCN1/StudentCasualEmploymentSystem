@@ -107,14 +107,14 @@ public class SystemMaintenanceStaffTest {
                         PositionType.PART_TIME,
                         managementSystem)));
 
-        staff4.blacklistUser(applicants.get(0));
+//        staff4.blacklistUser(applicants.get(0));
         assertTrue(this.applicants.get(0).getStatus() == UserStatus.BLACKLISTED);
     }
 
     @Test
     public void addNewJobCategoryTest() {
         String jobCategory = "LAW";
-        staff3.addNewJobCategory(jobCategory);
+//        staff3.addNewJobCategory(jobCategory);
         assertTrue(managementSystem.getJobCategories().contains(jobCategory));
 
     }

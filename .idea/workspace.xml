@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f96367bb-cb03-4f5a-88af-3f2edcced7b8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/PositionApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/EmployerApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/EmployerApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/StudentApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/StudentApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/SystemMaintenanceStaffApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/SystemMaintenanceStaffApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/interfaces/AppInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/interfaces/AppInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/employer/Employer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/employer/Employer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/EmployerApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/EmployerApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/employer/Employer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/employer/Employer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,13 +27,29 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/app/EmployerApp.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="459">
-                  <caret line="132" column="33" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
+                <state relative-caret-position="483">
+                  <caret line="247" column="26" lean-forward="true" selection-start-line="247" selection-start-column="26" selection-end-line="247" selection-end-column="26" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/app/PositionApp.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="420">
+                  <caret line="28" selection-start-line="28" selection-end-line="28" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#334#335#0" expanded="true" />
+                    <element signature="e#359#360#0" expanded="true" />
+                    <element signature="e#409#410#0" expanded="true" />
+                    <element signature="e#443#444#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -34,8 +58,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/model/system/ManagementSystem.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-720">
-                  <caret line="92" column="18" selection-start-line="92" selection-start-column="18" selection-end-line="92" selection-end-column="18" />
+                <state relative-caret-position="109">
+                  <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
                   <folding>
                     <element signature="e#3677#3678#0" expanded="true" />
                     <element signature="e#4477#4478#0" expanded="true" />
@@ -47,8 +71,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/model/user/employer/Employer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="675">
-                  <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+                <state relative-caret-position="255">
+                  <caret line="62" column="3" selection-start-line="62" selection-start-column="3" selection-end-line="62" selection-end-column="3" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -60,10 +84,10 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/app/App.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3864">
+                <state relative-caret-position="4112">
                   <caret line="287" column="22" selection-start-line="287" selection-start-column="22" selection-end-line="287" selection-end-column="22" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -77,10 +101,10 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/model/position/Position.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="303">
+                <state relative-caret-position="-296">
                   <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -146,7 +170,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/model/position/InterviewSlot.java" />
         <option value="$PROJECT_DIR$/src/exceptions/InvalidJobCategoryException.java" />
         <option value="$PROJECT_DIR$/src/exceptions/JobCategoryDoesNotExistException.java" />
         <option value="$PROJECT_DIR$/src/tests/PositionTest.java" />
@@ -187,7 +210,6 @@
         <option value="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" />
         <option value="$PROJECT_DIR$/src/model/user/staff/SystemMaintenanceStaff.java" />
         <option value="$PROJECT_DIR$/src/app/Main.java" />
-        <option value="$PROJECT_DIR$/src/model/user/employer/Employer.java" />
         <option value="$PROJECT_DIR$/src/model/user/Person.java" />
         <option value="$PROJECT_DIR$/src/model/system/ManagementSystem.java" />
         <option value="$PROJECT_DIR$/src/model/user/utilities/Complaint.java" />
@@ -196,7 +218,9 @@
         <option value="$PROJECT_DIR$/src/app/SystemMaintenanceStaffApp.java" />
         <option value="$PROJECT_DIR$/src/app/StudentApp.java" />
         <option value="$PROJECT_DIR$/src/app/App.java" />
+        <option value="$PROJECT_DIR$/src/model/user/employer/Employer.java" />
         <option value="$PROJECT_DIR$/src/app/EmployerApp.java" />
+        <option value="$PROJECT_DIR$/src/app/PositionApp.java" />
       </list>
     </option>
   </component>
@@ -230,12 +254,6 @@
               <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="position" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -431,10 +449,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.488228" visible="true" weight="0.13287087" />
-      <window_info id="Structure" order="1" sideWeight="0.511772" side_tool="true" visible="true" weight="0.13287087" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48809522" visible="true" weight="0.13287087" />
+      <window_info id="Structure" order="1" sideWeight="0.5119048" side_tool="true" visible="true" weight="0.13287087" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -448,9 +465,9 @@
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32978722" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.28457448" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.28457448" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50101215" side_tool="true" weight="0.32978722" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32978722" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="10" visible="true" weight="0.32978722" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -488,14 +505,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/model/user/applicant/utilities/Availability.java" />
-    <entry file="file://$PROJECT_DIR$/src/exceptions/PositionNotFoundException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="56" selection-start-line="2" selection-start-column="56" selection-end-line="2" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/position/InterviewResult.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -807,17 +816,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/system/ManagementSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-720">
-          <caret line="92" column="18" selection-start-line="92" selection-start-column="18" selection-end-line="92" selection-end-column="18" />
-          <folding>
-            <element signature="e#3677#3678#0" expanded="true" />
-            <element signature="e#4477#4478#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/interfaces/AppInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -829,31 +827,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-190">
           <caret line="116" column="3" selection-start-line="116" selection-start-column="3" selection-end-line="116" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3864">
-          <caret line="287" column="22" selection-start-line="287" selection-start-column="22" selection-end-line="287" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#785#786#0" expanded="true" />
-            <element signature="e#813#814#0" expanded="true" />
-            <element signature="e#865#866#0" expanded="true" />
-            <element signature="e#905#906#0" expanded="true" />
-            <element signature="e#10279#10280#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/user/employer/Employer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -928,9 +901,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/user/employer/Employer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="62" column="3" selection-start-line="62" selection-start-column="3" selection-end-line="62" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/List.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6571">
+          <caret line="543" column="6" selection-start-line="543" selection-start-column="6" selection-end-line="543" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/position/Position.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
+        <state relative-caret-position="-296">
           <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -938,12 +928,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/EmployerApp.java">
+    <entry file="file://$PROJECT_DIR$/src/app/App.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="132" column="33" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
+        <state relative-caret-position="4112">
+          <caret line="287" column="22" selection-start-line="287" selection-start-column="22" selection-end-line="287" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#785#786#0" expanded="true" />
+            <element signature="e#813#814#0" expanded="true" />
+            <element signature="e#865#866#0" expanded="true" />
+            <element signature="e#905#906#0" expanded="true" />
+            <element signature="e#10279#10280#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/system/ManagementSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+          <folding>
+            <element signature="e#3677#3678#0" expanded="true" />
+            <element signature="e#4477#4478#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/EmployerApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="247" column="26" lean-forward="true" selection-start-line="247" selection-start-column="26" selection-end-line="247" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/PositionApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#334#335#0" expanded="true" />
+            <element signature="e#359#360#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#443#444#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -62,17 +62,6 @@ public class Employer extends User implements Serializable {
     return status;
   }
   
-  // returns an array of all the positions that the employer has posted
-  public List<Position> getPositions() {
-    List<Position> positionsArray = new ArrayList<>();
-    
-    for (String p : this.positions.keySet()) {
-      positionsArray.add(this.positions.get(p));
-    }
-    
-    return positionsArray;
-  }
-  
   // if the positionId exists, returns the matching position, else throws an exception
   public Position getPositionById(int positionId) throws PositionNotFoundException {
     Position matchingPosition = null;
@@ -109,6 +98,15 @@ public class Employer extends User implements Serializable {
     } else {
       return applicant.getAvailabilities();
     }
+  }
+  
+  // returns an array of all the positions that the employer has posted
+  public List<Position> getPositionsAsList() {
+    List<Position> positions = new ArrayList<>();
+    for (String e : this.positions.keySet()) {
+      positions.add(this.positions.get(e));
+    }
+    return positions;
   }
   
   // employer status must only be AVAILABLE or BLACKLISTED
@@ -212,5 +210,14 @@ public class Employer extends User implements Serializable {
   @Override
   public String statusToString() {
     return String.format("Status: %s", getStatus());
+  }
+  
+  public String positionsToString() {
+    String positionsString = "";
+    List<Position> positions = getPositionsAsList();
+    for (int i = 0; i < positions.size(); i++) {
+      positionsString += String.format("%d. %s", i + 1, positions.get(i).getTitle());
+    }
+    return positionsString;
   }
 }

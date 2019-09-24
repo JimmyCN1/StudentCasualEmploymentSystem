@@ -76,12 +76,6 @@ public class EmployerApp extends App implements AppInterface {
   
   @Override
   public void displayMainMenu() {
-    //TODO: create a position
-    //TODO: manage positions
-    //TODO: searching for suitable candidates
-    //TODO: shortlisting and ranking candidates
-    //TODO: updating candidate based on interview and reference check
-    //TODO: creation of job offers
     boolean isLoggedIn = true;
     int response;
     while (isLoggedIn) {
@@ -91,14 +85,7 @@ public class EmployerApp extends App implements AppInterface {
         try {
           System.out.printf("What would you like to do?\n\n" +
                   "1. Create A Position\n" +
-                  "2. Manage Current Positions\n" +
-                  "3. Search for matching candidates\n" +
-                  "4. Shortlist Applicants\n" +
-                  "5. Rank Applicants\n" +
-                  "6. Mail Applicants\n" +
-                  "7. Set Interview Times\n" +
-                  "8. Mail Applicants\n" +
-                  "9. Offer Job\n\n" +
+                  "2. Manage Current Positions\n\n" +
                   "0. Logout\n\n");
           response = scanner.nextInt();
           scanner.nextLine();
@@ -109,39 +96,9 @@ public class EmployerApp extends App implements AppInterface {
             case (2):
               manageCurrentPositions();
               break;
-//            case (1):
-////              searchForMatchingCandidates();
-//              break;
-//            case (1):
-////              searchForMatchingCandidates();
-//              break;
-//            case (1):
-////              searchForMatchingCandidates();
-//              break;
-//            case (1):
-////              searchForMatchingCandidates();
-//              break;
-//            case (1):
-////              searchForMatchingCandidates();
-//              break;
-//            case (1):
-////              searchForMatchingCandidates();
-//              break;
-//            case (1):
-////              searchForMatchingCandidates();
-//              break;
-//            case (2):
-////              updateAvailabilities();
-//              break;
-//            case (3):
-////              updateEmploymentRecords();
-//              break;
-//            case (4):
-////              viewJobOffers();
-//              break;
-//            case (0):
-//              isLoggedIn = false;
-//              break;
+            case (0):
+              isLoggedIn = false;
+              break;
           }
         } catch (InputMismatchException e) {
           printInputMismatchMessage();

@@ -243,4 +243,13 @@ public class Employer extends User implements Serializable {
   public String statusToString() {
     return String.format("Status: %s", getStatus());
   }
+  
+  public String toStringVerbose() {
+    String verboseString = super.toString();
+    verboseString += String.format(
+            "Email: %s\n" +
+                    "Phone Number: %s",
+            email, phoneNumber);
+    return verboseString;
+  }
 }

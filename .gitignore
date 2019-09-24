@@ -1,1 +1,7 @@
 /bin/
+.xml
+.idea
+.idea/workspace.xml
+*.xml
+*.idea
+.ser

@@ -35,7 +35,7 @@ public class PositionApp extends App {
     while (isLoggedIn) {
       try {
         System.out.printf("What would you like to do?\n\n" +
-                "1. Search for matching candidates\n" +
+                "1. Search For Matching Candidates\n" +
                 "2. Shortlist Applicants\n" +
                 "3. Rank Applicants\n" +
                 "4. Mail Applicants\n" +

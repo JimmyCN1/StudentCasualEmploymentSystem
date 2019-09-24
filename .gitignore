@@ -1,7 +1,7 @@
 /bin/
 .idea/workspace.xml
 *.xml
-*.idea
+.idea
 *.ser
 *.classpath
 *.project

@@ -1,13 +1,13 @@
 package model.user.employer;
 
-import enumerators.UserStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
-import model.user.applicant.Applicant;
 import model.position.InterviewSlot;
-import model.system.ManagementSystem;
 import model.position.Position;
+import model.system.ManagementSystem;
 import model.user.User;
+import model.user.applicant.Applicant;
 import model.user.applicant.utilities.Notification;
 
 import java.io.Serializable;
@@ -24,6 +24,8 @@ public class Employer extends User implements Serializable {
   private String name;
   private String password;
   private UserStatus status = null;
+  private String email;
+  private String phoneNumber;
   
   private Map<String, Position> positions = new HashMap<>();
   
@@ -67,6 +69,14 @@ public class Employer extends User implements Serializable {
   @Override
   public UserStatus getStatus() {
     return status;
+  }
+  
+  public String getEmail() {
+    return email;
+  }
+  
+  public String getPhoneNumber() {
+    return phoneNumber;
   }
   
   // returns an array of all the positions that the employer has posted
@@ -125,6 +135,14 @@ public class Employer extends User implements Serializable {
       throw new InvalidUserStatusException();
     }
     this.status = employerStatus;
+  }
+  
+  public void setEmail(String email) {
+    this.email = email;
+  }
+  
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
   }
   
   @Override

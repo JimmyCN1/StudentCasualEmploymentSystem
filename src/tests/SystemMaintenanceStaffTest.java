@@ -1,25 +1,22 @@
 package tests;
 
 
+import enumerators.PositionType;
+import enumerators.UserStatus;
+import exceptions.ApplicantNotFoundException;
+import exceptions.InvalidUserStatusException;
+import model.system.ManagementSystem;
+import model.user.applicant.Applicant;
+import model.user.applicant.InternationalStudent;
+import model.user.applicant.LocalStudent;
+import model.user.staff.SystemMaintenanceStaff;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import model.user.applicant.InternationalStudent;
-import org.junit.After;
-import org.junit.Test;
-
-import model.system.ManagementSystem;
-import enumerators.PositionType;
-import enumerators.UserStatus;
-import exceptions.InvalidUserStatusException;
-
-import org.junit.Before;
-
-import model.system.ManagementSystem;
-import model.user.applicant.Applicant;
-import model.user.applicant.LocalStudent;
-import model.user.staff.SystemMaintenanceStaff;
 
 import static org.junit.Assert.*;
 
@@ -46,16 +43,7 @@ public class SystemMaintenanceStaffTest {
         staff3 = new SystemMaintenanceStaff("Jayden", "Smith", "jss3", managementSystem);
         staff4 = new SystemMaintenanceStaff("Chloe", "Decker", "cds4", managementSystem);
         staff5 = new SystemMaintenanceStaff("Terry", "Jeffords", "tjs5", managementSystem);
-        staff6 = new SystemMaintenanceStaff("Bruce", "Wayne", "imbatman", managementSystem);
-
-        Applicant applicant1 = new LocalStudent("john",
-                "smith",
-                "password",
-                PositionType.INTERNSHIP,
-                managementSystem
-        );
-
-        this.managementSystem.registerApplicant(applicant1);
+        staff6 = new SystemMaintenanceStaff("Steve", "Jobs", "Apple", managementSystem);
 
     }
 
@@ -75,27 +63,36 @@ public class SystemMaintenanceStaffTest {
         assertFalse(staff2.verifyPassword("jvs1"));
     }
 
-//    @Test
-//    public void getApplicantRecordTest() throws NullPointerException {
-//        Applicant applicants = new InternationalStudent("Betty", "Cooper", "def", this.managementSystem);
-//
-//        System.out.println(this.managementSystem.getApplicantsAsList());
-//
-//        int i = 1;
-//
-//        Applicant applicantActual = applicants.get(0);
-//        Applicant applicantReturn = staff5.getApplicantRecords(0);
-//        assertEquals(applicants, applicantReturn);
-//
-//        System.out.println(this.applicants);
-//
-//    }
-//
-//    @Test
-//    public void getNonExistingApplicantRecordTest() {
-//        Applicant applicants = new InternationalStudent("Betty", "Cooper", "def", this.managementSystem);
-//        Applicant applicant = staff6.getApplicantRecords(5);
-//    }
+    @Test
+    public void getApplicantRecordTest() throws NullPointerException {
+        applicants = new ArrayList<>(Arrays.asList(
+                new LocalStudent(
+                        "Bruce",
+                        "Wayne",
+                        "imBatman",
+                        PositionType.PART_TIME,
+                        managementSystem)));
+        this.managementSystem.registerApplicant(applicants.get(0));
+
+        Applicant applicantActual = applicants.get(0);
+        Applicant applicantReturn = null;
+        try {
+            applicantReturn = staff5.getApplicantRecords(1);
+        } catch (ApplicantNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(applicantActual.getId(), applicantReturn.getId());
+    }
+
+    @Test
+    public void getNonExistingApplicantRecordTest() {
+        Applicant applicants = new InternationalStudent("Betty", "Cooper", "def", this.managementSystem);
+        try {
+            Applicant applicant = staff6.getApplicantRecords(5);
+        } catch (ApplicantNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void blacklistUserTest() throws InvalidUserStatusException {
@@ -107,14 +104,22 @@ public class SystemMaintenanceStaffTest {
                         PositionType.PART_TIME,
                         managementSystem)));
 
-//        staff4.blacklistUser(applicants.get(0));
-        assertTrue(this.applicants.get(0).getStatus() == UserStatus.BLACKLISTED);
+        staff4.blacklistUser(applicants.get(0));
+        assertEquals(this.applicants.get(0).getStatus(), UserStatus.BLACKLISTED);
     }
 
     @Test
     public void addNewJobCategoryTest() {
         String jobCategory = "LAW";
-//        staff3.addNewJobCategory(jobCategory);
+        staff5.addNewJobCategory(jobCategory);
+        assertTrue(managementSystem.getJobCategories().contains(jobCategory));
+
+    }
+
+    @Test
+    public void addAlreadyExistingJobCategoryTest() {
+        String jobCategory = "FINANCE";
+        staff6.addNewJobCategory(jobCategory);
         assertTrue(managementSystem.getJobCategories().contains(jobCategory));
 
     }

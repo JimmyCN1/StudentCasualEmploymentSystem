@@ -1,10 +1,7 @@
 package app;
 
 import enumerators.UserStatus;
-import exceptions.InvalidUserStatusException;
-import exceptions.PasswordMissmatchException;
-import exceptions.SystemMaintenanceStaffNotFoundException;
-import exceptions.UserNotFoundException;
+import exceptions.*;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import model.user.User;
@@ -116,17 +113,21 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
             isLoggedIn = false;
             break;
         }
-      } catch (InputMismatchException e) {
+      } catch (InputMismatchException | JobCategoryAlreadyExistsException e) {
         printInputMismatchMessage();
       }
     }
   }
   
-  private void addNewJobCategory() {
-    System.out.println("Type the job category you would like to add to the system..");
-    String response = scanner.nextLine();
-    System.out.println();
-    currentUser.addNewJobCategory(response);
+  private void addNewJobCategory() throws JobCategoryAlreadyExistsException {
+    try {
+      System.out.println("Type the job category you would like to add to the system..");
+      String response = scanner.nextLine();
+      System.out.println();
+      currentUser.addNewJobCategory(response);
+    }catch (JobCategoryAlreadyExistsException e){
+      e.printStackTrace();
+    }
   }
   
   private void viewCurrentJobCategories() {
@@ -135,6 +136,7 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
       System.out.printf("%s ", jc.toUpperCase());
     }
     System.out.println("\n");
+
   }
   
   private void blackListAUser() {

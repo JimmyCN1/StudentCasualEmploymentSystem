@@ -5,6 +5,7 @@ import enumerators.PositionType;
 import enumerators.UserStatus;
 import exceptions.ApplicantNotFoundException;
 import exceptions.InvalidUserStatusException;
+import exceptions.JobCategoryAlreadyExistsException;
 import model.system.ManagementSystem;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
@@ -109,7 +110,7 @@ public class SystemMaintenanceStaffTest {
     }
 
     @Test
-    public void addNewJobCategoryTest() {
+    public void addNewJobCategoryTest() throws JobCategoryAlreadyExistsException {
         String jobCategory = "LAW";
         staff5.addNewJobCategory(jobCategory);
         assertTrue(managementSystem.getJobCategories().contains(jobCategory));
@@ -117,7 +118,7 @@ public class SystemMaintenanceStaffTest {
     }
 
     @Test
-    public void addAlreadyExistingJobCategoryTest() {
+    public void addAlreadyExistingJobCategoryTest() throws JobCategoryAlreadyExistsException {
         String jobCategory = "FINANCE";
         staff6.addNewJobCategory(jobCategory);
         assertTrue(managementSystem.getJobCategories().contains(jobCategory));

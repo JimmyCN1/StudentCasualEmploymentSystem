@@ -285,29 +285,8 @@ public class Position {
     if (!slotIsFree(date, time)) {
       throw new InterviewSlotClashException();
     } else {
-//      int size = interviewSlots.size();
-      InterviewSlot interviewSlot = new InterviewSlot(date, time);
+      InterviewSlot interviewSlot = new InterviewSlot(date, time, this, positionOwner);
       addInterviewSlotChronologically(interviewSlot);
-//      if (size == 0) {
-//        interviewSlots.add(interviewSlot);
-//      } else {
-//        boolean wasAdded = false;
-//        for (int i = 0; i < size; i++) {
-//          if (!wasAdded) {
-//            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
-//              interviewSlots.add(i, interviewSlot);
-//              wasAdded = true;
-//            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
-//                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-//              interviewSlots.add(i, interviewSlot);
-//              wasAdded = true;
-//            }
-//          }
-//        }
-//        if (!wasAdded) {
-//          interviewSlots.add(interviewSlot);
-//        }
-//      }
     }
   }
   
@@ -320,7 +299,7 @@ public class Position {
       throw new ApplicantAlreadyBookedException();
     } else {
 //      int size = interviewSlots.size();
-      InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
+      InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant, this, positionOwner);
       addInterviewSlotChronologically(interviewSlot);
 //      if (size == 0) {
 //        interviewSlots.add(interviewSlot);

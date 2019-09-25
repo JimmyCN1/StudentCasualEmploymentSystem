@@ -28,11 +28,13 @@ public class InterviewSlot {
     this.employer = employer;
   }
   
-  public InterviewSlot(LocalDate date, LocalTime time) {
+  public InterviewSlot(LocalDate date, LocalTime time, Position position, Employer employer) {
     this.date = date;
     this.time = time;
     duration = INTERVIEW_DURATION;
     status = InterviewSlotStatus.FREE;
+    this.position = position;
+    this.employer = employer;
   }
   
   public LocalDate getDate() {

@@ -110,10 +110,18 @@ public abstract class Applicant extends Person implements Serializable {
     }
   }
   
+  // adds an interview slot to an applicant list of interview slots
   public void addInterviewSlot(InterviewSlot interviewSlot) {
-    //TODO: overide contains method for interview slots (comparator)
-    if (!this.interviewSlots.contains(interviewSlot)) {
-      this.interviewSlots.add(interviewSlot);
+    boolean addInterview = true;
+    for (InterviewSlot i : interviewSlots) {
+      if (i.equals(interviewSlot)) {
+        addInterview = false;
+      }
+    }
+    if (addInterview) {
+      interviewSlot.setApplicant(this);
+      interviewSlots.add(interviewSlot);
+      jobOffer.addApplicantToInterviewedCandidates(this);
     }
   }
   

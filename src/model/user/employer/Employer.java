@@ -171,7 +171,7 @@ public class Employer extends User implements Serializable {
   
   public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)
           throws InterviewSlotClashException, InterviewSlotNotFoundException {
-    InterviewSlot interviewSlot = new InterviewSlot(date, time);
+    InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant, position, this);
     position.addInterview(date, time);
     position.bookInterviewForApplicant(applicant,
             position.getInterviewSlot(interviewSlot.getDate(), interviewSlot.getTime()));

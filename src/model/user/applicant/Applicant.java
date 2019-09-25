@@ -265,14 +265,22 @@ public abstract class Applicant extends Person implements Serializable {
     return String.format("Availabilities: %s", preferences);
   }
   
-  public String jobOfferToString() {
-    return String.format("Current Job Offer: %s - %s",
-            this.jobOffer.getEmployer(),
-            this.jobOffer.getTitle());
+  public String jobOfferToString() throws NullPointerException{
+    if(this.jobOffer==null){
+        return "Current Job Offer: None";
+    }else {
+      return String.format("Current Job Offer: %s - %s",
+              this.jobOffer.getEmployer(),
+              this.jobOffer.getTitle());
+    }
   }
   
-  public String employerToString() {
-    return String.format("Current Employer: %s", currentJob.getEmployer());
+  public String employerToString() throws NullPointerException {
+    if(currentJob==null){
+      return String.format("Current Employer : Unemployed");
+    }else {
+      return String.format("Current Employer: %s", currentJob.getEmployer());
+    }
   }
   
   public String notificationsToString() {

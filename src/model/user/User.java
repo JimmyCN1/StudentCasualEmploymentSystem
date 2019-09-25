@@ -42,7 +42,7 @@ public abstract class User implements UserInterface, Serializable {
   
   @Override
   public String getHashMapKey() {
-    return username.toLowerCase();
+    return username;
   }
   
   @Override

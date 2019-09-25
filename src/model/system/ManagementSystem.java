@@ -4,7 +4,7 @@ import exceptions.ApplicantNotFoundException;
 import exceptions.EmployerNotFoundException;
 import exceptions.SystemMaintenanceStaffNotFoundException;
 import interfaces.UserInterface;
-import model.Serialisation.SaveState;
+import model.serialisation.SaveState;
 import model.system.utilities.Security;
 import model.user.User;
 import model.user.applicant.Applicant;

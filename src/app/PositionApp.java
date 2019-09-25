@@ -1,5 +1,6 @@
 package app;
 
+import exceptions.UserBlacklistedException;
 import model.position.InterviewSlot;
 import model.position.Position;
 import model.system.ManagementSystem;
@@ -10,6 +11,7 @@ import model.user.applicant.utilities.Qualification;
 import model.user.applicant.utilities.Reference;
 import model.user.employer.Employer;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -34,7 +36,6 @@ public class PositionApp extends App {
   
   public void displayMainMenu() {
     // TODO: mail applicants
-    // TODO: set interview times for high ranking applicants
     boolean goBack = false;
     int response;
     while (!goBack) {
@@ -42,11 +43,12 @@ public class PositionApp extends App {
         System.out.printf("What would you like to do?\n\n" +
                 "1. Search For Matching Candidates\n" +
                 "2. Shortlist Applicants\n" +
-                "3. Rank Applicants\n" +
-                "4. Mail Applicants\n" +
-                "5. Set Interview Times\n" +
-                "6. Update Candidate's Applicantion\n" +
-                "7. Offer Job\n\n" +
+                "3. View Shortlisted Applicants\n" +
+                "4. Rank Applicants\n" +
+                "5. Invite Applicant for Interview\n" +
+                "6. Update Candidate's Application\n" +
+                "7. Offer Job\n" +
+                "8. Mail Applicants\n\n" +
                 "0. Go Back\n\n");
         response = scanner.nextInt();
         scanner.nextLine();
@@ -58,18 +60,21 @@ public class PositionApp extends App {
             shortlistApplicants();
             break;
           case (3):
-            rankApplicants();
+            viewShortlistedApplicants();
             break;
           case (4):
-//            mailApplicants();
+            rankApplicants();
             break;
           case (5):
-//            setInterviewTimes();
+            inviteApplicantForInterview();
             break;
           case (6):
             updateCandidatesApplication();
           case (7):
             offerJobToApplicant();
+            break;
+          case (8):
+//            mailApplicants();
             break;
           case (0):
             goBack = true;
@@ -80,6 +85,7 @@ public class PositionApp extends App {
       }
     }
   }
+  
   
   private void searchForMatchingCandidates() {
     System.out.println("These are the current applicants that have applied for this position..");
@@ -183,7 +189,7 @@ public class PositionApp extends App {
         scanner.nextLine();
         applicant = position.getAppliedApplicants().get(response - 1);
         validResponse = true;
-        position.addApplicantToShortlist(applicant);
+        currentUser.shortlistApplicant(applicant, position);
         System.out.printf("%s was successfully shortlisted\n\n", applicant.getName());
       } catch (InputMismatchException e) {
         printInputMismatchMessage();
@@ -193,17 +199,60 @@ public class PositionApp extends App {
     }
   }
   
+  private void viewShortlistedApplicants() {
+    List<Applicant> totalShortlistedApplicants = getTotalShortlistedApplicants();
+    
+    System.out.printf("These are all the shortlisted applicants for the position '%s'..\n\n",
+            position.getTitle());
+    System.out.println(position.listToStringAsOrderedList(totalShortlistedApplicants));
+  }
+  
+  // build new listed of applicants shortlisted by the system and by the employer
+  private List<Applicant> getTotalShortlistedApplicants() {
+    List<Applicant> totalShortlistedApplicants = new ArrayList<>();
+    for (Applicant a : position.getShortListedApplicants()) {
+      if (!totalShortlistedApplicants.contains(a)) {
+        totalShortlistedApplicants.add(a);
+      }
+    }
+    for (Applicant a : position.getHighRankingApplicants()) {
+      if (!totalShortlistedApplicants.contains(a)) {
+        totalShortlistedApplicants.add(a);
+      }
+    }
+    return totalShortlistedApplicants;
+  }
+  
   private void rankApplicants() {
     System.out.println("Ranking applicants...\n");
-    position.filterApplicants();
+    currentUser.rankApplicants(position);
     System.out.println("The applicants have been automatically ranked by the system..\n");
   }
   
-  private void mailApplicants() {
-  
-  }
-  
-  private void setInterviewTimes() {
+  private void inviteApplicantForInterview() {
+    List<Applicant> totalShortlistedApplicants = getTotalShortlistedApplicants();
+    boolean validResponse = false;
+    Applicant applicant = null;
+    int response;
+    while (!validResponse) {
+      try {
+        System.out.println("Which applicant would you like to invite for an interview?\n");
+        System.out.println(position.listToStringAsOrderedList(totalShortlistedApplicants));
+        response = scanner.nextInt();
+        scanner.nextLine();
+        applicant = totalShortlistedApplicants.get(response - 1);
+        validResponse = true;
+        currentUser.offerInterview(applicant, position);
+        System.out.printf("%s has been successfully invited for an interview\n\n", applicant.getName());
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      } catch (ArrayIndexOutOfBoundsException e) {
+        printInputMismatchMessage();
+      } catch (UserBlacklistedException e) {
+        System.out.printf("Sorry, Cannot invite %s for an interview as they have been blacklisted..", applicant.getName());
+      }
+    }
+    
   }
   
   private void updateCandidatesApplication() {
@@ -296,10 +345,9 @@ public class PositionApp extends App {
     }
   }
   
-  
   private void offerJobToApplicant() {
     boolean validResponse = false;
-    Applicant applicant;
+    Applicant applicant = null;
     int response;
     while (!validResponse) {
       try {
@@ -309,13 +357,19 @@ public class PositionApp extends App {
         scanner.nextLine();
         applicant = position.getHighRankingApplicants().get(response - 1);
         validResponse = true;
-        position.addApplicantToJobOffered(applicant);
+        currentUser.offerJob(applicant, position);
         System.out.printf("Job successfully offered to %s", applicant.getName());
       } catch (InputMismatchException e) {
         printInputMismatchMessage();
       } catch (ArrayIndexOutOfBoundsException e) {
         printInputMismatchMessage();
+      } catch (UserBlacklistedException e) {
+        System.out.printf("Sorry, Cannot offer job to %s as they have been blacklisted..", applicant.getName());
       }
     }
+  }
+  
+  private void mailApplicants() {
+  
   }
 }

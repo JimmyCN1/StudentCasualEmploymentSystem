@@ -33,6 +33,7 @@ public abstract class Applicant extends Person implements Serializable {
   private List<Qualification> qualifications = new ArrayList<>();
   private List<Reference> references = new ArrayList<>();
   private List<Position> appliedJobs = new ArrayList<>();
+  private List<Position> interviewsOffered = new ArrayList<>();
   private List<String> jobPreferences = new ArrayList<>();
   
   // List of all notifications the applicant receives from all employers
@@ -93,6 +94,14 @@ public abstract class Applicant extends Person implements Serializable {
   
   public List<Reference> getReferences() {
     return references;
+  }
+  
+  public List<Position> getAppliedJobs() {
+    return appliedJobs;
+  }
+  
+  public List<Position> getInterviewsOffered() {
+    return interviewsOffered;
   }
   
   @Override
@@ -167,6 +176,16 @@ public abstract class Applicant extends Person implements Serializable {
   // Adds a notification to the notification list of the applicant
   public void addNotification(Notification notification) {
     this.notifications.add(notification);
+  }
+  
+  public void addPositionToInterviewOffered(Position position) {
+    if (!interviewsOffered.contains(position)) {
+      interviewsOffered.add(position);
+    }
+  }
+  
+  public Position removePositionToInterviewOffered(int position) {
+    return interviewsOffered.remove(position);
   }
   
   // Returns all the notifications sent to the applicant

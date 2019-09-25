@@ -1,5 +1,6 @@
 package app;
 
+import exceptions.JobCategoryAlreadyExistsException;
 import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
 import model.system.ManagementSystem;
@@ -58,7 +59,7 @@ public class App {
     studentApp.displayMainMenu();
   }
   
-  public void instantiateNewSystemMaintenanceStaffApp() {
+  public void instantiateNewSystemMaintenanceStaffApp() throws JobCategoryAlreadyExistsException {
     systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(managementSystem);
     systemMaintenanceStaffApp.createSystemMaintenanceStaff();
     System.out.printf("%s has been registered to the system.\n\n",
@@ -67,7 +68,7 @@ public class App {
   }
   
   // login as an employer, applicant or system staff
-  public void loginAs() {
+  public void loginAs() throws JobCategoryAlreadyExistsException{
     boolean goBack = false;
     while (!goBack) {
       try {
@@ -122,7 +123,7 @@ public class App {
     }
   }
   
-  private void loginAsSystemMaintenanceStaff() {
+  private void loginAsSystemMaintenanceStaff() throws JobCategoryAlreadyExistsException{
     Map<String, String> userDetails = getLoginDetails();
     try {
       systemMaintenanceStaffApp = new SystemMaintenanceStaffApp(userDetails.get(USERNAME),

@@ -47,6 +47,11 @@ public class ManagementSystemTest {
     @After
     public void tearDown() throws Exception {
     }
+ 
+    @Test
+    public void testPasswordMatching() throws PasswordMissmatchException {
+        assertTrue(employer2.verifyPassword("qwerty"));
+    }
 
 
     @Test

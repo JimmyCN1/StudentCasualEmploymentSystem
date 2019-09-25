@@ -179,11 +179,6 @@ public class Employer extends User implements Serializable {
     
   }
   
-  // TODO: to implement the update applicant method with respect to the passed position
-  public void updateApplicant(Applicant applicant, Position position) {
-  
-  }
-  
   // the passed applicants will receive a string notification of the string passed
   public void notifyApplicants(List<Applicant> applicants, Notification notification) {
     for (Applicant applicant : applicants) {
@@ -194,6 +189,17 @@ public class Employer extends User implements Serializable {
   // the passed applicant will receive a string notification of the string passed
   public void notifyApplicant(Applicant applicant, Notification notification) {
     applicant.addNotification(notification);
+  }
+  
+  // position list of applicants job offered to will be updated with the passed applicant
+  // and the applicants status is set to pending
+  public void offerInterview(Applicant applicant, Position position) throws UserBlacklistedException {
+    if (status.equals(UserStatus.BLACKLISTED)) {
+      throw new UserBlacklistedException();
+    } else {
+      position.addApplicantToInterviewOffered(applicant);
+      applicant.addPositionToInterviewOffered(position);
+    }
   }
   
   // position list of applicants job offered to will be updated with the passed applicant
@@ -216,11 +222,6 @@ public class Employer extends User implements Serializable {
       }
     }
   }
-
-//  // complaint will be lodged against the passed applicant
-//  public void lodgeComplaint(Applicant applicant, String complaint) {
-//    applicant.addComplaint(complaint);
-//  }
   
   @Override
   public boolean equals(Object object) {

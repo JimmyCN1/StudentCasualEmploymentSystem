@@ -1,18 +1,21 @@
 package model.position;
 
-import enumerators.UserStatus;
 import enumerators.InterviewSlotStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
+import model.system.ManagementSystem;
 import model.user.applicant.Applicant;
 import model.user.applicant.ApplicantRanking;
 import model.user.applicant.SortByRank;
-import model.system.ManagementSystem;
 import model.user.employer.Employer;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Position {
   private static int positionCount = 0;
@@ -30,8 +33,10 @@ public class Position {
   private List<ApplicantRanking> rankedApplicants = new ArrayList<>();
   private List<Applicant> shortlistedByEmployer = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
+  private List<Applicant> interviewedCandidates = new ArrayList<>();
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
   private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
+  private List<Applicant> applicantsWhichRejectedOffer = new ArrayList<>();
   private List<Applicant> staff = new ArrayList<>();
   private Employer positionOwner;
   private ManagementSystem managementSystem;
@@ -87,6 +92,10 @@ public class Position {
     return highRankingApplicants;
   }
   
+  public List<Applicant> getInterviewedApplicants() {
+    return interviewedCandidates;
+  }
+  
   public List<Applicant> getApplicantsJobOfferedTo() {
     return applicantsJobOfferedTo;
   }
@@ -97,6 +106,10 @@ public class Position {
   
   public List<Applicant> getUnsuccessfullApplicants() {
     return unsuccessfulApplicants;
+  }
+  
+  public List<Applicant> getApplicantsWhichRejectedOffer() {
+    return applicantsWhichRejectedOffer;
   }
   
   // returns the open interview slots
@@ -227,6 +240,22 @@ public class Position {
     }
   }
   
+  // adds the passed applicant to the shortlist
+  // should be invoked when the employer wishes to shortlist a particular applicant
+  public void addApplicantToShortlist(Applicant applicant) {
+    if (!shortlistedByEmployer.contains(applicant)) {
+      shortlistedByEmployer.add(applicant);
+    }
+  }
+  
+  // adds the passed applicant to the interviewed applicants list
+  // should be invoked when the applicant selects an interview time slot
+  public void addApplicantToInterviewedCandidates(Applicant applicant) {
+    if (!interviewedCandidates.contains(applicant)) {
+      interviewedCandidates.add(applicant);
+    }
+  }
+  
   // adds the passed applicant to the job offered list
   // should be invoked when the employer offers an applicant a job
   public void addApplicantToJobOffered(Applicant applicant) {
@@ -244,11 +273,9 @@ public class Position {
     }
   }
   
-  // adds the passed applicant to the shortlist
-  // should be invoked when the employer wishes to shortlist a particular applicant
-  public void addApplicantToShortlist(Applicant applicant) {
-    if (!shortlistedByEmployer.contains(applicant)) {
-      shortlistedByEmployer.add(applicant);
+  public void addApplicantToApplicantsWhichRejectedOffer(Applicant applicant) {
+    if (!applicantsWhichRejectedOffer.contains(applicant)) {
+      applicantsWhichRejectedOffer.add(applicant);
     }
   }
   
@@ -258,28 +285,8 @@ public class Position {
     if (!slotIsFree(date, time)) {
       throw new InterviewSlotClashException();
     } else {
-      int size = interviewSlots.size();
-      InterviewSlot interviewSlot = new InterviewSlot(date, time);
-      if (size == 0) {
-        interviewSlots.add(interviewSlot);
-      } else {
-        boolean wasAdded = false;
-        for (int i = 0; i < size; i++) {
-          if (!wasAdded) {
-            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
-                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            }
-          }
-        }
-        if (!wasAdded) {
-          interviewSlots.add(interviewSlot);
-        }
-      }
+      InterviewSlot interviewSlot = new InterviewSlot(date, time, this, positionOwner);
+      addInterviewSlotChronologically(interviewSlot);
     }
   }
   
@@ -291,27 +298,52 @@ public class Position {
     } else if (applicantHasBeenScheduled(applicant)) {
       throw new ApplicantAlreadyBookedException();
     } else {
-      int size = interviewSlots.size();
-      InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
-      if (size == 0) {
-        interviewSlots.add(interviewSlot);
-      } else {
-        boolean wasAdded = false;
-        for (int i = 0; i < size; i++) {
-          if (!wasAdded) {
-            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
-                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            }
+//      int size = interviewSlots.size();
+      InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant, this, positionOwner);
+      addInterviewSlotChronologically(interviewSlot);
+//      if (size == 0) {
+//        interviewSlots.add(interviewSlot);
+//      } else {
+//        boolean wasAdded = false;
+//        for (int i = 0; i < size; i++) {
+//          if (!wasAdded) {
+//            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+//              interviewSlots.add(i, interviewSlot);
+//              wasAdded = true;
+//            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+//                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+//              interviewSlots.add(i, interviewSlot);
+//              wasAdded = true;
+//            }
+//          }
+//        }
+//        if (!wasAdded) {
+//          interviewSlots.add(interviewSlot);
+//        }
+//      }
+    }
+  }
+  
+  private void addInterviewSlotChronologically(InterviewSlot interviewSlot) {
+    int size = interviewSlots.size();
+    if (size == 0) {
+      interviewSlots.add(interviewSlot);
+    } else {
+      boolean wasAdded = false;
+      for (int i = 0; i < size; i++) {
+        if (!wasAdded) {
+          if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+            interviewSlots.add(i, interviewSlot);
+            wasAdded = true;
+          } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+                  interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+            interviewSlots.add(i, interviewSlot);
+            wasAdded = true;
           }
         }
-        if (!wasAdded) {
-          interviewSlots.add(interviewSlot);
-        }
+      }
+      if (!wasAdded) {
+        interviewSlots.add(interviewSlot);
       }
     }
   }
@@ -319,6 +351,7 @@ public class Position {
   // assigns the passed applicant to the passed interview slot
   public void bookInterviewForApplicant(Applicant applicant, InterviewSlot interviewSlot) {
     interviewSlot.bookApplicant(applicant);
+    interviewedCandidates.add(applicant);
   }
   
   private boolean slotIsFree(LocalDate date, LocalTime time) {
@@ -362,6 +395,14 @@ public class Position {
       applicantsJobOfferedTo.remove(applicant);
       applicant.setStatus(UserStatus.AVAILABLE);
     }
+  }
+  
+  public String listToStringAsOrderedList(List<Applicant> applicants) {
+    String applicantsString = "";
+    for (int i = 0; i < applicants.size(); i++) {
+      applicantsString += String.format("%d. %s", i + 1, applicants.get(i).getName());
+    }
+    return applicantsString;
   }
 }
 

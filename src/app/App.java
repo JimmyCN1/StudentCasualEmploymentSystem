@@ -208,23 +208,25 @@ public class App {
     System.out.println("What would you like to change your user name to?");
     String newUserName = scanner.nextLine();
     currentUser.setUsername(newUserName);
-    System.out.println("Your user name has successfully been updated.\n");
+    System.out.println("Your user name has successfully been updated..\n");
   }
   
   private void changePassword() {
     System.out.println("What would you like to change your password to?");
     String password = scanner.nextLine();
     currentUser.setPassword(password);
-    System.out.println("Your user name has successfully been updated.\n");
+    System.out.println("Your user name has successfully been updated..\n");
   }
   
-  public void displayEmployerRecords() {
+  public void displayEmployers() {
+    System.out.println("Here are the current employers in the system..\n");
     for (Employer e : managementSystem.getEmployersAsList()) {
       System.out.println(e.toString());
     }
   }
   
-  public void displayApplicantRecords() {
+  public void displayApplicants() {
+    System.out.println("Here are the current applicants in the system..\n");
     for (Applicant a : managementSystem.getApplicantsAsList()) {
       System.out.println(a.toString());
     }
@@ -232,7 +234,7 @@ public class App {
   
   public void lodgeComplaintAgainstEmployer() {
     System.out.println("Current Employers in the system..\n");
-    displayEmployerRecords();
+    displayEmployers();
     System.out.println("What is the employers name?");
     String employerName = scanner.nextLine();
     List<Employer> employers = managementSystem.getEmployersAsList();
@@ -252,7 +254,7 @@ public class App {
   
   public void lodgeComplaintAgainstStudent() {
     System.out.println("Current Applicants in the system..\n");
-    displayApplicantRecords();
+    displayApplicants();
     System.out.println("What is the applicants name?");
     String applicantName = scanner.nextLine();
     List<Applicant> applicants = managementSystem.getApplicantsAsList();

@@ -1,18 +1,18 @@
 package tests;
 
-import enumerators.UserStatus;
 import enumerators.PositionType;
-import exceptions.UserNotFoundException;
+import enumerators.UserStatus;
+import exceptions.ApplicantAlreadyBookedException;
 import exceptions.InterviewSlotClashException;
 import exceptions.InvalidJobCategoryException;
+import exceptions.UserNotFoundException;
+import model.position.InterviewSlot;
+import model.position.Position;
 import model.system.ManagementSystem;
-import exceptions.ApplicantAlreadyBookedException;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
 import model.user.employer.Employer;
-import model.position.InterviewSlot;
-import model.position.Position;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +21,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class PositionTest {
   private ManagementSystem managementSystem;
@@ -161,15 +162,15 @@ public class PositionTest {
     position.addApplicantToAppliedApplicants(applicant3);
     
     interviewSlot1 = new InterviewSlot(LocalDate.of(2019, 11, 1),
-            LocalTime.of(12, 00), applicant1);
+            LocalTime.of(12, 00), applicant1, position, employer1);
     interviewSlot2 = new InterviewSlot(LocalDate.of(2019, 11, 1),
-            LocalTime.of(13, 00), applicant2);
+            LocalTime.of(13, 00), applicant2, position, employer1);
     interviewSlot3 = new InterviewSlot(LocalDate.of(2019, 11, 1),
-            LocalTime.of(14, 00), applicant3);
+            LocalTime.of(14, 00), applicant3, position, employer1);
     interviewSlot4 = new InterviewSlot(LocalDate.of(2019, 11, 1),
-            LocalTime.of(11, 00));
+            LocalTime.of(11, 00), position, employer1);
     interviewSlot5 = new InterviewSlot(LocalDate.of(2019, 11, 1),
-            LocalTime.of(15, 00));
+            LocalTime.of(15, 00), position, employer1);
     try {
       position.addInterview(interviewSlot1.getDate(), interviewSlot1.getTime(), applicant1);
       position.addInterview(interviewSlot2.getDate(), interviewSlot2.getTime(), applicant2);

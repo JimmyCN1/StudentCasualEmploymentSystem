@@ -1,6 +1,7 @@
 package app;
 
 import enumerators.UserStatus;
+import exceptions.InvalidUserStatusException;
 import exceptions.PasswordMissmatchException;
 import exceptions.SystemMaintenanceStaffNotFoundException;
 import exceptions.UserNotFoundException;
@@ -83,17 +84,18 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
                 "2. View Applicant Records\n" +
                 "3. Add A New Job Category\n" +
                 "4. View Current Job Categories\n" +
-                "5. View Current BlackListed Users\n" +
-                "6. Lodge A Complaint Against A User\n\n" +
+                "5. Blacklist A User\n" +
+                "7. View Current BlackListed Users\n" +
+                "7. Lodge A Complaint Against A User\n\n" +
                 "0. Logout\n\n");
         int response = scanner.nextInt();
         scanner.nextLine();
         switch (response) {
           case (1):
-            displayEmployerRecords();
+            displayEmployers();
             break;
           case (2):
-            displayApplicantRecords();
+            displayApplicants();
             break;
           case (3):
             addNewJobCategory();
@@ -102,9 +104,12 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
             viewCurrentJobCategories();
             break;
           case (5):
-            viewBlackListedUsers();
+            blackListAUser();
             break;
           case (6):
+            viewBlackListedUsers();
+            break;
+          case (7):
             lodgeAComplaint();
           case (0):
             isLoggedIn = false;
@@ -120,8 +125,7 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     System.out.println("Type the job category you would like to add to the system..");
     String response = scanner.nextLine();
     System.out.println();
-    managementSystem.addJobCategory(response);
-    viewCurrentJobCategories();
+    currentUser.addNewJobCategory(response);
   }
   
   private void viewCurrentJobCategories() {
@@ -130,6 +134,34 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
       System.out.printf("%s ", jc.toUpperCase());
     }
     System.out.println("\n");
+  }
+  
+  private void blackListAUser() {
+    System.out.println("These are the current users in the system..\n");
+    for (int i = 0; i < managementSystem.getUsersAsList().size(); i++) {
+      System.out.printf("%d. %s", i + 1, managementSystem.getUsersAsList().get(i).toString());
+    }
+    User user;
+    boolean goBack = false;
+    while (!goBack) {
+      try {
+        System.out.printf("Which entity would you like to lodge a complaint against?\n\n");
+        int response = scanner.nextInt();
+        scanner.nextLine();
+        if (response == 0) {
+          goBack = true;
+        } else {
+          user = managementSystem.getUsersAsList().get(response - 1);
+          currentUser.blacklistUser(user);
+          System.out.println("User was successfully blacklisted..");
+        }
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      } catch (InvalidUserStatusException e) {
+        System.out.println("Sorry, there was an error in completing this task.\n" +
+                "Please try again..\n");
+      }
+    }
   }
   
   private void viewBlackListedUsers() {
@@ -156,10 +188,10 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
         scanner.nextLine();
         switch (response) {
           case (EMPLOYER):
-            lodgeComplaintAgainstEmployer();
+            super.lodgeComplaintAgainstEmployer();
             break;
           case (STUDENT):
-            lodgeComplaintAgainstStudent();
+            super.lodgeComplaintAgainstStudent();
           case (0):
             goBack = true;
             break;

@@ -48,11 +48,6 @@ public class Employer extends User implements Serializable {
   public int getId() {
     return id;
   }
-
-//  @Override
-//  public String getHashMapKey() {
-//    return name.toLowerCase();
-//  }
   
   @Override
   public String getName() {
@@ -176,7 +171,7 @@ public class Employer extends User implements Serializable {
   
   public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)
           throws InterviewSlotClashException, InterviewSlotNotFoundException {
-    InterviewSlot interviewSlot = new InterviewSlot(date, time);
+    InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant, position, this);
     position.addInterview(date, time);
     position.bookInterviewForApplicant(applicant,
             position.getInterviewSlot(interviewSlot.getDate(), interviewSlot.getTime()));
@@ -255,9 +250,8 @@ public class Employer extends User implements Serializable {
     return verboseString;
   }
   
-  public String positionsToString() {
+  public String listToStringAsOrderedList(List<Position> positions) {
     String positionsString = "";
-    List<Position> positions = getPositionsAsList();
     for (int i = 0; i < positions.size(); i++) {
       positionsString += String.format("%d. %s", i + 1, positions.get(i).getTitle());
     }

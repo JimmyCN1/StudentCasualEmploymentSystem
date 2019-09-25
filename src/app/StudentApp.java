@@ -214,7 +214,7 @@ public class StudentApp extends App implements AppInterface {
                 "1. Add A Job Preference\n" +
                 "2. Remove A Job Preference\n" +
                 "3. View Preferences\n" +
-                "4. Lodge A Complaint\n" +
+                "4. Lodge A Complaint\n\n" +
                 "0. Go back\n\n");
         int response = scanner.nextInt();
         scanner.nextLine();

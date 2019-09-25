@@ -42,5 +42,4 @@ public class ApplicantTest {
 	public final void test3() {
 		assertEquals(a.getId(), "4");
 	}
-
 }

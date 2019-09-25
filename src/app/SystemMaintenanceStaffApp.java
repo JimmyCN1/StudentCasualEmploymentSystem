@@ -8,6 +8,7 @@ import exceptions.UserNotFoundException;
 import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import model.user.User;
+import model.user.employer.Employer;
 import model.user.staff.SystemMaintenanceStaff;
 
 import java.util.InputMismatchException;
@@ -202,5 +203,11 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     }
   }
   
-  
+  @Override
+  public void displayEmployers() {
+    System.out.println("Here are the current employers in the system..\n");
+    for (Employer e : managementSystem.getEmployersAsList()) {
+      System.out.println(e.toStringVerbose());
+    }
+  }
 }

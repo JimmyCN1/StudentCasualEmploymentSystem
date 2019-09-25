@@ -1,15 +1,15 @@
 package tests;
 
-import enumerators.UserStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
+import model.position.Position;
+import model.system.ManagementSystem;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
-import model.system.ManagementSystem;
 import model.user.applicant.utilities.Notification;
 import model.user.employer.Employer;
-import model.position.Position;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -285,7 +285,7 @@ public class EmployerTest {
       //employer6.offerJob(applicants.get(1), employer6.getPositionByTitle("Dev"));
       
       employer6.handleUnsuccessfulApplicants(employer6.getPositionByTitle("Dev"));
-      unsuccessfulApplicants = employer6.getPositionByTitle("Dev").getUnsuccessfullApplicants();
+      unsuccessfulApplicants = employer6.getPositionByTitle("Dev").getUnsuccessfulApplicants();
     } catch (PositionNotFoundException e) {
       e.printStackTrace();
     }

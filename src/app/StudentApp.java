@@ -4,13 +4,17 @@ import enumerators.PositionType;
 import enumerators.UserStatus;
 import exceptions.*;
 import interfaces.AppInterface;
+import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
+import model.user.employer.Employer;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Map;
 
 public class StudentApp extends App implements AppInterface {
@@ -162,11 +166,12 @@ public class StudentApp extends App implements AppInterface {
                   "1. Update Your Job Preferences\n" +
                   "2. Update Your Availabilities\n" +
                   "3. Update Your Employment Records\n" +
-                  "4. Apply For A Job\n" +
-                  "5. View Jobs Shorlisted For\n" +
-                  "6. View Job Offers\n" +
-                  "7. View Emails\n" +
-                  "7. Change Login Details\n\n" +
+                  "4. View All Currently Posted Jobs\n" +
+                  "5. Apply For A Job\n" +
+                  "6. View Jobs Shorlisted For\n" +
+                  "7. View Job Offers\n" +
+                  "8. View Emails\n" +
+                  "9. Change Login Details\n\n" +
                   "0. Logout\n\n");
           response = scanner.nextInt();
           scanner.nextLine();
@@ -181,18 +186,21 @@ public class StudentApp extends App implements AppInterface {
 //              updateEmploymentRecords();
               break;
             case (4):
-//              applyForAJob();
+//              viewAllCurrentlyPostedJobs():
               break;
             case (5):
-//              viewJobsShortlistedFor();
+              applyForAJob();
               break;
             case (6):
-//                viewJobOffers();
+//              viewJobsShortlistedFor();
               break;
             case (7):
-//                viewEmails();
+//                viewJobOffers();
               break;
             case (8):
+//                viewEmails();
+              break;
+            case (9):
               changeLoginDetails();
             case (0):
               isLoggedIn = false;
@@ -308,6 +316,15 @@ public class StudentApp extends App implements AppInterface {
         printInputMismatchMessage();
       }
     }
+  }
+  
+  private void applyForAJob() {
+    List<Position> allPosiitons = new ArrayList<>();
+    for (Employer e : managementSystem.getEmployersAsList()) {
+      allPosiitons.addAll(e.getPositions());
+    }
+    
+    
   }
   
   private void addAvailability() {

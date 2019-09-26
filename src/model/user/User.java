@@ -100,6 +100,7 @@ public abstract class User implements UserInterface, Serializable {
         lodgeComplaint(newComplaint);
         if (this.complaints.size() >= this.MAX_COMPLAINTS) {
           setStatus(UserStatus.BLACKLISTED);
+          managementSystem.addUserToBlacklist(this);
         }
       }
     }

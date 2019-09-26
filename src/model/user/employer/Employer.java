@@ -194,7 +194,7 @@ public class Employer extends User implements Serializable {
   // position list of applicants job offered to will be updated with the passed applicant
   // and the applicants status is set to pending
   public void offerInterview(Applicant applicant, Position position) throws UserBlacklistedException {
-    if (status.equals(UserStatus.BLACKLISTED)) {
+    if (applicant.getStatus().equals(UserStatus.BLACKLISTED)) {
       throw new UserBlacklistedException();
     } else {
       position.addApplicantToInterviewOffered(applicant);
@@ -205,7 +205,7 @@ public class Employer extends User implements Serializable {
   // position list of applicants job offered to will be updated with the passed applicant
   // and the applicants status is set to pending
   public void offerJob(Applicant applicant, Position position) throws UserBlacklistedException {
-    if (status.equals(UserStatus.BLACKLISTED)) {
+    if (applicant.getStatus().equals(UserStatus.BLACKLISTED)) {
       throw new UserBlacklistedException();
     } else {
       position.addApplicantToJobOffered(applicant);

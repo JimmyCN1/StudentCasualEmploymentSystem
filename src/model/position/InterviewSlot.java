@@ -4,10 +4,12 @@ import enumerators.InterviewSlotStatus;
 import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class InterviewSlot {
+public class InterviewSlot implements Serializable
+{
   private final int INTERVIEW_DURATION = 60;
   private LocalDate date;
   private LocalTime time;

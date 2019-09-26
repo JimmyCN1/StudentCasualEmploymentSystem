@@ -209,6 +209,7 @@ public class EmployerApp extends App implements AppInterface {
         positionToManage = currentUser.getPositionsAsList().get(response - 1);
         positionApp = new PositionApp(positionToManage, currentUser, managementSystem);
         positionApp.displayMainMenu();
+        validResponse = true;
       } catch (InputMismatchException e) {
         printInputMismatchMessage();
       } catch (ArrayIndexOutOfBoundsException e) {

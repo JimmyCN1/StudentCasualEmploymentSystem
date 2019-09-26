@@ -337,6 +337,7 @@ public class StudentApp extends App implements AppInterface {
         appliedPosition = allPositions.get(response - 1);
         currentUser.applyToPosition(appliedPosition);
         System.out.printf("You have successfully applied to the position %s", appliedPosition.getTitle());
+        validResponse = true;
       } catch (InputMismatchException e) {
         printInputMismatchMessage();
       } catch (ArrayIndexOutOfBoundsException e) {
@@ -393,7 +394,7 @@ public class StudentApp extends App implements AppInterface {
 
     for(Position pos : currentUser.getShortlisted())
     {
-      System.out.printf("%s ", pos.toString());
+      System.out.printf("%s ", pos.getTitle());
     }
 
     System.out.println("\n");

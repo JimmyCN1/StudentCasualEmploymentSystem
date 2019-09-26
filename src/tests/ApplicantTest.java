@@ -116,13 +116,12 @@ public class ApplicantTest {
 	}
 
 	@Test
-	public void shouldThrowInternationalStudentAvailabilityException()
-			throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
+	public void shouldThrowInternationalStudentAvailabilityException() throws PositionTypeNotFoundException {
 		try {
 			applicants.get(1).addAvailability("full_time");
-
+			fail("Exception was not caught");
 		} catch (InternationalStudentAvailabilityException e) {
-			e.printStackTrace();
+			System.out.println("Exception correctly caught");
 		}
 	}
 
@@ -130,27 +129,30 @@ public class ApplicantTest {
 	// null jobOffer property
 	@Test
 	public void shouldReceiveOffer() throws UserBlacklistedException, PositionNotFoundException {
-		employer1.offerJob(applicants.get(0), employer1.getPositionByTitle(position1.getTitle()));
+		employer1.offerJob(applicants.get(0), position1);
 
-		assertNotNull(applicants.get(0).jobOfferToString());
+		assertEquals(UserStatus.PENDING, applicants.get(0).getStatus());
 
 	}
 
 	@Test
-	public void shouldAcceptOffer() throws UserBlacklistedException, UserNotFoundException, NoJobOfferException {
-		try {
-			employer1.offerJob(applicants.get(0),  employer1.getPositionByTitle(position1.getTitle()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void shouldAcceptOffer()
+			throws UserBlacklistedException, UserNotFoundException, NoJobOfferException, PositionNotFoundException {
 
-		try {
-			applicants.get(0).acceptOffer();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		employer10.offerJob(applicants.get(3), position2);
+		applicants.get(3).acceptOffer();
 
-		assertEquals(UserStatus.EMPLOYED, applicants.get(0).getStatus());
+		assertEquals(UserStatus.EMPLOYED, applicants.get(3).getStatus());
+	}
+
+	@Test
+	public void shouldThrowNoJobOfferException() throws ApplicantNotFoundException {
+		try{
+			applicants.get(1).acceptOffer();
+			fail("Exception was not caught");
+		}catch(NoJobOfferException e) {
+			System.out.println("Exception correctly caught");
+		}
 	}
 
 }

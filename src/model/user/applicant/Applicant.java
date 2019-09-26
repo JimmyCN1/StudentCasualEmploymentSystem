@@ -109,6 +109,10 @@ public abstract class Applicant extends Person implements Serializable {
     this.status = applicantStatus;
   }
   
+  public void setJobOffer(Position jobOffer) {
+	  this.jobOffer = jobOffer;
+  }
+  
   public void addJobPreference(String jobPreference)
           throws InvalidJobCategoryException {
     String jobPref = jobPreference.toUpperCase();

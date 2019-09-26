@@ -210,6 +210,7 @@ public class Employer extends User implements Serializable {
     } else {
       position.addApplicantToJobOffered(applicant);
       applicant.setStatus(UserStatus.PENDING);
+      applicant.setJobOffer(position);
     }
   }
   

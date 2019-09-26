@@ -371,9 +371,11 @@ public class StudentApp extends App implements AppInterface {
 
   private void viewJobsShortlistedFor()
   {
+    System.out.println("Your shortlisted jobs...");
+
     for(Position pos : currentUser.getShortlisted())
     {
-      System.out.println("%s ", pos.toString());
+      System.out.printf("%s ", pos.toString());
     }
 
     System.out.println("\n");

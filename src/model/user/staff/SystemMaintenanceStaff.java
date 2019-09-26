@@ -67,6 +67,7 @@ public class SystemMaintenanceStaff extends Person {
 
     //Create New Job Category
     public void addNewJobCategory(String jobCategory) throws JobCategoryAlreadyExistsException {
+
       if(getManagementSystem().getJobCategories().contains(jobCategory)){
         throw new JobCategoryAlreadyExistsException();
       }else {

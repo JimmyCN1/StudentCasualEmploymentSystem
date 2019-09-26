@@ -48,10 +48,6 @@ public class ManagementSystemTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void testPasswordMatching() throws PasswordMissmatchException {
-        assertTrue(employer2.verifyPassword("qwerty"));
-    }
 
     @Test
     //Test equal

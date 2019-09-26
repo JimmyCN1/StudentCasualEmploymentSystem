@@ -50,8 +50,8 @@ public class ManagementSystemTest {
 
 
     @Test
-    //Test equal
-    public void testRegisterEmployer() {
+    //Test registered employers
+    public void testRegisteredEmployer() {
         Map<String, Employer> employers = new HashMap<>();
         employers.put("Bunnings", employer1);
         employers.put("Vans", employer2);

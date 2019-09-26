@@ -10,6 +10,7 @@ import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
 import model.user.applicant.utilities.Notification;
 import model.user.employer.Employer;
+import model.user.staff.SystemMaintenanceStaff;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,10 +44,13 @@ public class EmployerTest {
 
     private List<Applicant> applicants;
 
+    private SystemMaintenanceStaff systemStaff;
+
 
     @Before
     public void setup() {
         managementSystem = new ManagementSystem();
+        systemStaff = new SystemMaintenanceStaff("Lockie", "Boughton", "1234", managementSystem);
 
         // Initialise all the employers
         employer1 = new Employer("Bunnings", "hammer", managementSystem);
@@ -226,12 +230,6 @@ public class EmployerTest {
         assertTrue(found);
     }
 
-//  // TODO: implement this tests with the updateApplicant method in the Employer class
-//  @Test
-//  public void updateApplicantTests() {
-//    assertTrue(false);
-//  }
-
     @Test
     public void notifyApplicantsTests() {
         String notification = "Hello, you are being considered for this job";
@@ -322,18 +320,16 @@ public class EmployerTest {
     @Test
     public void offeringJobToBlacklistedApplicant()
     {
-        managementSystem.addUserToBlacklist(applicants.get(1));
-
         try
         {
+            systemStaff.blacklistUser(applicants.get(1));
             employer1.offerJob(applicants.get(1), position1);
+            fail("Exception was not caught");
         }
-        catch (UserBlacklistedException e)
+        catch (UserBlacklistedException | InvalidUserStatusException e)
         {
             e.printStackTrace();
         }
-
-        // Need test case: ???? assertTrue(employer1.equals(employer1));
     }
 
     @Test
@@ -342,12 +338,11 @@ public class EmployerTest {
         try
         {
             employer1.getPositionById(5);
+            fail("Exception was not caught");
         }
         catch (PositionNotFoundException e)
         {
             e.printStackTrace();
         }
-
-        // Need test case: ???? assertTrue(employer1.equals(employer1));
     }
 }

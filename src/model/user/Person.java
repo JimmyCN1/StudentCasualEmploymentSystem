@@ -9,8 +9,8 @@ public abstract class Person extends User implements Serializable {
   private String firstName;
   private String lastName;
   
-  public Person(String firstName, String lastName, ManagementSystem managementSystem) {
-    super(firstName + " " + lastName, managementSystem);
+  public Person(String firstName, String lastName, String password, ManagementSystem managementSystem) {
+    super(firstName + " " + lastName, password, managementSystem);
   }
   
   public String getFirstName() {
@@ -20,11 +20,11 @@ public abstract class Person extends User implements Serializable {
   public String getLastName() {
     return lastName;
   }
-  
-  @Override
-  public String getHashMapKey() {
-    return getFirstName().toLowerCase() + getLastName().toLowerCase();
-  }
+
+//  @Override
+//  public String getHashMapKey() {
+//    return getFirstName().toLowerCase() + getLastName().toLowerCase();
+//  }
   
   public void setFirstName(String firstName) {
     this.firstName = firstName;

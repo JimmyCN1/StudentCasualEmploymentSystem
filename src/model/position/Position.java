@@ -1,22 +1,29 @@
 package model.position;
 
-import enumerators.UserStatus;
 import enumerators.InterviewSlotStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
+import model.system.ManagementSystem;
 import model.user.applicant.Applicant;
 import model.user.applicant.ApplicantRanking;
 import model.user.applicant.SortByRank;
-import model.system.ManagementSystem;
 import model.user.employer.Employer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-public class Position {
+public class Position implements Serializable {
   private static int positionCount = 0;
+  private final int MAX_INTERVIEWS_PER_DAY = 7;
   private final int TOP_APPLICANTS_CUTOFF = 5;
+  private final int TWO_WEEKS = 2;
+  
   private int id;
   private String title;
   private PositionType positionType;
@@ -30,8 +37,11 @@ public class Position {
   private List<ApplicantRanking> rankedApplicants = new ArrayList<>();
   private List<Applicant> shortlistedByEmployer = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
+  private List<Applicant> interviewOfferedApplicants = new ArrayList<>();
+  private List<Applicant> interviewedCandidates = new ArrayList<>();
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
   private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
+  private List<Applicant> applicantsWhichRejectedOffer = new ArrayList<>();
   private List<Applicant> staff = new ArrayList<>();
   private Employer positionOwner;
   private ManagementSystem managementSystem;
@@ -52,6 +62,21 @@ public class Position {
     this.maxHoursPerWeek = maxHoursPerWeek;
     this.positionOwner = positionOwner;
     this.managementSystem = managementSystem;
+    
+    initialiseInterviewSlots();
+  }
+  
+  // creates 7 interview slots on a day two weeks from the date the position was created
+  private void initialiseInterviewSlots() {
+    for (int i = 0; i < MAX_INTERVIEWS_PER_DAY; i++) {
+      addInterviewSlotChronologically(
+              new InterviewSlot(
+                      LocalDate.now().plusWeeks(TWO_WEEKS),
+                      LocalTime.of(i + 10, 0, 0),
+                      this,
+                      positionOwner)
+      );
+    }
   }
   
   // getters
@@ -87,6 +112,14 @@ public class Position {
     return highRankingApplicants;
   }
   
+  public List<Applicant> getInterviewOfferedApplicants() {
+    return interviewOfferedApplicants;
+  }
+  
+  public List<Applicant> getInterviewedApplicants() {
+    return interviewedCandidates;
+  }
+  
   public List<Applicant> getApplicantsJobOfferedTo() {
     return applicantsJobOfferedTo;
   }
@@ -95,8 +128,12 @@ public class Position {
     return interviewSlots;
   }
   
-  public List<Applicant> getUnsuccessfullApplicants() {
+  public List<Applicant> getUnsuccessfulApplicants() {
     return unsuccessfulApplicants;
+  }
+  
+  public List<Applicant> getApplicantsWhichRejectedOffer() {
+    return applicantsWhichRejectedOffer;
   }
   
   // returns the open interview slots
@@ -227,6 +264,22 @@ public class Position {
     }
   }
   
+  // adds the passed applicant to the shortlist
+  // should be invoked when the employer wishes to shortlist a particular applicant
+  public void addApplicantToShortlist(Applicant applicant) {
+    if (!shortlistedByEmployer.contains(applicant)) {
+      shortlistedByEmployer.add(applicant);
+    }
+  }
+  
+  // adds the passed applicant to the interviewed applicants list
+  // should be invoked when the applicant selects an interview time slot
+  public void addApplicantToInterviewedCandidates(Applicant applicant) {
+    if (!interviewedCandidates.contains(applicant)) {
+      interviewedCandidates.add(applicant);
+    }
+  }
+  
   // adds the passed applicant to the job offered list
   // should be invoked when the employer offers an applicant a job
   public void addApplicantToJobOffered(Applicant applicant) {
@@ -244,11 +297,9 @@ public class Position {
     }
   }
   
-  // adds the passed applicant to the shortlist
-  // should be invoked when the employer wishes to shortlist a particular applicant
-  public void addApplicantToShortlist(Applicant applicant) {
-    if (!shortlistedByEmployer.contains(applicant)) {
-      shortlistedByEmployer.add(applicant);
+  public void addApplicantToApplicantsWhichRejectedOffer(Applicant applicant) {
+    if (!applicantsWhichRejectedOffer.contains(applicant)) {
+      applicantsWhichRejectedOffer.add(applicant);
     }
   }
   
@@ -258,28 +309,8 @@ public class Position {
     if (!slotIsFree(date, time)) {
       throw new InterviewSlotClashException();
     } else {
-      int size = interviewSlots.size();
-      InterviewSlot interviewSlot = new InterviewSlot(date, time);
-      if (size == 0) {
-        interviewSlots.add(interviewSlot);
-      } else {
-        boolean wasAdded = false;
-        for (int i = 0; i < size; i++) {
-          if (!wasAdded) {
-            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
-                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            }
-          }
-        }
-        if (!wasAdded) {
-          interviewSlots.add(interviewSlot);
-        }
-      }
+      InterviewSlot interviewSlot = new InterviewSlot(date, time, this, positionOwner);
+      addInterviewSlotChronologically(interviewSlot);
     }
   }
   
@@ -291,34 +322,45 @@ public class Position {
     } else if (applicantHasBeenScheduled(applicant)) {
       throw new ApplicantAlreadyBookedException();
     } else {
-      int size = interviewSlots.size();
-      InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant);
-      if (size == 0) {
-        interviewSlots.add(interviewSlot);
-      } else {
-        boolean wasAdded = false;
-        for (int i = 0; i < size; i++) {
-          if (!wasAdded) {
-            if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
-                    interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
-              interviewSlots.add(i, interviewSlot);
-              wasAdded = true;
-            }
+      InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant, this, positionOwner);
+      addInterviewSlotChronologically(interviewSlot);
+    }
+  }
+  
+  private void addInterviewSlotChronologically(InterviewSlot interviewSlot) {
+    int size = interviewSlots.size();
+    if (size == 0) {
+      interviewSlots.add(interviewSlot);
+    } else {
+      boolean wasAdded = false;
+      for (int i = 0; i < size; i++) {
+        if (!wasAdded) {
+          if (interviewSlot.getDate().isBefore(interviewSlots.get(i).getDate())) {
+            interviewSlots.add(i, interviewSlot);
+            wasAdded = true;
+          } else if (interviewSlot.getDate().equals(interviewSlots.get(i).getDate()) &&
+                  interviewSlot.getTime().isBefore(interviewSlots.get(i).getTime())) {
+            interviewSlots.add(i, interviewSlot);
+            wasAdded = true;
           }
         }
-        if (!wasAdded) {
-          interviewSlots.add(interviewSlot);
-        }
       }
+      if (!wasAdded) {
+        interviewSlots.add(interviewSlot);
+      }
+    }
+  }
+  
+  public void addApplicantToInterviewOffered(Applicant applicant) {
+    if (!interviewOfferedApplicants.contains(applicant)) {
+      interviewOfferedApplicants.add(applicant);
     }
   }
   
   // assigns the passed applicant to the passed interview slot
   public void bookInterviewForApplicant(Applicant applicant, InterviewSlot interviewSlot) {
     interviewSlot.bookApplicant(applicant);
+    interviewedCandidates.add(applicant);
   }
   
   private boolean slotIsFree(LocalDate date, LocalTime time) {
@@ -363,5 +405,14 @@ public class Position {
       applicant.setStatus(UserStatus.AVAILABLE);
     }
   }
+  
+  public String listToStringAsOrderedList(List<Applicant> applicants) {
+    String applicantsString = "";
+    for (int i = 0; i < applicants.size(); i++) {
+      applicantsString += String.format("%d. %s\n", i + 1, applicants.get(i).getName());
+    }
+    return applicantsString;
+  }
+  
 }
 

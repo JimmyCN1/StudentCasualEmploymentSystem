@@ -4,13 +4,17 @@ import enumerators.PositionType;
 import enumerators.UserStatus;
 import exceptions.*;
 import interfaces.AppInterface;
+import model.position.Position;
 import model.system.ManagementSystem;
+import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
 import model.user.employer.Employer;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Map;
 
 public class StudentApp extends App implements AppInterface {
@@ -18,26 +22,28 @@ public class StudentApp extends App implements AppInterface {
   private final int INTERNATIONAL = 2;
   private Applicant currentUser;
   
-  public StudentApp(String firstName,
-                    String lastName,
+  public StudentApp(String username,
                     String password,
                     ManagementSystem managementSystem)
           throws UserNotFoundException, PasswordMissmatchException {
     super(managementSystem);
-    verifyUser(firstName, lastName, password);
+    verifyUser(username, password);
   }
   
   public StudentApp(ManagementSystem managementSystem) {
     super(managementSystem);
   }
   
+  @Override
   public Applicant getCurrentUser() {
     return currentUser;
   }
   
   // set the current user logged in
-  public void setCurrentUser(Applicant applicant) {
-    currentUser = applicant;
+  @Override
+  public void setCurrentUser(User applicant) {
+    super.setCurrentUser(applicant);
+    currentUser = (Applicant) applicant;
   }
   
   public void selectStudentType() {
@@ -66,16 +72,21 @@ public class StudentApp extends App implements AppInterface {
   private void createLocalStudent() {
     Map<String, String> studentDetails = getPersonalDetails();
     PositionType positionType = getStudentAvailability();
-    managementSystem.registerApplicant(new LocalStudent(
+    LocalStudent newLocalStudent = new LocalStudent(
             studentDetails.get(FIRST_NAME),
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
             positionType,
-            managementSystem));
-    setCurrentUser(managementSystem.getApplicantByName(
-            studentDetails.get(FIRST_NAME).toLowerCase() +
-                    studentDetails.get(LAST_NAME).toLowerCase()
-    ));
+            managementSystem);
+    newLocalStudent.setUsername(studentDetails.get(USERNAME));
+    managementSystem.registerApplicant(newLocalStudent);
+    try {
+      setCurrentUser(managementSystem.getApplicantByUsername(
+              studentDetails.get(USERNAME).toLowerCase()
+      ));
+    } catch (ApplicantNotFoundException e) {
+      System.out.println("Error creating applicant. Please try again");
+    }
   }
   
   // creates a new international student in the application
@@ -86,42 +97,44 @@ public class StudentApp extends App implements AppInterface {
             studentDetails.get(LAST_NAME),
             studentDetails.get(PASSWORD),
             managementSystem));
-    setCurrentUser(managementSystem.getApplicantByName(
-            studentDetails.get(FIRST_NAME).toLowerCase() +
-                    studentDetails.get(LAST_NAME).toLowerCase()
-    ));
+    try {
+      setCurrentUser(managementSystem.getApplicantByUsername(
+              studentDetails.get(USERNAME).toLowerCase()
+      ));
+    } catch (ApplicantNotFoundException e) {
+      System.out.println("Error creating applicant. Please try again");
+    }
   }
   
   // returns the selected availability
   private PositionType getStudentAvailability() {
     PositionType type = null;
-    while (!isValidResponse) {
+    boolean goBack = false;
+    while (!goBack) {
       System.out.println("What is your availability?");
       System.out.printf("1. Part-Time\n2. Full-Time\n3. Internship\n\n");
       switch (scanner.nextInt()) {
         case (1):
-          isValidResponse = true;
+          goBack = true;
           type = PositionType.PART_TIME;
           break;
         case (2):
-          isValidResponse = true;
+          goBack = true;
           type = PositionType.FULL_TIME;
           break;
         case (3):
-          isValidResponse = true;
+          goBack = true;
           type = PositionType.INTERNSHIP;
           break;
       }
     }
-    isValidResponse = false;
     return type;
   }
   
   // determines whether the login details provided are provided
-  private void verifyUser(String firstName, String lastName, String password)
+  private void verifyUser(String username, String password)
           throws UserNotFoundException, PasswordMissmatchException {
-    Applicant applicant = managementSystem.getApplicantByName(
-            firstName.toLowerCase() + lastName.toLowerCase());
+    Applicant applicant = managementSystem.getApplicantByUsername(username);
     if (applicant == null) {
       throw new UserNotFoundException();
     } else {
@@ -137,28 +150,28 @@ public class StudentApp extends App implements AppInterface {
   // if blacklisted, display blacklisted applicant message, else display the main menu
   @Override
   public void displayMainMenu() {
+    //TODO: updating employement records
+    //TODO: uploading of cv (text files) option
+    //TODO: apply to jobs
+    //TODO: selecting interview slot/time
+    //TODO: accept/reject job offers
     boolean isLoggedIn = true;
     int response;
     while (isLoggedIn) {
       if (currentUser.getStatus().equals(UserStatus.BLACKLISTED)) {
-        System.out.println("You have been blacklisted.\n\nPress 0 to logout..\n");
-        try {
-          response = scanner.nextInt();
-          scanner.nextLine();
-          if (response == 0) {
-            isLoggedIn = false;
-          }
-        } catch (InputMismatchException e) {
-          System.out.println("Please try again..\n\n");
-          scanner.next();
-        }
+        isLoggedIn = showBlacklistedScreen();
       } else {
         try {
           System.out.printf("What would you like to do?\n\n" +
                   "1. Update Your Job Preferences\n" +
                   "2. Update Your Availabilities\n" +
                   "3. Update Your Employment Records\n" +
-                  "4. View Job Offers\n\n" +
+                  "4. View All Currently Posted Jobs\n" +
+                  "5. Apply For A Job\n" +
+                  "6. View Jobs Shorlisted For\n" +
+                  "7. View Job Offers\n" +
+                  "8. View Emails\n" +
+                  "9. Change Login Details\n\n" +
                   "0. Logout\n\n");
           response = scanner.nextInt();
           scanner.nextLine();
@@ -173,15 +186,28 @@ public class StudentApp extends App implements AppInterface {
 //              updateEmploymentRecords();
               break;
             case (4):
+//              viewAllCurrentlyPostedJobs():
+              break;
+            case (5):
+              applyForAJob();
+              break;
+            case (6):
+//              viewJobsShortlistedFor();
+              break;
+            case (7):
 //                viewJobOffers();
               break;
+            case (8):
+//                viewEmails();
+              break;
+            case (9):
+              changeLoginDetails();
             case (0):
               isLoggedIn = false;
               break;
           }
         } catch (InputMismatchException e) {
-          System.out.println("Please try again..\n\n");
-          scanner.next();
+          printInputMismatchMessage();
         }
       }
       
@@ -196,7 +222,7 @@ public class StudentApp extends App implements AppInterface {
                 "1. Add A Job Preference\n" +
                 "2. Remove A Job Preference\n" +
                 "3. View Preferences\n" +
-                "4. Lodge A Complaint\n" +
+                "4. Lodge A Complaint\n\n" +
                 "0. Go back\n\n");
         int response = scanner.nextInt();
         scanner.nextLine();
@@ -211,15 +237,14 @@ public class StudentApp extends App implements AppInterface {
             viewPreferences();
             break;
           case (4):
-            lodgeAComplaint();
+            lodgeComplaintAgainstEmployer();
             break;
           case (0):
             goBack = true;
             break;
         }
       } catch (InputMismatchException e) {
-        System.out.println("Please try again..\n\n");
-        scanner.next();
+        printInputMismatchMessage();
       }
     }
   }
@@ -262,25 +287,6 @@ public class StudentApp extends App implements AppInterface {
     System.out.println("\n");
   }
   
-  @Override
-  public void lodgeAComplaint() {
-    System.out.println("Which employer do you want to lodge a complaint against?");
-    for (Employer e : managementSystem.getEmployersAsList()) {
-      System.out.println(e.getName());
-    }
-    String employerName = scanner.nextLine();
-    System.out.println("What is the complaint?");
-    String complaint = scanner.nextLine();
-    try {
-      currentUser.lodgeComplaint(complaint, employerName);
-      System.out.println("Complaint successfully lodged..\n");
-    } catch (UserNotFoundException e) {
-      System.out.println("Sorry, this employer was not found in the system\n");
-    } catch (InvalidUserStatusException e) {
-      System.out.println("Sorry, the system accidentally tried to incorrectly assign this employers status");
-    }
-  }
-  
   private void updateAvailabilities() {
     boolean goBack = false;
     while (!goBack) {
@@ -307,10 +313,18 @@ public class StudentApp extends App implements AppInterface {
             break;
         }
       } catch (InputMismatchException e) {
-        System.out.println("Please try again..\n\n");
-        scanner.next();
+        printInputMismatchMessage();
       }
     }
+  }
+  
+  private void applyForAJob() {
+    List<Position> allPosiitons = new ArrayList<>();
+    for (Employer e : managementSystem.getEmployersAsList()) {
+      allPosiitons.addAll(e.getPositions());
+    }
+    
+    
   }
   
   private void addAvailability() {

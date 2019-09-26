@@ -1,14 +1,19 @@
 package model.system;
 
+import exceptions.ApplicantNotFoundException;
+import exceptions.EmployerNotFoundException;
+import exceptions.SystemMaintenanceStaffNotFoundException;
 import interfaces.UserInterface;
-import model.Serialisation.SaveState;
-import model.user.applicant.Applicant;
+import model.serialisation.SaveState;
 import model.system.utilities.Security;
+import model.user.User;
+import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 import model.user.staff.SystemMaintenanceStaff;
-import model.user.User;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 public class ManagementSystem implements Serializable {
@@ -85,16 +90,32 @@ public class ManagementSystem implements Serializable {
     return users.get(keyName);
   }
   
-  public Employer getEmployerByName(String keyName) {
-    return employers.get(keyName);
+  public Employer getEmployerByUsername(String keyName)
+          throws EmployerNotFoundException {
+    if (employers.containsKey(keyName)) {
+      return employers.get(keyName);
+    } else {
+      throw new EmployerNotFoundException();
+    }
   }
   
-  public Applicant getApplicantByName(String keyName) {
-    return applicants.get(keyName);
+  public Applicant getApplicantByUsername(String keyName)
+          throws ApplicantNotFoundException {
+    if (applicants.containsKey(keyName)) {
+      return applicants.get(keyName);
+      
+    } else {
+      throw new ApplicantNotFoundException();
+    }
   }
   
-  public SystemMaintenanceStaff getSystemMaintenanceByName(String keyName) {
-    return systemMaintenanceStaff.get(keyName);
+  public SystemMaintenanceStaff getSystemMaintenanceByUsername(String keyName)
+          throws SystemMaintenanceStaffNotFoundException {
+    if (systemMaintenanceStaff.containsKey(keyName)) {
+      return systemMaintenanceStaff.get(keyName);
+    } else {
+      throw new SystemMaintenanceStaffNotFoundException();
+    }
   }
   
   public void registerUser(User user) {

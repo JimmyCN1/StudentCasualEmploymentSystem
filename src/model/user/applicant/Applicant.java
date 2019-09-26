@@ -1,14 +1,13 @@
 package model.user.applicant;
 
-import enumerators.UserStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
+import model.position.InterviewSlot;
 import model.position.Position;
 import model.system.ManagementSystem;
-import model.user.applicant.utilities.*;
 import model.user.Person;
-
-// Questionable
+import model.user.applicant.utilities.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,19 +20,20 @@ public abstract class Applicant extends Person implements Serializable {
   private final int MAX_AVAILABILITIES = 3;
   private final int TWO_WEEKS = 14;
   private int applicantId;
-  private String password;
   private String cv; // The name of the text file
   private UserStatus status;
   private LocalDate lastStudentUpdate;
   private List<PositionType> availabilities = new ArrayList<>();
+  private List<InterviewSlot> interviewSlots = new ArrayList<>();
   private Position jobOffer = null;
   private Position currentJob = null;
   
   private List<License> licenses = new ArrayList<>();
-  private List<Qualification> qualifications = new ArrayList<>();
   private List<PastJob> pastJobs = new ArrayList<>();
+  private List<Qualification> qualifications = new ArrayList<>();
   private List<Reference> references = new ArrayList<>();
   private List<Position> appliedJobs = new ArrayList<>();
+  private List<Position> interviewsOffered = new ArrayList<>();
   private List<String> jobPreferences = new ArrayList<>();
   
   // List of all notifications the applicant receives from all employers
@@ -43,12 +43,11 @@ public abstract class Applicant extends Person implements Serializable {
   
   public Applicant(String firstName, String lastName, String password, PositionType availability,
                    ManagementSystem managementSystem) {
-    super(firstName, lastName, managementSystem);
+    super(firstName, lastName, password, managementSystem);
     applicantCount++;
     this.applicantId = applicantCount;
     setFirstName(firstName);
     setLastName(lastName);
-    this.password = password;
     this.status = UserStatus.AVAILABLE;
     this.lastStudentUpdate = LocalDate.now();
     this.availabilities.add(availability);
@@ -61,17 +60,16 @@ public abstract class Applicant extends Person implements Serializable {
   }
   
   @Override
-  public String getPassword() {
-    return this.password;
-  }
-  
-  @Override
   public UserStatus getStatus() {
     return this.status;
   }
   
   public List<PositionType> getAvailabilities() {
     return this.availabilities;
+  }
+  
+  public List<InterviewSlot> getInterviewSlots() {
+    return this.interviewSlots;
   }
   
   public String getCv() {
@@ -82,9 +80,37 @@ public abstract class Applicant extends Person implements Serializable {
     return this.jobPreferences;
   }
   
+  public List<License> getLicenses() {
+    return licenses;
+  }
+  
+  public List<PastJob> getPastJobs() {
+    return pastJobs;
+  }
+  
+  public List<Qualification> getQualifications() {
+    return qualifications;
+  }
+  
+  public List<Reference> getReferences() {
+    return references;
+  }
+  
+  public List<Position> getAppliedJobs() {
+    return appliedJobs;
+  }
+  
+  public List<Position> getInterviewsOffered() {
+    return interviewsOffered;
+  }
+  
   @Override
   public void setStatus(UserStatus applicantStatus) {
     this.status = applicantStatus;
+  }
+  
+  public void setJobOffer(Position jobOffer) {
+	  this.jobOffer = jobOffer;
   }
   
   public void addJobPreference(String jobPreference)
@@ -94,6 +120,21 @@ public abstract class Applicant extends Person implements Serializable {
       this.jobPreferences.add(jobPref);
     } else {
       throw new InvalidJobCategoryException();
+    }
+  }
+  
+  // adds an interview slot to an applicant list of interview slots
+  public void addInterviewSlot(InterviewSlot interviewSlot) {
+    boolean addInterview = true;
+    for (InterviewSlot i : interviewSlots) {
+      if (i.equals(interviewSlot)) {
+        addInterview = false;
+      }
+    }
+    if (addInterview) {
+      interviewSlot.setApplicant(this);
+      interviewSlots.add(interviewSlot);
+      jobOffer.addApplicantToInterviewedCandidates(this);
     }
   }
   
@@ -141,6 +182,16 @@ public abstract class Applicant extends Person implements Serializable {
     this.notifications.add(notification);
   }
   
+  public void addPositionToInterviewOffered(Position position) {
+    if (!interviewsOffered.contains(position)) {
+      interviewsOffered.add(position);
+    }
+  }
+  
+  public Position removePositionToInterviewOffered(int position) {
+    return interviewsOffered.remove(position);
+  }
+  
   // Returns all the notifications sent to the applicant
   public List<Notification> getNotifications() {
     return this.notifications;
@@ -151,17 +202,12 @@ public abstract class Applicant extends Person implements Serializable {
     return this.notifications.get(index);
   }
   
-  @Override
-  public boolean verifyPassword(String password) {
-    return this.password.equals(password);
-  }
-  
   // on boards the applicant to the position
   // sets the applicants status to employed
   public void acceptOffer() throws NoJobOfferException, ApplicantNotFoundException {
-    // TODO: remove job from applied jobs array?
     if (this.jobOffer != null) {
-      this.jobOffer.onBoardApplicant(this);// figure out
+      this.jobOffer.onBoardApplicant(this);// sets applicant to employed and adjusts related
+      // Employer.job and Applicant variables, also adds applicant to the staff list
       this.currentJob = this.jobOffer;
       this.jobOffer = null;
       setStatus(UserStatus.EMPLOYED);
@@ -173,9 +219,9 @@ public abstract class Applicant extends Person implements Serializable {
   // the position revokes the offer
   // sets the applicants status to available
   public void rejectOffer() throws NoJobOfferException, ApplicantNotFoundException {
-    // TODO: remove job from applied jobs array?
     if (this.jobOffer != null) {
       this.jobOffer.revokeOffer(this);
+      jobOffer.addApplicantToApplicantsWhichRejectedOffer(this);
       this.jobOffer = null;
       setStatus(UserStatus.AVAILABLE);
     } else {
@@ -205,7 +251,7 @@ public abstract class Applicant extends Person implements Serializable {
   
   @Override
   public String toString() {
-    return String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
+    return String.format("%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
             nameToString(),
             statusToString(),
             lastUpdateToString(),
@@ -243,14 +289,22 @@ public abstract class Applicant extends Person implements Serializable {
     return String.format("Availabilities: %s", preferences);
   }
   
-  public String jobOfferToString() {
-    return String.format("Current Job Offer: %s - %s",
-            this.jobOffer.getEmployer(),
-            this.jobOffer.getTitle());
+  public String jobOfferToString() throws NullPointerException{
+    if(this.jobOffer==null){
+        return "Current Job Offer: None";
+    }else {
+      return String.format("Current Job Offer: %s - %s",
+              this.jobOffer.getEmployer(),
+              this.jobOffer.getTitle());
+    }
   }
   
-  public String employerToString() {
-    return String.format("Current Employer: %s", currentJob.getEmployer());
+  public String employerToString() throws NullPointerException {
+    if(currentJob==null){
+      return String.format("Current Employer : Unemployed");
+    }else {
+      return String.format("Current Employer: %s", currentJob.getEmployer());
+    }
   }
   
   public String notificationsToString() {
@@ -275,7 +329,7 @@ public abstract class Applicant extends Person implements Serializable {
     this.licenses.add(license);
   }
   
-  public License remove(int licenseIndex) {
+  public License removeLicense(int licenseIndex) {
     return this.licenses.remove(licenseIndex);
   }
   

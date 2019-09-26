@@ -1,5 +1,6 @@
 package app;
 
+import exceptions.JobCategoryAlreadyExistsException;
 import model.system.ManagementSystem;
 
 import java.util.InputMismatchException;
@@ -52,9 +53,8 @@ public class Main {
             managementSystem.saveState();
             System.exit(EXIT_SUCCESS);
         }
-      } catch (InputMismatchException e) {
-        System.out.println("Please try again..\n");
-        scanner.next();
+      } catch (InputMismatchException | JobCategoryAlreadyExistsException e) {
+        app.printInputMismatchMessage();
       }
     }
   }

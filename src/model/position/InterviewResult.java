@@ -1,6 +1,8 @@
 package model.position;
 
-public class InterviewResult {
+import java.io.Serializable;
+
+public class InterviewResult implements Serializable {
   private boolean hasValidReferences;
   private String interviewNotes;
   

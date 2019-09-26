@@ -49,6 +49,11 @@ public class ManagementSystemTest {
     }
 
     @Test
+    public void testPasswordMatching() throws PasswordMissmatchException {
+        assertTrue(employer2.verifyPassword("qwerty"));
+    }
+
+    @Test
     //Test equal
     public void testRegisterEmployer() {
         Map<String, Employer> employers = new HashMap<>();

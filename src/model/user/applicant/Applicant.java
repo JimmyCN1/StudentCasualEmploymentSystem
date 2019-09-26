@@ -25,6 +25,7 @@ public abstract class Applicant extends Person implements Serializable {
   private LocalDate lastStudentUpdate;
   private List<PositionType> availabilities = new ArrayList<>();
   private List<InterviewSlot> interviewSlots = new ArrayList<>();
+  private List<Position> shortlisted = new ArrayList<>();
   private Position jobOffer = null;
   private Position currentJob = null;
   
@@ -103,7 +104,17 @@ public abstract class Applicant extends Person implements Serializable {
   public List<Position> getInterviewsOffered() {
     return interviewsOffered;
   }
-  
+
+  public List<Position> getShortlisted()
+  {
+    return shortlisted;
+  }
+
+  public void addShortlisted(Position position)
+  {
+      shortlisted.add(position);
+  }
+
   @Override
   public void setStatus(UserStatus applicantStatus) {
     this.status = applicantStatus;
@@ -352,4 +363,6 @@ public abstract class Applicant extends Person implements Serializable {
   public Reference removeReference(int referenceIndex) {
     return this.references.remove(referenceIndex);
   }
+
+
 }

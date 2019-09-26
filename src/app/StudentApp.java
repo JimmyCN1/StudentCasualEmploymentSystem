@@ -192,7 +192,7 @@ public class StudentApp extends App implements AppInterface {
               applyForAJob();
               break;
             case (6):
-//              viewJobsShortlistedFor();
+              viewJobsShortlistedFor();
               break;
             case (7):
 //                viewJobOffers();
@@ -366,6 +366,16 @@ public class StudentApp extends App implements AppInterface {
     for (PositionType availability : currentUser.getAvailabilities()) {
       System.out.printf("%s ", availability);
     }
+    System.out.println("\n");
+  }
+
+  private void viewJobsShortlistedFor()
+  {
+    for(Position pos : currentUser.getShortlisted())
+    {
+      System.out.println("%s ", pos.toString());
+    }
+
     System.out.println("\n");
   }
   

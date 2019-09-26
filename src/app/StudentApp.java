@@ -319,12 +319,30 @@ public class StudentApp extends App implements AppInterface {
   }
   
   private void applyForAJob() {
-    List<Position> allPosiitons = new ArrayList<>();
+    List<Position> allPositions = new ArrayList<>();
     for (Employer e : managementSystem.getEmployersAsList()) {
-      allPosiitons.addAll(e.getPositions());
+      allPositions.addAll(e.getPositions());
     }
-    
-    
+    System.out.printf("Which position would you like to apply to?\n");
+    for (int i = 0; i < allPositions.size(); i++) {
+      System.out.printf("&d. %s", i + 1, allPositions.get(i).toString());
+    }
+    boolean validResponse = false;
+    Position appliedPosition = null;
+    int response = 0;
+    while (!validResponse) {
+      try {
+        response = scanner.nextInt();
+        scanner.nextLine();
+        appliedPosition = allPositions.get(response - 1);
+        currentUser.applyToPosition(appliedPosition);
+        System.out.printf("You have successfully applied to the position %s", appliedPosition.getTitle());
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      } catch (ArrayIndexOutOfBoundsException e) {
+        printInputMismatchMessage();
+      }
+    }
   }
   
   private void addAvailability() {

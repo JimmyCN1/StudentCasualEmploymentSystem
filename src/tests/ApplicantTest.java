@@ -106,22 +106,51 @@ public class ApplicantTest {
 	}
 
 	@Test
-	public void shouldAccessAvailability() throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
+	public void shouldAccessAvailability()
+			throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
 		applicants.get(2).addAvailability("part_time");
-		
+
 		List<PositionType> availability = applicants.get(2).getAvailabilities();
-		
+
 		assertEquals(availability.get(1), PositionType.PART_TIME);
 	}
 
 	@Test
-	public void shouldThrowInternationalStudentAvailabilityException() throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
-		try{applicants.get(1).addAvailability("full_time");
-		
-		}catch(InternationalStudentAvailabilityException e) {
+	public void shouldThrowInternationalStudentAvailabilityException()
+			throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
+		try {
+			applicants.get(1).addAvailability("full_time");
+
+		} catch (InternationalStudentAvailabilityException e) {
 			e.printStackTrace();
 		}
 	}
 
-	
+	// this tests a precondition as applicants are instantiated with a
+	// null jobOffer property
+	@Test
+	public void shouldReceiveOffer() throws UserBlacklistedException, PositionNotFoundException {
+		employer1.offerJob(applicants.get(0), employer1.getPositionByTitle(position1.getTitle()));
+
+		assertNotNull(applicants.get(0).jobOfferToString());
+
+	}
+
+	@Test
+	public void shouldAcceptOffer() throws UserBlacklistedException, UserNotFoundException, NoJobOfferException {
+		try {
+			employer1.offerJob(applicants.get(0),  employer1.getPositionByTitle(position1.getTitle()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			applicants.get(0).acceptOffer();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		assertEquals(UserStatus.EMPLOYED, applicants.get(0).getStatus());
+	}
+
 }

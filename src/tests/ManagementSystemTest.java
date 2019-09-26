@@ -38,34 +38,28 @@ public class ManagementSystemTest {
         managementSystem = new ManagementSystem();
 
         //Initialise all the applicants
-        employer1 = new Employer("John", "abc", managementSystem);
-        employer2 = new Employer("Leo", "abc", managementSystem);
-        employer3 = new Employer("Ray", "C", managementSystem);
+        employer1 = new Employer("Bunnings", "hammer", managementSystem);
+        employer2 = new Employer("Vans", "kool", managementSystem);
+        employer3 = new Employer("Platypus", "shoes", managementSystem);
 
     }
 
     @After
     public void tearDown() throws Exception {
     }
- 
-    @Test
-    public void testPasswordMatching() throws PasswordMissmatchException {
-        assertTrue(employer2.verifyPassword("qwerty"));
-    }
-
 
     @Test
-    //1. Test equal
+    //Test equal
     public void testRegisterEmployer() {
         Map<String, Employer> employers = new HashMap<>();
-        employers.put("John", employer1);
-        employers.put("Leo", employer2);
-        employers.put("Ray", employer3);
+        employers.put("Bunnings", employer1);
+        employers.put("Vans", employer2);
+        employers.put("Platypus", employer3);
 
         Map<String, Employer> registeredEmployers = new HashMap<>();
-        registeredEmployers.put("Leo", employer2);
-        registeredEmployers.put("Ray", employer3);
-        registeredEmployers.put("John", employer1);
+        registeredEmployers.put("Vans", employer2);
+        registeredEmployers.put("Platypus", employer3);
+        registeredEmployers.put("Bunnings", employer1);
 
 
         assertThat(employers, is(registeredEmployers));
@@ -73,29 +67,33 @@ public class ManagementSystemTest {
     }
 
     @Test
+    //Test number of registered employers
     public void testNumOfEmployer() {
         Map<String, Employer> employers = new HashMap<>();
-        employers.put("John", employer1);
-        employers.put("Leo", employer2);
-        employers.put("Ray", employer3);
+        employers.put("Bunnings", employer1);
+        employers.put("Vans", employer2);
+        employers.put("Platypus", employer3);
 
-        //2. Test number of registered employers
         assertThat(employers.size(), is(3));
     }
 
-    @Test
-    //3. test registered employer
-    public void testRegisteredEmployer() throws EmployerAlreadyRegisteredException {
-        employer4 = new Employer(
-                "Leo", "abc", managementSystem
-        );
-        assertEquals(managementSystem.getEmployerByName("LEO"), employer4);
-    }
 
     @Test
-    //4. Test JobCategories
+    //test add employer to blacklist
+    public void testBlacklistUsers() throws UserBlacklistedException {
+        employer4 = new Employer(
+                "Bunnings", "hammer", managementSystem
+        );
+
+        managementSystem.addUserToBlacklist(employer4);
+
+        assertTrue(managementSystem.getBlacklistedAsList().contains(employer4));
+    }
+
+
+    @Test
+    //Test JobCategories
     public void testJobCategories() {
         assertEquals(managementSystem.getJobCategories(), Arrays.asList("ENGINEERING", "TECHNOLOGY", "HOSPITALITY", "TRADE", "LOGISTICS", "RETAIL", "FINANCE"));
     }
 }
-

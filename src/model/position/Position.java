@@ -414,5 +414,6 @@ public class Position implements Serializable {
     return applicantsString;
   }
   
+  // TODO : implement toString method for the position class
 }
 

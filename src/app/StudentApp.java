@@ -168,7 +168,7 @@ public class StudentApp extends App implements AppInterface {
                   "3. Update Your Employment Records\n" +
                   "4. View All Currently Posted Jobs\n" +
                   "5. Apply For A Job\n" +
-                  "6. View Jobs Shorlisted For\n" +
+                  "6. View Jobs Shortlisted For\n" +
                   "7. View Job Offers\n" +
                   "8. View Emails\n" +
                   "9. Change Login Details\n\n" +
@@ -186,7 +186,7 @@ public class StudentApp extends App implements AppInterface {
 //              updateEmploymentRecords();
               break;
             case (4):
-//              viewAllCurrentlyPostedJobs():
+              viewAllCurrentlyPostedJobs();
               break;
             case (5):
               applyForAJob();
@@ -195,7 +195,7 @@ public class StudentApp extends App implements AppInterface {
               viewJobsShortlistedFor();
               break;
             case (7):
-//                viewJobOffers();
+//                viewJobOffer();
               break;
             case (8):
 //                viewEmails();
@@ -325,7 +325,7 @@ public class StudentApp extends App implements AppInterface {
     }
     System.out.printf("Which position would you like to apply to?\n");
     for (int i = 0; i < allPositions.size(); i++) {
-      System.out.printf("&d. %s", i + 1, allPositions.get(i).toString());
+      System.out.printf("%d. %s", i + 1, allPositions.get(i).toString());
     }
     boolean validResponse = false;
     Position appliedPosition = null;
@@ -387,17 +387,11 @@ public class StudentApp extends App implements AppInterface {
     }
     System.out.println("\n");
   }
-
-  private void viewJobsShortlistedFor()
-  {
-    System.out.println("Your shortlisted jobs...");
-
-    for(Position pos : currentUser.getShortlisted())
-    {
-      System.out.printf("%s ", pos.getTitle());
+  
+  private void viewJobsShortlistedFor() {
+    for (Position pos : currentUser.getShortlisted()) {
+      System.out.printf("%s \n", pos.toString());
     }
-
     System.out.println("\n");
   }
-  
 }

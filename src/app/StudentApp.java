@@ -152,7 +152,6 @@ public class StudentApp extends App implements AppInterface {
   public void displayMainMenu() {
     //TODO: updating employement records
     //TODO: uploading of cv (text files) option
-    //TODO: apply to jobs
     //TODO: selecting interview slot/time
     //TODO: accept/reject job offers
     boolean isLoggedIn = true;
@@ -325,7 +324,7 @@ public class StudentApp extends App implements AppInterface {
     }
     System.out.printf("Here are all the currently posted positions in the system..\n\n");
     for (int i = 0; i < allPositions.size(); i++) {
-      System.out.printf("%d. %s", i + 1, allPositions.get(i).getTitle());
+      System.out.printf("%d. %s", i + 1, allPositions.get(i).toString());
     }
   }
   
@@ -347,7 +346,7 @@ public class StudentApp extends App implements AppInterface {
         scanner.nextLine();
         appliedPosition = allPositions.get(response - 1);
         currentUser.applyToPosition(appliedPosition);
-        System.out.printf("You have successfully applied to the position %s", appliedPosition.getTitle());
+        System.out.printf("You have successfully applied to the position %s", appliedPosition.toString());
         validResponse = true;
       } catch (InputMismatchException e) {
         printInputMismatchMessage();

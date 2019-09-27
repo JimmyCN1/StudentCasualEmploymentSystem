@@ -12,6 +12,7 @@ import exceptions.*;
 import model.position.Position;
 import model.user.applicant.utilities.Notification;
 import model.user.employer.Employer;
+import model.user.utilities.Complaint;
 
 import org.junit.After;
 import org.junit.Before;
@@ -115,15 +116,13 @@ public class ApplicantTest {
 		assertEquals(availability.get(1), PositionType.PART_TIME);
 	}
 
-	@Test
-	public void shouldThrowInternationalStudentAvailabilityException() throws PositionTypeNotFoundException {
-		try {
+	@Test(expected = InternationalStudentAvailabilityException.class)
+	public void shouldThrowInternationalStudentAvailabilityException() throws PositionTypeNotFoundException, InternationalStudentAvailabilityException {
+	
 			applicants.get(1).addAvailability("full_time");
 			fail("Exception was not caught");
-		} catch (InternationalStudentAvailabilityException e) {
-			System.out.println("Exception correctly caught");
-		}
 	}
+
 
 	// this tests a precondition as applicants are instantiated with a
 	// null jobOffer property
@@ -145,14 +144,11 @@ public class ApplicantTest {
 		assertEquals(UserStatus.EMPLOYED, applicants.get(3).getStatus());
 	}
 
-	@Test
-	public void shouldThrowNoJobOfferException() throws ApplicantNotFoundException {
-		try{
+	@Test(expected = NoJobOfferException.class)
+	public void shouldThrowNoJobOfferException() throws ApplicantNotFoundException, NoJobOfferException {
+
 			applicants.get(1).acceptOffer();
 			fail("Exception was not caught");
-		}catch(NoJobOfferException e) {
-			System.out.println("Exception correctly caught");
-		}
 	}
 
 }

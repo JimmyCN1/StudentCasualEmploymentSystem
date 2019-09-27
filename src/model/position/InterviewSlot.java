@@ -112,4 +112,22 @@ public class InterviewSlot implements Serializable {
             this.position.equals(interviewSlot.position) &&
             this.employer.equals(interviewSlot.employer));
   }
+  
+  @Override
+  public String toString() {
+    return String.format("Date: \n" +
+                    "Time: \n" +
+                    "Duration: \n" +
+                    "Status: \n" +
+                    "Applicant: \n" +
+                    "Interview for Position: \n" +
+                    "Interview Result: ",
+            date,
+            time,
+            duration,
+            status,
+            applicant,
+            position,
+            interviewResult.toString());
+  }
 }

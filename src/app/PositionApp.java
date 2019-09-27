@@ -48,7 +48,8 @@ public class PositionApp extends App {
                 "5. Invite Applicant for Interview\n" +
                 "6. Update Candidate's Application\n" +
                 "7. Offer Job\n" +
-                "8. Mail Applicants\n\n" +
+                "8. Mail Applicants\n" +
+                "9. View Position details\n" +
                 "0. Go Back\n\n");
         response = scanner.nextInt();
         scanner.nextLine();
@@ -75,6 +76,9 @@ public class PositionApp extends App {
             break;
           case (8):
 //            mailApplicants();
+            break;
+          case (9):
+            viewPositionDetails();
             break;
           case (0):
             goBack = true;
@@ -184,7 +188,7 @@ public class PositionApp extends App {
     while (!validResponse) {
       try {
         System.out.println("Which applicant would you like to shortlist?\n");
-        System.out.println(position.listToStringAsOrderedList(position.getAppliedApplicants()));
+        System.out.println(position.applicantListToStringAsNumberedList(position.getAppliedApplicants()));
         response = scanner.nextInt();
         scanner.nextLine();
         applicant = position.getAppliedApplicants().get(response - 1);
@@ -204,7 +208,7 @@ public class PositionApp extends App {
     
     System.out.printf("These are all the shortlisted applicants for the position '%s'..\n\n",
             position.getTitle());
-    System.out.println(position.listToStringAsOrderedList(totalShortlistedApplicants));
+    System.out.println(position.applicantListToStringAsNumberedList(totalShortlistedApplicants));
   }
   
   // build new listed of applicants shortlisted by the system and by the employer
@@ -237,7 +241,7 @@ public class PositionApp extends App {
     while (!validResponse) {
       try {
         System.out.println("Which applicant would you like to invite for an interview?\n");
-        System.out.println(position.listToStringAsOrderedList(totalShortlistedApplicants));
+        System.out.println(position.applicantListToStringAsNumberedList(totalShortlistedApplicants));
         response = scanner.nextInt();
         scanner.nextLine();
         applicant = totalShortlistedApplicants.get(response - 1);
@@ -262,7 +266,7 @@ public class PositionApp extends App {
     while (!validResponse) {
       try {
         System.out.println("Which candidate's application would you like to update?\n");
-        System.out.println(position.listToStringAsOrderedList(position.getInterviewedApplicants()));
+        System.out.println(position.applicantListToStringAsNumberedList(position.getInterviewedApplicants()));
         response = scanner.nextInt();
         applicant = position.getInterviewedApplicants().get(response - 1);
         validResponse = true;
@@ -352,7 +356,7 @@ public class PositionApp extends App {
     while (!validResponse) {
       try {
         System.out.println("Which applicant would you like to offer a job to?\n");
-        System.out.println(position.listToStringAsOrderedList(position.getHighRankingApplicants()));
+        System.out.println(position.applicantListToStringAsNumberedList(position.getHighRankingApplicants()));
         response = scanner.nextInt();
         scanner.nextLine();
         applicant = position.getHighRankingApplicants().get(response - 1);
@@ -371,5 +375,9 @@ public class PositionApp extends App {
   
   private void mailApplicants() {
   
+  }
+  
+  private void viewPositionDetails() {
+    System.out.println(String.format("%s\n", position.toStringVerbose()));
   }
 }

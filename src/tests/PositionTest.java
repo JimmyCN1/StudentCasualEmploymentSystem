@@ -180,6 +180,9 @@ public class PositionTest {
 //    }
   }
   
+  // TODO: test for negative filtering
+  // that filtered in applicants are there and that non filtered in applicants are not there
+  
   @Test
   public void noFreeInterviewSlots() {
     List<InterviewSlot> freeSlots = position.getFreeInterviewSlots();

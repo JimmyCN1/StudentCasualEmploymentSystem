@@ -37,7 +37,7 @@ public class Position implements Serializable {
   private List<ApplicantRanking> rankedApplicants = new ArrayList<>();
   private List<Applicant> shortlistedByEmployer = new ArrayList<>();
   private List<Applicant> highRankingApplicants = new ArrayList<>();
-  private List<Applicant> interviewOfferedApplicants = new ArrayList<>();
+  private List<Applicant> applicantsInvitedToInterview = new ArrayList<>();
   private List<Applicant> interviewedCandidates = new ArrayList<>();
   private List<Applicant> applicantsJobOfferedTo = new ArrayList<>();
   private List<Applicant> unsuccessfulApplicants = new ArrayList<>();
@@ -112,8 +112,8 @@ public class Position implements Serializable {
     return highRankingApplicants;
   }
   
-  public List<Applicant> getInterviewOfferedApplicants() {
-    return interviewOfferedApplicants;
+  public List<Applicant> getApplicantsInvitedToInterview() {
+    return applicantsInvitedToInterview;
   }
   
   public List<Applicant> getInterviewedApplicants() {
@@ -352,8 +352,8 @@ public class Position implements Serializable {
   }
   
   public void addApplicantToInterviewOffered(Applicant applicant) {
-    if (!interviewOfferedApplicants.contains(applicant)) {
-      interviewOfferedApplicants.add(applicant);
+    if (!applicantsInvitedToInterview.contains(applicant)) {
+      applicantsInvitedToInterview.add(applicant);
     }
   }
   
@@ -406,7 +406,15 @@ public class Position implements Serializable {
     }
   }
   
-  public String listToStringAsOrderedList(List<Applicant> applicants) {
+  public String applicantRankingListToStringAsNumberedList(List<ApplicantRanking> applicants) {
+    String applicantsString = "";
+    for (int i = 0; i < applicants.size(); i++) {
+      applicantsString += String.format("%d. %s\n", i + 1, applicants.get(i).getApplicant().getName());
+    }
+    return applicantsString;
+  }
+  
+  public String applicantListToStringAsNumberedList(List<Applicant> applicants) {
     String applicantsString = "";
     for (int i = 0; i < applicants.size(); i++) {
       applicantsString += String.format("%d. %s\n", i + 1, applicants.get(i).getName());
@@ -414,7 +422,31 @@ public class Position implements Serializable {
     return applicantsString;
   }
   
-  // TODO : implement toString method for the position class
+  public String toStringVerbose() {
+    return toString() + String.format("\nApplied Applicants: \n%s\n" +
+                    "Suitable Applicants: \n%s\n" +
+                    "Ranked Applicants: \n%s\n" +
+                    "Shortlisted Applicants: \n%s\n" +
+                    "High Ranking Applicants: \n%s\n" +
+                    "Applicants Invited To Interview: \n%s\n" +
+                    "Interview Applicants: \n%s\n" +
+                    "Applicants Job Offered To: \n%s\n" +
+                    "Unsuccessful Applicants: \n%s\n" +
+                    "Applicants Which Rejected the Offer: \n%s\n" +
+                    "Current Staff: \n%s\n",
+            applicantListToStringAsNumberedList(appliedApplicants),
+            applicantListToStringAsNumberedList(suitableApplicants),
+            applicantRankingListToStringAsNumberedList(rankedApplicants),
+            applicantListToStringAsNumberedList(shortlistedByEmployer),
+            applicantListToStringAsNumberedList(highRankingApplicants),
+            applicantListToStringAsNumberedList(applicantsInvitedToInterview),
+            applicantListToStringAsNumberedList(interviewedCandidates),
+            applicantListToStringAsNumberedList(applicantsJobOfferedTo),
+            applicantListToStringAsNumberedList(unsuccessfulApplicants),
+            applicantListToStringAsNumberedList(applicantsWhichRejectedOffer),
+            applicantListToStringAsNumberedList(staff));
+  }
+  
   @Override
   public String toString() {
     return String.format("Position Title: %s\n" +

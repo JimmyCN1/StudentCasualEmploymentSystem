@@ -20,11 +20,6 @@ public abstract class Person extends User implements Serializable {
   public String getLastName() {
     return lastName;
   }
-
-//  @Override
-//  public String getHashMapKey() {
-//    return getFirstName().toLowerCase() + getLastName().toLowerCase();
-//  }
   
   public void setFirstName(String firstName) {
     this.firstName = firstName;

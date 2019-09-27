@@ -26,4 +26,12 @@ public class InterviewResult implements Serializable {
   public void setInterviewNotes(String interviewNotes) {
     this.interviewNotes = interviewNotes;
   }
+  
+  @Override
+  public String toString() {
+    return String.format("Has valid references: \n" +
+                    "Notes: ",
+            hasValidReferences,
+            interviewNotes);
+  }
 }

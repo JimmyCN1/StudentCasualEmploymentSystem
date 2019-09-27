@@ -1,4 +1,5 @@
 /bin/
+/out/
 .idea/workspace.xml
 .xml
 .idea

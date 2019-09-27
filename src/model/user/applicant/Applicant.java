@@ -143,7 +143,7 @@ public abstract class Applicant extends Person implements Serializable {
       }
     }
     if (addInterview) {
-      interviewSlot.setApplicant(this);
+      interviewSlot.bookApplicant(this);
       interviewSlots.add(interviewSlot);
       jobOffer.addApplicantToInterviewedCandidates(this);
     }
@@ -206,7 +206,7 @@ public abstract class Applicant extends Person implements Serializable {
     }
   }
   
-  public Position removePositionToInterviewOffered(int position) {
+  public Position removePositionFromInterviewOffered(int position) {
     return interviewsOffered.remove(position);
   }
   

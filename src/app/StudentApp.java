@@ -318,6 +318,17 @@ public class StudentApp extends App implements AppInterface {
     }
   }
   
+  private void viewAllCurrentlyPostedJobs() {
+    List<Position> allPositions = new ArrayList<>();
+    for (Employer e : managementSystem.getEmployersAsList()) {
+      allPositions.addAll(e.getPositions());
+    }
+    System.out.printf("Here are all the currently posted positions in the system..\n\n");
+    for (int i = 0; i < allPositions.size(); i++) {
+      System.out.printf("%d. %s", i + 1, allPositions.get(i).getTitle());
+    }
+  }
+  
   private void applyForAJob() {
     List<Position> allPositions = new ArrayList<>();
     for (Employer e : managementSystem.getEmployersAsList()) {

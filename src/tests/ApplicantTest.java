@@ -12,6 +12,7 @@ import exceptions.*;
 import model.position.Position;
 import model.user.applicant.utilities.Notification;
 import model.user.employer.Employer;
+import model.user.utilities.Complaint;
 
 import org.junit.After;
 import org.junit.Before;
@@ -115,42 +116,39 @@ public class ApplicantTest {
 		assertEquals(availability.get(1), PositionType.PART_TIME);
 	}
 
-	@Test
-	public void shouldThrowInternationalStudentAvailabilityException()
-			throws InternationalStudentAvailabilityException, PositionTypeNotFoundException {
-		try {
+	@Test(expected = InternationalStudentAvailabilityException.class)
+	public void shouldThrowInternationalStudentAvailabilityException() throws PositionTypeNotFoundException, InternationalStudentAvailabilityException {
+	
 			applicants.get(1).addAvailability("full_time");
-
-		} catch (InternationalStudentAvailabilityException e) {
-			e.printStackTrace();
-		}
+			fail("Exception was not caught");
 	}
+
 
 	// this tests a precondition as applicants are instantiated with a
 	// null jobOffer property
 	@Test
 	public void shouldReceiveOffer() throws UserBlacklistedException, PositionNotFoundException {
-		employer1.offerJob(applicants.get(0), employer1.getPositionByTitle(position1.getTitle()));
+		employer1.offerJob(applicants.get(0), position1);
 
-		assertNotNull(applicants.get(0).jobOfferToString());
+		assertEquals(UserStatus.PENDING, applicants.get(0).getStatus());
 
 	}
 
 	@Test
-	public void shouldAcceptOffer() throws UserBlacklistedException, UserNotFoundException, NoJobOfferException {
-		try {
-			employer1.offerJob(applicants.get(0),  employer1.getPositionByTitle(position1.getTitle()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void shouldAcceptOffer()
+			throws UserBlacklistedException, UserNotFoundException, NoJobOfferException, PositionNotFoundException {
 
-		try {
-			applicants.get(0).acceptOffer();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		employer10.offerJob(applicants.get(3), position2);
+		applicants.get(3).acceptOffer();
 
-		assertEquals(UserStatus.EMPLOYED, applicants.get(0).getStatus());
+		assertEquals(UserStatus.EMPLOYED, applicants.get(3).getStatus());
+	}
+
+	@Test(expected = NoJobOfferException.class)
+	public void shouldThrowNoJobOfferException() throws ApplicantNotFoundException, NoJobOfferException {
+
+			applicants.get(1).acceptOffer();
+			fail("Exception was not caught");
 	}
 
 }

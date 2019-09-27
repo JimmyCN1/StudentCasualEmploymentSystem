@@ -1,4 +1,5 @@
 /bin/
+/out/
 .idea/workspace.xml
 .xml
 .idea
@@ -6,3 +7,4 @@
 .classpath
 .project
 .txt
+.iml

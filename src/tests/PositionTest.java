@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class PositionTest {
   private ManagementSystem managementSystem;
@@ -180,31 +179,15 @@ public class PositionTest {
 //      e.printStackTrace();
 //    }
   }
-
-//  @Test
-//  public void getTheTwoFreeInterviewSlots() {
-//    try {
-//      position.addInterview(interviewSlot4.getDate(), interviewSlot4.getTime());
-//      position.addInterview(interviewSlot5.getDate(), interviewSlot5.getTime());
-//    } catch (InterviewSlotClashException e) {
-//      e.printStackTrace();
-//    }
-//    List<InterviewSlot> freeSlots = position.getFreeInterviewSlots();
-//    List<InterviewSlot> slots = new ArrayList<>();
-//    slots.add(interviewSlot4);
-//    slots.add(interviewSlot5);
-//    assertEquals(2, freeSlots.size());
-//    assertEquals(slots.get(0).getDate(), freeSlots.get(0).getDate());
-//    assertEquals(slots.get(0).getTime(), freeSlots.get(0).getTime());
-//    assertEquals(slots.get(1).getDate(), freeSlots.get(1).getDate());
-//    assertEquals(slots.get(1).getTime(), freeSlots.get(1).getTime());
-//  }
-
-//  @Test
-//  public void noFreeInterviewSlots() {
-//    List<InterviewSlot> freeSlots = position.getFreeInterviewSlots();
-//    assertEquals(0, freeSlots.size());
-//  }
+  
+  // TODO: test for negative filtering
+  // that filtered in applicants are there and that non filtered in applicants are not there
+  
+  @Test
+  public void noFreeInterviewSlots() {
+    List<InterviewSlot> freeSlots = position.getFreeInterviewSlots();
+    assertEquals(7, freeSlots.size());
+  }
   
   @Test
   public void getExistingApplicant() {
@@ -217,16 +200,11 @@ public class PositionTest {
     assertEquals("john smith", a.getName());
   }
   
-  @Test
-  public void getNonExistingApplicant() {
+  @Test(expected = UserNotFoundException.class)
+  public void getNonExistingApplicant() throws UserNotFoundException {
     Applicant newApplicant = new LocalStudent("tim", "jones", "def", PositionType.PART_TIME, managementSystem);
     Applicant a = null;
-    try {
-      a = position.getApplicant(newApplicant, position.getAppliedApplicants());
-      fail("UserNotFoundException not caught");
-    } catch (UserNotFoundException e) {
-      e.printStackTrace();
-    }
+    a = position.getApplicant(newApplicant, position.getAppliedApplicants());
   }
   
   @Test
@@ -239,14 +217,9 @@ public class PositionTest {
     assertEquals("ENGINEERING", position.getApplicableJobCategories().get(0));
   }
   
-  @Test
-  public void addInvalidCategoryException() {
-    try {
-      position.addApplicableJobCategory("RESEARCH");
-      fail("InvalidJobCategoryException not caught");
-    } catch (InvalidJobCategoryException e) {
-      e.printStackTrace();
-    }
+  @Test(expected = InvalidJobCategoryException.class)
+  public void addInvalidCategoryException() throws InvalidJobCategoryException {
+    position.addApplicableJobCategory("RESEARCH");
   }
   
   @Test
@@ -329,87 +302,12 @@ public class PositionTest {
             position.getInterviewSlots().get(0).getDate()
     );
   }
-
-//  @Test
-//  public void addSecondInterviewAfterFirst() {
-//    try {
-//      position.addInterview(LocalDate.of(2019, 10, 10),
-//              LocalTime.of(12, 0, 0));
-//      position.addInterview(LocalDate.of(2019, 10, 11),
-//              LocalTime.of(12, 0, 0));
-//    } catch (InterviewSlotClashException e) {
-//      e.printStackTrace();
-//    }
-//    assertEquals(LocalDate.of(2019, 10, 11),
-//            position.getInterviewSlots().get(1).getDate()
-//    );
-//  }
-
-//  @Test
-//  public void addSecondInterviewBeforeFirst() {
-//    try {
-//      position.addInterview(LocalDate.of(2019, 10, 10),
-//              LocalTime.of(12, 0, 0));
-//      position.addInterview(LocalDate.of(2019, 10, 9),
-//              LocalTime.of(12, 0, 0));
-//    } catch (InterviewSlotClashException e) {
-//      e.printStackTrace();
-//    }
-//    assertEquals(LocalDate.of(2019, 10, 9),
-//            position.getInterviewSlots().get(0).getDate()
-//    );
-//  }
-
-//  @Test
-//  public void addThirdInterviewBetweenFirstAndSecond() {
-//    try {
-//      position.addInterview(LocalDate.of(2019, 10, 10),
-//              LocalTime.of(12, 0, 0));
-//      position.addInterview(LocalDate.of(2019, 10, 12),
-//              LocalTime.of(12, 0, 0));
-//      position.addInterview(LocalDate.of(2019, 10, 11),
-//              LocalTime.of(12, 0, 0));
-//    } catch (InterviewSlotClashException e) {
-//      e.printStackTrace();
-//    }
-//    assertEquals(LocalDate.of(2019, 10, 11),
-//            position.getInterviewSlots().get(1).getDate()
-//    );
-//  }
   
-  @Test
-  public void throwExceptionIfInterviewSlotTaken() {
-    try {
-      position.addInterview(LocalDate.of(2019, 10, 10),
-              LocalTime.of(12, 0, 0));
-      position.addInterview(LocalDate.of(2019, 10, 10),
-              LocalTime.of(12, 0, 0));
-      fail("InterviewSlotClashException not caught");
-    } catch (InterviewSlotClashException e) {
-      e.printStackTrace();
-    }
+  @Test(expected = InterviewSlotClashException.class)
+  public void throwExceptionIfInterviewSlotTaken() throws InterviewSlotClashException {
+    position.addInterview(LocalDate.of(2019, 10, 10),
+            LocalTime.of(12, 0, 0));
+    position.addInterview(LocalDate.of(2019, 10, 10),
+            LocalTime.of(12, 0, 0));
   }
-
-//  @Test
-//  public void throwExceptionIfSchedulingSameApplicantTwice() {
-//    Applicant applicant4 = new InternationalStudent(
-//            "John",
-//            "Jeffreis",
-//            "abc",
-//            managementSystem
-//    );
-//    try {
-//      position.addInterview(LocalDate.of(2019, 10, 11),
-//              LocalTime.of(13, 0, 0),
-//              applicant4);
-//      position.addInterview(LocalDate.of(2019, 10, 10),
-//              LocalTime.of(12, 0, 0),
-//              applicant4);
-//      fail("ApplicantAlreadyBookedException not caught");
-//    } catch (InterviewSlotClashException e) {
-//      e.printStackTrace();
-//    } catch (ApplicantAlreadyBookedException e) {
-//      e.printStackTrace();
-//    }
-//  }
 }

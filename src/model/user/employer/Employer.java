@@ -167,6 +167,7 @@ public class Employer extends User implements Serializable {
     applicant.addNotification(new Notification(
             String.format("You have been shortlisted for %s!", position.getTitle()),
             this));
+    applicant.addShortlisted(position);
   }
   
   public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)

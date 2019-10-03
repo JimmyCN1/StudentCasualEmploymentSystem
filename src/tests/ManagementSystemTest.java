@@ -32,6 +32,7 @@ public class ManagementSystemTest {
     private Employer employer3;
     private Employer employer4;
     private Employer employer5;
+  ` private SystemMaintenanceStaff staff1;
 
     @Before
     public void setup() {
@@ -77,6 +78,10 @@ public class ManagementSystemTest {
 
         assertThat(employers.size(), is(3));
     }
+    
+    //@Test
+    //Test recover User state
+   
 
 
     @Test
@@ -85,13 +90,18 @@ public class ManagementSystemTest {
         employer4 = new Employer(
                 "Bunnings", "hammer", managementSystem
         );
-
         managementSystem.addUserToBlacklist(employer4);
-
         assertTrue(managementSystem.getBlacklistedAsList().contains(employer4));
     }
 
-
+    @Test
+    public void addNewJobCategoryTest() {
+        String jobCategory = "Insurance Agent";
+        staff1.addNewJobCategory(jobCategory);
+    
+        assertTrue(this.managementSystem.getJobCategories().contains(jobCategory));
+    }
+    
     @Test
     //Test JobCategories
     public void testJobCategories() {

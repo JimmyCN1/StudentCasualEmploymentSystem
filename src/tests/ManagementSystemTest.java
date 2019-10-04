@@ -9,6 +9,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.*;
 
 import model.user.applicant.Applicant;
@@ -32,7 +35,9 @@ public class ManagementSystemTest {
     private Employer employer3;
     private Employer employer4;
     private Employer employer5;
-  ` private SystemMaintenanceStaff staff1;
+    private SystemMaintenanceStaff staff1;
+    private SystemMaintenanceStaff staff2;
+
 
     @Before
     public void setup() {
@@ -42,7 +47,8 @@ public class ManagementSystemTest {
         employer1 = new Employer("Bunnings", "hammer", managementSystem);
         employer2 = new Employer("Vans", "kool", managementSystem);
         employer3 = new Employer("Platypus", "shoes", managementSystem);
-
+        staff1 = new SystemMaintenanceStaff("Jack", "Daniel", "xyz", managementSystem);
+        staff2 = new SystemMaintenanceStaff("Lemon", "Cherry", "xyz", managementSystem);
     }
 
     @After
@@ -78,11 +84,6 @@ public class ManagementSystemTest {
 
         assertThat(employers.size(), is(3));
     }
-    
-    //@Test
-    //Test recover User state
-   
-
 
     @Test
     //test add employer to blacklist
@@ -95,16 +96,17 @@ public class ManagementSystemTest {
     }
 
     @Test
-    public void addNewJobCategoryTest() {
-        String jobCategory = "Insurance Agent";
-        staff1.addNewJobCategory(jobCategory);
-    
-        assertTrue(this.managementSystem.getJobCategories().contains(jobCategory));
-    }
-    
-    @Test
     //Test JobCategories
     public void testJobCategories() {
         assertEquals(managementSystem.getJobCategories(), Arrays.asList("ENGINEERING", "TECHNOLOGY", "HOSPITALITY", "TRADE", "LOGISTICS", "RETAIL", "FINANCE"));
     }
+
+    @Test
+    public void addNewJobCategoryTest() {
+        staff1.addNewJobCategory("INSURANCE AGENT");
+        String jobCategory = "INSURANCE AGENT";
+        assertEquals(managementSystem.getJobCategories(), Arrays.asList("ENGINEERING", "TECHNOLOGY", "HOSPITALITY", "TRADE", "LOGISTICS", "RETAIL", "FINANCE", "INSURANCE AGENT"));
+    }
+
 }
+

@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f96367bb-cb03-4f5a-88af-3f2edcced7b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/exceptions/BlacklistedUserNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StudentCasualEmploymentSystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/StudentCasualEmploymentSystem.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/META-INF/StudentCasualEmploymentSystem.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/META-INF/StudentCasualEmploymentSystem.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/META-INF/StudentCasualEmploymentSystem.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/App.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/EmployerApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/EmployerApp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/Main.class" afterDir="false" />
@@ -21,17 +18,12 @@
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/applicant/Applicant.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/applicant/Applicant.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/employer/Employer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/employer/Employer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/staff/SystemMaintenanceStaff.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/staff/SystemMaintenanceStaff.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/ApplicantTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/EmployerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/ManagementSystemTest$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/ManagementSystemTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/ManagementSystemTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/PositionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/PositionTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/ApplicantTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/ApplicantTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/EmployerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/EmployerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/SystemMaintenanceStaffTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/system/ManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/system/ManagementSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/ManagementSystemTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/ManagementSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ManagementSystemTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/PositionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/PositionTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -108,41 +100,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ManagementSystemTest.testBlacklistUsers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManagementSystemTest.addNewJobCategoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudentCasualEmploymentSystem" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ManagementSystemTest" />
-      <option name="METHOD_NAME" value="testBlacklistUsers" />
+      <option name="METHOD_NAME" value="addNewJobCategoryTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ManagementSystemTest.testNotBlacklistEmployer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManagementSystemTest.testJobCategories" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudentCasualEmploymentSystem" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ManagementSystemTest" />
-      <option name="METHOD_NAME" value="testNotBlacklistEmployer" />
+      <option name="METHOD_NAME" value="testJobCategories" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ManagementSystemTest.testRegisterEmployer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManagementSystemTest.testRecoverEmployer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudentCasualEmploymentSystem" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ManagementSystemTest" />
-      <option name="METHOD_NAME" value="testRegisterEmployer" />
+      <option name="METHOD_NAME" value="testRecoverEmployer" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ManagementSystemTest.testRegisteredEmployer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SystemMaintenanceStaffTest.addNewJobCategoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudentCasualEmploymentSystem" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ManagementSystemTest" />
-      <option name="METHOD_NAME" value="testRegisteredEmployer" />
+      <option name="MAIN_CLASS_NAME" value="SystemMaintenanceStaffTest" />
+      <option name="METHOD_NAME" value="addNewJobCategoryTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -151,10 +143,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ManagementSystemTest" />
-        <item itemvalue="JUnit.ManagementSystemTest.testNotBlacklistEmployer" />
-        <item itemvalue="JUnit.ManagementSystemTest.testRegisterEmployer" />
-        <item itemvalue="JUnit.ManagementSystemTest.testBlacklistUsers" />
-        <item itemvalue="JUnit.ManagementSystemTest.testRegisteredEmployer" />
+        <item itemvalue="JUnit.ManagementSystemTest.testJobCategories" />
+        <item itemvalue="JUnit.ManagementSystemTest.addNewJobCategoryTest" />
+        <item itemvalue="JUnit.SystemMaintenanceStaffTest.addNewJobCategoryTest" />
+        <item itemvalue="JUnit.ManagementSystemTest.testRecoverEmployer" />
       </list>
     </recent_temporary>
   </component>

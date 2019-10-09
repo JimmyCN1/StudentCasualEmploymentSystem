@@ -152,7 +152,6 @@ public class StudentApp extends App implements AppInterface {
   public void displayMainMenu() {
     //TODO: updating employement records
     //TODO: uploading of cv (text files) option
-    //TODO: apply to jobs
     //TODO: selecting interview slot/time
     //TODO: accept/reject job offers
     boolean isLoggedIn = true;
@@ -168,7 +167,7 @@ public class StudentApp extends App implements AppInterface {
                   "3. Update Your Employment Records\n" +
                   "4. View All Currently Posted Jobs\n" +
                   "5. Apply For A Job\n" +
-                  "6. View Jobs Shorlisted For\n" +
+                  "6. View Jobs Shortlisted For\n" +
                   "7. View Job Offers\n" +
                   "8. View Emails\n" +
                   "9. Change Login Details\n\n" +
@@ -186,16 +185,16 @@ public class StudentApp extends App implements AppInterface {
 //              updateEmploymentRecords();
               break;
             case (4):
-//              viewAllCurrentlyPostedJobs():
+              viewAllCurrentlyPostedJobs();
               break;
             case (5):
               applyForAJob();
               break;
             case (6):
-//              viewJobsShortlistedFor();
+              viewJobsShortlistedFor();
               break;
             case (7):
-//                viewJobOffers();
+//                viewJobOffer();
               break;
             case (8):
 //                viewEmails();
@@ -318,13 +317,43 @@ public class StudentApp extends App implements AppInterface {
     }
   }
   
-  private void applyForAJob() {
-    List<Position> allPosiitons = new ArrayList<>();
+  private void viewAllCurrentlyPostedJobs() {
+    List<Position> allPositions = new ArrayList<>();
     for (Employer e : managementSystem.getEmployersAsList()) {
-      allPosiitons.addAll(e.getPositions());
+      allPositions.addAll(e.getPositions());
     }
-    
-    
+    System.out.printf("Here are all the currently posted positions in the system..\n\n");
+    for (int i = 0; i < allPositions.size(); i++) {
+      System.out.printf("%d. %s", i + 1, allPositions.get(i).toString());
+    }
+  }
+  
+  private void applyForAJob() {
+    List<Position> allPositions = new ArrayList<>();
+    for (Employer e : managementSystem.getEmployersAsList()) {
+      allPositions.addAll(e.getPositions());
+    }
+    System.out.printf("Which position would you like to apply to?\n");
+    for (int i = 0; i < allPositions.size(); i++) {
+      System.out.printf("%d. %s", i + 1, allPositions.get(i).toString());
+    }
+    boolean validResponse = false;
+    Position appliedPosition = null;
+    int response = 0;
+    while (!validResponse) {
+      try {
+        response = scanner.nextInt();
+        scanner.nextLine();
+        appliedPosition = allPositions.get(response - 1);
+        currentUser.applyToPosition(appliedPosition);
+        System.out.printf("You have successfully applied to the position %s", appliedPosition.toString());
+        validResponse = true;
+      } catch (InputMismatchException e) {
+        printInputMismatchMessage();
+      } catch (ArrayIndexOutOfBoundsException e) {
+        printInputMismatchMessage();
+      }
+    }
   }
   
   private void addAvailability() {
@@ -369,4 +398,10 @@ public class StudentApp extends App implements AppInterface {
     System.out.println("\n");
   }
   
+  private void viewJobsShortlistedFor() {
+    for (Position pos : currentUser.getShortlisted()) {
+      System.out.printf("%s \n", pos.toString());
+    }
+    System.out.println("\n");
+  }
 }

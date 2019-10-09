@@ -8,8 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class InterviewSlot implements Serializable
-{
+public class InterviewSlot implements Serializable {
   private final int INTERVIEW_DURATION = 60;
   private LocalDate date;
   private LocalTime time;
@@ -59,10 +58,6 @@ public class InterviewSlot implements Serializable
     return duration;
   }
   
-  public void setDuration(int duration) {
-    this.duration = duration;
-  }
-  
   public InterviewSlotStatus getStatus() {
     return status;
   }
@@ -73,10 +68,6 @@ public class InterviewSlot implements Serializable
   
   public Applicant getApplicant() {
     return applicant;
-  }
-  
-  public void setApplicant(Applicant applicant) {
-    this.applicant = applicant;
   }
   
   public Position getPosition() {
@@ -120,5 +111,23 @@ public class InterviewSlot implements Serializable
             this.status.equals(interviewSlot.status) &&
             this.position.equals(interviewSlot.position) &&
             this.employer.equals(interviewSlot.employer));
+  }
+  
+  @Override
+  public String toString() {
+    return String.format("Date: \n" +
+                    "Time: \n" +
+                    "Duration: \n" +
+                    "Status: \n" +
+                    "Applicant: \n" +
+                    "Interview for Position: \n" +
+                    "Interview Result: ",
+            date,
+            time,
+            duration,
+            status,
+            applicant,
+            position,
+            interviewResult.toString());
   }
 }

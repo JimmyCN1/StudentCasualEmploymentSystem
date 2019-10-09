@@ -56,34 +56,7 @@ public class ManagementSystemTest {
     }
 
 
-    @Test
-    //Test registered employers
-    public void testRegisteredEmployer() {
-        Map<String, Employer> employers = new HashMap<>();
-        employers.put("Bunnings", employer1);
-        employers.put("Platypus", employer3);
-        employers.put("Vans", employer2);
-
-        Map<String, Employer> registeredEmployers = new HashMap<>();
-        registeredEmployers.put("Vans", employer2);
-        registeredEmployers.put("Platypus", employer3);
-        registeredEmployers.put("Bunnings", employer1);
-
-
-        assertThat(employers, is(registeredEmployers));
-
-    }
-
-    @Test
-    //Test number of registered employers
-    public void testNumOfEmployer() {
-        Map<String, Employer> employers = new HashMap<>();
-        employers.put("Bunnings", employer1);
-        employers.put("Vans", employer2);
-        employers.put("Platypus", employer3);
-
-        assertThat(employers.size(), is(3));
-    }
+  
 
     @Test
     //test add employer to blacklist

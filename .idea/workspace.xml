@@ -4,7 +4,7 @@
     <list default="true" id="f96367bb-cb03-4f5a-88af-3f2edcced7b8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/META-INF/StudentCasualEmploymentSystem.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/PositionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/PositionTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/App.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/EmployerApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/EmployerApp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/app/Main.class" afterDir="false" />
@@ -18,11 +18,10 @@
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/applicant/Applicant.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/applicant/Applicant.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/employer/Employer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/employer/Employer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/staff/SystemMaintenanceStaff.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/model/user/staff/SystemMaintenanceStaff.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/ManagementSystemTest$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/tests/EmployerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StudentCasualEmploymentSystem/tests/EmployerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/ManagementSystemTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/ManagementSystemTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/PositionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/PositionTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/EmployerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/EmployerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/StudentCasualEmploymentSystem/tests/ManagementSystemTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/ManagementSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ManagementSystemTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,7 +89,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ManagementSystemTest">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="app.Main" />
+      <module name="StudentCasualEmploymentSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ManagementSystemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudentCasualEmploymentSystem" />
       <option name="PACKAGE_NAME" value="" />
@@ -120,16 +132,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ManagementSystemTest.testRecoverEmployer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="StudentCasualEmploymentSystem" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ManagementSystemTest" />
-      <option name="METHOD_NAME" value="testRecoverEmployer" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="SystemMaintenanceStaffTest.addNewJobCategoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudentCasualEmploymentSystem" />
       <option name="PACKAGE_NAME" value="" />
@@ -142,11 +144,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.ManagementSystemTest" />
         <item itemvalue="JUnit.ManagementSystemTest.testJobCategories" />
         <item itemvalue="JUnit.ManagementSystemTest.addNewJobCategoryTest" />
         <item itemvalue="JUnit.SystemMaintenanceStaffTest.addNewJobCategoryTest" />
-        <item itemvalue="JUnit.ManagementSystemTest.testRecoverEmployer" />
       </list>
     </recent_temporary>
   </component>

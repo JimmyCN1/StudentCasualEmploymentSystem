@@ -61,8 +61,8 @@ public class ManagementSystemTest {
     public void testRegisteredEmployer() {
         Map<String, Employer> employers = new HashMap<>();
         employers.put("Bunnings", employer1);
-        employers.put("Vans", employer2);
         employers.put("Platypus", employer3);
+        employers.put("Vans", employer2);
 
         Map<String, Employer> registeredEmployers = new HashMap<>();
         registeredEmployers.put("Vans", employer2);

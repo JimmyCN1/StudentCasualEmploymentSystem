@@ -21,7 +21,7 @@ public abstract class AbstractApp {
   
   private User currentUser;
   
-  ManagementSystem managementSystem;
+  protected ManagementSystem managementSystem;
   public Scanner scanner = new Scanner(System.in);
   
   public AbstractApp(ManagementSystem managementSystem) {

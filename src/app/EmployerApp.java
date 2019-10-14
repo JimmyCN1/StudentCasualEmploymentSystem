@@ -5,7 +5,6 @@ import enumerators.UserStatus;
 import exceptions.EmployerNotFoundException;
 import exceptions.PasswordMissmatchException;
 import exceptions.UserNotFoundException;
-import interfaces.AppInterface;
 import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.User;
@@ -14,7 +13,7 @@ import model.user.employer.Employer;
 import java.util.InputMismatchException;
 import java.util.Map;
 
-public class EmployerApp extends App implements AppInterface {
+public class EmployerApp extends AbstractApp {
   private final String EMPLOYER_NAME = "employerName";
   private Employer currentUser;
   private PositionApp positionApp;
@@ -29,12 +28,6 @@ public class EmployerApp extends App implements AppInterface {
   
   public EmployerApp(ManagementSystem managementSystem) {
     super(managementSystem);
-  }
-  
-  // set the current user logged in
-  @Override
-  public Employer getCurrentUser() {
-    return currentUser;
   }
   
   @Override
@@ -80,7 +73,6 @@ public class EmployerApp extends App implements AppInterface {
     }
   }
   
-  @Override
   public void displayMainMenu() {
     boolean isLoggedIn = true;
     int response;

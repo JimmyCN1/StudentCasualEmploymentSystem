@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
-public class PositionApp extends App {
+public class PositionApp extends AbstractApp {
   private Position position;
   private Employer currentUser;
   

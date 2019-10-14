@@ -3,7 +3,6 @@ package app;
 import enumerators.PositionType;
 import enumerators.UserStatus;
 import exceptions.*;
-import interfaces.AppInterface;
 import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.User;
@@ -17,9 +16,10 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 
-public class StudentApp extends App implements AppInterface {
+public class StudentApp extends AbstractApp {
   private final int LOCAL = 1;
   private final int INTERNATIONAL = 2;
+  
   private Applicant currentUser;
   
   public StudentApp(String username,
@@ -32,11 +32,6 @@ public class StudentApp extends App implements AppInterface {
   
   public StudentApp(ManagementSystem managementSystem) {
     super(managementSystem);
-  }
-  
-  @Override
-  public Applicant getCurrentUser() {
-    return currentUser;
   }
   
   // set the current user logged in
@@ -148,7 +143,6 @@ public class StudentApp extends App implements AppInterface {
   }
   
   // if blacklisted, display blacklisted applicant message, else display the main menu
-  @Override
   public void displayMainMenu() {
     //TODO: updating employement records
     //TODO: uploading of cv (text files) option

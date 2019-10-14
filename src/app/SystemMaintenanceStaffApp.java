@@ -2,7 +2,6 @@ package app;
 
 import enumerators.UserStatus;
 import exceptions.*;
-import interfaces.AppInterface;
 import model.system.ManagementSystem;
 import model.user.User;
 import model.user.employer.Employer;
@@ -11,7 +10,7 @@ import model.user.staff.SystemMaintenanceStaff;
 import java.util.InputMismatchException;
 import java.util.Map;
 
-public class SystemMaintenanceStaffApp extends App implements AppInterface {
+public class SystemMaintenanceStaffApp extends AbstractApp {
   private SystemMaintenanceStaff currentUser;
   
   public SystemMaintenanceStaffApp(String username,
@@ -72,7 +71,6 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     }
   }
   
-  @Override
   public void displayMainMenu() {
     boolean isLoggedIn = true;
     while (isLoggedIn) {
@@ -205,6 +203,7 @@ public class SystemMaintenanceStaffApp extends App implements AppInterface {
     }
   }
   
+  // override calls the verbose toString method rather than the standard toString method on Employer
   @Override
   public void displayEmployers() {
     System.out.println("Here are the current employers in the system..\n");

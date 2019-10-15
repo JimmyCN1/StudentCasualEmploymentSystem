@@ -19,7 +19,6 @@ public class PositionApp extends AbstractApp {
   private Position position;
   private Employer currentUser;
   
-  
   public PositionApp(Position position, Employer currentUser, ManagementSystem managementSystem) {
     super(managementSystem);
     this.position = position;

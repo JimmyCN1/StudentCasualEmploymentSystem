@@ -180,22 +180,30 @@ public class PositionApp extends AbstractApp {
         boolean validResponse = false;
         Applicant applicant;
         int response = 0;
-        while (!validResponse) {
-            try {
-                System.out.println("Which applicant would you like to shortlist?\n");
-                System.out.println(position.applicantListToStringAsNumberedList(position.getAppliedApplicants()));
-                response = scanner.nextInt();
-                scanner.nextLine();
-                applicant = position.getAppliedApplicants().get(response - 1);
-                validResponse = true;
-                currentUser.shortlistApplicant(applicant, position);
-                System.out.printf("%s was successfully shortlisted\n\n", applicant.getName());
-            } catch (InputMismatchException e) {
-                printInputMismatchMessage();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                printInputMismatchMessage();
+        if(position.getAppliedApplicants().size() > 0)
+        {
+            while (!validResponse) {
+                try {
+                    System.out.println("Which applicant would you like to shortlist?\n");
+                    System.out.println(position.applicantListToStringAsNumberedList(position.getAppliedApplicants()));
+                    response = scanner.nextInt();
+                    scanner.nextLine();
+                    applicant = position.getAppliedApplicants().get(response - 1);
+                    validResponse = true;
+                    currentUser.shortlistApplicant(applicant, position);
+                    System.out.printf("%s was successfully shortlisted\n\n", applicant.getName());
+                } catch (InputMismatchException e) {
+                    printInputMismatchMessage();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    printInputMismatchMessage();
+                }
             }
         }
+        else
+        {
+            printNoApplicants();
+        }
+
     }
 
     private void viewShortlistedApplicants() {
@@ -393,7 +401,7 @@ public class PositionApp extends AbstractApp {
         }
         else
         {
-            System.out.println("No applicants to send message too!\n");
+            printNoApplicants();
         }
     }
 

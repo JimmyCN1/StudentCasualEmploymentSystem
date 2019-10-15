@@ -9,12 +9,11 @@ import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
+import model.user.applicant.utilities.PastJob;
 import model.user.employer.Employer;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 public class StudentApp extends AbstractApp {
     private final int LOCAL = 1;
@@ -144,7 +143,6 @@ public class StudentApp extends AbstractApp {
 
     // if blacklisted, display blacklisted applicant message, else display the main menu
     public void displayMainMenu() {
-        //TODO: updating employement records
         //TODO: uploading of cv (text files) option
         //TODO: selecting interview slot/time
         //TODO: accept/reject job offers
@@ -176,7 +174,7 @@ public class StudentApp extends AbstractApp {
                             updateAvailabilities();
                             break;
                         case (3):
-//              updateEmploymentRecords();
+                            updateEmploymentRecords();
                             break;
                         case (4):
                             viewAllCurrentlyPostedJobs();
@@ -245,7 +243,7 @@ public class StudentApp extends AbstractApp {
     private void addJobPreference() {
         System.out.println("Please type one of these job preferences to add to your selected preferences\n");
         for (String jc : managementSystem.getJobCategories()) {
-            System.out.printf("%s ", jc);
+            System.out.println(jc);
         }
         System.out.println("\n");
         String response = scanner.nextLine();
@@ -260,7 +258,7 @@ public class StudentApp extends AbstractApp {
     private void removeJobPreference() {
         System.out.println("Please type one of these job preferences to removed to your selected preferences\n");
         for (String jp : currentUser.getJobPreferences()) {
-            System.out.printf("%s ", jp);
+            System.out.println(jp);
         }
         System.out.println("\n");
         String response = scanner.nextLine();
@@ -275,7 +273,7 @@ public class StudentApp extends AbstractApp {
     private void viewPreferences() {
         System.out.println("Your job preferences are now..");
         for (String jp : currentUser.getJobPreferences()) {
-            System.out.printf("%s ", jp);
+            System.out.println(jp);
         }
         System.out.println("\n");
     }
@@ -425,5 +423,130 @@ public class StudentApp extends AbstractApp {
     private void viewJobOffer()
     {
 
+    }
+
+    private void updateEmploymentRecords()
+    {
+        boolean goBack = false;
+        while (!goBack) {
+            try {
+                System.out.printf("What would you like to do?\n\n" +
+                        "1. Add A Past Job\n" +
+                        "2. Remove A Past Job\n" +
+                        "3. View Employment Records\n" +
+                        "4. Lodge A Complaint\n\n" +
+                        "0. Go back\n\n");
+                int response = scanner.nextInt();
+                scanner.nextLine();
+                switch (response) {
+                    case (1):
+                        addPastJob();
+                        break;
+                    case (2):
+                        removePastJob();
+                        break;
+                    case (3):
+                        viewPastJobs();
+                        break;
+                    case (4):
+                        lodgeComplaintAgainstEmployer();
+                        break;
+                    case (0):
+                        goBack = true;
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                printInputMismatchMessage();
+            }
+        }
+    }
+
+    private void addPastJob()
+    {
+        boolean validInput = false;
+
+        while(!validInput)
+        {
+            try
+            {
+                System.out.println("For what company?");
+                String company = scanner.nextLine();
+
+                System.out.println("What was your title?");
+                String title = scanner.nextLine();
+
+                System.out.println("When did you start? (Format: DD-MM-YYYY)");
+                String startDateStr = scanner.nextLine();
+                Scanner s = new Scanner(startDateStr).useDelimiter("-");
+                int day = s.nextInt();
+                int month = s.nextInt();
+                int year = s.nextInt();
+                LocalDate startDate = LocalDate.of(year,month,day);
+
+                System.out.println("When did you end? (Format: DD-MM-YYYY)");
+                String endDateStr = scanner.nextLine();
+                Scanner s2 = new Scanner(endDateStr).useDelimiter("-");
+                int day2 = s2.nextInt();
+                int month2 = s2.nextInt();
+                int year2 = s2.nextInt();
+                LocalDate endDate = LocalDate.of(year2,month2,day2);
+
+                System.out.println("What where your responsibilities? (Enter each one then press enter! type 0 to stop)");
+                String input = "";
+                List<String> respList = new ArrayList<>();
+
+                boolean escape = false;
+                while(!escape)
+                {
+                    input = scanner.nextLine();
+
+                    if(!input.equals("0"))
+                    {
+                        respList.add(input);
+                    }
+                    else
+                    {
+                        escape = true;
+                    }
+                }
+
+                PastJob pastJob = new PastJob(company, title, startDate, endDate, respList);
+
+                currentUser.addPastJob(pastJob);
+
+                validInput = true;
+
+                System.out.println("Successfully added past job");
+                viewPastJobs();
+            }
+            catch (InputMismatchException e)
+            {
+                printInputMismatchMessage();
+            }
+        }
+    }
+
+    private void removePastJob() {
+        System.out.println("Please type one of these past jobs to remove\n");
+        int count = 1;
+        for (PastJob pj : currentUser.getPastJobs()) {
+            System.out.println(count + ". " + pj.getTitle() + " at " + pj.getCompany());
+            count++;
+        }
+        System.out.println("\n");
+        int response = scanner.nextInt();
+
+        currentUser.removePastJob(response - 1);
+        viewPastJobs();
+    }
+
+    private void viewPastJobs() {
+        System.out.println("Your past job are now..");
+        int count = 1;
+        for (PastJob pj : currentUser.getPastJobs()) {
+            System.out.println(count + ". " + pj.getTitle() + " at " + pj.getCompany());
+            count++;
+        }
+        System.out.println("\n");
     }
 }

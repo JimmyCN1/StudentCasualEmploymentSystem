@@ -188,10 +188,10 @@ public class StudentApp extends AbstractApp {
                             viewJobsShortlistedFor();
                             break;
                         case (7):
-//                viewJobOffer();
+                            viewJobOffer();
                             break;
                         case (8):
-//                viewEmails();
+                            viewEmails();
                             break;
                         case (9):
                             changeLoginDetails();
@@ -397,5 +397,33 @@ public class StudentApp extends AbstractApp {
             System.out.printf("%s \n", pos.toString());
         }
         System.out.println("\n");
+    }
+
+    private void viewEmails()
+    {
+        currentUser.viewMailList();
+
+        boolean validResponse = false;
+        int response;
+
+        while(!validResponse)
+        {
+            try
+            {
+                response = scanner.nextInt();
+                scanner.nextLine();
+                currentUser.getMail(response - 1);
+                validResponse = true;
+            }
+            catch(InputMismatchException e)
+            {
+                printInputMismatchMessage();
+            }
+        }
+    }
+
+    private void viewJobOffer()
+    {
+
     }
 }

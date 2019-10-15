@@ -8,6 +8,8 @@ import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.Person;
 import model.user.applicant.utilities.*;
+import model.user.employer.Employer;
+import model.user.applicant.utilities.Mail;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -37,12 +39,14 @@ public abstract class Applicant extends Person implements Serializable {
   private List<Position> appliedJobs = new ArrayList<>();
   private List<Position> interviewsOffered = new ArrayList<>();
   private List<String> jobPreferences = new ArrayList<>();
+
+  private List<Mail> mail = new ArrayList<>();
   
   // List of all notifications the applicant receives from all employers
   private List<Notification> notifications = new ArrayList<>();
   
   private ManagementSystem managementSystem;
-  
+
   public Applicant(String firstName, String lastName, String password, PositionType availability,
                    ManagementSystem managementSystem) {
     super(firstName, lastName, password, managementSystem);
@@ -345,6 +349,34 @@ public abstract class Applicant extends Person implements Serializable {
               p.getTitle());
     }
     return jobs;
+  }
+
+  public void addMail(Employer employer, String title, String message)
+  {
+    this.mail.add(new Mail(employer, title, message));
+  }
+
+  public void viewMailList()
+  {
+    if(mail.size() > 0)
+    {
+      System.out.println("You have " + mail.size() + " emails:");
+      System.out.println("Select which email you would like to view:\n");
+
+      for(int i = 0; i < mail.size(); i++)
+      {
+        System.out.println((i + 1) + ". \"" + mail.get(i).getTitle() + "\" from " + mail.get(i).getEmployer().getName());
+      }
+    }
+    else
+    {
+      System.out.println("You have no mail!\n");
+    }
+  }
+
+  public String getMail(int i)
+  {
+    return mail.get(i).getMessage();
   }
   
   public void addLicense(License license) {

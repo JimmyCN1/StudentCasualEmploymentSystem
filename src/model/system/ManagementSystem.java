@@ -216,6 +216,9 @@ public class ManagementSystem implements Serializable {
         {
             Scanner read = new Scanner(new File(TESTsizeFileName)).useDelimiter(":");
 
+            // Welcome back message
+            //System.out.println("~~~~~~Welcome Back~~~~~~\n");
+
             read.next();
             int sizeU = read.nextInt();
             read.next();
@@ -234,6 +237,8 @@ public class ManagementSystem implements Serializable {
             saveState.recoverBlacklisted(sizeB, blacklistedUsers, TESTblFileName);
         } catch (IOException | ClassNotFoundException ex) {
             //System.out.println(ex);
+            // A welcome message to when you first open the program.
+            //System.out.println("~~~~~~Welcome to the Student Casual Employment System~~~~~~");
         }
     }
 

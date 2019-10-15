@@ -24,6 +24,7 @@ public class Main {
     
     // display main menu
     while (true) {
+        // Can make the program say welcome back if they have opened the program before
       System.out.println("~~~~~~Welcome to the Student Casual Employment System~~~~~~\n");
       System.out.println("Please type the appropriate number to register or login:\n");
       System.out.println("1. Employer Registration\n" +

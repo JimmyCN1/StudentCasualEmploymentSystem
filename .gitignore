@@ -1,6 +1,4 @@
-/out/
+out/
 .ser
 .txt
-/idea
-.idea
-/.idea
+bin/

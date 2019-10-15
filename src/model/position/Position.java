@@ -449,17 +449,8 @@ public class Position implements Serializable {
   
   @Override
   public String toString() {
-    return String.format("Position Title: %s\n" +
-                    "Hourly Rate: %d\n" +
-                    "Min Hours Per Week: %d\n" +
-                    "Min Hours Per Week: %d\n" +
-                    "Applicable Job Categories: %s",
-            title,
-            hourlyRate,
-            minHoursPerWeek,
-            maxHoursPerWeek,
-            applicableJobCategoriesToString()
-    );
+    return "Position Title: " + title+ "\nHourly Rate: " + hourlyRate + "\nMin Hours Per Week: " + minHoursPerWeek + "\nMin Hours Per Week: " + maxHoursPerWeek + "\nApplicable Job Categories: " + applicableJobCategoriesToString() + "\n";
+
   }
   
   private String applicableJobCategoriesToString() {

@@ -401,21 +401,24 @@ public class StudentApp extends AbstractApp {
     {
         currentUser.viewMailList();
 
-        boolean validResponse = false;
-        int response;
-
-        while(!validResponse)
+        if(currentUser.getMailSize() > 0)
         {
-            try
+            boolean validResponse = false;
+            int response;
+
+            while(!validResponse)
             {
-                response = scanner.nextInt();
-                scanner.nextLine();
-                currentUser.getMail(response - 1);
-                validResponse = true;
-            }
-            catch(InputMismatchException e)
-            {
-                printInputMismatchMessage();
+                try
+                {
+                    response = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println(currentUser.getMail(response - 1));
+                    validResponse = true;
+                }
+                catch(InputMismatchException e)
+                {
+                    printInputMismatchMessage();
+                }
             }
         }
     }

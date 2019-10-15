@@ -378,6 +378,11 @@ public abstract class Applicant extends Person implements Serializable {
   {
     return mail.get(i).getMessage();
   }
+
+  public int getMailSize()
+  {
+    return mail.size();
+  }
   
   public void addLicense(License license) {
     this.licenses.add(license);

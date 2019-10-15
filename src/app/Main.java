@@ -19,7 +19,8 @@ public class Main {
     App app = new App(managementSystem);
     Scanner scanner = new Scanner(System.in);
     
-    managementSystem.recoverState();
+//    managementSystem.recoverState();
+    managementSystem.recoverTestState();
     
     // display main menu
     while (true) {
@@ -50,7 +51,8 @@ public class Main {
             app.loginAs();
             break;
           case (QUIT):
-            managementSystem.saveState();
+//            managementSystem.saveState();
+            managementSystem.saveTestState();
             System.exit(EXIT_SUCCESS);
         }
       } catch (InputMismatchException | JobCategoryAlreadyExistsException e) {

@@ -2,3 +2,4 @@ out/
 .ser
 .txt
 bin/
+.idea/workspace.xml

@@ -164,7 +164,7 @@ public class StudentApp extends AbstractApp {
                             "5. View All Currently Posted Jobs\n" +
                             "6. Apply For A Job\n" +
                             "7. View Jobs Shortlisted For\n" +
-                            "8. View Job Offers\n" +
+                            "8. View Job Offer\n" +
                             "9. View Emails\n" +
                             "10. Change Login Details\n\n" +
                             "0. Logout\n\n");
@@ -783,7 +783,15 @@ public class StudentApp extends AbstractApp {
 
     private void viewJobOffer()
     {
-
+        if(currentUser.getJobOffer() != null)
+        {
+            System.out.println("Job offer: \n");
+            System.out.println(currentUser.getJobOffer().toStringVerbose());
+        }
+        else
+        {
+            System.out.println("No Job Offer");
+        }
     }
 
     private void updateCV()

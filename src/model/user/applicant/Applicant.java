@@ -422,6 +422,10 @@ public abstract class Applicant extends Person implements Serializable {
   public Reference removeReference(int referenceIndex) {
     return this.references.remove(referenceIndex);
   }
-  
-  
+
+
+  public Position getJobOffer()
+  {
+    return jobOffer;
+  }
 }

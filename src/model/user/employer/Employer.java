@@ -212,8 +212,8 @@ public class Employer extends User implements Serializable {
       throw new UserBlacklistedException();
     } else {
       position.addApplicantToJobOffered(applicant);
-      applicant.setStatus(UserStatus.PENDING);
       applicant.setJobOffer(position);
+      applicant.setStatus(UserStatus.PENDING);
     }
   }
   

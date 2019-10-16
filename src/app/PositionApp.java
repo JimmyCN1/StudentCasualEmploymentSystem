@@ -356,23 +356,42 @@ public class PositionApp extends AbstractApp {
         boolean validResponse = false;
         Applicant applicant = null;
         int response;
-        while (!validResponse) {
-            try {
-                System.out.println("Which applicant would you like to offer a job to?\n");
-                System.out.println(position.applicantListToStringAsNumberedList(position.getHighRankingApplicants()));
-                response = scanner.nextInt();
-                scanner.nextLine();
-                applicant = position.getHighRankingApplicants().get(response - 1);
-                validResponse = true;
-                currentUser.offerJob(applicant, position);
-                System.out.printf("Job successfully offered to %s", applicant.getName());
-            } catch (InputMismatchException e) {
-                printInputMismatchMessage();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                printInputMismatchMessage();
-            } catch (UserBlacklistedException e) {
-                System.out.printf("Sorry, Cannot offer job to %s as they have been blacklisted..", applicant.getName());
+        if(position.getAppliedApplicants().size() > 0)
+        {
+            while (!validResponse) {
+                try {
+                    System.out.println("Which applicant would you like to offer a job to?\n");
+
+                    if(position.getHighRankingApplicants().size() > 0)
+                    {
+                        System.out.println(position.applicantListToStringAsNumberedList(position.getHighRankingApplicants()));
+                        response = scanner.nextInt();
+                        scanner.nextLine();
+                        applicant = position.getHighRankingApplicants().get(response - 1);
+                    }
+                    else
+                    {
+                        System.out.println(position.applicantListToStringAsNumberedList(position.getAppliedApplicants()));
+                        response = scanner.nextInt();
+                        scanner.nextLine();
+                        applicant = position.getAppliedApplicants().get(response - 1);
+                    }
+
+                    validResponse = true;
+                    currentUser.offerJob(applicant, position);
+                    System.out.printf("Job successfully offered to %s", applicant.getName());
+                } catch (InputMismatchException e) {
+                    printInputMismatchMessage();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    printInputMismatchMessage();
+                } catch (UserBlacklistedException e) {
+                    System.out.printf("Sorry, Cannot offer job to %s as they have been blacklisted..", applicant.getName());
+                }
             }
+        }
+        else
+        {
+            printNoApplicants();
         }
     }
 

@@ -6,23 +6,13 @@
       <change beforePath="$PROJECT_DIR$/saves/test/TESTapplicants.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTapplicants.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saves/test/TESTemployers.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTemployers.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saves/test/TESTsizes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTsizes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saves/test/TESTsystemMaintenance.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTsystemMaintenance.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saves/test/TESTusers.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTusers.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/position/InterviewResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/position/InterviewResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/position/InterviewSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/position/InterviewSlot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/position/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/position/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/serialisation/SaveState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/serialisation/SaveState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/system/ManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/system/ManagementSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/PositionApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/PositionApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/StudentApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/StudentApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/License.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/License.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Mail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/PastJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/PastJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Qualification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Qualification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Reference.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Reference.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/user/employer/Employer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/employer/Employer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/staff/SystemMaintenanceStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/staff/SystemMaintenanceStaff.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,10 +27,6 @@
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1920" />
-    <option name="height" value="1200" />
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -103,6 +89,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/model/user/applicant/Applicant.java</url>
+          <line>138</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>

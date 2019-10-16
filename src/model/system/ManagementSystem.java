@@ -18,6 +18,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ManagementSystem implements Serializable {
+    private static final long serialVersionUID = 6L;
+
     private Map<Integer, User> users = new HashMap<>();
     private Map<String, Employer> employers = new HashMap<>();
     private Map<String, Applicant> applicants = new HashMap<>();

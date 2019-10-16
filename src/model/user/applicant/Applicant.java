@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Applicant extends Person implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private static int applicantCount = 0;
   private final int MAX_AVAILABILITIES = 3;
   private final int TWO_WEEKS = 14;

@@ -3,8 +3,26 @@
   <component name="ChangeListManager">
     <list default="true" id="6e18dcad-4906-4a7e-8ef9-f9e6c9904c53" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/StudentApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/StudentApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saves/test/TESTapplicants.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTapplicants.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saves/test/TESTemployers.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTemployers.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saves/test/TESTsizes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTsizes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saves/test/TESTusers.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTusers.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/position/InterviewResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/position/InterviewResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/position/InterviewSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/position/InterviewSlot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/position/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/position/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/serialisation/SaveState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/serialisation/SaveState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/system/ManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/system/ManagementSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/License.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/License.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Mail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/PastJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/PastJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Qualification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Qualification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Reference.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Reference.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/employer/Employer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/employer/Employer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/staff/SystemMaintenanceStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/staff/SystemMaintenanceStaff.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

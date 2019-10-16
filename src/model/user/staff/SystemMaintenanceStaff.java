@@ -8,7 +8,11 @@ import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 
-public class SystemMaintenanceStaff extends Person {
+import java.io.Serializable;
+
+public class SystemMaintenanceStaff extends Person implements Serializable {
+    private static final long serialVersionUID = 8L;
+
     private static int systemMaintenanceStaffCount = 0;
     private int id;
 

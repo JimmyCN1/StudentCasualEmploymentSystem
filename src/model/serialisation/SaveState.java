@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SaveState implements Serializable {
+    private static final long serialVersionUID = 5L;
+
     private ManagementSystem managementSystem;
 
 

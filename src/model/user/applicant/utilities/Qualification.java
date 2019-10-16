@@ -1,8 +1,10 @@
 package model.user.applicant.utilities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Qualification {
+public class Qualification implements Serializable {
+  private static final long serialVersionUID = 15L;
   private String course;
   private String orginsation;
   private LocalDate beginDate;

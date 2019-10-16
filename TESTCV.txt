@@ -1,0 +1,7 @@
+Name: Lockie Boughton
+Birth date: 31-07-1999
+This is a test CV for test purposes.
+Availability:
+    All the time.
+Past jobs:
+    None.

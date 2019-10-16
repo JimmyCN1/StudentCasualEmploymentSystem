@@ -1,6 +1,10 @@
 package model.user.applicant.utilities;
 
-public class Reference {
+import java.io.Serializable;
+
+public class Reference implements Serializable {
+  private static final long serialVersionUID = 16L;
+
   private String name;
   private String phoneNumber;
   private String email;

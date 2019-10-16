@@ -2,7 +2,11 @@ package model.user.applicant.utilities;
 
 import model.user.employer.Employer;
 
-public class Notification {
+import java.io.Serializable;
+
+public class Notification implements Serializable {
+  private static final long serialVersionUID = 14L;
+
   private String message;
   private Employer employer;
   

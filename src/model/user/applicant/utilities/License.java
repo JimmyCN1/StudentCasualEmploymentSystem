@@ -1,8 +1,11 @@
 package model.user.applicant.utilities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class License {
+public class License implements Serializable {
+  private static final long serialVersionUID = 12L;
+
   private String licenseName;
   private int licenseNumber;
   private String issuer;

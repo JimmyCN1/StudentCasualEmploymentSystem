@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Position implements Serializable {
+  private static final long serialVersionUID = 2L;
+  
   private static int positionCount = 0;
   private final int MAX_INTERVIEWS_PER_DAY = 7;
   private final int TOP_APPLICANTS_CUTOFF = 5;

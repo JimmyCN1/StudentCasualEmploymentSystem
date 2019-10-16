@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class User implements UserInterface, Serializable {
+  private static final long serialVersionUID = 10L;
+
   private static int userCount = 0;
   private final int MAX_COMPLAINTS = 3;
   private int userId;

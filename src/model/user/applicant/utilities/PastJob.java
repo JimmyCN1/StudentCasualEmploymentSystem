@@ -1,9 +1,12 @@
 package model.user.applicant.utilities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class PastJob {
+public class PastJob implements Serializable {
+  private static final long serialVersionUID = 11L;
+
   private String company;
   private String title;
   private LocalDate beginDate;

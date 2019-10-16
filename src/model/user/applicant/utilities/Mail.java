@@ -2,8 +2,12 @@ package model.user.applicant.utilities;
 
 import model.user.employer.Employer;
 
-public class Mail
+import java.io.Serializable;
+
+public class Mail implements Serializable
 {
+    private static final long serialVersionUID = 13L;
+
     private Employer employer;
     private String title;
     private String message;

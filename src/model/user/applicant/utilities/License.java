@@ -56,4 +56,9 @@ public class License {
   public void setValidUntil(LocalDate validUntil) {
     this.validUntil = validUntil;
   }
+
+  public String toString()
+  {
+    return "Licence name: " + licenseName + "\nLicence number: " + licenseNumber + "\nIssuer: " + issuer + "\nDate issued: " + dateIssued.toString() + "\nValid until: " + validUntil.toString();
+  }
 }

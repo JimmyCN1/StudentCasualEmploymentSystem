@@ -66,5 +66,15 @@ public class PastJob {
     return this.responsibilities.remove(responsibilityIndex);
   }
   
-  
+  public String toString()
+  {
+    String rString = "Company: " + company + "\nTitle: " + title + "\nStarted: " + beginDate.toString() + "\nEnd: " + endDate.toString() + "\nResponsibilities: ";
+
+    for(int i = 0; i < responsibilities.size(); i++)
+    {
+      rString += "\n\t" + (i + 1) + ". " + responsibilities.get(i);
+    }
+
+    return rString;
+  }
 }

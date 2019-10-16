@@ -2,10 +2,10 @@ package model.user.applicant.utilities;
 
 public class Reference {
   private String name;
-  private int phoneNumber;
+  private String phoneNumber;
   private String email;
   
-  public Reference(String name, int phoneNumber, String email) {
+  public Reference(String name, String phoneNumber, String email) {
     this.name = name;
     this.phoneNumber = phoneNumber;
     this.email = email;
@@ -15,7 +15,7 @@ public class Reference {
     return name;
   }
   
-  public int getPhoneNumber() {
+  public String getPhoneNumber() {
     return phoneNumber;
   }
   
@@ -27,11 +27,16 @@ public class Reference {
     this.name = name;
   }
   
-  public void setPhoneNumber(int phoneNumber) {
+  public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
   
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String toString()
+  {
+    return "Reference name: " + name + "\nPhone number: " + phoneNumber + "\nEmail: " + email;
   }
 }

@@ -384,13 +384,11 @@ public class PositionApp extends AbstractApp {
 
         if(position.getAppliedApplicants().size() > 0)
         {
-            System.out.println("Title of the message?\n");
-            title = scanner.next();
-            scanner.nextLine();
+            System.out.println("Title of the message?");
+            title = scanner.nextLine();
 
-            System.out.println("What is your message to be sent to the applicants?\n");
-            message = scanner.next();
-            scanner.nextLine();
+            System.out.println("What is your message to be sent to the applicants?");
+            message = scanner.nextLine();
 
             for (Applicant app : position.getAppliedApplicants()) {
                 app.addMail(currentUser, title, message);

@@ -8,9 +8,9 @@ public class Qualification {
   private LocalDate beginDate;
   private LocalDate endDate;
   
-  public Qualification(String course, String orginsation, LocalDate beginDate, LocalDate endDate) {
+  public Qualification(String course, String organisation, LocalDate beginDate, LocalDate endDate) {
     this.course = course;
-    this.orginsation = orginsation;
+    this.orginsation = organisation;
     this.beginDate = beginDate;
     this.endDate = endDate;
   }
@@ -19,7 +19,7 @@ public class Qualification {
     return course;
   }
   
-  public String getOrginsation() {
+  public String getOrganisation() {
     return orginsation;
   }
   
@@ -45,5 +45,10 @@ public class Qualification {
   
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
+  }
+
+  public String toString()
+  {
+    return "Course: " + course + "\nOrganisation: " + orginsation + "\nDate started: " + beginDate.toString() + "\nDate ended: " + endDate.toString();
   }
 }

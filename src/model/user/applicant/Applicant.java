@@ -86,6 +86,11 @@ public abstract class Applicant extends Person implements Serializable {
   public String getCv() {
     return this.cv;
   }
+
+  public void setCv(String cv)
+  {
+    this.cv = cv;
+  }
   
   public List<String> getJobPreferences() {
     return this.jobPreferences;

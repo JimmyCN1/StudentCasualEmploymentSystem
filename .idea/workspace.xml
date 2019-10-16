@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e18dcad-4906-4a7e-8ef9-f9e6c9904c53" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/PositionApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/PositionApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/StudentApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/StudentApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/License.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/License.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/PastJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/PastJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Qualification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Qualification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/utilities/Reference.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/utilities/Reference.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/user/applicant/Applicant.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

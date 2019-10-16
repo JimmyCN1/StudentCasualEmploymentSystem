@@ -15,6 +15,7 @@ import model.user.applicant.utilities.Qualification;
 import model.user.applicant.utilities.Reference;
 import model.user.employer.Employer;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -146,7 +147,6 @@ public class StudentApp extends AbstractApp {
 
     // if blacklisted, display blacklisted applicant message, else display the main menu
     public void displayMainMenu() {
-        //TODO: uploading of cv (text files) option
         //TODO: selecting interview slot/time
         //TODO: accept/reject job offers
         boolean isLoggedIn = true;
@@ -160,12 +160,13 @@ public class StudentApp extends AbstractApp {
                             "1. Update Your Job Preferences\n" +
                             "2. Update Your Availabilities\n" +
                             "3. Update Your Employment Records\n" +
-                            "4. View All Currently Posted Jobs\n" +
-                            "5. Apply For A Job\n" +
-                            "6. View Jobs Shortlisted For\n" +
-                            "7. View Job Offers\n" +
-                            "8. View Emails\n" +
-                            "9. Change Login Details\n\n" +
+                            "4. Update CV\n" +
+                            "5. View All Currently Posted Jobs\n" +
+                            "6. Apply For A Job\n" +
+                            "7. View Jobs Shortlisted For\n" +
+                            "8. View Job Offers\n" +
+                            "9. View Emails\n" +
+                            "10. Change Login Details\n\n" +
                             "0. Logout\n\n");
                     response = scanner.nextInt();
                     scanner.nextLine();
@@ -180,21 +181,24 @@ public class StudentApp extends AbstractApp {
                             updateEmploymentRecords();
                             break;
                         case (4):
-                            viewAllCurrentlyPostedJobs();
+                            updateCV();
                             break;
                         case (5):
-                            applyForAJob();
+                            viewAllCurrentlyPostedJobs();
                             break;
                         case (6):
-                            viewJobsShortlistedFor();
+                            applyForAJob();
                             break;
                         case (7):
-                            viewJobOffer();
+                            viewJobsShortlistedFor();
                             break;
                         case (8):
-                            viewEmails();
+                            viewJobOffer();
                             break;
                         case (9):
+                            viewEmails();
+                            break;
+                        case (10):
                             changeLoginDetails();
                         case (0):
                             isLoggedIn = false;
@@ -426,11 +430,6 @@ public class StudentApp extends AbstractApp {
         }
     }
 
-    private void viewJobOffer()
-    {
-
-    }
-
     private void updateEmploymentRecords()
     {
         boolean goBack = false;
@@ -503,8 +502,7 @@ public class StudentApp extends AbstractApp {
         }
     }
 
-    private void addPastJob()
-    {
+    private void addPastJob() {
         boolean validInput = false;
 
         while(!validInput)
@@ -592,8 +590,7 @@ public class StudentApp extends AbstractApp {
         System.out.println("\n");
     }
 
-    private void addLicence()
-    {
+    private void addLicence() {
         boolean validInput = false;
 
         while(!validInput)
@@ -641,8 +638,7 @@ public class StudentApp extends AbstractApp {
         }
     }
 
-    private void removeLicence()
-    {
+    private void removeLicence() {
         System.out.println("Please type one of these licences to remove\n");
         int count = 1;
         for (License l : currentUser.getLicenses()) {
@@ -656,8 +652,7 @@ public class StudentApp extends AbstractApp {
         viewLicence();
     }
 
-    private void viewLicence()
-    {
+    private void viewLicence() {
         System.out.println("Your licences are..");
         int count = 1;
         for (License l : currentUser.getLicenses()) {
@@ -667,8 +662,7 @@ public class StudentApp extends AbstractApp {
         System.out.println("\n");
     }
 
-    private void addQualification()
-    {
+    private void addQualification() {
         boolean validInput = false;
 
         while(!validInput) {
@@ -709,8 +703,7 @@ public class StudentApp extends AbstractApp {
         }
     }
 
-    private void removeQualification()
-    {
+    private void removeQualification() {
         System.out.println("Please type one of these qualifications to remove\n");
         int count = 1;
         for (Qualification q : currentUser.getQualifications()) {
@@ -724,8 +717,7 @@ public class StudentApp extends AbstractApp {
         viewQualifications();
     }
 
-    private void viewQualifications()
-    {
+    private void viewQualifications() {
         System.out.println("Your qualifications are..");
         int count = 1;
         for (Qualification q : currentUser.getQualifications()) {
@@ -735,8 +727,7 @@ public class StudentApp extends AbstractApp {
         System.out.println("\n");
     }
 
-    private void addReference()
-    {
+    private void addReference() {
         boolean validInput = false;
 
         while(!validInput) {
@@ -764,8 +755,7 @@ public class StudentApp extends AbstractApp {
         }
     }
 
-    private void removeReference()
-    {
+    private void removeReference() {
         System.out.println("Please type one of these references to remove\n");
         int count = 1;
         for (Reference r : currentUser.getReferences()) {
@@ -779,8 +769,7 @@ public class StudentApp extends AbstractApp {
         viewReferences();
     }
 
-    private void viewReferences()
-    {
+    private void viewReferences() {
         System.out.println("Your references are..");
         int count = 1;
         for (Reference r : currentUser.getReferences()) {
@@ -788,5 +777,95 @@ public class StudentApp extends AbstractApp {
             count++;
         }
         System.out.println("\n");
+    }
+
+
+
+    private void viewJobOffer()
+    {
+
+    }
+
+    private void updateCV()
+    {
+        boolean goBack = false;
+        while (!goBack) {
+            try {
+                System.out.printf("What would you like to do?\n\n" +
+                        "1. Add CV\n" +
+                        "2. Remove CV\n" +
+                        "3. View CV\n" +
+                        "0. Go back\n\n");
+                int response = scanner.nextInt();
+                scanner.nextLine();
+                switch (response) {
+                    case (1):
+                        addCV();
+                        break;
+                    case (2):
+                        removeCV();
+                        break;
+                    case (3):
+                        viewCV();
+                        break;
+                    case (0):
+                        goBack = true;
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                printInputMismatchMessage();
+            }
+        }
+    }
+
+    private void addCV()
+    {
+        System.out.println("Enter the file name of your CV: (Must be .txt file, but do not include in file name below)");
+        String filename = scanner.nextLine();
+        filename += ".txt";
+
+        try
+        {
+            FileReader file = new FileReader(filename);
+            BufferedReader bR = new BufferedReader(file);
+
+            String cv = "";
+            String line = null;
+
+            while((line = bR.readLine()) != null)
+            {
+                cv += line + "\n";
+            }
+
+            currentUser.setCv(cv);
+            System.out.println("CV has been added!");
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found!");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeCV()
+    {
+        currentUser.setCv("");
+
+        System.out.println("CV has been removed!\n");
+    }
+
+    private void viewCV()
+    {
+        if(currentUser.getCv() != "")
+        {
+            System.out.println(currentUser.getCv() + "\n");
+        }
+        else
+        {
+            System.out.println("No CV has been added!\n");
+        }
     }
 }

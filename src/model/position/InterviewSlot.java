@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class InterviewSlot implements Serializable {
+  private static final long serialVersionUID = 3L;
+
   private final int INTERVIEW_DURATION = 60;
   private LocalDate date;
   private LocalTime time;

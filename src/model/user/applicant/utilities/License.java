@@ -1,8 +1,11 @@
 package model.user.applicant.utilities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class License {
+public class License implements Serializable {
+  private static final long serialVersionUID = 12L;
+
   private String licenseName;
   private int licenseNumber;
   private String issuer;
@@ -55,5 +58,10 @@ public class License {
   
   public void setValidUntil(LocalDate validUntil) {
     this.validUntil = validUntil;
+  }
+
+  public String toString()
+  {
+    return "Licence name: " + licenseName + "\nLicence number: " + licenseNumber + "\nIssuer: " + issuer + "\nDate issued: " + dateIssued.toString() + "\nValid until: " + validUntil.toString();
   }
 }

@@ -9,9 +9,13 @@ import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.applicant.InternationalStudent;
 import model.user.applicant.LocalStudent;
+import model.user.applicant.utilities.License;
 import model.user.applicant.utilities.PastJob;
+import model.user.applicant.utilities.Qualification;
+import model.user.applicant.utilities.Reference;
 import model.user.employer.Employer;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -143,7 +147,6 @@ public class StudentApp extends AbstractApp {
 
     // if blacklisted, display blacklisted applicant message, else display the main menu
     public void displayMainMenu() {
-        //TODO: uploading of cv (text files) option
         //TODO: selecting interview slot/time
         //TODO: accept/reject job offers
         boolean isLoggedIn = true;
@@ -157,12 +160,13 @@ public class StudentApp extends AbstractApp {
                             "1. Update Your Job Preferences\n" +
                             "2. Update Your Availabilities\n" +
                             "3. Update Your Employment Records\n" +
-                            "4. View All Currently Posted Jobs\n" +
-                            "5. Apply For A Job\n" +
-                            "6. View Jobs Shortlisted For\n" +
-                            "7. View Job Offers\n" +
-                            "8. View Emails\n" +
-                            "9. Change Login Details\n\n" +
+                            "4. Update CV\n" +
+                            "5. View All Currently Posted Jobs\n" +
+                            "6. Apply For A Job\n" +
+                            "7. View Jobs Shortlisted For\n" +
+                            "8. View Job Offer\n" +
+                            "9. View Emails\n" +
+                            "10. Change Login Details\n\n" +
                             "0. Logout\n\n");
                     response = scanner.nextInt();
                     scanner.nextLine();
@@ -177,21 +181,24 @@ public class StudentApp extends AbstractApp {
                             updateEmploymentRecords();
                             break;
                         case (4):
-                            viewAllCurrentlyPostedJobs();
+                            updateCV();
                             break;
                         case (5):
-                            applyForAJob();
+                            viewAllCurrentlyPostedJobs();
                             break;
                         case (6):
-                            viewJobsShortlistedFor();
+                            applyForAJob();
                             break;
                         case (7):
-                            viewJobOffer();
+                            viewJobsShortlistedFor();
                             break;
                         case (8):
-                            viewEmails();
+                            viewJobOffer();
                             break;
                         case (9):
+                            viewEmails();
+                            break;
+                        case (10):
                             changeLoginDetails();
                         case (0):
                             isLoggedIn = false;
@@ -423,11 +430,6 @@ public class StudentApp extends AbstractApp {
         }
     }
 
-    private void viewJobOffer()
-    {
-
-    }
-
     private void updateEmploymentRecords()
     {
         boolean goBack = false;
@@ -436,8 +438,17 @@ public class StudentApp extends AbstractApp {
                 System.out.printf("What would you like to do?\n\n" +
                         "1. Add A Past Job\n" +
                         "2. Remove A Past Job\n" +
-                        "3. View Employment Records\n" +
-                        "4. Lodge A Complaint\n\n" +
+                        "3. View Past Jobs\n" +
+                        "4. Add A Licence\n" +
+                        "5. Remove A Licence\n" +
+                        "6. View Licences\n" +
+                        "7. Add a Qualification\n" +
+                        "8. Remove a Qualification\n" +
+                        "9. View Qualifications\n" +
+                        "10. Add a Reference\n" +
+                        "11. Remove a Reference\n" +
+                        "12. View References\n" +
+                        "13. Lodge A Complaint\n\n" +
                         "0. Go back\n\n");
                 int response = scanner.nextInt();
                 scanner.nextLine();
@@ -452,6 +463,33 @@ public class StudentApp extends AbstractApp {
                         viewPastJobs();
                         break;
                     case (4):
+                        addLicence();
+                        break;
+                    case (5):
+                        removeLicence();
+                        break;
+                    case (6):
+                        viewLicence();
+                        break;
+                    case (7):
+                        addQualification();
+                        break;
+                    case (8):
+                        removeQualification();
+                        break;
+                    case (9):
+                        viewQualifications();
+                        break;
+                    case (10):
+                        addReference();
+                        break;
+                    case (11):
+                        removeReference();
+                        break;
+                    case (12):
+                        viewReferences();
+                        break;
+                    case (13):
                         lodgeComplaintAgainstEmployer();
                         break;
                     case (0):
@@ -464,8 +502,7 @@ public class StudentApp extends AbstractApp {
         }
     }
 
-    private void addPastJob()
-    {
+    private void addPastJob() {
         boolean validInput = false;
 
         while(!validInput)
@@ -533,7 +570,7 @@ public class StudentApp extends AbstractApp {
         System.out.println("Please type one of these past jobs to remove\n");
         int count = 1;
         for (PastJob pj : currentUser.getPastJobs()) {
-            System.out.println(count + ". " + pj.getTitle() + " at " + pj.getCompany());
+            System.out.println(count + ". " + pj.toString());
             count++;
         }
         System.out.println("\n");
@@ -544,12 +581,299 @@ public class StudentApp extends AbstractApp {
     }
 
     private void viewPastJobs() {
-        System.out.println("Your past job are now..");
+        System.out.println("Your past job are..");
         int count = 1;
         for (PastJob pj : currentUser.getPastJobs()) {
-            System.out.println(count + ". " + pj.getTitle() + " at " + pj.getCompany());
+            System.out.println(count + ". " + pj.toString());
             count++;
         }
         System.out.println("\n");
+    }
+
+    private void addLicence() {
+        boolean validInput = false;
+
+        while(!validInput)
+        {
+            try
+            {
+                System.out.println("What Licence name?");
+                String licenceName = scanner.nextLine();
+
+                System.out.println("What is the licence number?");
+                int licenceNumber = scanner.nextInt();
+
+                System.out.println("Who issued it?");
+                String issuer = scanner.nextLine();
+
+                System.out.println("When was it issued? (Format: DD-MM-YYYY)");
+                String issuedDateStr = scanner.nextLine();
+                Scanner s = new Scanner(issuedDateStr).useDelimiter("-");
+                int day = s.nextInt();
+                int month = s.nextInt();
+                int year = s.nextInt();
+                LocalDate issuedDate = LocalDate.of(year,month,day);
+
+                System.out.println("When is it valid till? (Format: DD-MM-YYYY)");
+                String validDateStr = scanner.nextLine();
+                Scanner s2 = new Scanner(validDateStr).useDelimiter("-");
+                int day2 = s2.nextInt();
+                int month2 = s2.nextInt();
+                int year2 = s2.nextInt();
+                LocalDate validDate = LocalDate.of(year2,month2,day2);
+
+                License license = new License(licenceName,licenceNumber,issuer,issuedDate,validDate);
+
+                currentUser.addLicense(license);
+
+                validInput = true;
+
+                System.out.println("Successfully added a licence");
+                viewLicence();
+            }
+            catch (InputMismatchException e)
+            {
+                printInputMismatchMessage();
+            }
+        }
+    }
+
+    private void removeLicence() {
+        System.out.println("Please type one of these licences to remove\n");
+        int count = 1;
+        for (License l : currentUser.getLicenses()) {
+            System.out.println(count + ". " + l.toString());
+            count++;
+        }
+        System.out.println("\n");
+        int response = scanner.nextInt();
+
+        currentUser.removeLicense(response - 1);
+        viewLicence();
+    }
+
+    private void viewLicence() {
+        System.out.println("Your licences are..");
+        int count = 1;
+        for (License l : currentUser.getLicenses()) {
+            System.out.println(count + ". " + l.toString());
+            count++;
+        }
+        System.out.println("\n");
+    }
+
+    private void addQualification() {
+        boolean validInput = false;
+
+        while(!validInput) {
+            try {
+                System.out.println("What is the course name?");
+                String course = scanner.nextLine();
+
+                System.out.println("What organisation?");
+                String organisation = scanner.nextLine();
+
+                System.out.println("When did you start? (Format: DD-MM-YYYY)");
+                String issuedDateStr = scanner.nextLine();
+                Scanner s = new Scanner(issuedDateStr).useDelimiter("-");
+                int day = s.nextInt();
+                int month = s.nextInt();
+                int year = s.nextInt();
+                LocalDate startDate = LocalDate.of(year, month, day);
+
+                System.out.println("When did you end? (Format: DD-MM-YYYY)");
+                String validDateStr = scanner.nextLine();
+                Scanner s2 = new Scanner(validDateStr).useDelimiter("-");
+                int day2 = s2.nextInt();
+                int month2 = s2.nextInt();
+                int year2 = s2.nextInt();
+                LocalDate endDate = LocalDate.of(year2, month2, day2);
+
+                Qualification qualification = new Qualification(course, organisation, startDate, endDate);
+
+                currentUser.addQualification(qualification);
+
+                validInput = true;
+
+                System.out.println("Successfully added a qualification");
+                viewReferences();
+            } catch (InputMismatchException e) {
+                printInputMismatchMessage();
+            }
+        }
+    }
+
+    private void removeQualification() {
+        System.out.println("Please type one of these qualifications to remove\n");
+        int count = 1;
+        for (Qualification q : currentUser.getQualifications()) {
+            System.out.println(count + ". " + q.toString());
+            count++;
+        }
+        System.out.println("\n");
+        int response = scanner.nextInt();
+
+        currentUser.removeQualification(response - 1);
+        viewQualifications();
+    }
+
+    private void viewQualifications() {
+        System.out.println("Your qualifications are..");
+        int count = 1;
+        for (Qualification q : currentUser.getQualifications()) {
+            System.out.println(count + ". " + q.toString());
+            count++;
+        }
+        System.out.println("\n");
+    }
+
+    private void addReference() {
+        boolean validInput = false;
+
+        while(!validInput) {
+            try {
+                System.out.println("What is the reference name?");
+                String name = scanner.nextLine();
+
+                System.out.println("What is their number?");
+                String number = scanner.nextLine();
+
+                System.out.println("What is their email?");
+                String email = scanner.nextLine();
+
+                Reference reference = new Reference(name, number, email);
+
+                currentUser.addReference(reference);
+
+                validInput = true;
+
+                System.out.println("Successfully added a reference");
+                viewReferences();
+            } catch (InputMismatchException e) {
+                printInputMismatchMessage();
+            }
+        }
+    }
+
+    private void removeReference() {
+        System.out.println("Please type one of these references to remove\n");
+        int count = 1;
+        for (Reference r : currentUser.getReferences()) {
+            System.out.println(count + ". " + r.toString());
+            count++;
+        }
+        System.out.println("\n");
+        int response = scanner.nextInt();
+
+        currentUser.removeReference(response - 1);
+        viewReferences();
+    }
+
+    private void viewReferences() {
+        System.out.println("Your references are..");
+        int count = 1;
+        for (Reference r : currentUser.getReferences()) {
+            System.out.println(count + ". " + r.toString());
+            count++;
+        }
+        System.out.println("\n");
+    }
+
+
+
+    private void viewJobOffer()
+    {
+        if(currentUser.getJobOffer() != null)
+        {
+            System.out.println("Job offer: \n");
+            System.out.println(currentUser.getJobOffer().toStringVerbose());
+        }
+        else
+        {
+            System.out.println("No Job Offer");
+        }
+    }
+
+    private void updateCV()
+    {
+        boolean goBack = false;
+        while (!goBack) {
+            try {
+                System.out.printf("What would you like to do?\n\n" +
+                        "1. Add CV\n" +
+                        "2. Remove CV\n" +
+                        "3. View CV\n" +
+                        "0. Go back\n\n");
+                int response = scanner.nextInt();
+                scanner.nextLine();
+                switch (response) {
+                    case (1):
+                        addCV();
+                        break;
+                    case (2):
+                        removeCV();
+                        break;
+                    case (3):
+                        viewCV();
+                        break;
+                    case (0):
+                        goBack = true;
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                printInputMismatchMessage();
+            }
+        }
+    }
+
+    private void addCV()
+    {
+        System.out.println("Enter the file name of your CV: (Must be .txt file, but do not include in file name below)");
+        String filename = scanner.nextLine();
+        filename += ".txt";
+
+        try
+        {
+            FileReader file = new FileReader(filename);
+            BufferedReader bR = new BufferedReader(file);
+
+            String cv = "";
+            String line = null;
+
+            while((line = bR.readLine()) != null)
+            {
+                cv += line + "\n";
+            }
+
+            currentUser.setCv(cv);
+            System.out.println("CV has been added!");
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found!");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeCV()
+    {
+        currentUser.setCv("");
+
+        System.out.println("CV has been removed!\n");
+    }
+
+    private void viewCV()
+    {
+        if(currentUser.getCv() != "")
+        {
+            System.out.println(currentUser.getCv() + "\n");
+        }
+        else
+        {
+            System.out.println("No CV has been added!\n");
+        }
     }
 }

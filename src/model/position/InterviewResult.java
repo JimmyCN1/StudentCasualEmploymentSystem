@@ -3,6 +3,8 @@ package model.position;
 import java.io.Serializable;
 
 public class InterviewResult implements Serializable {
+  private static final long serialVersionUID = 4L;
+
   private boolean hasValidReferences;
   private String interviewNotes;
   

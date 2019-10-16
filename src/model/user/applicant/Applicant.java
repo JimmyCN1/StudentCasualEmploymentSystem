@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Applicant extends Person implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private static int applicantCount = 0;
   private final int MAX_AVAILABILITIES = 3;
   private final int TWO_WEEKS = 14;
@@ -85,6 +87,11 @@ public abstract class Applicant extends Person implements Serializable {
   
   public String getCv() {
     return this.cv;
+  }
+
+  public void setCv(String cv)
+  {
+    this.cv = cv;
   }
   
   public List<String> getJobPreferences() {
@@ -415,6 +422,10 @@ public abstract class Applicant extends Person implements Serializable {
   public Reference removeReference(int referenceIndex) {
     return this.references.remove(referenceIndex);
   }
-  
-  
+
+
+  public Position getJobOffer()
+  {
+    return jobOffer;
+  }
 }

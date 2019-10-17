@@ -792,6 +792,7 @@ public class StudentApp extends AbstractApp {
                             "2. Reject Offer\n\n" +
                             "0. Go Back\n\n");
                     response = scanner.nextInt();
+                    scanner.nextLine();
                     switch (response) {
                         case(1):
                             acceptJobOffer();

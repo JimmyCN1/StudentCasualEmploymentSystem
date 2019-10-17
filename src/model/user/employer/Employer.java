@@ -1,13 +1,13 @@
 package model.user.employer;
 
-import enumerators.UserStatus;
 import enumerators.PositionType;
+import enumerators.UserStatus;
 import exceptions.*;
-import model.user.applicant.Applicant;
 import model.position.InterviewSlot;
-import model.system.ManagementSystem;
 import model.position.Position;
+import model.system.ManagementSystem;
 import model.user.User;
+import model.user.applicant.Applicant;
 import model.user.applicant.utilities.Notification;
 
 import java.io.Serializable;
@@ -19,22 +19,24 @@ import java.util.List;
 import java.util.Map;
 
 public class Employer extends User implements Serializable {
+  private static final long serialVersionUID = 7L;
+
   private static int employerCount = 0;
   private int id;
   private String name;
-  private String password;
   private UserStatus status = null;
+  private String email;
+  private String phoneNumber;
   
   private Map<String, Position> positions = new HashMap<>();
   
   private ManagementSystem managementSystem;
   
   public Employer(String name, String password, ManagementSystem managementSystem) {
-    super(name, managementSystem);
+    super(name, password, managementSystem);
     employerCount++;
     this.id = employerCount;
     this.name = name;
-    this.password = password;
     this.status = UserStatus.AVAILABLE;
     this.managementSystem = managementSystem;
   }
@@ -50,23 +52,21 @@ public class Employer extends User implements Serializable {
   }
   
   @Override
-  public String getHashMapKey() {
-    return name.toLowerCase();
-  }
-  
-  @Override
   public String getName() {
     return name;
   }
   
   @Override
-  public String getPassword() {
-    return password;
-  }
-  
-  @Override
   public UserStatus getStatus() {
     return status;
+  }
+  
+  public String getEmail() {
+    return email;
+  }
+  
+  public String getPhoneNumber() {
+    return phoneNumber;
   }
   
   // returns an array of all the positions that the employer has posted
@@ -118,6 +118,15 @@ public class Employer extends User implements Serializable {
     }
   }
   
+  // returns an array of all the positions that the employer has posted
+  public List<Position> getPositionsAsList() {
+    List<Position> positions = new ArrayList<>();
+    for (String e : this.positions.keySet()) {
+      positions.add(this.positions.get(e));
+    }
+    return positions;
+  }
+  
   // employer status must only be AVAILABLE or BLACKLISTED
   @Override
   public void setStatus(UserStatus employerStatus) throws InvalidUserStatusException {
@@ -127,9 +136,17 @@ public class Employer extends User implements Serializable {
     this.status = employerStatus;
   }
   
+  public void setEmail(String email) {
+    this.email = email;
+  }
+  
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+  
   @Override
   public boolean verifyPassword(String password) {
-    return this.password.equals(password);
+    return this.getPassword().equals(password);
   }
   
   // creates and adds a new position to the positions map
@@ -152,21 +169,17 @@ public class Employer extends User implements Serializable {
     applicant.addNotification(new Notification(
             String.format("You have been shortlisted for %s!", position.getTitle()),
             this));
+    applicant.addShortlisted(position);
   }
   
   public void bookInterview(LocalDate date, LocalTime time, Applicant applicant, Position position)
           throws InterviewSlotClashException, InterviewSlotNotFoundException {
-    InterviewSlot interviewSlot = new InterviewSlot(date, time);
+    InterviewSlot interviewSlot = new InterviewSlot(date, time, applicant, position, this);
     position.addInterview(date, time);
     position.bookInterviewForApplicant(applicant,
             position.getInterviewSlot(interviewSlot.getDate(), interviewSlot.getTime()));
     interviewSlot.bookApplicant(applicant);
     
-  }
-  
-  // TODO: to implement the update applicant method with respect to the passed position
-  public void updateApplicant(Applicant applicant, Position position) {
-  
   }
   
   // the passed applicants will receive a string notification of the string passed
@@ -183,11 +196,23 @@ public class Employer extends User implements Serializable {
   
   // position list of applicants job offered to will be updated with the passed applicant
   // and the applicants status is set to pending
+  public void offerInterview(Applicant applicant, Position position) throws UserBlacklistedException {
+    if (applicant.getStatus().equals(UserStatus.BLACKLISTED)) {
+      throw new UserBlacklistedException();
+    } else {
+      position.addApplicantToInterviewOffered(applicant);
+      applicant.addPositionToInterviewOffered(position);
+    }
+  }
+  
+  // position list of applicants job offered to will be updated with the passed applicant
+  // and the applicants status is set to pending
   public void offerJob(Applicant applicant, Position position) throws UserBlacklistedException {
-    if (status.equals(UserStatus.BLACKLISTED)) {
+    if (applicant.getStatus().equals(UserStatus.BLACKLISTED)) {
       throw new UserBlacklistedException();
     } else {
       position.addApplicantToJobOffered(applicant);
+      applicant.setJobOffer(position);
       applicant.setStatus(UserStatus.PENDING);
     }
   }
@@ -201,11 +226,6 @@ public class Employer extends User implements Serializable {
       }
     }
   }
-
-//  // complaint will be lodged against the passed applicant
-//  public void lodgeComplaint(Applicant applicant, String complaint) {
-//    applicant.addComplaint(complaint);
-//  }
   
   @Override
   public boolean equals(Object object) {
@@ -224,5 +244,22 @@ public class Employer extends User implements Serializable {
   @Override
   public String statusToString() {
     return String.format("Status: %s", getStatus());
+  }
+  
+  public String toStringVerbose() {
+    String verboseString = super.toString();
+    verboseString += String.format(
+            "Email: %s\n" +
+                    "Phone Number: %s",
+            email, phoneNumber);
+    return verboseString;
+  }
+  
+  public String listToStringAsOrderedList(List<Position> positions) {
+    String positionsString = "";
+    for (int i = 0; i < positions.size(); i++) {
+      positionsString += String.format("%d. %s", i + 1, positions.get(i).getTitle());
+    }
+    return positionsString;
   }
 }

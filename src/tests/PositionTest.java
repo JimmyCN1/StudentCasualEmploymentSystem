@@ -169,15 +169,6 @@ public class PositionTest {
             LocalTime.of(11, 00), position, employer1);
     interviewSlot5 = new InterviewSlot(LocalDate.of(2019, 11, 1),
             LocalTime.of(15, 00), position, employer1);
-//    try {
-//      position.addInterview(interviewSlot1.getDate(), interviewSlot1.getTime(), applicant1);
-//      position.addInterview(interviewSlot2.getDate(), interviewSlot2.getTime(), applicant2);
-//      position.addInterview(interviewSlot3.getDate(), interviewSlot3.getTime(), applicant3);
-//    } catch (InterviewSlotClashException e) {
-//      e.printStackTrace();
-//    } catch (ApplicantAlreadyBookedException e) {
-//      e.printStackTrace();
-//    }
   }
   
   // TODO: test for negative filtering

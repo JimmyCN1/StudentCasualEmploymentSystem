@@ -1,5 +1,4 @@
 package tests;
-
 import enumerators.PositionType;
 import enumerators.UserStatus;
 import exceptions.*;
@@ -77,12 +76,8 @@ public class ManagementSystemTest {
     }
 
     @Test
-    public void addNewJobCategoryTest() {
-        try {
-            staff1.addNewJobCategory("INSURANCE AGENT");
-        } catch (JobCategoryAlreadyExistsException e) {
-            e.printStackTrace();
-        }
+    public void addNewJobCategoryTest() throws JobCategoryAlreadyExistsException {
+        staff1.addNewJobCategory("INSURANCE AGENT");
         String jobCategory = "INSURANCE AGENT";
         assertEquals(managementSystem.getJobCategories(), Arrays.asList("ENGINEERING", "TECHNOLOGY", "HOSPITALITY", "TRADE", "LOGISTICS", "RETAIL", "FINANCE", "INSURANCE AGENT"));
     }

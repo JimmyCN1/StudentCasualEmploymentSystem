@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e18dcad-4906-4a7e-8ef9-f9e6c9904c53" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/saves/test/TESTapplicants.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTapplicants.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saves/test/TESTemployers.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTemployers.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saves/test/TESTsystemMaintenance.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTsystemMaintenance.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saves/test/TESTusers.ser" beforeDir="false" afterPath="$PROJECT_DIR$/saves/test/TESTusers.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/tests/ManagementSystemTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/app/SystemMaintenanceStaffApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/app/SystemMaintenanceStaffApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/ManagementSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ManagementSystemTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,13 +93,18 @@
             <path>
               <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
               <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
               <item name="StudentCasualEmploymentSystem" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StudentCasualEmploymentSystem" type="b2602c69:ProjectViewProjectNode" />
@@ -206,8 +212,8 @@
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1120" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4985465" visible="true" weight="0.17609392" />
-      <window_info id="Structure" order="1" sideWeight="0.50145346" side_tool="true" visible="true" weight="0.17609392" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992743" visible="true" weight="0.17609392" />
+      <window_info id="Structure" order="1" sideWeight="0.5007257" side_tool="true" visible="true" weight="0.17609392" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -220,9 +226,9 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3294347" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32846004" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.3294347" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4994664" visible="true" weight="0.32846004" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50053364" side_tool="true" visible="true" weight="0.32846004" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3294347" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32978722" />
       <window_info anchor="bottom" id="Sequence" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -283,6 +289,12 @@
           <line>138</line>
           <properties />
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file:///private/var/folders/74/d2mcs90d47j891nk05wb_qkc0000gn/T/tmp_1_AbstractApp.class</url>
+          <line>29</line>
+          <properties field="managementSystem" class="app.AbstractApp" />
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

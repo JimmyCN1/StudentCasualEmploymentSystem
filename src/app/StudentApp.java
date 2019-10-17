@@ -148,7 +148,6 @@ public class StudentApp extends AbstractApp {
     // if blacklisted, display blacklisted applicant message, else display the main menu
     public void displayMainMenu() {
         //TODO: selecting interview slot/time
-        //TODO: accept/reject job offers
         boolean isLoggedIn = true;
         int response;
         while (isLoggedIn) {
@@ -165,8 +164,9 @@ public class StudentApp extends AbstractApp {
                             "6. Apply For A Job\n" +
                             "7. View Jobs Shortlisted For\n" +
                             "8. View Job Offer\n" +
-                            "9. View Emails\n" +
-                            "10. Change Login Details\n\n" +
+                            "9. Accept/Reject Job Offer\n" +
+                            "10. View Emails\n" +
+                            "11. Change Login Details\n\n" +
                             "0. Logout\n\n");
                     response = scanner.nextInt();
                     scanner.nextLine();
@@ -196,9 +196,11 @@ public class StudentApp extends AbstractApp {
                             viewJobOffer();
                             break;
                         case (9):
+                            acceptRejectJobOffer();
+                        case (10):
                             viewEmails();
                             break;
-                        case (10):
+                        case (11):
                             changeLoginDetails();
                         case (0):
                             isLoggedIn = false;
@@ -211,7 +213,7 @@ public class StudentApp extends AbstractApp {
 
         }
     }
-
+    
     private void updateJobPreferences() {
         boolean goBack = false;
         while (!goBack) {
@@ -778,13 +780,67 @@ public class StudentApp extends AbstractApp {
         }
         System.out.println("\n");
     }
-
-
-
-    private void viewJobOffer()
+    
+    private void acceptRejectJobOffer() {
+        boolean isValidResponse = false;
+        int response;
+        while (!isValidResponse) {
+            try {
+                if(viewJobOffer()) {
+                    System.out.printf("Would you like to accept or reject the job offer?\n\n" +
+                            "1. Accept Offer\n" +
+                            "2. Reject Offer\n\n" +
+                            "0. Go Back\n\n");
+                    response = scanner.nextInt();
+                    switch (response) {
+                        case(1):
+                            acceptJobOffer();
+                            isValidResponse = true;
+                            break;
+                        case(2):
+                            rejectJobOffer();
+                            isValidResponse = true;
+                            break;
+                        case(0):
+                            isValidResponse = true;
+                    }
+                    
+                }
+            } catch (InputMismatchException e) {
+                printInputMismatchMessage();
+            }
+        }
+        
+    }
+    
+    private void acceptJobOffer() {
+        try {
+            currentUser.acceptOffer();
+        } catch (NoJobOfferException e) {
+            e.printStackTrace();
+        } catch (ApplicantNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void rejectJobOffer() {
+        try {
+            currentUser.rejectOffer();
+        } catch (NoJobOfferException e) {
+            e.printStackTrace();
+        } catch (ApplicantNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    private boolean viewJobOffer()
     {
+        boolean hasJobOffer = false;
+        
         if(currentUser.getJobOffer() != null)
         {
+            hasJobOffer = true;
             System.out.println("Job offer: \n");
             System.out.println(currentUser.getJobOffer().toStringVerbose());
         }
@@ -792,6 +848,8 @@ public class StudentApp extends AbstractApp {
         {
             System.out.println("No Job Offer");
         }
+        
+        return hasJobOffer;
     }
 
     private void updateCV()

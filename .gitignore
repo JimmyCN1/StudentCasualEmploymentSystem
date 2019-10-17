@@ -1,7 +1,5 @@
-/out/
+out/
 .ser
 .txt
-/idea
-.idea
-/.idea
-/bin/
+bin/
+.idea/workspace.xml

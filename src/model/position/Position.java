@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Position implements Serializable {
+  private static final long serialVersionUID = 2L;
+  
   private static int positionCount = 0;
   private final int MAX_INTERVIEWS_PER_DAY = 7;
   private final int TOP_APPLICANTS_CUTOFF = 5;
@@ -385,7 +387,7 @@ public class Position implements Serializable {
   
   // adds the applicant to staff, removes applicant from jobOfferedTo list
   // sets the applicants status to available
-  public void onBoardApplicant(Applicant applicant) throws ApplicantNotFoundException {
+  public void onboardApplicant(Applicant applicant) throws ApplicantNotFoundException {
     if (!applicantsJobOfferedTo.contains(applicant)) {
       throw new ApplicantNotFoundException();
     } else {
@@ -449,17 +451,8 @@ public class Position implements Serializable {
   
   @Override
   public String toString() {
-    return String.format("Position Title: %s\n" +
-                    "Hourly Rate: %d\n" +
-                    "Min Hours Per Week: %d\n" +
-                    "Min Hours Per Week: %d\n" +
-                    "Applicable Job Categories: %s",
-            title,
-            hourlyRate,
-            minHoursPerWeek,
-            maxHoursPerWeek,
-            applicableJobCategoriesToString()
-    );
+    return "Position Title: " + title+ "\nHourly Rate: " + hourlyRate + "\nMin Hours Per Week: " + minHoursPerWeek + "\nMin Hours Per Week: " + maxHoursPerWeek + "\nApplicable Job Categories: " + applicableJobCategoriesToString() + "\n";
+
   }
   
   private String applicableJobCategoriesToString() {

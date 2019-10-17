@@ -8,7 +8,11 @@ import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 
-public class SystemMaintenanceStaff extends Person {
+import java.io.Serializable;
+
+public class SystemMaintenanceStaff extends Person implements Serializable {
+    private static final long serialVersionUID = 8L;
+
     private static int systemMaintenanceStaffCount = 0;
     private int id;
 
@@ -24,14 +28,15 @@ public class SystemMaintenanceStaff extends Person {
     public int getId() {
         return id;
     }
-
+    
+    // SystemMaintenanceStaff do not posses a UserStatus
     @Override
     public UserStatus getStatus() {
         return null;
     }
-
     @Override
     public void setStatus(UserStatus status) {
+        return;
     }
 
     public Employer getEmployersRecords(int id) {

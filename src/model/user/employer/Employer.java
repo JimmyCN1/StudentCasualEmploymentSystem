@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Employer extends User implements Serializable {
+  private static final long serialVersionUID = 7L;
+
   private static int employerCount = 0;
   private int id;
   private String name;
@@ -210,8 +212,8 @@ public class Employer extends User implements Serializable {
       throw new UserBlacklistedException();
     } else {
       position.addApplicantToJobOffered(applicant);
-      applicant.setStatus(UserStatus.PENDING);
       applicant.setJobOffer(position);
+      applicant.setStatus(UserStatus.PENDING);
     }
   }
   

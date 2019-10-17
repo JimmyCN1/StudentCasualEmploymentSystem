@@ -8,6 +8,8 @@ import model.position.Position;
 import model.system.ManagementSystem;
 import model.user.Person;
 import model.user.applicant.utilities.*;
+import model.user.employer.Employer;
+import model.user.applicant.utilities.Mail;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Applicant extends Person implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private static int applicantCount = 0;
   private final int MAX_AVAILABILITIES = 3;
   private final int TWO_WEEKS = 14;
@@ -37,12 +41,14 @@ public abstract class Applicant extends Person implements Serializable {
   private List<Position> appliedJobs = new ArrayList<>();
   private List<Position> interviewsOffered = new ArrayList<>();
   private List<String> jobPreferences = new ArrayList<>();
+
+  private List<Mail> mail = new ArrayList<>();
   
   // List of all notifications the applicant receives from all employers
   private List<Notification> notifications = new ArrayList<>();
   
   private ManagementSystem managementSystem;
-  
+
   public Applicant(String firstName, String lastName, String password, PositionType availability,
                    ManagementSystem managementSystem) {
     super(firstName, lastName, password, managementSystem);
@@ -81,6 +87,11 @@ public abstract class Applicant extends Person implements Serializable {
   
   public String getCv() {
     return this.cv;
+  }
+
+  public void setCv(String cv)
+  {
+    this.cv = cv;
   }
   
   public List<String> getJobPreferences() {
@@ -228,7 +239,7 @@ public abstract class Applicant extends Person implements Serializable {
   // sets the applicants status to employed
   public void acceptOffer() throws NoJobOfferException, ApplicantNotFoundException {
     if (this.jobOffer != null) {
-      this.jobOffer.onBoardApplicant(this);// sets applicant to employed and adjusts related
+      this.jobOffer.onboardApplicant(this);// sets applicant to employed and adjusts related
       // Employer.job and Applicant variables, also adds applicant to the staff list
       this.currentJob = this.jobOffer;
       this.jobOffer = null;
@@ -346,6 +357,39 @@ public abstract class Applicant extends Person implements Serializable {
     }
     return jobs;
   }
+
+  public void addMail(Employer employer, String title, String message)
+  {
+    this.mail.add(new Mail(employer, title, message));
+  }
+
+  public void viewMailList()
+  {
+    if(mail.size() > 0)
+    {
+      System.out.println("You have " + mail.size() + " emails:");
+      System.out.println("Select which email you would like to view:\n");
+
+      for(int i = 0; i < mail.size(); i++)
+      {
+        System.out.println((i + 1) + ". \"" + mail.get(i).getTitle() + "\" from " + mail.get(i).getEmployer().getName());
+      }
+    }
+    else
+    {
+      System.out.println("You have no mail!\n");
+    }
+  }
+
+  public String getMail(int i)
+  {
+    return mail.get(i).getMessage();
+  }
+
+  public int getMailSize()
+  {
+    return mail.size();
+  }
   
   public void addLicense(License license) {
     this.licenses.add(license);
@@ -378,6 +422,10 @@ public abstract class Applicant extends Person implements Serializable {
   public Reference removeReference(int referenceIndex) {
     return this.references.remove(referenceIndex);
   }
-  
-  
+
+
+  public Position getJobOffer()
+  {
+    return jobOffer;
+  }
 }

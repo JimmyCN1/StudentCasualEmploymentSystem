@@ -21,8 +21,5 @@ public class Complaint {
     return this.offendingUser;
   }
   
-  // this method is useless as the complaint has already been set in the constructor
-  //public void setComplaint(String complaint) {
-  //  this.complaint = complaint;
-  //}
+  public User getComplaintee() {return this.complaintee; }
 }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class User implements UserInterface, Serializable {
+  private static final long serialVersionUID = 10L;
+
   private static int userCount = 0;
   private final int MAX_COMPLAINTS = 3;
   private int userId;
@@ -116,13 +118,13 @@ public abstract class User implements UserInterface, Serializable {
   
   @Override
   public String toString() {
-    return String.format("User Name: %s\nStatus: %s\n%s\n", getName(), getStatus(), getComplaints());
+    return String.format("User Name: %s\nStatus: %s\nComplaints: %s\n", getName(), getStatus(), complaintsToString());
   }
   
-  public String complaintsToString() {
+  protected String complaintsToString() {
     String complaints = "";
     for (int i = 0; i < this.complaints.size(); i++) {
-      complaints += String.format("Complaint%s : %s\n", i + 1, this.complaints.get(i));
+      complaints += String.format("%s : %s\n", i + 1, this.complaints.get(i));
     }
     return complaints;
   }

@@ -6,6 +6,8 @@ import model.system.ManagementSystem;
 import java.io.Serializable;
 
 public abstract class Person extends User implements Serializable {
+  private static final long serialVersionUID = 9L;
+
   private String firstName;
   private String lastName;
   

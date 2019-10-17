@@ -76,7 +76,11 @@ public class ManagementSystemTest {
 
     @Test
     public void addNewJobCategoryTest() {
-        staff1.addNewJobCategory("INSURANCE AGENT");
+        try {
+            staff1.addNewJobCategory("INSURANCE AGENT");
+        } catch (JobCategoryAlreadyExistsException e) {
+            e.printStackTrace();
+        }
         String jobCategory = "INSURANCE AGENT";
         assertEquals(managementSystem.getJobCategories(), Arrays.asList("ENGINEERING", "TECHNOLOGY", "HOSPITALITY", "TRADE", "LOGISTICS", "RETAIL", "FINANCE", "INSURANCE AGENT"));
     }

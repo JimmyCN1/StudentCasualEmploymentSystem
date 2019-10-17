@@ -117,11 +117,9 @@ public class SystemMaintenanceStaffTest {
 
     }
 
-    @Test
+    @Test(expected = JobCategoryAlreadyExistsException.class)
     public void addAlreadyExistingJobCategoryTest() throws JobCategoryAlreadyExistsException {
         String jobCategory = "FINANCE";
         staff6.addNewJobCategory(jobCategory);
-        assertTrue(managementSystem.getJobCategories().contains(jobCategory));
-
     }
 }

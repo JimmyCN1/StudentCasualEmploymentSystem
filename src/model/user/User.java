@@ -121,7 +121,7 @@ public abstract class User implements UserInterface, Serializable {
     return String.format("User Name: %s\nStatus: %s\nComplaints: %s\n", getName(), getStatus(), complaintsToString());
   }
   
-  public String complaintsToString() {
+  protected String complaintsToString() {
     String complaints = "";
     for (int i = 0; i < this.complaints.size(); i++) {
       complaints += String.format("%s : %s\n", i + 1, this.complaints.get(i));

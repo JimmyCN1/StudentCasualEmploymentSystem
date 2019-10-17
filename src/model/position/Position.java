@@ -387,7 +387,7 @@ public class Position implements Serializable {
   
   // adds the applicant to staff, removes applicant from jobOfferedTo list
   // sets the applicants status to available
-  public void onBoardApplicant(Applicant applicant) throws ApplicantNotFoundException {
+  public void onboardApplicant(Applicant applicant) throws ApplicantNotFoundException {
     if (!applicantsJobOfferedTo.contains(applicant)) {
       throw new ApplicantNotFoundException();
     } else {

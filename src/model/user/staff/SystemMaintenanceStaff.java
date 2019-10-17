@@ -28,14 +28,15 @@ public class SystemMaintenanceStaff extends Person implements Serializable {
     public int getId() {
         return id;
     }
-
+    
+    // SystemMaintenanceStaff do not posses a UserStatus
     @Override
     public UserStatus getStatus() {
         return null;
     }
-
     @Override
     public void setStatus(UserStatus status) {
+        return;
     }
 
     public Employer getEmployersRecords(int id) {

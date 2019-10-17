@@ -4,6 +4,7 @@ import enumerators.UserStatus;
 import exceptions.*;
 import model.system.ManagementSystem;
 import model.user.User;
+import model.user.applicant.Applicant;
 import model.user.employer.Employer;
 import model.user.staff.SystemMaintenanceStaff;
 
@@ -209,6 +210,14 @@ public class SystemMaintenanceStaffApp extends AbstractApp {
     System.out.println("Here are the current employers in the system..\n");
     for (Employer e : managementSystem.getEmployersAsList()) {
       System.out.println(e.toStringVerbose());
+    }
+  }
+  
+  @Override
+  public void displayApplicants() {
+    System.out.println("Here are the current applicants in the system..\n");
+    for (Applicant a : managementSystem.getApplicantsAsList()) {
+      System.out.println(a.toString());
     }
   }
 }

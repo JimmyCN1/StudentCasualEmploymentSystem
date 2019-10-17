@@ -5,7 +5,7 @@ import exceptions.EmployerNotFoundException;
 import exceptions.SystemMaintenanceStaffNotFoundException;
 import interfaces.UserInterface;
 import model.serialisation.SaveState;
-import model.system.utilities.Security;
+//import model.system.utilities.Security;
 import model.user.User;
 import model.user.applicant.Applicant;
 import model.user.employer.Employer;
@@ -28,7 +28,6 @@ public class ManagementSystem implements Serializable {
     private List<String> jobCategories = new ArrayList<>(
             Arrays.asList("ENGINEERING", "TECHNOLOGY", "HOSPITALITY", "TRADE", "LOGISTICS", "RETAIL", "FINANCE")
     );
-    private Security security;
 
     private String dir = Paths.get("").toAbsolutePath().toString();
 
@@ -101,10 +100,6 @@ public class ManagementSystem implements Serializable {
 
     public List<String> getJobCategories() {
         return jobCategories;
-    }
-
-    public Security getSecurity() {
-        return security;
     }
 
     public UserInterface getUserByName(String keyName) {

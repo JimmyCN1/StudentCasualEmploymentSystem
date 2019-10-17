@@ -239,7 +239,7 @@ public abstract class Applicant extends Person implements Serializable {
   // sets the applicants status to employed
   public void acceptOffer() throws NoJobOfferException, ApplicantNotFoundException {
     if (this.jobOffer != null) {
-      this.jobOffer.onBoardApplicant(this);// sets applicant to employed and adjusts related
+      this.jobOffer.onboardApplicant(this);// sets applicant to employed and adjusts related
       // Employer.job and Applicant variables, also adds applicant to the staff list
       this.currentJob = this.jobOffer;
       this.jobOffer = null;
